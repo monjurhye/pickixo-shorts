@@ -10,7 +10,8 @@ from . import common
 
 def markdown(date, rows, paused_note=""):
     ok = sum(1 for r in rows if r["status"] == "uploaded")
-    lines = ["# Pickixo daily report — {0}".format(date), ""]
+    from datetime import datetime, timezone
+    lines = ["# Pickixo report — {0} {1}:00 UTC".format(date, datetime.now(timezone.utc).strftime("%H")), ""]
     if paused_note:
         lines += ["> " + paused_note, ""]
     lines += ["**Uploaded:** {0} / {1}".format(ok, len(rows)), "",

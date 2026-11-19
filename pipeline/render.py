@@ -108,18 +108,47 @@ def _scene(ffmpeg, bg_clip, overlay_png, dur, out_path, gradient_seed=0):
           "-t", "{0:.2f}".format(dur), out_path])
 
 
-def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks"):
-    """script: approved script dict. clips: list of local mp4 paths (may be empty)."""
+def _voice_track(ffmpeg, voice_files, durations, work):
+    """One wav per scene: the scene's voice line (or silence) padded to the scene length."""
+    pieces = []
+    for n, (vf, dur) in enumerate(zip(voice_files, durations)):
+        out = os.path.join(work, "vo_%02d.wav" % n)
+        if vf:
+            _run([ffmpeg, "-y", "-loglevel", "error", "-i", vf, "-af",
+                  "adelay=250|250,apad", "-ar", "44100", "-ac", "2", "-t", "{0:.3f}".format(dur), out])
+        else:
+            _run([ffmpeg, "-y", "-loglevel", "error", "-f", "lavfi", "-i",
+                  "anullsrc=r=44100:cl=stereo", "-t", "{0:.3f}".format(dur), out])
+        pieces.append(out)
+    lst = os.path.join(work, "vo.txt")
+    with open(lst, "w") as f:
+        for p in pieces:
+            f.write("file '{0}'\n".format(os.path.abspath(p)))
+    joined = os.path.join(work, "voice.wav")
+    _run([ffmpeg, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst,
+          "-c", "copy", joined])
+    return joined
+
+
+def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks", voice_files=None):
+    """script: approved script dict. clips: list of local mp4 paths (may be empty).
+    voice_files: optional per-scene mp3 list; scenes stretch to fit their spoken line."""
+    from . import tts  # local import keeps render usable without the openai package
     ffmpeg = common.ffmpeg_bin()
     work = os.path.dirname(out_path)
     palette = PALETTES[channel_index % len(PALETTES)]
 
-    scenes = [("hook", script["hook"], "", "", float(cfg.get("seconds_hook", 3)))]
+    scenes = [["hook", script["hook"], "", "", float(cfg.get("seconds_hook", 3))]]
     for i, it in enumerate(script["items"], 1):
-        scenes.append(("item", it["name"], it["benefit"], "#{0}".format(i),
-                       float(cfg.get("seconds_per_item", 4))))
-    scenes.append(("cta", script["cta"], "Link in description  ·  " + brand, "",
-                   float(cfg.get("seconds_cta", 3))))
+        scenes.append(["item", it["name"], it["benefit"], "#{0}".format(i),
+                       float(cfg.get("seconds_per_item", 4))])
+    scenes.append(["cta", script["cta"], "Link in description  ·  " + brand, "",
+                   float(cfg.get("seconds_cta", 3))])
+
+    voice_files = voice_files or [None] * len(scenes)
+    for sc, vf in zip(scenes, voice_files):
+        if vf:  # 0.25s lead-in + line + 0.45s breathing room
+            sc[4] = max(sc[4], tts.duration(vf) + 0.7)
 
     parts = []
     for n, (kind, title, sub, badge, dur) in enumerate(scenes):
@@ -138,16 +167,35 @@ def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks"):
           "-c", "copy", silent])
 
     total = sum(s[4] for s in scenes)
+    has_voice = any(voice_files)
+    voice = _voice_track(ffmpeg, voice_files, [s[4] for s in scenes], work) if has_voice else None
     tracks = glob.glob(os.path.join(common.MUSIC_DIR, "*.mp3")) + \
         glob.glob(os.path.join(common.MUSIC_DIR, "*.m4a"))
+
+    inputs, chains, labels = ["-i", silent], [], []
+    idx = 1
+    if voice:
+        inputs += ["-i", voice]
+        chains.append("[{0}:a]volume=1.0[vo]".format(idx))
+        labels.append("[vo]")
+        idx += 1
     if tracks:
-        audio_in = ["-stream_loop", "-1", "-i", random.choice(tracks)]
-        af = ["-af", "volume={0},afade=t=out:st={1:.2f}:d=1".format(
-            cfg.get("music_volume", 0.15), max(0, total - 1))]
+        inputs += ["-stream_loop", "-1", "-i", random.choice(tracks)]
+        vol = cfg.get("music_volume_with_voice", 0.45) if voice else cfg.get("music_volume", 1.0)
+        chains.append("[{0}:a]volume={1},afade=t=out:st={2:.2f}:d=1[mu]".format(
+            idx, vol, max(0, total - 1)))
+        labels.append("[mu]")
+        idx += 1
+    if not labels:
+        inputs += ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
+        chains.append("[1:a]anull[aout]")
+    elif len(labels) == 1:
+        chains[-1] = chains[-1].rsplit("[", 1)[0] + "[aout]"
     else:
-        audio_in = ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
-        af = []
-    _run([ffmpeg, "-y", "-loglevel", "error", "-i", silent] + audio_in + af +
-         ["-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "128k",
+        chains.append("{0}amix=inputs={1}:duration=first:normalize=0[aout]".format(
+            "".join(labels), len(labels)))
+    _run([ffmpeg, "-y", "-loglevel", "error"] + inputs +
+         ["-filter_complex", ";".join(chains), "-map", "0:v", "-map", "[aout]",
+          "-c:v", "copy", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
           "-t", "{0:.2f}".format(total), "-movflags", "+faststart", out_path])
     return out_path, total

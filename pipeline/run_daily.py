@@ -10,7 +10,7 @@ import argparse
 import os
 import shutil
 
-from . import common, content, pexels, render, report, state, youtube
+from . import common, content, pexels, render, report, state, tts, youtube
 
 
 def build_description(script, page_url, links, cfg):
@@ -18,7 +18,10 @@ def build_description(script, page_url, links, cfg):
              "🛒 Everything from this video: " + page_url, ""]
     for it in links:
         lines.append("• {0}: {1}".format(it["name"], it["link"]))
-    lines += ["", cfg.get("disclosure", ""), "Stock footage: Pexels", "",
+    credits = "Stock footage: Pexels"
+    if cfg.get("tts_enabled"):
+        credits += " · Voice: AI-generated"
+    lines += ["", cfg.get("disclosure", ""), credits, "",
               " ".join(script.get("hashtags", []))]
     return "\n".join(lines)
 
@@ -62,9 +65,13 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
                 except Exception as e:
                     common.log("[{0}] clip download failed: {1}".format(ch["id"], e))
 
-        # 3. render
+        # 3. voiceover (OpenAI TTS) + render
+        voice_files = None
+        if cfg.get("tts_enabled") and not dry and common.secret("OPENAI_API_KEY"):
+            voice_files = tts.voice_scenes(script, tts.voice_for(idx, cfg), work, cfg)
         out_mp4 = os.path.join(work, key + ".mp4")
-        _, seconds = render.build(script, idx, clip_paths, out_mp4, cfg, cfg.get("brand", "Pickixo Picks"))
+        _, seconds = render.build(script, idx, clip_paths, out_mp4, cfg,
+                                  cfg.get("brand", "Pickixo Picks"), voice_files=voice_files)
         common.log("[{0}] rendered {1:.0f}s video: {2}".format(ch["id"], seconds, out_mp4))
 
         # 4. upload
@@ -125,7 +132,7 @@ def main():
         report.publish(report.markdown(date, [], "PAUSED is true — nothing was made or uploaded."))
         return
 
-    per_day = max(1, int(cfg.get("videos_per_channel_per_day", 1)))
+    per_day = max(1, int(cfg.get("videos_per_channel_per_run", 1)))
     for idx, ch in enumerate(chans):
         if args.channel and ch["id"] != args.channel:
             continue
