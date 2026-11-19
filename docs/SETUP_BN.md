@@ -84,3 +84,14 @@ Repo খুলুন: **Settings → Secrets and variables → Actions → Varia
 - GitHub Actions: private repo তে মাসে ২,০০০ ফ্রি মিনিট। ২০টা চ্যানেলে দিনে ~৪০–৬০ মিনিট লাগে, মাসে ~১,২০০–১,৮০০ মিনিট। সীমা ছাড়িয়ে গেলে repo public করলে ফ্রি থাকবে, কারণ Secrets তখনও গোপন থাকে।
 - লেখা: **OpenAI GPT-5 nano** ($0.05 input / $0.40 output প্রতি ১০ লাখ token), মাসে ~$১ বা তার কম। `config/settings.json` এ `"provider": "anthropic"` দিলে Claude ব্যবহার হবে।
 - Pexels, Cloudflare Pages: ফ্রি।
+
+---
+
+## 🖥️ Channel Dashboard (সবচেয়ে সহজ উপায়)
+**https://shop.pickixo.com/admin** খুলে Google দিয়ে Sign in করুন। তারপর প্রতিটা চ্যানেলের পাশে **Connect** চাপুন, ঠিক চ্যানেলটা বেছে **Allow** দিন। ব্যস, চ্যানেল যুক্ত হয়ে গেল, terminal লাগবে না।
+- **Pause / Resume / Reconnect / Disconnect:** প্রতিটা চ্যানেলের জন্য আলাদা বোতাম।
+- **Pause all uploads:** সব upload একসাথে বন্ধ করে (আগের PAUSED এর বদলে)।
+- লাল **"Needs reconnect"** দেখালে **Reconnect** চাপুন।
+- "Google hasn't verified this app" দেখালে **Advanced → Go to Pickixo Shorts Uploader** চাপুন।
+
+Cloudflare Pages এর সেটিংস যা লাগে: KV binding `CHANNELS_KV`; variables `GOOGLE_CLIENT_ID`, `OWNER_EMAILS`; secrets `GOOGLE_CLIENT_SECRET`, `PIPELINE_KEY` (GitHub এর `PIPELINE_KEY` এর সাথে একই মান হতে হবে)।
