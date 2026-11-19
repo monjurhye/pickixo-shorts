@@ -88,7 +88,11 @@ def wait_for_code(port, state):
 
 def main():
     if len(sys.argv) != 2:
-        sys.exit("usage: python3 tools/youtube_authorize.py ch01")
+        sys.exit("usage: python3 tools/youtube_authorize.py ch01   (or --client to only save the OAuth client)")
+    if sys.argv[1] == "--client":
+        client_creds()
+        print("OAuth client saved. Authorize channels after the app is published (In production).")
+        return
     ch_id = sys.argv[1].lower()
     cfg = json.load(open(CHANNELS))
     ch = next((c for c in cfg["channels"] if c["id"] == ch_id), None)
