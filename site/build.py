@@ -35,7 +35,7 @@ def page(title, body, desc="", canonical=""):
 <link rel="stylesheet" href="/style.css">
 </head><body>
 <header class="top"><a class="brand" href="/">{brand}</a>
-<nav><a href="/">Latest</a><a href="/disclosure/">Disclosure</a></nav></header>
+<nav><a href="/">Latest</a><a href="/disclosure/">Disclosure</a><a href="/privacy/">Privacy</a></nav></header>
 <main>{body}</main>
 <footer><p>{disc}</p><p>&copy; {brand} · Product links go to Amazon.com search results.</p></footer>
 </body></html>""".format(title=e(title), desc=e(desc), brand=e(cfg.get("brand", "Pickixo Picks")),
@@ -96,6 +96,35 @@ When you buy through our links we may earn a commission, at no extra cost to you
     return page("Disclosure · Pickixo Picks", body)
 
 
+def privacy_page():
+    body = """<h1>Privacy policy</h1>
+<p class="lead">Pickixo Picks is a simple website of product recommendations. We keep this short and honest.</p>
+<h2>What we collect</h2>
+<p>This site has no accounts, forms, or tracking cookies of its own. Our hosting provider (Cloudflare) may
+keep standard server logs (such as IP address and browser type) for security and reliability.</p>
+<h2>Amazon links</h2>
+<p>When you click a product link you go to Amazon.com, which may set its own cookies to track the referral
+for the Amazon Associates program. Amazon's privacy notice applies there.</p>
+<h2>Embedded videos</h2>
+<p>Video pages may embed our YouTube Shorts using YouTube's privacy-enhanced mode (youtube-nocookie.com).</p>
+<h2>Our YouTube upload tool</h2>
+<p>We use Google's YouTube Data API only to upload videos to our own YouTube channels. We don't access,
+store, or share anyone else's Google or YouTube data. Our use of information received from Google APIs
+adheres to the Google API Services User Data Policy, including the Limited Use requirements.</p>
+<h2>Contact</h2>
+<p>Questions? Open an issue at <a href="https://github.com/monjurhye/pickixo-shorts/issues">github.com/monjurhye/pickixo-shorts</a>.</p>"""
+    return page("Privacy · Pickixo Picks", body)
+
+
+def terms_page():
+    body = """<h1>Terms of use</h1>
+<p class="lead">Pickixo Picks shares product ideas for information only.</p>
+<p>We don't sell products. Purchases happen on Amazon.com under Amazon's terms. Prices and availability
+change, so check Amazon before you buy. We may earn a commission from qualifying purchases at no extra
+cost to you. Content is provided "as is" without warranties.</p>"""
+    return page("Terms · Pickixo Picks", body)
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -115,6 +144,8 @@ def main():
         write(os.path.join(OUT, "v", v["key"], "index.html"), video_page(v))
     write(os.path.join(OUT, "index.html"), index_page(videos))
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())
+    write(os.path.join(OUT, "privacy", "index.html"), privacy_page())
+    write(os.path.join(OUT, "terms", "index.html"), terms_page())
     for name in os.listdir(STATIC):
         shutil.copy(os.path.join(STATIC, name), os.path.join(OUT, name))
     print("built {0} video pages into {1}".format(len(videos), OUT))
