@@ -88,19 +88,24 @@ def _client():
 def _call_json(system, user, schema, cfg, max_tokens=4000):
     import anthropic
     client = _client()
+    model = cfg.get("model", "claude-opus-5-5")
+    params = dict(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+        output_config={
+            "effort": cfg.get("effort", "medium"),
+            "format": {"type": "json_schema", "schema": schema},
+        },
+    )
     try:
-        resp = client.beta.messages.create(
-            model=cfg.get("model", "claude-opus-5-5"),
-            max_tokens=max_tokens,
-            system=system,
-            messages=[{"role": "user", "content": user}],
-            output_config={
-                "effort": cfg.get("effort", "medium"),
-                "format": {"type": "json_schema", "schema": schema},
-            },
-            betas=["server-side-fallback-2026-07-01"],
-            fallbacks="default",
-        )
+        if "haiku" in model:
+            # Haiku has no server-side refusal fallback; a refusal just skips the video
+            resp = client.messages.create(**params)
+        else:
+            resp = client.beta.messages.create(
+                betas=["server-side-fallback-2026-07-01"], fallbacks="default", **params)
     except anthropic.RateLimitError as e:
         raise RuntimeError("Claude rate limited: {0}".format(e.message))
     except anthropic.APIStatusError as e:

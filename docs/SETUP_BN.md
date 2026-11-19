@@ -81,5 +81,5 @@ Repo খুলুন: **Settings → Secrets and variables → Actions → Varia
 
 ## 💰 খরচের হিসাব
 - GitHub Actions: private repo তে মাসে ২,০০০ ফ্রি মিনিট। ২০টা চ্যানেলে দিনে ~৪০–৬০ মিনিট লাগে, মাসে ~১,২০০–১,৮০০ মিনিট। সীমা ছাড়িয়ে গেলে repo public করলে ফ্রি থাকবে, কারণ Secrets তখনও গোপন থাকে।
-- Claude (Opus 5.5, $4/$20 প্রতি ১০ লাখ token): প্রতি ভিডিওতে ~$০.০৫–০.১০, তাই ৬০০ ভিডিওতে মাসে ~$৩০–৬০। খরচ কমাতে চাইলে `config/settings.json` এ `"model": "claude-haiku-5-5"` দিন (~১০ গুণ সস্তা, তবে লেখার মান কিছুটা কম হতে পারে)।
+- Claude Haiku 5.5 (effort low, $0.10/$0.50 প্রতি ১০ লাখ token): মাসে ~$১। ভালো লেখার জন্য `config/settings.json` এ মডেল `claude-sonnet-5-5` বা `claude-opus-5-5` দিতে পারেন (মাসে ~$১৫–৫০)।
 - Pexels, Cloudflare Pages: ফ্রি।
