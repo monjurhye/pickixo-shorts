@@ -25,13 +25,13 @@ def markdown(date, rows, paused_note=""):
     return "\n".join(lines)
 
 
-def publish(md):
+def publish(md, open_issue=True):
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as f:
             f.write(md + "\n")
     repo, token = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GITHUB_TOKEN")
-    if not (repo and token):
+    if not (repo and token and open_issue):
         common.log("no GITHUB_TOKEN; report printed only\n" + md)
         return
     title = md.splitlines()[0].lstrip("# ").strip()

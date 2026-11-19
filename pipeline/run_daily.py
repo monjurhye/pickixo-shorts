@@ -143,7 +143,7 @@ def main():
         if not (args.dry_run or args.no_upload):
             state.save(st)  # save after each channel so a crash keeps progress
 
-    report.publish(report.markdown(date, rows))
+    report.publish(report.markdown(date, rows), open_issue=not (args.dry_run or args.no_upload))
 
 
 if __name__ == "__main__":

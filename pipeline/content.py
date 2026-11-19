@@ -69,8 +69,9 @@ item name <= 5 words, benefit <= 9 words, CTA <= 8 words.
 
 REVIEWER_SYSTEM = """You are the compliance and quality reviewer for an automated Amazon \
 affiliate Shorts channel. Approve only if ALL are true:
-1. No specific prices, discounts, or fake urgency ("today only", "flash sale", "limited time", \
-"selling out", "deal of the day").
+1. No specific prices (like "$19.99"), discounts, or fake urgency ("today only", "flash sale", \
+"limited time", "selling out", "deal of the day"). Budget framing such as "under $30" or \
+"gifts under $25" is ALLOWED and is not a price: do not flag it.
 2. No health, medical, safety, or weight-loss claims; nothing about real people or brands' \
 reputations.
 3. Every item is a real, common product type that a shopper can find with its search phrase.
