@@ -194,8 +194,13 @@ def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks", vo
     else:
         chains.append("{0}amix=inputs={1}:duration=first:normalize=0[aout]".format(
             "".join(labels), len(labels)))
+    if labels:  # bring speech + music to a YouTube-friendly loudness
+        chains.append("[aout]loudnorm=I=-15:TP=-1.5:LRA=11[final]")
+        out_label = "[final]"
+    else:
+        out_label = "[aout]"
     _run([ffmpeg, "-y", "-loglevel", "error"] + inputs +
-         ["-filter_complex", ";".join(chains), "-map", "0:v", "-map", "[aout]",
+         ["-filter_complex", ";".join(chains), "-map", "0:v", "-map", out_label,
           "-c:v", "copy", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
           "-t", "{0:.2f}".format(total), "-movflags", "+faststart", out_path])
     return out_path, total
