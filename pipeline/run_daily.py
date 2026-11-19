@@ -10,7 +10,7 @@ import argparse
 import os
 import shutil
 
-from . import common, content, pexels, render, report, state, tts, youtube
+from . import common, content, dashboard, pexels, render, report, state, tts, youtube
 
 
 def build_description(script, page_url, links, cfg):
@@ -108,6 +108,10 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
             if chstate["upload_errors"] >= limit:
                 chstate["auto_disabled"] = True
                 row["note"] = "AUTO-DISABLED after {0} upload errors. ".format(limit)
+                if dashboard.enabled():
+                    dashboard.report(ch["id"], "Auto-paused after repeated upload errors: " + str(e)[:200],
+                                     disable=True)
+                    chstate["auto_disabled"] = False  # the dashboard owns the switch now
         row.update(status="upload error", note=row["note"] + str(e)[:200])
     except Exception as e:
         row.update(status="error", note=str(e)[:300])
@@ -132,13 +136,29 @@ def main():
         report.publish(report.markdown(date, [], "PAUSED is true — nothing was made or uploaded."))
         return
 
+    dash = None
+    if dashboard.enabled() and not (args.dry_run or args.no_upload):
+        try:
+            dash = dashboard.state()
+        except Exception as e:
+            report.publish(report.markdown(date, [], "Dashboard unreachable, nothing uploaded: " + str(e)[:200]))
+            return
+        if dash.get("paused"):
+            report.publish(report.markdown(date, [], "Paused from the dashboard — nothing was made or uploaded."))
+            return
+
     per_day = max(1, int(cfg.get("videos_per_channel_per_run", 1)))
     for idx, ch in enumerate(chans):
         if args.channel and ch["id"] != args.channel:
             continue
         chstate = state.ch(st, ch["id"])
         if not args.dry_run and not args.channel:
-            if not ch.get("enabled"):
+            if dash is not None:
+                info = dash["channels"].get(ch["id"])
+                if not info or not info.get("enabled"):
+                    continue
+                ch = dict(ch, name=info.get("title") or ch.get("name"))
+            elif not ch.get("enabled"):
                 continue
             if chstate["auto_disabled"]:
                 rows.append({"channel": ch.get("name") or ch["id"], "niche": ch["niche"],

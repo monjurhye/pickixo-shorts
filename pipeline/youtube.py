@@ -8,7 +8,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from . import common
+from . import common, dashboard
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = ("https://www.googleapis.com/upload/youtube/v3/videos"
@@ -26,11 +26,19 @@ def refresh_secret_name(channel_id):
 
 
 def has_credentials(channel_id):
+    if dashboard.enabled():
+        return True  # the dashboard decides; access_token() reports if it can't
     return bool(common.secret("YT_CLIENT_ID") and common.secret("YT_CLIENT_SECRET")
                 and common.secret(refresh_secret_name(channel_id)))
 
 
 def _access_token(channel_id):
+    if dashboard.enabled():
+        token, err = dashboard.access_token(channel_id)
+        if not token:
+            # not_connected/paused are normal states, invalid_grant is flagged on the dashboard
+            raise UploadError("dashboard token: " + err, permanent=False)
+        return token
     body = urllib.parse.urlencode({
         "client_id": common.secret("YT_CLIENT_ID"),
         "client_secret": common.secret("YT_CLIENT_SECRET"),

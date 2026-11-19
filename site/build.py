@@ -146,6 +146,8 @@ def main():
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())
     write(os.path.join(OUT, "privacy", "index.html"), privacy_page())
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
+    with open(os.path.join(OUT, "channels.json"), "w", encoding="utf-8") as f:
+        json.dump({"channels": [{"id": c["id"], "niche": c["niche"]} for c in common.channels()]}, f)
     for name in os.listdir(STATIC):
         shutil.copy(os.path.join(STATIC, name), os.path.join(OUT, name))
     print("built {0} video pages into {1}".format(len(videos), OUT))
