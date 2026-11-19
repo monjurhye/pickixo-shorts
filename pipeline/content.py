@@ -86,6 +86,51 @@ def _client():
 
 
 def _call_json(system, user, schema, cfg, max_tokens=4000):
+    """Dispatch to the configured provider ("openai" or "anthropic")."""
+    if cfg.get("provider", "anthropic") == "openai":
+        return _call_json_openai(system, user, schema, cfg, max_tokens)
+    return _call_json_anthropic(system, user, schema, cfg, max_tokens)
+
+
+def _call_json_openai(system, user, schema, cfg, max_tokens):
+    import openai  # imported lazily; reads OPENAI_API_KEY from env
+    client = openai.OpenAI()
+    params = dict(
+        model=cfg.get("openai_model", "gpt-5-nano"),
+        instructions=system,
+        input=user,
+        # reasoning models spend part of this budget on hidden reasoning
+        max_output_tokens=max_tokens * 2,
+        text={"format": {"type": "json_schema", "name": "result", "strict": True,
+                         "schema": schema}},
+    )
+    effort = cfg.get("openai_reasoning_effort")
+    try:
+        try:
+            resp = client.responses.create(
+                reasoning={"effort": effort}, **params) if effort else client.responses.create(**params)
+        except openai.BadRequestError as e:
+            if effort and "reasoning" in str(e).lower():
+                resp = client.responses.create(**params)  # model doesn't take this effort
+            else:
+                raise
+    except openai.RateLimitError as e:
+        raise RuntimeError("OpenAI rate limited / out of credit: {0}".format(e))
+    except openai.APIStatusError as e:
+        raise RuntimeError("OpenAI API error {0}: {1}".format(e.status_code, e))
+    except openai.APIConnectionError:
+        raise RuntimeError("OpenAI network error")
+
+    if getattr(resp, "status", "") == "incomplete":
+        raise RuntimeError("OpenAI output incomplete: {0}".format(
+            getattr(resp, "incomplete_details", "")))
+    text = resp.output_text or ""
+    if not text.strip():
+        raise RuntimeError("OpenAI returned no text (possibly a refusal)")
+    return json.loads(text)
+
+
+def _call_json_anthropic(system, user, schema, cfg, max_tokens=4000):
     import anthropic
     client = _client()
     model = cfg.get("model", "claude-opus-5-5")

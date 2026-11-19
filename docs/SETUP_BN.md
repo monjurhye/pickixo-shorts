@@ -21,7 +21,8 @@ Repo খুলুন: **Settings → Secrets and variables → Actions → New r
 
 | Secret এর নাম | কোথা থেকে পাবেন |
 |---|---|
-| `ANTHROPIC_API_KEY` | console.anthropic.com → API Keys |
+| `OPENAI_API_KEY` | platform.openai.com → API keys (এখন এটাই ব্যবহার হয়) |
+| `ANTHROPIC_API_KEY` | ঐচ্ছিক, শুধু `provider` কে `anthropic` করলে লাগবে |
 | `PEXELS_API_KEY` | pexels.com/api (ফ্রি) |
 
 Key কখনো chat বা কোনো ফাইলে লিখবেন না।
@@ -81,5 +82,5 @@ Repo খুলুন: **Settings → Secrets and variables → Actions → Varia
 
 ## 💰 খরচের হিসাব
 - GitHub Actions: private repo তে মাসে ২,০০০ ফ্রি মিনিট। ২০টা চ্যানেলে দিনে ~৪০–৬০ মিনিট লাগে, মাসে ~১,২০০–১,৮০০ মিনিট। সীমা ছাড়িয়ে গেলে repo public করলে ফ্রি থাকবে, কারণ Secrets তখনও গোপন থাকে।
-- Claude Haiku 5.5 (effort low, $0.10/$0.50 প্রতি ১০ লাখ token): মাসে ~$১। ভালো লেখার জন্য `config/settings.json` এ মডেল `claude-sonnet-5-5` বা `claude-opus-5-5` দিতে পারেন (মাসে ~$১৫–৫০)।
+- লেখা: **OpenAI GPT-5 nano** ($0.05 input / $0.40 output প্রতি ১০ লাখ token), মাসে ~$১ বা তার কম। `config/settings.json` এ `"provider": "anthropic"` দিলে Claude ব্যবহার হবে।
 - Pexels, Cloudflare Pages: ফ্রি।

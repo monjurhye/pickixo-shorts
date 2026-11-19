@@ -44,6 +44,7 @@ jobs:
         env:
           ALL_SECRETS: ${{ toJSON(secrets) }}          # YT_REFRESH_CH01..CH20 etc.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PAUSED: ${{ vars.PAUSED }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
