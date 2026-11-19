@@ -78,6 +78,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div>
+<p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <table><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>`));
