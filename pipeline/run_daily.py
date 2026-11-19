@@ -80,8 +80,8 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
             chstate["upload_errors"] = 0
             row.update(status="uploaded", video_id=video_id, note=script["title"])
 
-        # 5. record for the website (skipped on dry runs)
-        if not dry:
+        # 5. record for the website (skipped on dry runs and no-upload tests)
+        if not dry and not no_upload:
             state.remember_topic(chstate, script["topic"])
             common.save_json(os.path.join(common.VIDEOS_DATA_DIR, key + ".json"), {
                 "key": key, "date": date, "channel_id": ch["id"],
@@ -90,9 +90,9 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
                 "description": script["description"], "items": links,
                 "youtube_id": video_id, "page_url": page_url,
             })
-        if dry:
-            row["note"] += " → " + out_mp4
-            work = None  # keep files for inspection
+        if dry or no_upload:
+            row["note"] += " | title: " + script["title"] + " | clips: " + str(len(clip_paths))
+            work = None  # keep files for inspection / artifact
     except youtube.UploadError as e:
         chstate["last_error"] = str(e)[:300]
         if e.permanent:
@@ -120,7 +120,8 @@ def main():
     cfg, chans, st, date = common.settings(), common.channels(), state.load(), common.today_utc()
     rows = []
 
-    if os.environ.get("PAUSED", "").lower() == "true" and not args.dry_run:
+    # PAUSED stops real runs; dry runs and --no-upload tests never publish, so they still run
+    if os.environ.get("PAUSED", "").lower() == "true" and not (args.dry_run or args.no_upload):
         report.publish(report.markdown(date, [], "PAUSED is true — nothing was made or uploaded."))
         return
 
@@ -139,7 +140,7 @@ def main():
                 continue
         for _ in range(per_day):
             rows.append(make_one(ch, idx, chstate, cfg, args.dry_run, args.no_upload, date))
-        if not args.dry_run:
+        if not (args.dry_run or args.no_upload):
             state.save(st)  # save after each channel so a crash keeps progress
 
     report.publish(report.markdown(date, rows))

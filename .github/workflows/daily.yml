@@ -9,6 +9,10 @@ on:
         description: "Dry run (sample script, no API calls, no upload)"
         type: boolean
         default: false
+      test_no_upload:
+        description: "Test with real OpenAI + Pexels, but no upload and no website change"
+        type: boolean
+        default: false
       channel:
         description: "Only this channel id (e.g. ch01), blank = all enabled"
         required: false
@@ -50,19 +54,20 @@ jobs:
         run: |
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ "${{ inputs.test_no_upload }}" = "true" ]; then ARGS="$ARGS --no-upload"; fi
           if [ -n "${{ inputs.channel }}" ]; then ARGS="$ARGS --channel ${{ inputs.channel }}"; fi
           python -m pipeline.run_daily $ARGS
 
-      - name: Keep dry-run videos for 2 days
-        if: ${{ inputs.dry_run }}
+      - name: Keep test videos for 2 days
+        if: ${{ inputs.dry_run || inputs.test_no_upload }}
         uses: actions/upload-artifact@v4
         with:
-          name: dry-run-videos
+          name: test-videos
           path: work/**/*.mp4
           retention-days: 2
 
       - name: Commit records (updates the website)
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !inputs.dry_run && !inputs.test_no_upload }}
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
