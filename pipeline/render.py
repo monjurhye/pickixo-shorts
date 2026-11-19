@@ -101,7 +101,7 @@ def _scene(ffmpeg, bg_clip, overlay_png, dur, out_path, gradient_seed=0):
         src = ["-f", "lavfi", "-t", "{0:.2f}".format(dur), "-i",
                "color=c={0}:s={1}x{2}:r={3}".format(c, W, H, FPS)]
     fc = ("[0:v]{fit}[bg];[bg][1:v]overlay=0:0:format=auto,"
-          "fade=t=in:st=0:d=0.25,format=yuv420p[v]").format(fit=vf_fit)
+          "format=yuv420p[v]").format(fit=vf_fit)
     _run([ffmpeg, "-y", "-loglevel", "error"] + src +
          ["-i", overlay_png, "-filter_complex", fc, "-map", "[v]", "-an",
           "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-r", str(FPS),
