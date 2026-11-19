@@ -40,9 +40,20 @@ def keychain_set(account, value):
                     "-a", account, "-w", value], check=True, capture_output=True)
 
 
+def gh_bin():
+    import shutil
+    for c in [shutil.which("gh"), os.path.expanduser("~/.local/bin/gh"),
+              "/opt/homebrew/bin/gh", "/usr/local/bin/gh"]:
+        if c and os.path.exists(c):
+            return c
+    sys.exit("GitHub CLI (gh) not found. Install it or add it to PATH.")
+
+
 def gh_secret(name, value):
-    subprocess.run(["gh", "secret", "set", name], input=value, text=True, check=True,
-                   capture_output=True, cwd=ROOT)
+    p = subprocess.run([gh_bin(), "secret", "set", name], input=value, text=True,
+                       capture_output=True, cwd=ROOT)
+    if p.returncode != 0:
+        sys.exit("Could not save {0} to GitHub: {1}".format(name, p.stderr.strip()[:300]))
 
 
 def client_creds():
