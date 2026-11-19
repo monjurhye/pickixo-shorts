@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-videos
-          path: work/**/*.mp4
+          path: work/*/20*.mp4
           retention-days: 2
 
       - name: Commit records (updates the website)
