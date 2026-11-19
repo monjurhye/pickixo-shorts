@@ -1,0 +1,264 @@
+{
+  "channels": [
+    {
+      "id": "ch01",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Kitchen gadgets under $30",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "kitchen cooking",
+        "chopping vegetables",
+        "modern kitchen"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch02",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Gifts under $25",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "gift wrapping",
+        "holiday gifts",
+        "unboxing present"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch03",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Home organization",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "organized shelves",
+        "tidy closet",
+        "home storage"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch04",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Pet gadgets",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "happy dog",
+        "cat playing",
+        "pet at home"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch05",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Coffee & tea gear",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "pouring coffee",
+        "making tea",
+        "coffee morning"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch06",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Bathroom finds",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "clean bathroom",
+        "bathroom interior",
+        "morning routine"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch07",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Plant & garden",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "houseplants",
+        "watering plants",
+        "small garden"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch08",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Laundry & cleaning",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "cleaning home",
+        "folding laundry",
+        "wiping counter"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch09",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Beauty tools",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "skincare routine",
+        "vanity table",
+        "makeup brushes"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch10",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Home fitness",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "home workout",
+        "yoga at home",
+        "dumbbells"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch11",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Baby & toddler",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "baby toys",
+        "nursery room",
+        "toddler playing"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch12",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Car accessories",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "car interior",
+        "driving car",
+        "car cleaning"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch13",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Camping & outdoors",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "camping tent",
+        "hiking trail",
+        "campfire"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch14",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Desk & study setup",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "desk setup",
+        "studying",
+        "home office"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch15",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Gaming accessories",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "gaming setup",
+        "video game controller",
+        "rgb lights"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch16",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Smart home",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "smart home",
+        "living room lights",
+        "modern living room"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch17",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Travel essentials",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "packing suitcase",
+        "airport travel",
+        "travel bag"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch18",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Kids toys",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "kids playing",
+        "colorful toys",
+        "children building blocks"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch19",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Baking tools",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "baking cookies",
+        "kneading dough",
+        "cake decorating"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ch20",
+      "name": "(set channel name)",
+      "handle": "",
+      "niche": "Bedroom & sleep",
+      "tracking_id": "monjur09-20",
+      "stock_queries": [
+        "cozy bedroom",
+        "sleeping",
+        "bedtime reading"
+      ],
+      "enabled": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+work/
+public/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+*.csv
+client_secret*.json
+.env
