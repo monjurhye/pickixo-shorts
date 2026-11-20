@@ -102,7 +102,8 @@ def render(art, res, url):
     for p in art["intro"]:
         h.append("<p>{0}</p>".format(e(p)))
     for s in art["sections"]:
-        h.append("<h2>{0}</h2>".format(e(s["heading"])))
+        hd = s["heading"].strip()
+        h.append("<h2>{0}</h2>".format(e(hd[:1].upper() + hd[1:])))
         h += ["<p>{0}</p>".format(e(p)) for p in s["paragraphs"]]
     for p in art["closing"]:
         h.append("<p>{0}</p>".format(e(p)))
