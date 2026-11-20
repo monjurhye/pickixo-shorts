@@ -257,7 +257,7 @@ function fbSection(d, plan) {
 <p id="fbc-${n}">${esc(p.caption)} ${esc((p.hashtags || []).map((h) => "#" + h).join(" "))}</p></div>`).join("")
     || `<p class="muted">No posts yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
   const auto = d.autopost ? `<span class="pill on">Auto-posting ON</span> photo and question posts are scheduled on your Page automatically.`
-    : `<span class="pill off">Auto-posting OFF</span> add the Facebook secrets on GitHub to switch it on (see the setup guide).`;
+    : `<span class="pill off">Auto-posting OFF</span> connect your Facebook Page in Buffer (or add FB secrets on GitHub) to switch it on.`;
   return `<h2 id="facebook">Facebook page · USA</h2>
 <p class="muted">Daily posts for your monetized Page, written for US viewers and timed for US Eastern. ${auto}
 Reels are not auto-posted: make the video from the script and post it yourself (original video earns most). ${d.date ? "Updated " + bdTime(d.created) + "." : ""}</p>

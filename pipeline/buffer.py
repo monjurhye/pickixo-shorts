@@ -102,3 +102,39 @@ def create_pin(channel_id, board_id, title, description, image_url, link, due_at
     if res.get("__typename") != "PostActionSuccess":
         raise BufferError("{0}: {1}".format(res.get("__typename"), res.get("message")))
     return res["post"]
+
+
+def create_post(channel_id, text, image_url="", due_at=None):
+    """Generic scheduled post (e.g. a Facebook Page) with an optional image."""
+    sched = 'mode: customScheduled, dueAt: $due' if due_at else "mode: addToQueue"
+    assets = "assets: [{image: {url: $img}}]," if image_url else "assets: [],"
+    q = """mutation($ch: ChannelId!, $text: String!%s%s) {
+      createPost(input: {channelId: $ch, text: $text, schedulingType: automatic, %s, %s}) {
+        __typename
+        ... on PostActionSuccess { post { id dueAt } }
+        ... on InvalidInputError { message }
+        ... on LimitReachedError { message }
+        ... on UnauthorizedError { message }
+        ... on NotFoundError { message }
+        ... on UnexpectedError { message }
+        ... on RestProxyError { message }
+      }
+    }""" % (", $img: String!" if image_url else "", ", $due: DateTime" if due_at else "", sched, assets)
+    v = {"ch": channel_id, "text": text}
+    if image_url:
+        v["img"] = image_url
+    if due_at:
+        v["due"] = due_at
+    res = gql(q, v)["createPost"]
+    if res.get("__typename") != "PostActionSuccess":
+        raise BufferError("{0}: {1}".format(res.get("__typename"), res.get("message")))
+    return res["post"]
+
+
+def find_channel(service_word):
+    """(org_id, channel_id, name) of the first channel whose service contains service_word."""
+    for org in organizations():
+        for ch in channels(org["id"]):
+            if service_word in str(ch["service"]).lower() and not ch.get("isDisconnected"):
+                return org["id"], ch["id"], ch.get("displayName") or ch["name"]
+    return None

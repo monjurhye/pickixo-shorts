@@ -39,6 +39,7 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           FB_PAUSED: ${{ vars.FB_PAUSED }}
         run: |
           if [ "${{ inputs.fb_check }}" = "true" ]; then python -m pipeline.fb_ideas --check; exit 0; fi

@@ -3,7 +3,7 @@ Sent to the dashboard (/admin -> Facebook page). Nothing is posted automatically
 
 from datetime import datetime, timedelta, timezone
 
-from . import common, content, dashboard, facebook
+from . import buffer, common, content, dashboard, facebook
 
 SCHEMA = {
     "type": "object",
@@ -62,7 +62,18 @@ def main():
     res = content._call_json(sysmsg, "Write today's posts.", SCHEMA, common.settings(), 7000)
     posts = res.get("posts", [])[:6]
     date = now.strftime("%Y-%m-%d")
-    auto = cfg.get("autopost", True) and facebook.enabled()
+    # Post route: the Graph API if FB secrets exist, otherwise the Facebook Page connected in Buffer.
+    via, bch = "", None
+    if cfg.get("autopost", True):
+        if facebook.enabled():
+            via = "graph"
+        elif buffer.enabled():
+            try:
+                bch = buffer.find_channel("facebook")
+                via = "buffer" if bch else ""
+            except buffer.BufferError as e:
+                common.log("buffer: " + str(e))
+    auto = bool(via)
     for p in posts:
         p["status"] = "idea"
         if not auto or p["type"] == "reel":
@@ -74,15 +85,17 @@ def main():
             if when < now + timedelta(minutes=20):
                 when += timedelta(days=1)
             msg = p["caption"].strip() + "\n\n" + " ".join("#" + h.strip("#") for h in p["hashtags"][:5])
+            img = ""
             if p["type"] == "photo_or_carousel":
                 img = facebook.pexels_photo(p["visuals"][:80]) or facebook.pexels_photo(p["pillar"][:60])
                 if not img:
                     raise facebook.FBError("no photo found")
-                msg = p["hook"].strip() + "\n\n" + msg
-                facebook.schedule_photo(msg, img, when)
+            msg = p["hook"].strip() + "\n\n" + msg
+            if via == "graph":
+                facebook.schedule_photo(msg, img, when) if img else facebook.schedule_text(msg, when)
             else:
-                facebook.schedule_text(p["hook"].strip() + "\n\n" + msg, when)
-            p["status"] = "scheduled " + p["time_et"] + " ET"
+                buffer.create_post(bch[1], msg, img, when.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+            p["status"] = "scheduled " + p["time_et"] + " ET (" + via + ")"
         except Exception as e:
             p["status"] = "error: " + str(e)[:150]
     payload = {"date": date, "created": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "posts": posts,
@@ -95,6 +108,8 @@ def main():
 if __name__ == "__main__":
     import sys
     if "--check" in sys.argv:
-        print(facebook.check())
+        if facebook.enabled():
+            print(facebook.check())
+        print("buffer facebook channel:", buffer.find_channel("facebook") if buffer.enabled() else "no BUFFER_API_KEY")
     else:
         main()
