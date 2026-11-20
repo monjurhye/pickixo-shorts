@@ -134,8 +134,12 @@ LOCKER_HEAD = """<script type="text/javascript">var gJXKc_sbq_gLMDqc={"it":43839
 <script src="https://d1chbu4sfo2xhu.cloudfront.net/71fd049.js"></script>"""
 
 
-def free_deals_page():
+def free_deals_page(full=False):
+    """Teaser page (3 deals + unlock button) or, with full=True, the unlocked full list.
+    Unlock goes through the AdBlueMedia URL locker (settings: adbluemedia_locker_url), whose
+    destination should be /free/lifetime-deals/full/."""
     data = common.load_json(os.path.join(common.DATA_DIR, "free_deals.json"), {"deals": []})
+    locker_url = common.settings().get("adbluemedia_locker_url", "")
     deals = data.get("deals", [])
     def card(i, d):
         return """<li class="card"><span class="num">{n}</span>
@@ -143,7 +147,14 @@ def free_deals_page():
 <a class="btn" href="{link}" target="_blank" rel="sponsored nofollow noopener">See the deal on AppSumo →</a></li>""".format(
             n=i, name=e(d["name"]), desc=e(d["desc"] or "Software deal on AppSumo."), link=e(d["link"]))
     teaser = "".join(card(i, d) for i, d in enumerate(deals[:3], 1))
-    rest = "".join(card(i, d) for i, d in enumerate(deals[3:], 4))
+    rest = "".join(card(i, d) for i, d in enumerate(deals[3:], 4)) if full else ""
+    if full:
+        button = '<p><b>Unlocked, thanks!</b> Here is the full list.</p>'
+    elif locker_url:
+        button = '<p><a class="btn" href="{0}" rel="nofollow">Unlock the full list</a></p>'.format(e(locker_url))
+    else:
+        button = '<p><button class="btn" onclick="if(typeof _ET===\'function\'){{_ET();}}">Unlock the full list</button></p>'
+    button = button.replace("{{", "{").replace("}}", "}")
     body = """<section class="hero"><h1>{n} Lifetime Software Deals That Replace Monthly Subscriptions</h1>
 <p>A free, regularly updated list of one-time-payment software deals on AppSumo for solopreneurs,
 freelancers and small teams. Updated {up}.</p></section>
@@ -151,16 +162,20 @@ freelancers and small teams. Updated {up}.</p></section>
 <div class="unlock"><h2>See the full list ({more} more deals)</h2>
 <p>The full list is free. To unlock it, complete <b>one short offer from our sponsor</b>
 (for example a quick survey or a free app). This keeps the list free. You don't have to buy anything.</p>
-<p><button class="btn" onclick="if(typeof _ET==='function'){{_ET();}}">Unlock the full list</button></p></div>
+{button}</div>
 <ol class="cards" start="4">{rest}</ol>
 <p class="note">Before buying any lifetime deal, read the plan limits and refund window on the deal page.
 Lifetime deals depend on the company staying in business.</p>""".format(
-        n=len(deals), up=e(data.get("updated", "")), teaser=teaser, more=max(0, len(deals) - 3), rest=rest)
+        n=len(deals), up=e(data.get("updated", "")), teaser=teaser, more=max(0, len(deals) - 3), rest=rest,
+        button=button)
     foot = ("Some links on this page are affiliate links (AppSumo via Impact); we may earn a commission. "
             "The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
+    head = LOCKER_HEAD if not (full or locker_url) else ""
+    if full:
+        head += '<meta name="robots" content="noindex">'
     return page("Free list: lifetime software deals (AppSumo)", body,
                 "Free updated list of AppSumo lifetime software deals that replace monthly subscriptions.",
-                head_extra=LOCKER_HEAD, foot=foot)
+                head_extra=head, foot=foot)
 
 
 def write(path, text):
@@ -186,6 +201,7 @@ def main():
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
     if os.path.exists(os.path.join(common.DATA_DIR, "free_deals.json")):
         write(os.path.join(OUT, "free", "lifetime-deals", "index.html"), free_deals_page())
+        write(os.path.join(OUT, "free", "lifetime-deals", "full", "index.html"), free_deals_page(full=True))
     with open(os.path.join(OUT, "channels.json"), "w", encoding="utf-8") as f:
         json.dump({"channels": [{"id": c["id"], "niche": c["niche"]} for c in common.channels()]}, f)
     for name in os.listdir(STATIC):

@@ -156,7 +156,8 @@ open a draft, add your own experience, click <b>Copy article</b>, paste into the
 Keep the disclosure line at the top.</p>
 <div class="card"><h3>🔓 Free deals page (AdBlueMedia locker)</h3>
 <p><a href="/free/lifetime-deals/" target="_blank" rel="noopener">shop.pickixo.com/free/lifetime-deals/</a> · updates daily with the newest AppSumo deals (sub id <b>freepage</b>).
-First 3 deals are open; the rest unlock after the visitor completes one AdBlueMedia sponsor offer.</p>
+First 3 deals are open; the full list (/free/lifetime-deals/full/) opens after the visitor completes one AdBlueMedia sponsor offer
+(AdBlueMedia URL locker with that page as destination).</p>
 <p class="muted"><b>How to use it:</b> share it where people look for software deals: your Medium author bio and newsletter,
 a LinkedIn post ("I keep a free list of lifetime deals"), answers on Quora. In a Medium article, link it once near the end
 ("Full updated list: …"), not instead of the article's own links.

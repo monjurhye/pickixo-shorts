@@ -20,5 +20,6 @@
   "runs_per_day_note": "3 scheduled runs a day (see .github/workflows/daily.yml) = 3 videos per channel per day",
   "tts_enabled": true,
   "tts_model": "gpt-4o-mini-tts",
-  "music_volume_with_voice": 0.45
+  "music_volume_with_voice": 0.45,
+  "adbluemedia_locker_url": ""
 }
