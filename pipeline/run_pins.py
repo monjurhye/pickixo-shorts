@@ -143,6 +143,23 @@ def main():
         for c in camps:
             common.log("  program {0} | {1} | {2}".format(c.get("CampaignId"), c.get("CampaignName"),
                                                          c.get("ContractStatus") or c.get("Status") or ""))
+        try:
+            from collections import defaultdict
+            from datetime import datetime, timezone
+            now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            acts = impact.get("/Actions", ActionDateStart="2026-01-01T00:00:00Z", ActionDateEnd=now,
+                              PageSize=1000).get("Actions", [])
+            agg = defaultdict(lambda: [0, 0.0, 0.0])
+            for a in acts:
+                k = a.get("CampaignName") or a.get("CampaignId")
+                agg[k][0] += 1
+                agg[k][1] += float(a.get("Amount") or 0)
+                agg[k][2] += float(a.get("Payout") or 0)
+            common.log("2026 sales: {0} actions".format(len(acts)))
+            for k, v in sorted(agg.items(), key=lambda kv: -kv[1][2]):
+                common.log("  sales {0} | {1} actions | sale amount {2:.2f} | your commission {3:.2f}".format(k, *v))
+        except impact.ImpactError as e:
+            common.log("2026 sales error: {0}".format(e))
         cats = impact.catalogs()
         common.log("{0} catalogs".format(len(cats)))
         for c in cats:
