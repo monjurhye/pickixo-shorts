@@ -1,6 +1,7 @@
 // POST /admin/action  -> pause/resume/disconnect a channel, or pause/resume everything
 import { getState, putState, redirect, session } from "../../lib/dashboard.js";
 import { getPins, putPins } from "../../lib/pins.js";
+import { setIdeasRequest } from "../../lib/ideas.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -30,6 +31,12 @@ export async function onRequestPost(context) {
     if (action === "fb_disconnect") await env.CHANNELS_KV.delete("fbpages");
     else { d.active = String(form.get("page") || ""); await env.CHANNELS_KV.put("fbpages", JSON.stringify(d)); }
     return redirect("/admin?msg=" + encodeURIComponent(action === "fb_disconnect" ? "Facebook disconnected." : "Active Page changed.") + "#facebook");
+  }
+  if (action === "ideas_request" || action === "ideas_cancel") {
+    await setIdeasRequest(env, action === "ideas_request" ? { at: new Date().toISOString() } : null);
+    return redirect("/admin?msg=" + encodeURIComponent(action === "ideas_request"
+      ? "Requested. New prompts arrive in about 10-15 minutes (refresh this page)."
+      : "Request cancelled.") + "#ideas");
   }
   if (action === "pins_pause" || action === "pins_resume") {
     const p = await getPins(env);

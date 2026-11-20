@@ -21,5 +21,8 @@
   "tts_enabled": true,
   "tts_model": "gpt-4o-mini-tts",
   "music_volume_with_voice": 0.45,
-  "adbluemedia_locker_url": ""
+  "adbluemedia_locker_url": "",
+  "indexnow_key": "cb97c59a71f60c3eff376539cdb2f71b",
+  "google_site_verification": "",
+  "bing_site_verification": ""
 }

@@ -51,6 +51,39 @@ def slugify(text, max_len=48):
     return s[:max_len].rstrip("-") or "video"
 
 
+ASIN_RE = re.compile(r"^[A-Z0-9]{10}$")
+
+
+def parse_asin(text):
+    """ASIN from a bare ASIN or a full Amazon link (/dp/<ASIN>, /gp/product/<ASIN>).
+    Short amzn.to links can't be read offline: use SiteStripe's "Full link"."""
+    t = (text or "").strip()
+    if ASIN_RE.match(t.upper()) and len(t) == 10:
+        return t.upper()
+    m = re.search(r"/(?:dp|gp/product|gp/aw/d)/([A-Za-z0-9]{10})(?:[/?#]|$)", t)
+    return m.group(1).upper() if m else ""
+
+
+def amazon_product_link(asin, tracking_id):
+    """Affiliate link to one specific product page."""
+    return "https://www.amazon.com/dp/{0}?tag={1}".format(asin, tracking_id)
+
+
+def products(channel_id):
+    """Curated real products for a channel from config/products.json (filled from
+    SiteStripe by the owner; never guessed). Returns [{"asin","name"}]."""
+    data = load_json(os.path.join(CONFIG_DIR, "products.json"), {"products": []})
+    out, seen = [], set()
+    for p in data.get("products", []):
+        asin = parse_asin(p.get("asin") or p.get("link") or "")
+        if not asin or asin in seen or not p.get("name"):
+            continue
+        if channel_id in (p.get("channels") or []):
+            seen.add(asin)
+            out.append({"asin": asin, "name": p["name"].strip()})
+    return out
+
+
 def amazon_search_link(query, tracking_id):
     """Affiliate link to an Amazon search results page (allowed by Associates;
     needs no product API and never shows a stale price)."""

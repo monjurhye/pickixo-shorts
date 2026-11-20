@@ -4,6 +4,8 @@
 import json
 import re
 
+from . import common
+
 SCRIPT_SCHEMA = {
     "type": "object",
     "properties": {
@@ -18,8 +20,9 @@ SCRIPT_SCHEMA = {
                     "name": {"type": "string"},
                     "benefit": {"type": "string"},
                     "amazon_search": {"type": "string"},
+                    "asin": {"type": "string"},
                 },
-                "required": ["name", "benefit", "amazon_search"],
+                "required": ["name", "benefit", "amazon_search", "asin"],
                 "additionalProperties": False,
             },
         },
@@ -59,8 +62,13 @@ only if the whole niche is about that budget.
 - Only product types that genuinely exist and are commonly sold on Amazon.
 - Plain, friendly American English. On-screen lines must be short: hook <= 8 words, \
 item name <= 5 words, benefit <= 9 words, CTA <= 8 words.
-- The title is honest about what the video shows (<= 70 characters, no clickbait lies).
+- The title is honest about what the video shows (<= 70 characters, no clickbait lies). \
+Every item must fit the title's category word: if the title says "organizers", every item \
+is an organizer; otherwise use a broader word such as "finds" or "essentials".
+- Avoid the words "cure", "guaranteed", "miracle" and medical wording anywhere.
 - amazon_search is the search phrase a shopper would type to find that item.
+- asin: if a list of real products is given, copy the chosen product's ASIN exactly; \
+otherwise "". Never invent an ASIN.
 - stock_queries: 3-5 short phrases describing calm stock footage that fits the mood \
 (scenes, not products), e.g. "tidy kitchen counter".
 - description: 1-2 sentences, no links (links are added automatically).
@@ -167,7 +175,7 @@ def _call_json_anthropic(system, user, schema, cfg, max_tokens=4000):
     return json.loads(text)
 
 
-def write_script(channel, recent_topics, cfg):
+def write_script(channel, recent_topics, cfg, fix_issues=None):
     n = int(cfg.get("items_per_video", 4))
     user = (
         "Channel niche: {niche}\n"
@@ -176,6 +184,18 @@ def write_script(channel, recent_topics, cfg):
         "Write the next video's script."
     ).format(niche=channel["niche"], n=n,
              recent="\n".join("- " + t for t in recent_topics[-30:]) or "- (none yet)")
+    catalog = common.products(channel["id"])
+    if len(catalog) >= n:
+        # real products the owner picked on Amazon: the video must use them
+        user += ("\n\nUse ONLY products from this list (pick {0} that fit one topic together; "
+                 "set each item's asin to that product's ASIN, name it as the generic type in "
+                 "<= 5 words, never the brand):\n").format(n) + "\n".join(
+            "- {0}: {1}".format(p["asin"], p["name"]) for p in catalog[:60])
+    if fix_issues:
+        # a rewrite after the review gate rejected the previous draft
+        user += ("\n\nThe previous draft was rejected by the reviewer for these reasons. "
+                 "Write a new script that avoids every one of them:\n"
+                 + "\n".join("- " + i for i in fix_issues))
     script = _call_json(WRITER_SYSTEM, user, SCRIPT_SCHEMA, cfg)
     script["items"] = script["items"][:n]
     if len(script["items"]) < 2:
@@ -197,9 +217,14 @@ def review_script(channel, script, recent_topics, cfg):
 
 
 BANNED = ["today only", "flash sale", "limited time", "selling out", "deal of the day",
-          "% off", "cure", "guaranteed", "lose weight"]
-# a dollar amount is only allowed as budget framing: "under $30" / "below $25"
-PRICE_RE = re.compile(r"(?<!under )(?<!below )\$\s?\d")
+          "% off", "cure", "cures", "guaranteed", "lose weight"]
+# whole words only, so "secure" or "manicure" do not count as "cure"
+BANNED_RES = [(b, re.compile(r"(?<![a-z])" + re.escape(b) + r"(?![a-z])")) for b in BANNED]
+# a dollar amount is allowed only as budget framing: "under $30", "less than $25",
+# "up to $20", "$25 or less", "$30 and under", "under-$25"
+BUDGET_BEFORE = r"(?:under|below|less than|up to|max|at most|within)[\s-]*"
+BUDGET_AFTER = r"\s*(?:or less|or under|and under|and below|max|budget)"
+PRICE_RE = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?")
 
 
 def local_checks(script):
@@ -210,11 +235,15 @@ def local_checks(script):
     for it in script.get("items", []):
         fields += [it.get("name", ""), it.get("benefit", "")]
     blob = " ".join(fields).lower()
-    for b in BANNED:
-        if b in blob:
+    for b, rx in BANNED_RES:
+        if rx.search(blob):
             issues.append("banned phrase: {0!r}".format(b))
-    if PRICE_RE.search(blob):
-        issues.append("specific price mentioned")
+    for m in PRICE_RE.finditer(blob):
+        before, after = blob[:m.start()], blob[m.end():]
+        if re.search(BUDGET_BEFORE + r"$", before) or re.match(BUDGET_AFTER, after):
+            continue
+        issues.append("specific price mentioned: {0!r}".format(m.group(0)))
+        break
     if len(script.get("title", "")) > 100:
         issues.append("title too long")
     return issues
@@ -228,13 +257,13 @@ def sample_script(channel, cfg):
         "hook": "Tiny kitchen? Try these",
         "items": [
             {"name": "Magnetic spice rack", "benefit": "Frees a whole cabinet shelf",
-             "amazon_search": "magnetic spice rack for fridge"},
+             "amazon_search": "magnetic spice rack for fridge", "asin": ""},
             {"name": "Over-sink cutting board", "benefit": "Turns your sink into prep space",
-             "amazon_search": "over the sink cutting board"},
+             "amazon_search": "over the sink cutting board", "asin": ""},
             {"name": "Stackable pantry bins", "benefit": "See every snack at a glance",
-             "amazon_search": "stackable clear pantry bins"},
+             "amazon_search": "stackable clear pantry bins", "asin": ""},
             {"name": "Collapsible colander", "benefit": "Folds flat into any drawer",
-             "amazon_search": "collapsible silicone colander"},
+             "amazon_search": "collapsible silicone colander", "asin": ""},
         ][: int(cfg.get("items_per_video", 4))],
         "cta": "All links on Pickixo",
         "description": "Four simple helpers that make a small kitchen feel bigger.",

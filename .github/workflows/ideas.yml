@@ -2,7 +2,8 @@ name: Image Ideas
 
 on:
   schedule:
-    - cron: "0 2 * * *"   # 8am Bangladesh: Magnific image ideas to the dashboard
+    - cron: "0 2 * * *"      # 8am Bangladesh: Facebook posts only (no image ideas)
+    - cron: "*/10 * * * *"   # image ideas ONLY if the dashboard button was pressed
   workflow_dispatch:
     inputs:
       pack:
@@ -21,18 +22,43 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Every-10-minute run: ask the dashboard whether "Make new prompts" was pressed.
+      # No press = stop here before any API call (no cost).
+      - name: Check for a prompt request
+        id: mode
+        env:
+          PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ideas=true" >> "$GITHUB_OUTPUT"; echo "fb=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "${{ github.event.schedule }}" = "0 2 * * *" ]; then
+            echo "ideas=false" >> "$GITHUB_OUTPUT"; echo "fb=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          R=$(curl -s -m 20 -X POST https://shop.pickixo.com/api/pipeline/ideas \
+                -H "X-Pipeline-Key: $PIPELINE_KEY" -H "Content-Type: application/json" \
+                -H "User-Agent: pickixo-pipeline/1.0" -d '{"take":true}' || true)
+          echo "dashboard: $R"
+          if echo "$R" | grep -q '"requested":true'; then echo "ideas=true" >> "$GITHUB_OUTPUT"
+          else echo "ideas=false" >> "$GITHUB_OUTPUT"; fi
+          echo "fb=false" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+        if: steps.mode.outputs.ideas == 'true' || steps.mode.outputs.fb == 'true'
       - uses: actions/setup-python@v5
+        if: steps.mode.outputs.ideas == 'true' || steps.mode.outputs.fb == 'true'
         with:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+        if: steps.mode.outputs.ideas == 'true' || steps.mode.outputs.fb == 'true'
       - name: Make ideas
+        if: steps.mode.outputs.ideas == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
       - name: Facebook posts (ideas + auto-schedule)
+        if: steps.mode.outputs.fb == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
@@ -46,6 +72,7 @@ jobs:
           if [ "$FB_PAUSED" = "true" ]; then echo "Facebook paused"; exit 0; fi
           python -m pipeline.fb_ideas
       - name: Commit prompt pack (updates /free/ai-prompts/)
+        if: steps.mode.outputs.ideas == 'true'
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

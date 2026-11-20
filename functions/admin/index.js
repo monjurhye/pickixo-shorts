@@ -2,7 +2,7 @@
 import { channelList, esc, getState, html, session } from "../../lib/dashboard.js";
 import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
-import { getIdeas } from "../../lib/ideas.js";
+import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 
 const CSS = `
 :root{--bg:#faf8f5;--ink:#1c1917;--muted:#6b6560;--line:#e7e2db;--accent:#c2410c;--ok:#15803d;--bad:#b91c1c;--card:#fff}
@@ -51,7 +51,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`));
   }
 
-  const [chans, st, pins, drafts, ideas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -99,7 +99,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}`));
 }
 
 function bdTime(iso) {
@@ -195,7 +195,12 @@ const FREE_TOOLS = [
   ["Upscayl (only if needed)", "https://upscayl.org", "Free Mac app. Use 2x only (never 4x) with a realistic/high-fidelity model, then check at 100% zoom. Plastic or over-sharp images get rejected."],
 ];
 
-function ideasSection(d) {
+function ideasSection(d, req) {
+  const button = req
+    ? `<div class="msg">⏳ Requested ${bdTime(req.at)}. New prompts arrive in about 10-15 minutes; refresh this page.
+<form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
+    : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 10 new prompts now? This uses the OpenAI API (small cost).')">
+<button name="do" value="ideas_request">✨ Make new prompts (uses API)</button></form>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
   const cards = (d.ideas || []).map((i, n) => `<div class="card">
@@ -205,10 +210,11 @@ function ideasSection(d) {
 <div class="row"><button type="button" onclick="copyText('idea-${n}')">📋 Copy prompt</button></div>
 <p class="muted"><b>Check:</b> ${esc(i.avoid)}</p>
 <p class="muted"><b>Keywords:</b> ${esc((i.keywords || []).join(", "))}</p></div>`).join("")
-    || `<p class="muted">No ideas yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
+    || `<p class="muted">No ideas yet. Press the button to make some.</p>`;
   return `<h2 id="ideas">Magnific · Image ideas</h2>
-<p class="muted">Fresh every morning. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
+<p class="muted">Made only when you press the button: no button, no API cost. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
+${button}
 <p><b>Free workflow:</b> copy a prompt → make 4-8 images (Adobe Firefly first: big enough without upscaling) → keep only clean ones (hands, faces, no text) →
 if smaller than ~2000px, upscale 2x only and check at 100% zoom → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
 <div class="msg"><b>Avoid "Low quality" rejections:</b> zoom to 100% before uploading. Reject images with plastic or waxy surfaces,

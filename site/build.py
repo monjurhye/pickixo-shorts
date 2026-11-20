@@ -31,7 +31,7 @@ def page(title, body, desc="", canonical="", head_extra="", foot=""):
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="p:domain_verify" content="87ee4dd376b44ff90c6f4add82b02f56"/>
-<title>{title}</title>
+{verify}<title>{title}</title>
 <meta name="description" content="{desc}">
 {canon}
 <link rel="stylesheet" href="/style.css?v={cssv}">
@@ -43,9 +43,51 @@ def page(title, body, desc="", canonical="", head_extra="", foot=""):
 <footer><p>{disc}</p><p>&copy; {brand} · {foot}</p></footer>
 </body></html>""".format(title=e(title), desc=e(desc), brand=e(cfg.get("brand", "Pickixo Picks")),
                          canon='<link rel="canonical" href="{0}">'.format(e(canonical)) if canonical else "",
-                         body=body, head_extra=head_extra, cssv=CSS_VERSION,
-                         foot=e(foot or "Product links go to Amazon.com search results."),
+                         body=body, head_extra=head_extra, cssv=CSS_VERSION, verify=verify_tags(cfg),
+                         foot=e(foot or "Product links go to Amazon.com."),
                          disc=e(cfg.get("disclosure", "")))
+
+
+def verify_tags(cfg):
+    """Search Console / Bing Webmaster verification codes from config/settings.json."""
+    out = ""
+    for key, name in (("google_site_verification", "google-site-verification"),
+                      ("bing_site_verification", "msvalidate.01")):
+        if cfg.get(key):
+            out += '<meta name="{0}" content="{1}">\n'.format(name, e(cfg[key]))
+    return out
+
+
+def site_url(path=""):
+    return common.settings()["site_url"].rstrip("/") + path
+
+
+def sitemap_entries(videos):
+    """(path, lastmod) for every page search engines should index. Locker "full" pages
+    and /admin are left out on purpose (noindex / private)."""
+    newest = videos[0]["date"] if videos else common.today_utc()
+    out = [("/", newest), ("/disclosure/", ""), ("/privacy/", ""), ("/terms/", "")]
+    for sub in ("free/lifetime-deals", "free/ios-without-mac", "free/ai-prompts"):
+        if os.path.exists(os.path.join(OUT, sub, "index.html")):
+            out.append(("/" + sub + "/", ""))
+    out += [("/v/{0}/".format(v["key"]), v["date"]) for v in videos]
+    return out
+
+
+def sitemap_xml(entries):
+    rows = []
+    for path, mod in entries:
+        rows.append("<url><loc>{0}</loc>{1}</url>".format(
+            e(site_url(path)), "<lastmod>{0}</lastmod>".format(e(mod)) if mod else ""))
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + "\n".join(rows) + "\n</urlset>\n")
+
+
+def robots_txt():
+    return ("User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /auth/\n"
+            "Disallow: /free/ios-without-mac/full/\nDisallow: /free/ai-prompts/full/\n\n"
+            "Sitemap: {0}\n").format(site_url("/sitemap.xml"))
 
 
 def item_cards(items):
@@ -53,8 +95,9 @@ def item_cards(items):
     for i, it in enumerate(items, 1):
         out.append("""<li class="card"><span class="num">{n}</span>
 <div class="txt"><h3>{name}</h3><p>{benefit}</p></div>
-<a class="btn" href="{link}" target="_blank" rel="sponsored nofollow noopener">Find on Amazon →</a></li>""".format(
-            n=i, name=e(it["name"]), benefit=e(it["benefit"]), link=e(it["link"])))
+<a class="btn" href="{link}" target="_blank" rel="sponsored nofollow noopener">{label}</a></li>""".format(
+            n=i, name=e(it["name"]), benefit=e(it["benefit"]), link=e(it["link"]),
+            label="View on Amazon →" if it.get("asin") else "Find on Amazon →"))
     return '<ol class="cards">' + "".join(out) + "</ol>"
 
 
@@ -111,7 +154,7 @@ def index_page(videos):
 <p class="lead">Short lists of handy things for home, kitchen, pets and more, picked to make everyday life a bit easier.</p></section>
 <div class="grid">{0}</div>""".format("".join(sections))
     return page("Pickixo Picks · Useful finds for everyday life", body,
-                "Short lists of handy Amazon finds for home, kitchen, pets and more.")
+                "Short lists of handy Amazon finds for home, kitchen, pets and more.", site_url("/"))
 
 
 def disclosure_page():
@@ -123,7 +166,8 @@ program designed to provide a means for sites to earn advertising fees by advert
 When you buy through our links we may earn a commission, at no extra cost to you.</p>
 <p>Prices and availability change often, so we don't list prices here. You'll see the current price on Amazon.</p>""".format(
         e(cfg.get("disclosure", "")))
-    return page("Disclosure · Pickixo Picks", body)
+    return page("Disclosure · Pickixo Picks", body, "Affiliate disclosure for Pickixo Picks.",
+                site_url("/disclosure/"))
 
 
 def privacy_page():
@@ -345,6 +389,14 @@ def main():
             json.dump(fb, f)
     for name in os.listdir(STATIC):
         shutil.copy(os.path.join(STATIC, name), os.path.join(OUT, name))
+    # search engines: sitemap, robots, IndexNow key file (the key is public by design)
+    entries = sitemap_entries(videos)
+    write(os.path.join(OUT, "sitemap.xml"), sitemap_xml(entries))
+    write(os.path.join(OUT, "robots.txt"), robots_txt())
+    key = common.settings().get("indexnow_key", "")
+    if key:
+        write(os.path.join(OUT, key + ".txt"), key)
+    print("sitemap: {0} urls".format(len(entries)))
     print("built {0} video pages into {1}".format(len(videos), OUT))
 
 

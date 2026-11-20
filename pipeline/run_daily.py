@@ -26,29 +26,43 @@ def build_description(script, page_url, links, cfg):
     return "\n".join(lines)
 
 
+def item_links(items, ch):
+    """Specific product page when the item's ASIN is one the owner listed for this
+    channel (config/products.json); otherwise an Amazon search (never a guessed ASIN)."""
+    known = {p["asin"] for p in common.products(ch["id"])}
+    out = []
+    for it in items:
+        asin = common.parse_asin(it.get("asin", ""))
+        if asin and asin in known:
+            out.append(dict(it, asin=asin, link=common.amazon_product_link(asin, ch["tracking_id"])))
+        else:
+            out.append(dict(it, asin="", link=common.amazon_search_link(it["amazon_search"], ch["tracking_id"])))
+    return out
+
+
 def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
     """Returns a report row. Raises nothing."""
     row = {"channel": ch.get("name") or ch["id"], "niche": ch["niche"], "status": "", "note": ""}
     work = None
     try:
-        # 1. script + automated review gate (one rewrite allowed)
+        # 1. script + automated review gate (up to two rewrites, each told why the last draft failed)
         if dry:
             script = content.sample_script(ch, cfg)
         else:
-            script, verdict = None, None
-            for attempt in range(2):
-                script = content.write_script(ch, chstate["recent_topics"], cfg)
+            script, verdict, issues = None, None, None
+            for attempt in range(3):
+                script = content.write_script(ch, chstate["recent_topics"], cfg, fix_issues=issues)
                 verdict = content.review_script(ch, script, chstate["recent_topics"], cfg)
                 if verdict.get("approved"):
                     break
+                issues = verdict.get("issues", [])
                 common.log("[{0}] review rejected (try {1}): {2}".format(
                     ch["id"], attempt + 1, "; ".join(verdict.get("issues", []))))
             if not verdict.get("approved"):
                 row.update(status="rejected", note="; ".join(verdict.get("issues", []))[:300])
                 return row
 
-        links = [dict(it, link=common.amazon_search_link(it["amazon_search"], ch["tracking_id"]))
-                 for it in script["items"]]
+        links = item_links(script["items"], ch)
         key = "{0}-{1}-{2}".format(date, ch["id"], common.slugify(script["topic"], 40))
         page_url = "{0}/v/{1}/".format(cfg["site_url"].rstrip("/"), key)
         work = os.path.join(common.WORK_DIR, key)
