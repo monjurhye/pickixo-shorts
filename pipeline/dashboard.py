@@ -120,3 +120,11 @@ def fb_post(message, image_url, when_unix):
     if code != 200:
         raise RuntimeError(data.get("error", "http_" + str(code)))
     return data
+
+
+def fb_token():
+    """{'page_id','token'} of the Page connected in the dashboard, for Reels upload."""
+    code, data = _call("/api/pipeline/fb-token")
+    if code != 200:
+        raise RuntimeError(data.get("error", "http_" + str(code)))
+    return data

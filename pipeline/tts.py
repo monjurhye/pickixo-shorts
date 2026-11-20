@@ -46,9 +46,12 @@ def scene_lines(script):
     lines = [script["hook"]]
     words = ["one", "two", "three", "four", "five", "six"]
     for i, it in enumerate(script["items"]):
-        lines.append("Number {0}: {1}. {2}.".format(words[i] if i < len(words) else i + 1,
-                                                     it["name"], it["benefit"].rstrip(".")))
-    lines.append(script["cta"].rstrip(".") + ". Product links are in the description.")
+        if script.get("steps_voice"):  # Facebook reels: "Step one: ..." style
+            lines.append("{0}. {1}.".format(it["name"].rstrip("."), it["benefit"].rstrip(".")))
+        else:
+            lines.append("Number {0}: {1}. {2}.".format(words[i] if i < len(words) else i + 1,
+                                                         it["name"], it["benefit"].rstrip(".")))
+    lines.append(script["cta"].rstrip(".") + "." + script.get("cta_voice_extra", " Product links are in the description."))
     return lines
 
 

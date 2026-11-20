@@ -11,6 +11,10 @@ on:
       pack:
         description: "Extra batches of 10 for the prompt pack (0 = normal day)"
         default: "0"
+      fb_test_reel:
+        description: "Make ONE Facebook reel and schedule it (test)"
+        type: boolean
+        default: false
       fb_check:
         description: "Only check the Facebook token (posts nothing)"
         type: boolean
@@ -22,7 +26,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 40
     steps:
       # Every-10-minute run: ask the dashboard whether "Make new prompts" was pressed.
       # No press = stop here before any API call (no cost).
@@ -63,6 +67,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
+      - name: Install ffmpeg and fonts (Facebook reels)
+        if: steps.mode.outputs.fb == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
       - name: Facebook posts (ideas + auto-schedule)
         if: steps.mode.outputs.fb == 'true'
         env:
@@ -75,6 +82,7 @@ jobs:
           FB_PAUSED: ${{ vars.FB_PAUSED }}
         run: |
           if [ "${{ inputs.fb_check }}" = "true" ]; then python -m pipeline.fb_ideas --check; exit 0; fi
+          if [ "${{ inputs.fb_test_reel }}" = "true" ]; then python -m pipeline.fb_ideas --test-reel; exit 0; fi
           if [ "$FB_PAUSED" = "true" ]; then echo "Facebook paused"; exit 0; fi
           python -m pipeline.fb_ideas
       - name: Commit prompt pack (updates /free/ai-prompts/)

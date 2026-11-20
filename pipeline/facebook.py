@@ -86,3 +86,41 @@ def schedule_photo(message, image_url, when):
 def schedule_text(message, when):
     return _post("/{0}/feed".format(common.secret("FB_PAGE_ID")), {
         "message": message, "published": "false", "scheduled_publish_time": int(when.timestamp())})
+
+
+def upload_reel(page_id, token, video_path, description, when=None):
+    """Facebook Reels API: start -> upload bytes -> finish (scheduled if `when`)."""
+    import os
+    def call(fields):
+        req = urllib.request.Request("{0}/{1}/video_reels".format(GRAPH, page_id),
+                                     data=urllib.parse.urlencode(dict(fields, access_token=token)).encode(),
+                                     method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            raise FBError("reels {0}: {1}".format(fields.get("upload_phase"), e.read().decode("utf-8", "ignore")[:300]))
+    start = call({"upload_phase": "start"})
+    vid = start["video_id"]
+    size = os.path.getsize(video_path)
+    with open(video_path, "rb") as f:
+        data = f.read()
+    req = urllib.request.Request(start.get("upload_url") or "https://rupload.facebook.com/video-upload/v21.0/" + vid,
+                                 data=data, method="POST", headers={
+                                     "Authorization": "OAuth " + token, "offset": "0", "file_size": str(size)})
+    try:
+        with urllib.request.urlopen(req, timeout=300) as r:
+            up = json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        raise FBError("reels upload: " + e.read().decode("utf-8", "ignore")[:300])
+    if not up.get("success"):
+        raise FBError("reels upload not accepted: " + str(up)[:200])
+    fin = {"upload_phase": "finish", "video_id": vid, "description": description[:2200]}
+    if when is not None:
+        fin.update(video_state="SCHEDULED", scheduled_publish_time=str(int(when.timestamp())))
+    else:
+        fin["video_state"] = "PUBLISHED"
+    res = call(fin)
+    if not res.get("success", True):
+        raise FBError("reels finish: " + str(res)[:200])
+    return vid

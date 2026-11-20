@@ -390,11 +390,11 @@ function fbSection(d, plan, fp) {
 <p class="muted"><b>Visuals:</b> ${esc(p.visuals)}</p>
 <p id="fbc-${n}">${esc(p.caption)} ${esc((p.hashtags || []).map((h) => "#" + h).join(" "))}</p></div>`).join("")
     || `<p class="muted">No posts yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
-  const auto = d.autopost ? `<span class="pill on">Auto-posting ON</span> photo and question posts are scheduled on your Page automatically.`
+  const auto = d.autopost ? `<span class="pill on">Auto-posting ON</span> reels, photo and question posts are scheduled on your Page automatically.`
     : `<span class="pill off">Auto-posting OFF</span> press "Connect Facebook Page" below to switch it on.`;
   return `<h2 id="facebook">Facebook page · USA</h2>
 <p class="muted">Daily posts for your monetized Page, written for US viewers and timed for US Eastern. ${auto}
-Reels are not auto-posted: make the video from the script and post it yourself (original video earns most). ${d.date ? "Updated " + bdTime(d.created) + "." : ""}</p>
+Reels are made automatically too (stock clips + AI voice + on-screen steps) and scheduled with the posts. ${d.date ? "Updated " + bdTime(d.created) + "." : ""}</p>
 ${fbConnectHtml(fp || {})}${planHtml}<div class="grid">${posts}</div>
 <p><a class="btn" href="https://business.facebook.com/latest/content_calendar" target="_blank" rel="noopener">Meta Business Suite planner ↗</a>
 <a class="btn" href="https://www.facebook.com/professional_dashboard/monetization" target="_blank" rel="noopener">Monetization ↗</a></p>`;
