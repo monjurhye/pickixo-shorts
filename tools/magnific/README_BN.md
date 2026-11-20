@@ -33,3 +33,9 @@ cd ~/Desktop/Amazon && tools/magnific/run.sh ~/Desktop/magnific_batch --model-na
 - CSV-র column নাম (`Filename;Title;Keywords;Prompt;Model`) Magnific-এর Upload পেজের CSV template-এর সাথে একবার মিলিয়ে নিন; আলাদা হলে `magnific_meta.py`-তে `HEADER` বদলান (বা আমাকে বলুন)।
 - প্রতিটা keyword তালিকায় `_ai_generated` থাকে।
 - ৫০০টা ফাইল প্রকাশ হলে SFTP (`uploads.magnific.com`, port 60022) খুলবে; তখন upload-ও automate করা যাবে।
+
+## এক ক্লিকে (Magnific Batch app)
+1. অ্যাডমিনে Image ideas → **🎨 Copy + open Firefly** → Firefly-তে Cmd+V → বড় সাইজে বানান → ভালো ছবিগুলো Download করুন।
+2. Mac-এর Desktop-এ **Magnific Batch** app-এ double-click। এটা Downloads থেকে `Firefly…` নামের ছবিগুলো `~/Desktop/Magnific/<তারিখ>/`-এ নেয়, চেক করে, title/keyword/CSV বানায়, তারপর upload ফোল্ডার আর Magnific খুলে দেয়।
+3. Magnific-এ JPG + CSV drag করুন → AI চিহ্ন → Submit।
+প্রথমবার macOS "Downloads ফোল্ডারে access" চাইতে পারে: Allow দিন। App হারালে আবার বানান: `tools/magnific/make_app.sh`

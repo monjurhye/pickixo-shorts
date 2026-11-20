@@ -299,7 +299,8 @@ function ideasSection(d, req) {
 <span class="pill ${i.kind === "seasonal" ? "on" : "off"}">${esc(i.kind)}</span> <span class="muted">${esc(i.aspect)} · ${esc(i.best_tool)}</span>
 <h3>${esc(i.theme)}</h3><p class="muted">${esc(i.why)}</p>
 <div class="prompt" id="idea-${n}">${esc(i.prompt)}</div>
-<div class="row"><button type="button" onclick="copyText('idea-${n}')">📋 Copy prompt</button></div>
+<div class="row"><a class="btn primary" href="https://firefly.adobe.com/generate/images" target="_blank" rel="noopener" onclick="copyText('idea-${n}')">🎨 Copy + open Firefly</a>
+<button type="button" onclick="copyText('idea-${n}')">📋 Copy prompt</button></div>
 <p class="muted"><b>Check:</b> ${esc(i.avoid)}</p>
 <p class="muted"><b>Keywords:</b> ${esc((i.keywords || []).join(", "))}</p></div>`).join("")
     || `<p class="muted">No ideas yet. Press the button to make some.</p>`;
@@ -307,6 +308,9 @@ function ideasSection(d, req) {
 <p class="muted">Made only when you press the button: no button, no API cost. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
 ${button}
+<div class="msg"><b>Fastest free routine:</b> 1) press <b>🎨 Copy + open Firefly</b>, paste (Cmd+V), pick the aspect ratio shown on the card and the largest size, generate, download the good ones;
+2) double-click <b>Magnific Batch</b> on your Mac Desktop: it takes the Firefly downloads, checks quality, writes titles, 45 keywords and the CSV, and opens the upload folder + Magnific;
+3) drag the JPGs and the CSV into Magnific, mark AI, Submit. (After 500 published files Magnific opens SFTP; then upload can be automatic too.)</div>
 <p><b>Free workflow:</b> copy a prompt → make 4-8 images (Adobe Firefly first: big enough without upscaling) → keep only clean ones (hands, faces, no text) →
 if smaller than ~2000px, upscale 2x only and check at 100% zoom → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
 <div class="msg"><b>Avoid "Low quality" rejections:</b> zoom to 100% before uploading. Reject images with plastic or waxy surfaces,
