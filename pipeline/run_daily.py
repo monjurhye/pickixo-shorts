@@ -51,7 +51,8 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
         else:
             script, verdict, issues = None, None, None
             for attempt in range(3):
-                script = content.write_script(ch, chstate["recent_topics"], cfg, fix_issues=issues)
+                script = content.write_script(ch, chstate["recent_topics"], cfg, fix_issues=issues,
+                                              recent_asins=chstate.get("used_asins", []))
                 verdict = content.review_script(ch, script, chstate["recent_topics"], cfg)
                 if verdict.get("approved"):
                     break
@@ -106,6 +107,7 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
         # 5. record for the website (skipped on dry runs and no-upload tests)
         if not dry and not no_upload:
             state.remember_topic(chstate, script["topic"])
+            state.remember_asins(chstate, [it.get("asin", "") for it in links])
             common.save_json(os.path.join(common.VIDEOS_DATA_DIR, key + ".json"), {
                 "key": key, "date": date, "channel_id": ch["id"],
                 "channel_name": ch.get("name", ""), "niche": ch["niche"],

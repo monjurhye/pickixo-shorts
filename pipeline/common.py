@@ -70,11 +70,16 @@ def amazon_product_link(asin, tracking_id):
 
 
 def products(channel_id):
-    """Curated real products for a channel from config/products.json (filled from
-    SiteStripe by the owner; never guessed). Returns [{"asin","name"}]."""
-    data = load_json(os.path.join(CONFIG_DIR, "products.json"), {"products": []})
+    """Real products for a channel. Owner-picked ones (config/products.json) come first,
+    then the ones the product finder agent verified (data/products.json, younger than
+    product_finder_max_age_days). Never guessed. Returns [{"asin","name"}]."""
+    manual = load_json(os.path.join(CONFIG_DIR, "products.json"), {"products": []}).get("products", [])
+    max_age = int(settings().get("product_finder_max_age_days", 30))
+    cutoff = (datetime.now(timezone.utc) - __import__("datetime").timedelta(days=max_age)).strftime("%Y-%m-%d")
+    auto = [p for p in (load_json(os.path.join(DATA_DIR, "products.json"), None) or {}).get("products", [])
+            if p.get("found", "") >= cutoff]
     out, seen = [], set()
-    for p in data.get("products", []):
+    for p in manual + auto:
         asin = parse_asin(p.get("asin") or p.get("link") or "")
         if not asin or asin in seen or not p.get("name"):
             continue

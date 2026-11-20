@@ -175,7 +175,7 @@ def _call_json_anthropic(system, user, schema, cfg, max_tokens=4000):
     return json.loads(text)
 
 
-def write_script(channel, recent_topics, cfg, fix_issues=None):
+def write_script(channel, recent_topics, cfg, fix_issues=None, recent_asins=()):
     n = int(cfg.get("items_per_video", 4))
     user = (
         "Channel niche: {niche}\n"
@@ -185,6 +185,9 @@ def write_script(channel, recent_topics, cfg, fix_issues=None):
     ).format(niche=channel["niche"], n=n,
              recent="\n".join("- " + t for t in recent_topics[-30:]) or "- (none yet)")
     catalog = common.products(channel["id"])
+    unused = [p for p in catalog if p["asin"] not in set(recent_asins)]
+    if len(unused) >= n:
+        catalog = unused  # rotate: products from recent videos wait their turn
     if len(catalog) >= n:
         # real products the owner picked on Amazon: the video must use them
         user += ("\n\nUse ONLY products from this list (pick {0} that fit one topic together; "

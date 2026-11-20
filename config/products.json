@@ -1,4 +1,4 @@
 {
-  "_how": "Real products you picked on Amazon with SiteStripe. 'link' = SiteStripe 'Full link' (or just the 10-letter ASIN). 'channels' = which channel ids may use it (see config/channels.json). When a channel has at least 4 products here, its videos use only these and link straight to each product page; otherwise they link to an Amazon search. Never add a product you have not opened on Amazon.",
+  "_how": "Optional: products YOU picked on Amazon (SiteStripe 'Full link' or the 10-letter ASIN), with the channel ids that may use them. They come before the automatic ones in data/products.json (found by pipeline/product_finder.py through web search, verified, refreshed every 30 days). A channel with 4+ products links straight to product pages; otherwise to an Amazon search.",
   "products": []
 }

@@ -6,6 +6,7 @@ from . import common
 
 RECENT_TOPICS_KEEP = 60
 USED_CLIPS_KEEP = 300
+USED_ASINS_KEEP = 40
 
 
 def load():
@@ -22,6 +23,7 @@ def ch(st, channel_id):
     c = st["channels"].setdefault(channel_id, {})
     c.setdefault("recent_topics", [])
     c.setdefault("used_clips", [])
+    c.setdefault("used_asins", [])
     c.setdefault("upload_errors", 0)
     c.setdefault("auto_disabled", False)
     c.setdefault("last_error", "")
@@ -34,3 +36,7 @@ def remember_topic(c, topic):
 
 def remember_clip(c, clip_id):
     c["used_clips"] = (c["used_clips"] + [str(clip_id)])[-USED_CLIPS_KEEP:]
+
+
+def remember_asins(c, asins):
+    c["used_asins"] = (c["used_asins"] + [a for a in asins if a])[-USED_ASINS_KEEP:]
