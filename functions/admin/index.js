@@ -64,6 +64,20 @@ details.draft summary{cursor:pointer;font-weight:700}
 input[type=text],input[type=file],select,textarea{font:inherit;border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--card);color:var(--ink)}
 .signin{max-width:440px;margin:12vh auto;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 28px;box-shadow:var(--shadow)}
 .signin .logo{width:64px;height:64px;border-radius:18px;background:var(--grad);margin:0 auto 14px;display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900}
+.chans{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin:10px 0}
+.chan{background:var(--card);border:1px solid var(--line);border-left:4px solid #ef4444;border-radius:12px;padding:7px 10px;box-shadow:var(--shadow);min-width:0}
+.chan-top{display:flex;align-items:center;gap:6px}.chan-top .acts{margin-left:auto;white-space:nowrap}
+.chan-name{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.chan-name .muted{font-weight:400}
+.chan-niche{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cid{background:color-mix(in srgb,#ef4444 12%,transparent);color:#ef4444;border-radius:7px;padding:1px 7px;font-size:12px}
+.ico{padding:3px 8px;font-size:12px;border-radius:8px;margin:0}
+.tab .grid{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,320px);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+.tab .grid>*{scroll-snap-align:start}
+.clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;cursor:pointer}
+.card.clampable{max-height:340px;overflow:hidden;cursor:pointer}.card.clampable:after{content:"▼ more";position:absolute;left:0;right:0;bottom:0;padding:18px 16px 8px;font-size:12px;font-weight:700;color:var(--accent);background:linear-gradient(transparent,var(--card) 55%)}
+.card.clampable.open{max-height:none}.card.clampable.open:after{display:none}
+.clamp.open{-webkit-line-clamp:unset}
+.tab table:not(.keep){display:block;max-height:55vh;overflow:auto}
 @media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}.hero h1{font-size:24px}.stat{min-width:0;flex:1 1 40%}}
 `;
 
@@ -90,6 +104,9 @@ const TABS_JS = `<script>
     history.replaceState(null,'','#'+id);show(id);window.scrollTo(0,0);});});
   window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
   show(location.hash.slice(1));
+  // keep each tab short: long intros show 2 lines, tall cards fold, click to open
+  document.querySelectorAll('.tab > p.muted').forEach(function(p){ if(p.textContent.length>140){p.classList.add('clamp');p.title='Click to read more';p.addEventListener('click',function(){p.classList.toggle('open')});}});
+  document.querySelectorAll('.tab .grid > .card').forEach(function(c){ if(c.scrollHeight>360){c.classList.add('clampable');c.addEventListener('click',function(e){if(e.target.closest('a,button,input,select,textarea,label'))return;c.classList.toggle('open')});}});
 })();
 </script>`;
 
@@ -123,7 +140,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
     let status, actions;
     if (!info) {
       status = `<span class="pill off">Not connected</span>`;
-      actions = `<a class="btn primary" href="/auth/connect?ch=${esc(c.id)}">Connect</a>`;
+      actions = `<a class="btn primary ico" href="/auth/connect?ch=${esc(c.id)}">Connect</a>`;
     } else {
       connected++;
       if (info.error) errors++;
@@ -133,13 +150,14 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
         : info.enabled ? `<span class="pill on">Active</span>` : `<span class="pill off">Paused</span>`;
       const toggle = info.enabled ? "disable" : "enable";
       actions = `<form method="post" action="/admin/action"><input type="hidden" name="ch" value="${esc(c.id)}">
-<button name="do" value="${toggle}">${info.enabled ? "Pause" : "Resume"}</button></form>
-<a class="btn" href="/auth/connect?ch=${esc(c.id)}">Reconnect</a>
+<button class="ico" title="${info.enabled ? "Pause" : "Resume"}" name="do" value="${toggle}">${info.enabled ? "⏸" : "▶"}</button></form>
+<a class="btn ico" title="Reconnect" href="/auth/connect?ch=${esc(c.id)}">↻</a>
 <form method="post" action="/admin/action" onsubmit="return confirm('Disconnect ${esc(c.id)}?')">
-<input type="hidden" name="ch" value="${esc(c.id)}"><button class="danger" name="do" value="disconnect">Disconnect</button></form>`;
+<input type="hidden" name="ch" value="${esc(c.id)}"><button class="danger ico" title="Disconnect" name="do" value="disconnect">✕</button></form>`;
     }
     const yt = info ? `<a href="https://www.youtube.com/channel/${esc(info.youtube_id)}" target="_blank" rel="noopener">${esc(info.title)}</a> <span class="muted">${esc(info.handle)}</span>` : `<span class="muted">—</span>`;
-    return `<tr><td><b>${esc(c.id)}</b></td><td>${esc(c.niche)}</td><td>${yt}</td><td>${status}</td><td>${actions}</td></tr>`;
+    return `<div class="chan"><div class="chan-top"><b class="cid">${esc(c.id)}</b>${status}<span class="acts">${actions}</span></div>
+<div class="chan-name">${yt}</div><div class="muted chan-niche">${esc(c.niche)}</div></div>`;
   }).join("");
 
   const pauseBtn = st.paused
@@ -157,7 +175,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a></nav>
 ${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
-<table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
+<div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
 ${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}`));
