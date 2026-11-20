@@ -74,10 +74,13 @@ input[type=text],input[type=file],select,textarea{font:inherit;border:1px solid 
 .tab .grid{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,320px);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
 .tab .grid>*{scroll-snap-align:start}
 .clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;cursor:pointer}
-.card.clampable{max-height:340px;overflow:hidden;cursor:pointer}.card.clampable:after{content:"▼ more";position:absolute;left:0;right:0;bottom:0;padding:18px 16px 8px;font-size:12px;font-weight:700;color:var(--accent);background:linear-gradient(transparent,var(--card) 55%)}
+.tab > .card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin:6px 8px 6px 0}.tab > .card + .card{margin-right:0}
+.tab > .card.clampable{max-height:200px}
+.card.clampable{max-height:280px;overflow:hidden;cursor:pointer}.card.clampable:after{content:"▼ more";position:absolute;left:0;right:0;bottom:0;padding:18px 16px 8px;font-size:12px;font-weight:700;color:var(--accent);background:linear-gradient(transparent,var(--card) 55%)}
 .card.clampable.open{max-height:none}.card.clampable.open:after{display:none}
 .clamp.open{-webkit-line-clamp:unset}
 .tab table:not(.keep){display:block;max-height:55vh;overflow:auto}
+@media (max-width:800px){.tab > .card{display:block;width:auto;margin:8px 0}}
 @media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}.hero h1{font-size:24px}.stat{min-width:0;flex:1 1 40%}}
 `;
 
@@ -102,7 +105,7 @@ const TABS_JS = `<script>
     // fold tall cards of the visible tab (heights are only known once it is shown)
     var t=tabs.filter(function(x){return x.dataset.tab===id})[0];
     if(t) [].slice.call(t.querySelectorAll('.grid > .card, .tab > .card')).forEach(function(c){
-      if(c.dataset.fold||c.scrollHeight<=360||c.querySelector('input[type=file]'))return; c.dataset.fold='1';
+      if(c.dataset.fold||c.scrollHeight<=(c.parentNode.classList.contains('tab')?210:290)||c.querySelector('input[type=file]'))return; c.dataset.fold='1';
       c.classList.add('clampable');c.addEventListener('click',function(e){if(e.target.closest('a,button,input,select,textarea,label'))return;c.classList.toggle('open')});});
   }
   links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);
