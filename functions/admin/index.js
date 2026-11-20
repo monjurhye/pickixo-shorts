@@ -3,6 +3,7 @@ import { channelList, esc, getState, html, session } from "../../lib/dashboard.j
 import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
+import { getEarnings } from "../../lib/earnings.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -28,7 +29,12 @@ a{color:var(--accent)}main{max-width:1100px;margin:0 auto;padding:0 18px 70px}
 h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
 h2{--c:var(--accent);font-size:20px;margin:44px 0 4px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
 h2:before{content:"";width:10px;height:28px;border-radius:6px;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
-h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}h2#play{--c:#01875f}h2#ios{--c:#0a84ff}
+h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}h2#play{--c:#01875f}h2#earnings{--c:#16a34a}
+.money{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:10px 0}
+.money .card h3{margin:2px 0 6px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.money .big{font-size:26px;font-weight:800}.pos{color:var(--ok)}.neg{color:var(--bad)}
+.money .sub{font-size:12px;color:var(--muted)}
+.ef{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.ef input,.ef select{padding:6px 8px;font-size:13px}.ef input[type=number]{width:100px}h2#ios{--c:#0a84ff}
 .apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0}
 a.applink{text-decoration:none;color:var(--ink);display:block;transition:transform .08s,border-color .15s}a.applink:hover{transform:translateY(-2px);border-color:var(--accent)}
 a.applink h3{color:var(--accent);margin:4px 0 2px;font-size:15px}a.applink p{margin:0;font-size:13px}
@@ -108,7 +114,7 @@ const TABS_JS = `<script>
     // fold tall cards of the visible tab (heights are only known once it is shown)
     var t=tabs.filter(function(x){return x.dataset.tab===id})[0];
     if(t) [].slice.call(t.querySelectorAll('.grid > .card, .tab > .card')).forEach(function(c){
-      if(c.dataset.fold||c.scrollHeight<=(c.parentNode.classList.contains('tab')?210:290)||c.querySelector('input[type=file]'))return; c.dataset.fold='1';
+      if(c.dataset.fold||c.querySelector('form')||c.scrollHeight<=(c.parentNode.classList.contains('tab')?210:290)||c.querySelector('input[type=file]'))return; c.dataset.fold='1';
       c.classList.add('clampable');c.addEventListener('click',function(e){if(e.target.closest('a,button,input,select,textarea,label'))return;c.classList.toggle('open')});});
   }
   links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);
@@ -137,7 +143,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -192,8 +198,8 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a></nav>
-${note}<h2 id="channels">YouTube channels</h2>
+<nav class="nav"><a href="#earnings">💰 Earnings</a><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a></nav>
+${note}${earningsSection(earn)}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
@@ -241,6 +247,85 @@ ${msg}${probHtml}
 function fixNote(t) {
   return String(t || "").replace("This article was drafted with AI assistance and reviewed and edited by the author.",
     "This article was written with AI assistance from the deal information AppSumo publishes. Check each deal page for current terms before you buy.");
+}
+
+const INCOME_SOURCES = ["Amazon Associates", "AdBlueMedia", "Magnific", "Facebook", "YouTube",
+  "Google Play", "App Store", "AliExpress", "AppSumo (Impact)", "Other"];
+const COST_ITEMS = ["OpenAI API", "Domain / hosting", "Buffer", "Tools / software", "Ads", "Other"];
+const REPORTS = [
+  ["Amazon Associates", "https://affiliate-program.amazon.com/home/reports"],
+  ["AliExpress", "https://portals.aliexpress.com/affiportals/web/report.htm"],
+  ["AppSumo (Impact)", "https://app.impact.com/"],
+  ["AdBlueMedia", "https://www.adbluemedia.com/"],
+  ["Magnific", "https://contributor.magnific.com/dashboard"],
+  ["Facebook", "https://www.facebook.com/professional_dashboard/monetization"],
+  ["YouTube", "https://studio.youtube.com/"],
+  ["Google Play", "https://play.google.com/console/developers/payments"],
+  ["App Store", "https://appstoreconnect.apple.com/trends"],
+  ["OpenAI cost", "https://platform.openai.com/usage"],
+];
+
+// Revenue (automatic + typed), costs (typed + monthly fixed spread over the days) and profit.
+function earningsSection(e) {
+  const bd = (d) => new Date(d.getTime() + 6 * 3600e3).toISOString().slice(0, 10);   // Bangladesh date
+  const today = bd(new Date());
+  const dayAdd = (s, n) => bd(new Date(Date.parse(s + "T00:00:00Z") - 6 * 3600e3 + n * 864e5));
+  const inc = {}, cost = {};
+  const add = (map, day, key, v) => { (map[day] = map[day] || {})[key] = ((map[day] || {})[key] || 0) + v; };
+  for (const [day, srcs] of Object.entries(e.auto.days || {})) for (const [k, v] of Object.entries(srcs)) add(inc, day, k, v);
+  for (const x of e.manual.income) add(inc, x.date, x.source, x.amount);
+  for (const x of e.manual.costs) add(cost, x.date, x.item, x.amount);
+  const monthlyTotal = e.manual.monthly.reduce((a, x) => a + x.amount, 0);
+  const dailyFixed = (day) => monthlyTotal / new Date(Date.UTC(+day.slice(0, 4), +day.slice(5, 7), 0)).getUTCDate();
+  const sum = (o) => Object.values(o || {}).reduce((a, v) => a + v, 0);
+  const period = (from, to) => {
+    let i = 0, c = 0; const by = {};
+    for (let d = from; d <= to; d = dayAdd(d, 1)) {
+      i += sum(inc[d]); c += sum(cost[d]) + dailyFixed(d);
+      for (const [k, v] of Object.entries(inc[d] || {})) by[k] = (by[k] || 0) + v;
+    }
+    return { i, c, p: i - c, by };
+  };
+  const $ = (v) => (v < 0 ? "-$" : "$") + Math.abs(v).toFixed(2);
+  const monthStart = today.slice(0, 8) + "01";
+  const P = [["Today", today, today], ["Yesterday", dayAdd(today, -1), dayAdd(today, -1)],
+    ["Last 7 days", dayAdd(today, -6), today], ["This month", monthStart, today]].map(([n, a, b]) => [n, period(a, b)]);
+  const tiles = P.map(([n, r]) => `<div class="card"><h3>${n}</h3><div class="big ${r.p >= 0 ? "pos" : "neg"}">${$(r.p)}</div>
+<div class="sub">Income ${$(r.i)} · Cost ${$(r.c)}</div></div>`).join("");
+  const month = P[3][1];
+  const srcRows = Object.entries(month.by).sort((a, b) => b[1] - a[1])
+    .map(([k, v]) => `<tr><td>${esc(k)}</td><td>${$(v)}</td></tr>`).join("") || `<tr><td colspan="2" class="muted">No income recorded this month yet.</td></tr>`;
+  let days = "";
+  for (let n = 0; n < 14; n++) {
+    const d = dayAdd(today, -n), i = sum(inc[d]), c = sum(cost[d]) + dailyFixed(d);
+    days += `<tr><td>${d}</td><td>${$(i)}</td><td>${$(c)}</td><td class="${i - c >= 0 ? "pos" : "neg"}"><b>${$(i - c)}</b></td></tr>`;
+  }
+  const opt = (list) => list.map((x) => `<option>${esc(x)}</option>`).join("");
+  const del = (kind, x, label) => `<form method="post" action="/admin/action"><input type="hidden" name="kind" value="${kind}">
+<input type="hidden" name="id" value="${esc(x.id)}"><button class="danger ico" name="do" value="earn_del" title="Remove">✕</button></form> ${label}`;
+  const recent = e.manual.income.slice(0, 6).map((x) => `<div>${del("income", x, `${esc(x.date)} · ${esc(x.source)} · <b>${$(x.amount)}</b> ${esc(x.note || "")}`)}</div>`).join("")
+    + e.manual.costs.slice(0, 6).map((x) => `<div>${del("costs", x, `${esc(x.date)} · cost: ${esc(x.item)} · <b>${$(x.amount)}</b> ${esc(x.note || "")}`)}</div>`).join("");
+  const monthly = e.manual.monthly.map((x) => `<div>${del("monthly", x, `${esc(x.item)} · <b>${$(x.amount)}</b>/month`)}</div>`).join("");
+  const links = REPORTS.map(([n, u]) => `<a class="btn ico" href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a>`).join(" ");
+  return `<h2 id="earnings">Earnings · cost · profit</h2>
+<p class="muted">Bangladesh dates, US dollars. AppSumo (Impact) and AliExpress are filled in automatically every day${e.auto.updated ? " (last update " + bdTime(e.auto.updated) + ")" : ""};
+the other sites have no API, so type their totals below from their report pages. Monthly fixed costs are spread over the days.</p>
+<div class="money">${tiles}</div>
+<div class="card"><h3>Add income</h3><form method="post" action="/admin/action" class="ef">
+<input type="date" name="date" value="${today}"><select name="source">${opt(INCOME_SOURCES)}</select>
+<input type="number" name="amount" step="0.01" min="0" placeholder="$ amount" required><input type="text" name="note" placeholder="note (optional)">
+<button class="primary" name="do" value="earn_add">Add</button></form>
+<h3>Add cost</h3><form method="post" action="/admin/action" class="ef">
+<input type="date" name="date" value="${today}"><select name="item">${opt(COST_ITEMS)}</select>
+<input type="number" name="amount" step="0.01" min="0" placeholder="$ amount" required><input type="text" name="note" placeholder="note (optional)">
+<button name="do" value="cost_add">Add cost</button></form>
+<h3>Monthly fixed cost</h3><form method="post" action="/admin/action" class="ef">
+<select name="item">${opt(COST_ITEMS)}</select><input type="number" name="amount" step="0.01" min="0" placeholder="$ per month" required>
+<button name="do" value="monthly_add">Add monthly</button></form>${monthly}${recent ? "<h3>Recent entries</h3>" + recent : ""}</div>
+<div class="card"><h3>This month by source</h3><table class="keep"><tbody>${srcRows}</tbody></table>
+<h3>Last 14 days</h3><table class="keep"><thead><tr><th>Date</th><th>Income</th><th>Cost</th><th>Profit</th></tr></thead><tbody>${days}</tbody></table></div>
+<p class="muted">${(e.auto.notes || []).map(esc).join(" · ")}</p>
+<div class="row">${links}</div>`;
 }
 
 function draftsSection(d) {

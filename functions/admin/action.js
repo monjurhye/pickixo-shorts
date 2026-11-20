@@ -2,6 +2,7 @@
 import { getState, putState, redirect, session } from "../../lib/dashboard.js";
 import { getPins, putPins } from "../../lib/pins.js";
 import { setIdeasRequest } from "../../lib/ideas.js";
+import { getEarnings, putManual } from "../../lib/earnings.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -31,6 +32,30 @@ export async function onRequestPost(context) {
     if (action === "fb_disconnect") await env.CHANNELS_KV.delete("fbpages");
     else { d.active = String(form.get("page") || ""); await env.CHANNELS_KV.put("fbpages", JSON.stringify(d)); }
     return redirect("/admin?msg=" + encodeURIComponent(action === "fb_disconnect" ? "Facebook disconnected." : "Active Page changed.") + "#facebook");
+  }
+  if (action === "earn_add" || action === "cost_add" || action === "monthly_add" || action === "earn_del") {
+    const { manual } = await getEarnings(env);
+    const f = (k, n) => String(form.get(k) || "").trim().slice(0, n);
+    const amount = Math.round(parseFloat(f("amount", 20)) * 100) / 100;
+    const id = Date.now().toString(36);
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(f("date", 10)) ? f("date", 10) : new Date().toISOString().slice(0, 10);
+    let m = "Saved.";
+    if (action === "earn_del") {
+      const kind = f("kind", 10), del = f("id", 20);
+      if (manual[kind]) manual[kind] = manual[kind].filter((x) => x.id !== del);
+      m = "Removed.";
+    } else if (!(amount > 0)) {
+      return redirect("/admin?msg=" + encodeURIComponent("Amount must be a number above 0.") + "#earnings");
+    } else if (action === "earn_add") {
+      manual.income.unshift({ id, date, source: f("source", 40) || "Other", amount, note: f("note", 120) });
+    } else if (action === "cost_add") {
+      manual.costs.unshift({ id, date, item: f("item", 40) || "Other", amount, note: f("note", 120) });
+    } else {
+      manual.monthly.push({ id, item: f("item", 40) || "Other", amount });
+    }
+    manual.income = manual.income.slice(0, 1000); manual.costs = manual.costs.slice(0, 1000); manual.monthly = manual.monthly.slice(0, 30);
+    await putManual(env, manual);
+    return redirect("/admin?msg=" + encodeURIComponent(m) + "#earnings");
   }
   if (action === "ideas_request" || action === "ideas_cancel") {
     await setIdeasRequest(env, action === "ideas_request" ? { at: new Date().toISOString() } : null);

@@ -25,6 +25,10 @@ on:
         description: "Send already posted pins to the dashboard"
         type: boolean
         default: false
+      earnings_only:
+        description: "Only refresh the Earnings tab (posts nothing)"
+        type: boolean
+        default: false
       delete_posts:
         description: "Buffer post ids to remove from the queue (comma-separated)"
         default: ""
@@ -72,8 +76,19 @@ jobs:
           if [ "${{ inputs.test_one }}" = "true" ]; then ARGS="--test-one"; fi
           if [ "${{ inputs.sync_dashboard }}" = "true" ]; then ARGS="--sync-dashboard"; fi
           if [ "${{ inputs.test_impact }}" = "true" ]; then ARGS="--test-impact"; fi
+          if [ "${{ inputs.earnings_only }}" = "true" ]; then exit 0; fi
           if [ -n "$DELETE_POSTS" ]; then python -m pipeline.run_pins --delete-posts "$DELETE_POSTS"; exit 0; fi
           python -m pipeline.run_pins $ARGS
+      - name: Earnings (AppSumo/Impact + AliExpress -> dashboard)
+        if: ${{ !inputs.dry_run }}
+        continue-on-error: true
+        env:
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+          PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+        run: python -m pipeline.earnings
       - name: Commit pin records
         if: ${{ !inputs.dry_run && !inputs.setup && !inputs.test_ali && !inputs.sync_dashboard && !inputs.test_impact }}
         run: |
