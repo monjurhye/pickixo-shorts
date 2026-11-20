@@ -75,7 +75,7 @@ input[type=text],input[type=file],select,textarea{font:inherit;border:1px solid 
 .tab .grid>*{scroll-snap-align:start}
 .clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;cursor:pointer}
 .tab > .card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin:6px 8px 6px 0}.tab > .card + .card{margin-right:0}
-.tab > .card.clampable{max-height:200px}
+.tab > .card.clampable{max-height:200px}.tab > .card:only-of-type{display:block;width:auto;margin:8px 0}
 .card.clampable{max-height:280px;overflow:hidden;cursor:pointer}.card.clampable:after{content:"▼ more";position:absolute;left:0;right:0;bottom:0;padding:18px 16px 8px;font-size:12px;font-weight:700;color:var(--accent);background:linear-gradient(transparent,var(--card) 55%)}
 .card.clampable.open{max-height:none}.card.clampable.open:after{display:none}
 .clamp.open{-webkit-line-clamp:unset}
