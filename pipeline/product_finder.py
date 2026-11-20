@@ -105,12 +105,21 @@ def product_types(client, channel, want, cfg, avoid_names=()):
 
 
 def search_asin(client, ptype, cfg):
+    """Two tries: "site:amazon.com <type>", then "<type> amazon.com/dp" (one web search each)."""
+    for q in ("site:amazon.com " + ptype, ptype + " amazon.com/dp"):
+        asin = _search_once(client, ptype, q, cfg)
+        if asin:
+            return asin
+    return ""
+
+
+def _search_once(client, ptype, query, cfg):
     """One web search on amazon.com for a product type. Returns the first ASIN found in an
     amazon.com product URL that the search tool returned, or ""."""
     resp = _responses(client, cfg, model=cfg.get("product_finder_model", "gpt-5-nano"),
                       instructions=("Search the web for this product on amazon.com and list the "
                                     "amazon.com product page URLs (with /dp/) you found."),
-                      input="site:amazon.com " + ptype,
+                      input=query,
                       tools=[{"type": "web_search"}], tool_choice="required",
                       include=["web_search_call.action.sources"], max_output_tokens=3000)
     urls = _tool_urls(resp)

@@ -142,7 +142,7 @@ def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks", vo
     for i, it in enumerate(script["items"], 1):
         scenes.append(["item", it["name"], it["benefit"], "#{0}".format(i),
                        float(cfg.get("seconds_per_item", 4))])
-    scenes.append(["cta", script["cta"], "Link in description  ·  " + brand, "",
+    scenes.append(["cta", script["cta"], brand, "Product Link in Description",
                    float(cfg.get("seconds_cta", 3))])
 
     voice_files = voice_files or [None] * len(scenes)

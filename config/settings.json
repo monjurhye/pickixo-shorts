@@ -27,8 +27,8 @@
   "bing_site_verification": "",
   "product_finder_model": "gpt-5-nano",
   "product_finder_effort": "low",
-  "product_finder_batch": 12,
-  "product_finder_min": 8,
+  "product_finder_batch": 10,
+  "product_finder_min": 6,
   "product_finder_max_age_days": 30,
   "product_finder_channels_per_run": 20
 }

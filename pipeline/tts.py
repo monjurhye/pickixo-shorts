@@ -48,7 +48,7 @@ def scene_lines(script):
     for i, it in enumerate(script["items"]):
         lines.append("Number {0}: {1}. {2}.".format(words[i] if i < len(words) else i + 1,
                                                      it["name"], it["benefit"].rstrip(".")))
-    lines.append(script["cta"].rstrip(".") + ". Links are in the description.")
+    lines.append(script["cta"].rstrip(".") + ". Product links are in the description.")
     return lines
 
 
