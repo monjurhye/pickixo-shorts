@@ -65,7 +65,9 @@ def main():
     # Post route: the Graph API if FB secrets exist, otherwise the Facebook Page connected in Buffer.
     via, bch = "", None
     if cfg.get("autopost", True):
-        if facebook.enabled():
+        if dashboard.enabled() and dashboard.fb_state().get("connected"):
+            via = "dashboard"
+        elif facebook.enabled():
             via = "graph"
         elif buffer.enabled():
             try:
@@ -91,7 +93,9 @@ def main():
                 if not img:
                     raise facebook.FBError("no photo found")
             msg = p["hook"].strip() + "\n\n" + msg
-            if via == "graph":
+            if via == "dashboard":
+                dashboard.fb_post(msg, img, int(when.timestamp()))
+            elif via == "graph":
                 facebook.schedule_photo(msg, img, when) if img else facebook.schedule_text(msg, when)
             else:
                 buffer.create_post(bch[1], msg, img, when.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
@@ -110,6 +114,7 @@ if __name__ == "__main__":
     if "--check" in sys.argv:
         if facebook.enabled():
             print(facebook.check())
+        print("dashboard facebook:", dashboard.fb_state() if dashboard.enabled() else "no PIPELINE_KEY")
         print("buffer facebook channel:", buffer.find_channel("facebook") if buffer.enabled() else "no BUFFER_API_KEY")
     else:
         main()

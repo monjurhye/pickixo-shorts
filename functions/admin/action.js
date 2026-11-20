@@ -24,6 +24,13 @@ export async function onRequestPost(context) {
     await env.CHANNELS_KV.put("drafts", JSON.stringify(d));
     return redirect("/admin?msg=" + encodeURIComponent(action === "draft_delete" ? "Draft deleted." : "Draft updated.") + "#drafts");
   }
+  if (action === "fb_select" || action === "fb_disconnect") {
+    const raw = await env.CHANNELS_KV.get("fbpages");
+    const d = raw ? JSON.parse(raw) : { pages: [] };
+    if (action === "fb_disconnect") await env.CHANNELS_KV.delete("fbpages");
+    else { d.active = String(form.get("page") || ""); await env.CHANNELS_KV.put("fbpages", JSON.stringify(d)); }
+    return redirect("/admin?msg=" + encodeURIComponent(action === "fb_disconnect" ? "Facebook disconnected." : "Active Page changed.") + "#facebook");
+  }
   if (action === "pins_pause" || action === "pins_resume") {
     const p = await getPins(env);
     p.paused = action === "pins_pause";

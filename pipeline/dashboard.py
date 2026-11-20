@@ -105,3 +105,18 @@ def fb_report(payload):
             common.log("dashboard fb report failed ({0}): {1}".format(code, data))
     except Exception as e:
         common.log("dashboard fb report failed: {0}".format(e))
+
+
+def fb_state():
+    try:
+        code, data = _call("/api/pipeline/fb-post")
+        return data if code == 200 else {"connected": False}
+    except Exception:
+        return {"connected": False}
+
+
+def fb_post(message, image_url, when_unix):
+    code, data = _call("/api/pipeline/fb-post", {"message": message, "image_url": image_url, "when": when_unix})
+    if code != 200:
+        raise RuntimeError(data.get("error", "http_" + str(code)))
+    return data

@@ -52,6 +52,8 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
   }
 
   const [chans, st, pins, drafts, ideas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env)]);
+  const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
+  const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
   const fb = fbRaw ? JSON.parse(fbRaw) : { posts: [] };
   const planRes = await context.env.ASSETS.fetch(new URL("/facebook-plan.json", context.request.url));
@@ -97,7 +99,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
 }
 
 function bdTime(iso) {
@@ -239,7 +241,18 @@ AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB
 <script src="/magnific-tool.js?v=3"></script>`;
 }
 
-function fbSection(d, plan) {
+function fbConnectHtml(fp) {
+  if (!fp.pages || !fp.pages.length)
+    return `<div class="card"><h3>Connect your Facebook Page</h3><p class="muted">Uses your own Meta app (Pickixo Poster). The Page token is stored only in Cloudflare; nobody copies it.</p>
+<p><a class="btn primary" href="/auth/fb-connect">Connect Facebook Page</a></p></div>`;
+  const opts = fp.pages.map((p) => `<label style="display:block"><input type="radio" name="page" value="${esc(p.id)}" ${p.id === fp.active ? "checked" : ""}> ${esc(p.name)}${p.can_post ? "" : " <span class=\"muted\">(no posting rights)</span>"}</label>`).join("");
+  return `<div class="card"><h3>✅ Facebook connected</h3><form method="post" action="/admin/action">${opts}
+<div class="row"><button name="do" value="fb_select">Use this Page</button>
+<a class="btn" href="/auth/fb-connect">Reconnect</a>
+<button class="danger" name="do" value="fb_disconnect" onclick="return confirm('Disconnect Facebook?')">Disconnect</button></div></form></div>`;
+}
+
+function fbSection(d, plan, fp) {
   const planHtml = plan ? `<div class="card"><h3>Niche: ${esc(plan.niche)}</h3>
 <p class="muted"><b>Audience:</b> ${esc(plan.audience)}</p><p class="muted"><b>Why:</b> ${esc(plan.why)}</p>
 <p class="muted"><b>Pillars:</b> ${esc((plan.pillars || []).join(" · "))}</p>
@@ -257,11 +270,11 @@ function fbSection(d, plan) {
 <p id="fbc-${n}">${esc(p.caption)} ${esc((p.hashtags || []).map((h) => "#" + h).join(" "))}</p></div>`).join("")
     || `<p class="muted">No posts yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
   const auto = d.autopost ? `<span class="pill on">Auto-posting ON</span> photo and question posts are scheduled on your Page automatically.`
-    : `<span class="pill off">Auto-posting OFF</span> connect your Facebook Page in Buffer (or add FB secrets on GitHub) to switch it on.`;
+    : `<span class="pill off">Auto-posting OFF</span> press "Connect Facebook Page" below to switch it on.`;
   return `<h2 id="facebook">Facebook page · USA</h2>
 <p class="muted">Daily posts for your monetized Page, written for US viewers and timed for US Eastern. ${auto}
 Reels are not auto-posted: make the video from the script and post it yourself (original video earns most). ${d.date ? "Updated " + bdTime(d.created) + "." : ""}</p>
-${planHtml}<div class="grid">${posts}</div>
+${fbConnectHtml(fp || {})}${planHtml}<div class="grid">${posts}</div>
 <p><a class="btn" href="https://business.facebook.com/latest/content_calendar" target="_blank" rel="noopener">Meta Business Suite planner ↗</a>
 <a class="btn" href="https://www.facebook.com/professional_dashboard/monetization" target="_blank" rel="noopener">Monetization ↗</a></p>`;
 }
