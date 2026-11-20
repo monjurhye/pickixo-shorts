@@ -156,12 +156,11 @@ Lifetime deals depend on the company staying in business.</p>""".format(
 
 
 def prompt_pack_page(full=False):
-    """AI image prompt pack. Teaser shows 5 prompts; the rest are on /full/ (noindex), reached
-    through the AdBlueMedia locker. With a URL locker (settings: adbluemedia_locker_url,
-    destination /free/ai-prompts/full/) the button goes there; otherwise it opens the JS locker."""
+    """AI image prompt pack. Teaser (/free/ai-prompts/) shows 5 prompts and links to /full/.
+    /full/ (noindex) loads the AdBlueMedia JS locker and opens it on page load, so the full
+    list stays covered until the visitor completes one sponsor offer."""
     data = common.load_json(os.path.join(common.DATA_DIR, "prompt_pack.json"), {"prompts": []})
     prompts = data.get("prompts", [])
-    locker_url = common.settings().get("adbluemedia_locker_url", "")
     def card(i, p):
         return """<li class="card"><span class="num">{n}</span><div class="txt"><h3>{t}</h3>
 <p class="muted">{tool} · {aspect}</p><p>{prompt}</p></div></li>""".format(
@@ -171,9 +170,7 @@ def prompt_pack_page(full=False):
     if full:
         unlock = '<div class="unlock"><b>Unlocked, thanks!</b> Here is the full pack. Bookmark this page; it updates every day.</div>'
     else:
-        btn = ('<a class="btn" href="{0}" rel="nofollow">Unlock all {1} prompts</a>'.format(e(locker_url), len(prompts))
-               if locker_url else
-               '<button class="btn" onclick="if(typeof _ET===\'function\'){_ET();}">Unlock all ' + str(len(prompts)) + ' prompts</button>')
+        btn = '<a class="btn" href="/free/ai-prompts/full/" rel="nofollow">Unlock all {0} prompts</a>'.format(len(prompts))
         unlock = """<div class="unlock"><h2>Get all {n} prompts</h2>
 <p>The full pack is free. To unlock it, complete <b>one short offer from our sponsor</b>
 (for example a quick survey or a free app). You don't have to buy anything.</p><p>{btn}</p></div>""".format(
@@ -184,7 +181,9 @@ written to avoid common AI mistakes (no text, no logos, no hand close-ups). Upda
 <ol class="cards">{cards}</ol>{unlock}
 <p class="note">Tips: make 4-8 images per prompt, keep only clean ones, check at 100% zoom, and label AI images
 when you upload them to stock sites.</p>""".format(n=len(prompts), up=e(data.get("updated", "")), cards=cards, unlock=unlock)
-    head = '<meta name="robots" content="noindex">' if full else ("" if locker_url else LOCKER_HEAD)
+    head = ('<meta name="robots" content="noindex">' + LOCKER_HEAD +
+            '<script>window.addEventListener("load",function(){if(typeof _ET==="function"){_ET();}});</script>'
+            ) if full else ""
     return page("AI image prompt pack for stock photos", body,
                 "Free daily-updated pack of AI image prompts for stock photos: seasonal and evergreen themes.",
                 head_extra=head,
