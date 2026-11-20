@@ -13,6 +13,10 @@ on:
         description: "List Buffer organizations, channels and Pinterest boards"
         type: boolean
         default: false
+      test_ali:
+        description: "Only test the AliExpress API (posts nothing)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -45,9 +49,10 @@ jobs:
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="--dry-run"; fi
           if [ "${{ inputs.setup }}" = "true" ]; then ARGS="--setup"; fi
+          if [ "${{ inputs.test_ali }}" = "true" ]; then ARGS="--test-ali"; fi
           python -m pipeline.run_pins $ARGS
       - name: Commit pin records
-        if: ${{ !inputs.dry_run && !inputs.setup }}
+        if: ${{ !inputs.dry_run && !inputs.setup && !inputs.test_ali }}
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

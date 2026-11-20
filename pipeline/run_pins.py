@@ -102,9 +102,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--setup", action="store_true")
+    ap.add_argument("--test-ali", action="store_true", help="only fetch AliExpress products, post nothing")
     args = ap.parse_args()
     if args.setup:
         return setup()
+    if args.test_ali:
+        cfg = load_cfg()
+        prods = aliexpress.hot_products(cfg["keywords"][0], cfg["tracking_id"])
+        common.log("AliExpress OK: {0} products for {1!r}".format(len(prods), cfg["keywords"][0]))
+        for p in prods[:5]:
+            common.log("  {0} | rating {1} | link {2}".format(p["title"][:70], p["rating"], p["link"][:40]))
+        return
 
     cfg, ai_cfg = load_cfg(), common.settings()
     date = common.today_utc()
