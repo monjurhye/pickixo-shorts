@@ -64,8 +64,9 @@ setting, light, camera/lens or art style, colors, mood, composition, "copy space
 left" when useful). English only.
 
 why: one short sentence on who buys it and when. avoid: what to check/reject before upload.
-best_tool: FLUX.1 schnell for photoreal scenes, Ideogram for graphic/illustration/poster
-looks, Adobe Firefly for people/lifestyle photos. keywords: 10 lowercase buyer search terms.
+best_tool: prefer Adobe Firefly (large output, no upscaling needed) for photos and
+lifestyle; Ideogram for graphic/illustration/poster looks; FLUX.1 schnell only for simple
+photoreal objects or backgrounds. keywords: 10 lowercase buyer search terms.
 season_note: one sentence on what buyers are preparing for right now."""
 
 

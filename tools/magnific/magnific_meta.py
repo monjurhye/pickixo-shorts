@@ -163,7 +163,8 @@ def main():
             continue
         w, h = img.size
         if w * h < MIN_PIXELS:
-            report.append((name, "too small ({0}x{1}); upscale to at least ~2000x2000".format(w, h)))
+            report.append((name, "too small ({0}x{1}); make it bigger at the source (Firefly ~2048px) "
+                                 "or upscale 2x only and check at 100% zoom".format(w, h)))
             continue
         hsh = dhash(img)
         twin = next((n for n, x in hashes if bin(x ^ hsh).count("1") <= DUP_DISTANCE), None)

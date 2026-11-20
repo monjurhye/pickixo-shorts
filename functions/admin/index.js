@@ -165,10 +165,10 @@ async function copyText(id){ try{ await navigator.clipboard.writeText(document.g
 }
 
 const FREE_TOOLS = [
-  ["FLUX.1 schnell", "https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell", "Apache 2.0 license: free for commercial use. Best for realistic photos. Output is about 1024px, so upscale it."],
-  ["Ideogram", "https://ideogram.ai", "Free daily credits. Good for illustrations and posters (turn text off). Check their terms for commercial use before selling."],
-  ["Adobe Firefly", "https://firefly.adobe.com", "Free monthly credits; trained on licensed images and offers commercial use. Good for people and lifestyle."],
-  ["Upscayl (upscaler)", "https://upscayl.org", "Free open-source Mac app. Upscale 1024px images 4x so they meet Magnific's size."],
+  ["Adobe Firefly ★ first choice", "https://firefly.adobe.com", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
+  ["Ideogram", "https://ideogram.ai", "Free daily credits. Illustrations and posters (turn text off). Output is smaller, needs 2x upscale. Check their terms before selling."],
+  ["FLUX.1 schnell", "https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell", "Apache 2.0, free commercial use, realistic. Only ~1024px: needs 2x upscale, so use it less."],
+  ["Upscayl (only if needed)", "https://upscayl.org", "Free Mac app. Use 2x only (never 4x) with a realistic/high-fidelity model, then check at 100% zoom. Plastic or over-sharp images get rejected."],
 ];
 
 function ideasSection(d) {
@@ -185,8 +185,8 @@ function ideasSection(d) {
   return `<h2 id="ideas">Magnific · Image ideas</h2>
 <p class="muted">Fresh every morning. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
-<p><b>Free workflow:</b> copy a prompt → make 4-8 images in a free tool → keep only clean ones (hands, faces, no text) →
-upscale with Upscayl → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
+<p><b>Free workflow:</b> copy a prompt → make 4-8 images (Adobe Firefly first: big enough without upscaling) → keep only clean ones (hands, faces, no text) →
+if smaller than ~2000px, upscale 2x only and check at 100% zoom → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
 <div class="grid">${tools}</div>
 <div class="grid">${cards}</div>
 <p><a class="btn" href="https://contributor.magnific.com/dashboard" target="_blank" rel="noopener">Magnific contributor ↗</a></p>
