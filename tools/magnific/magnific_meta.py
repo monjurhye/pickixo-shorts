@@ -38,7 +38,7 @@ DUP_DISTANCE = 6                # dHash bits; lower = more similar
 MODEL = os.environ.get("MAGNIFIC_MODEL", "gpt-5-nano")
 AI_TAG = "_ai_generated"
 # Column names: compare with the CSV template on Magnific's Upload page and edit if different.
-HEADER = ["Filename", "Title", "Keywords", "Prompt", "Model"]
+HEADER = ["File name", "Title", "Keywords", "Prompt", "Model"]   # as in Magnific's CSV guide
 
 CATEGORIES = ["Backgrounds", "Business", "Food and drink", "Animals", "Nature", "Holidays",
               "Technology", "People", "Lifestyle", "Interiors", "Education", "Health",
