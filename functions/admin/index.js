@@ -161,6 +161,13 @@ Keep the disclosure line at the top.</p>
 like "How I pick AI image ideas that sell on stock sites" with the pack linked at the end; LinkedIn/X posts; Quora answers about AI stock photos;
 Pinterest pins of example images. <b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money or prizes;
 no fake countdowns; don't spam groups. <b>Results:</b> AdBlueMedia dashboard (clicks, unlocks, earnings).</p></div>
+<div class="card"><h3>📘 Free ebook: Publish an iOS App Without a Mac (AdBlueMedia locker)</h3>
+<p><a href="/free/ios-without-mac/" target="_blank" rel="noopener">shop.pickixo.com/free/ios-without-mac/</a> · English edition of your Pickixo ebook.
+Chapter 1 and the contents are open; the full book (/free/ios-without-mac/full/) opens after one sponsor offer, and readers can save it as a PDF.</p>
+<p class="muted"><b>Who wants it:</b> developers on Windows who want to publish iPhone apps (huge in South Asia, but for earnings target US/UK/CA readers too).
+<b>Where to share:</b> a Medium article such as "How I published an iPhone app from Windows without a Mac" (a short version of Chapter 2 with the ebook linked at the end),
+dev.to/Hashnode, Reddit answers where self-promotion is allowed, Quora ("Can I publish an iOS app without a Mac?"), LinkedIn.
+<b>Rules:</b> say that unlocking needs one sponsor offer; no fake urgency.</p></div>
 <div class="card"><h3>📋 AppSumo deals list (open, no locker)</h3>
 <p><a href="/free/lifetime-deals/" target="_blank" rel="noopener">shop.pickixo.com/free/lifetime-deals/</a> · 25 newest AppSumo deals, sub id <b>freepage</b>.
 Good as the "full updated list" link at the end of your AppSumo Medium articles.</p></div>

@@ -190,6 +190,98 @@ when you upload them to stock sites.</p>""".format(n=len(prompts), up=e(data.get
                 foot="The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
 
 
+def md_inline(t):
+    t = e(t)
+    t = __import__("re").sub(r"`([^`]+)`", r"<code>\1</code>", t)
+    t = __import__("re").sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", t)
+    t = __import__("re").sub(r"(?<![*\w])\*([^*\n]+)\*(?!\w)", r"<i>\1</i>", t)
+    return t
+
+
+def md_to_html(md):
+    """Small Markdown subset: #/##/### headings, paragraphs, - and 1. lists, tables,
+    ``` code, > quotes, --- rules, **bold**, *italic*, `code`."""
+    import re
+    out, lines, i = [], md.splitlines(), 0
+    def slug(t):
+        return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")[:60]
+    while i < len(lines):
+        ln = lines[i]
+        if ln.startswith("```"):
+            buf = []
+            i += 1
+            while i < len(lines) and not lines[i].startswith("```"):
+                buf.append(lines[i]); i += 1
+            out.append("<pre><code>" + e("\n".join(buf)) + "</code></pre>"); i += 1; continue
+        if ln.strip() == "---":
+            out.append("<hr>"); i += 1; continue
+        m = re.match(r"(#{1,3}) (.*)", ln)
+        if m:
+            lv = len(m.group(1))
+            out.append('<h{0} id="{1}">{2}</h{0}>'.format(lv, slug(m.group(2)), md_inline(m.group(2)))); i += 1; continue
+        if ln.startswith("|"):
+            rows = []
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")]); i += 1
+            head, body = rows[0], [r for r in rows[1:] if not all(re.fullmatch(r":?-+:?", c or "-") for c in r)]
+            out.append('<div class="tw"><table><thead><tr>' + "".join("<th>%s</th>" % md_inline(c) for c in head) +
+                       "</tr></thead><tbody>" + "".join("<tr>" + "".join("<td>%s</td>" % md_inline(c) for c in r) + "</tr>"
+                                                        for r in body) + "</tbody></table></div>")
+            continue
+        if ln.startswith("> "):
+            buf = []
+            while i < len(lines) and lines[i].startswith(">"):
+                buf.append(lines[i][1:].strip()); i += 1
+            out.append("<blockquote><p>" + md_inline(" ".join(buf)) + "</p></blockquote>"); continue
+        if re.match(r"\s*(- |\d+\. )", ln):
+            ordered = bool(re.match(r"\s*\d+\. ", ln))
+            items = []
+            while i < len(lines) and (re.match(r"\s*(- |\d+\. )", lines[i]) or (lines[i].startswith("   ") and lines[i].strip())):
+                if re.match(r"(- |\d+\. )", lines[i]):
+                    items.append(re.sub(r"^(- |\d+\. )", "", lines[i]))
+                else:
+                    items[-1] += "<br>" + lines[i].strip().lstrip("- ") if items else ""
+                i += 1
+            tag = "ol" if ordered else "ul"
+            out.append("<%s>" % tag + "".join("<li>%s</li>" % (md_inline(x).replace("&lt;br&gt;", "<br>")) for x in items) + "</%s>" % tag)
+            continue
+        if not ln.strip():
+            i += 1; continue
+        buf = []
+        while i < len(lines) and lines[i].strip() and not re.match(r"(#{1,3} |```|\||> |- |\d+\. |---$)", lines[i]):
+            buf.append(lines[i].strip()); i += 1
+        out.append("<p>" + md_inline(" ".join(buf)) + "</p>")
+    return "\n".join(out)
+
+
+EBOOK = os.path.join(ROOT, "site", "ebooks", "ios-without-mac.md")
+
+
+def ebook_page(full=False):
+    """Free English ebook. Teaser = intro + contents + Chapter 1; /full/ = whole book,
+    covered by the AdBlueMedia locker until one sponsor offer is completed."""
+    md = open(EBOOK, encoding="utf-8").read()
+    if full:
+        content = md
+        unlock = ('<div class="unlock"><b>Unlocked, thanks!</b> Bookmark this page. '
+                  '<button class="btn" onclick="window.print()">Save as PDF</button></div>')
+    else:
+        end = md.index("## Chapter 2")
+        content = md[:end]
+        unlock = """<div class="unlock"><h2>Read the whole book free (16 chapters + checklist)</h2>
+<p>To unlock the full book, complete <b>one short offer from our sponsor</b> (for example a quick survey or a free app).
+You don't have to buy anything. After unlocking you can read it here or save it as a PDF.</p>
+<p><a class="btn" href="/free/ios-without-mac/full/" rel="nofollow">Unlock the full book</a></p></div>"""
+    body = '<article class="ebook">' + md_to_html(content) + "</article>" + unlock
+    head = ('<meta name="robots" content="noindex">' + LOCKER_HEAD +
+            '<script>window.addEventListener("load",function(){if(typeof _ET==="function"){_ET();}});</script>'
+            ) if full else ""
+    return page("Publish an iOS App Without a Mac (free ebook)", body,
+                "Free ebook: publish an iPhone app on the App Store from Windows with no Mac or iPhone, using Codemagic, TestFlight and AdMob.",
+                head_extra=head,
+                foot="The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -213,6 +305,9 @@ def main():
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
     if os.path.exists(os.path.join(common.DATA_DIR, "free_deals.json")):
         write(os.path.join(OUT, "free", "lifetime-deals", "index.html"), free_deals_page())
+    if os.path.exists(EBOOK):
+        write(os.path.join(OUT, "free", "ios-without-mac", "index.html"), ebook_page())
+        write(os.path.join(OUT, "free", "ios-without-mac", "full", "index.html"), ebook_page(full=True))
     if os.path.exists(os.path.join(common.DATA_DIR, "prompt_pack.json")):
         write(os.path.join(OUT, "free", "ai-prompts", "index.html"), prompt_pack_page())
         write(os.path.join(OUT, "free", "ai-prompts", "full", "index.html"), prompt_pack_page(full=True))
