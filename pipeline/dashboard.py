@@ -85,3 +85,13 @@ def draft_report(payload):
             common.log("dashboard draft report failed ({0}): {1}".format(code, data))
     except Exception as e:
         common.log("dashboard draft report failed: {0}".format(e))
+
+
+def ideas_report(payload):
+    """Send today's Magnific image ideas to the dashboard."""
+    try:
+        code, data = _call("/api/pipeline/ideas", payload)
+        if code != 200:
+            common.log("dashboard ideas report failed ({0}): {1}".format(code, data))
+    except Exception as e:
+        common.log("dashboard ideas report failed: {0}".format(e))

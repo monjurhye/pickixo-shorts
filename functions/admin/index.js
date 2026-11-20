@@ -2,6 +2,7 @@
 import { channelList, esc, getState, html, session } from "../../lib/dashboard.js";
 import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
+import { getIdeas } from "../../lib/ideas.js";
 
 const CSS = `
 :root{--bg:#faf8f5;--ink:#1c1917;--muted:#6b6560;--line:#e7e2db;--accent:#c2410c;--ok:#15803d;--bad:#b91c1c;--card:#fff}
@@ -28,6 +29,9 @@ details.draft{background:var(--card);border:1px solid var(--line);border-radius:
 details.draft summary{cursor:pointer;font-weight:700}
 .preview{border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
 .preview h1{font-size:22px}.preview h2{font-size:18px}.preview h3{font-size:15px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.card h3{margin:4px 0 6px;font-size:16px}.prompt{font-size:13px;background:color-mix(in srgb,var(--muted) 10%,transparent);border-radius:8px;padding:8px;margin:8px 0;white-space:pre-wrap}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 @media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}}
 `;
@@ -47,7 +51,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`));
   }
 
-  const [chans, st, pins, drafts] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env)]);
+  const [chans, st, pins, drafts, ideas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env)]);
   let connected = 0, active = 0, errors = 0;
   const rows = chans.map((c) => {
     const info = st.channels[c.id];
@@ -89,7 +93,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${pinsSection(pins)}${draftsSection(drafts)}`));
+${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}`));
 }
 
 function bdTime(iso) {
@@ -158,4 +162,33 @@ async function copyDraft(id){
 }
 async function copyText(id){ try{ await navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Tags copied.'); }catch(e){ alert('Copy failed.'); } }
 </script>`;
+}
+
+const FREE_TOOLS = [
+  ["FLUX.1 schnell", "https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell", "Apache 2.0 license: free for commercial use. Best for realistic photos. Output is about 1024px, so upscale it."],
+  ["Ideogram", "https://ideogram.ai", "Free daily credits. Good for illustrations and posters (turn text off). Check their terms for commercial use before selling."],
+  ["Adobe Firefly", "https://firefly.adobe.com", "Free monthly credits; trained on licensed images and offers commercial use. Good for people and lifestyle."],
+  ["Upscayl (upscaler)", "https://upscayl.org", "Free open-source Mac app. Upscale 1024px images 4x so they meet Magnific's size."],
+];
+
+function ideasSection(d) {
+  const tools = FREE_TOOLS.map(([n, u, t]) =>
+    `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
+  const cards = (d.ideas || []).map((i, n) => `<div class="card">
+<span class="pill ${i.kind === "seasonal" ? "on" : "off"}">${esc(i.kind)}</span> <span class="muted">${esc(i.aspect)} · ${esc(i.best_tool)}</span>
+<h3>${esc(i.theme)}</h3><p class="muted">${esc(i.why)}</p>
+<div class="prompt" id="idea-${n}">${esc(i.prompt)}</div>
+<div class="row"><button type="button" onclick="copyText('idea-${n}')">📋 Copy prompt</button></div>
+<p class="muted"><b>Check:</b> ${esc(i.avoid)}</p>
+<p class="muted"><b>Keywords:</b> ${esc((i.keywords || []).join(", "))}</p></div>`).join("")
+    || `<p class="muted">No ideas yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
+  return `<h2 id="ideas">Magnific · Image ideas</h2>
+<p class="muted">Fresh every morning. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
+${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
+<p><b>Free workflow:</b> copy a prompt → make 4-8 images in a free tool → keep only clean ones (hands, faces, no text) →
+upscale with Upscayl → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
+<div class="grid">${tools}</div>
+<div class="grid">${cards}</div>
+<p><a class="btn" href="https://contributor.magnific.com/dashboard" target="_blank" rel="noopener">Magnific contributor ↗</a></p>
+<p class="muted">Also check <b>Search Trends</b> in the Magnific contributor menu and favour ideas that match it.</p>`;
 }
