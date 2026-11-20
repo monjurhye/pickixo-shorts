@@ -1,0 +1,292 @@
+{
+  "updated": "2026-11-20",
+  "prompts": [
+    {
+      "theme": "Cozy Christmas living room with warm textures",
+      "prompt": "A cozy Christmas living room scene with a softly lit fireplace, a decorated tree in the corner, knitted throws, and a wooden coffee table. Natural daylight from a window, shallow depth of field, subtle shadows, textures visible: wool, wood grain, ceramic mug. Copy space on the left for headlines; calm color palette with red-green-cream accents.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter desk setup for gift planning",
+      "prompt": "A clean winter desk setup with a tray of wrapped gifts, a silver pen, a hardcover planner, a mug of hot tea, and fuzzy wool coaster mats. soft morning light, slight shadows, wood desk texture, copy space on the right for text, subdued color palette of navy, cream, and pine.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year planning desk with planner and calendar",
+      "prompt": "A minimalist New Year planning scene: open planner showing faint date grids, a calendar, a pencil cup, and a small plant. soft neutral light from a window, gentle shadows, clean surface with ample copy space on the left for copy.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Hanukkah-inspired still life with candles and textured surfaces",
+      "prompt": "A still life with two softly lit candles in a muted ceramic holder, a linen table runner, and a shallow bowl of walnuts. Warm, low-key lighting creating gentle shadows and depth; textures include linen weave and ceramic glaze; ample copy space on the left.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter travel planning mood board",
+      "prompt": "Mood-board style scene with a map, passport placeholder, travel notebook, and a cup of coffee, all on a wooden table. soft, cool daylight and natural shadows; mid-distance composition with negative space for text; textures from map paper and wood.",
+      "tool": "Ideogram",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Post-Christmas storefront frost and gift wrap remnants",
+      "prompt": "A quiet post-Christmas storefront scene with frosted glass, muted greens, and scattered gift wrap remnants on a clean wooden counter; natural late afternoon light casts soft shadows, shallow depth of field on textured wood and paper ribbons, copy space left for design work. Warm, muted colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Epiphany gift-willing still life with ribbons and ornaments",
+      "prompt": "A medium-distance still life of ribbon rolls, unlit ceramic ornaments, and neutral-toned fabric on a clean table; soft natural light from the side casts gentle shadows, corkboard texture in the background, ample negative space on the left for copy.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year celebration setup with light decor and snacks",
+      "prompt": "An elegant New Year mood scene with a champagne flute (empty), crystal bowls with bite-sized snacks, string lights blurred in the background; shallow depth of field, warm tungsten tones, clean surface, copy space above left for future text, muted festive color palette.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter festival lanterns and soft snow backdrop",
+      "prompt": "A serene outdoor scene at dusk with paper lanterns hanging in a snow-dusted alley, subtle warm glow, distant street lamps, gentle shadows on fresh powder, wide shot with ample space for copy on the left, cool blue-gray palette balanced with warm tint.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter Solstice at-home celebration",
+      "prompt": "A calm living room scene lit by natural window light showing a small table with evergreen branches, pinecones, a mug, and a softly glowing candle, shallow depth of field, warm neutral tones, subtle textures like wool and wood, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Kwanzaa-inspired tablescape with natural textures",
+      "prompt": "A minimal table setting with woven placemats, ceramic bowls, dried corn and fruit, a neutral linen runner, soft daylight, medium shot, coffee-table level angle, plenty of negative space for copy.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter market mood with vendor stand and warm light",
+      "prompt": "A quiet market stall scene with a wooden counter, glass jars of seasonal goods, warm string lights, soft bokeh in the background, medium distance, natural textures, clean composition, copy space on the right.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year winter wellness retreat at home",
+      "prompt": "A serene corner with a plush throw, a small plant, a ceramic mug, a notebook, soft daylight, depth of field focusing on texture, muted palette, negative space for copy on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "9:16",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Tech desk with AI planning tools and abstract data visuals",
+      "prompt": "A modern desk setup with a matte laptop, a notebook, a cup of coffee, and subtle abstract data visuals projected on a wall, soft shadows, medium shot, clean lines, cool-toned color palette, ample left-side copy space.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Healthy autumn-to-winter bowl with grains and greens",
+      "prompt": "Overhead view of a simple wooden board with a bowl of quinoa, leafy greens, roasted vegetables, and a glass of water; natural textures like wood and ceramic, even lighting, minimal props, ample negative space for copy on the top or side.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Abstract background with subtle geometric depth",
+      "prompt": "A calm abstract composition with layered shapes, soft gradients, and fine grain texture to suggest depth; muted colors, shallow shadows, plenty of negative space for typography on the left.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Diverse everyday lifestyle at home: morning routine",
+      "prompt": "Medium-distance shot of a diverse group (two adults, one child) in a cozy kitchen preparing breakfast; natural light from a window, warm tones, clear foreground with a shelf and plant, ample space on the right for copy.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Finance and budgeting workspace with calm color",
+      "prompt": "A tidy desk with a notepad, calculator, and a pie-chart diagram silhouette projected on a wall; soft daylight, shallow depth of field, neutral desk tones, negative space on the left for copy.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Education concept: study setup with notebook and globe",
+      "prompt": "A calm study nook with a wooden desk, an open notebook, a small globe, a plant, and soft ambient light; medium shot, natural textures, minimal clutter, copy space on the right for title or copy.",
+      "tool": "Ideogram",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Christmas gift shopping mood in a cozy retail window",
+      "prompt": "Photographic still life of a storefront window display with wrapped gifts, pine branches, and subtle bokeh lights, soft natural daylight, shallow depth of field, copy space on the left for headlines, muted warm colors, textures like kraft paper and velvet ribbons visible, composition focused on a few objects.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter warmth kitchen scene with holiday baking",
+      "prompt": "Flat lay or mid-distance shot of a rustic kitchen counter with a wooden cutting board, rolling pin, cinnamon sticks, star anise, a tray of cookies, natural morning light, subtle shadows, negative space on the right for copy, realistic textures like floured wood and ceramic bowls.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year gift guide in a minimalist setup",
+      "prompt": "Minimalist desk or shelf setup with neatly wrapped gifts, a single plant, soft industry-gray and warm white color palette, gentle backlight, clean composition, ample copy space on left, textures of linen and matte surfaces, medium distance shot.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Kwanzaa-inspired natural textures and geometric arrangement",
+      "prompt": "Medium shot of a simple trio of natural textures (burlap, woven mat, wood grain) arranged geometrically with a single ceramic bowl, muted earthy tones, soft side light, shallow depth, plenty of copy space on the left for messaging.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter holiday baking studio still life",
+      "prompt": "A calm, sunlit kitchen corner with a wooden table, baked cookies and a bowl of cinnamon sticks, subtle flour dust, ceramic jars, and a rolling pin; natural wood textures, soft shadows, and copy space on the left for text. Shot with a 50mm lens, warm neutral tones, shallow depth of field.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Hanukkah-inspired light textures still life",
+      "prompt": "Minimalist still life featuring a glass oil lamp or olive oil bottle, woolen cloths, and slate tabletop; soft glow, cool blue-gray palette with warm amber accents, gentle shadows, composition focused left with ample negative space.",
+      "tool": "Ideogram",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Epiphany gift-wrapping textures mood",
+      "prompt": "Flat-lay of kraft paper, twine, dried orange slices, pine needles, and textured wrapping materials on a linen cloth; muted warm colors, soft natural light, shallow depth, negative space on the right for copy.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter Solstice calm desk with evergreen accents",
+      "prompt": "Calm desk setup at early-morning light: wooden desk, a single ceramic mug, a small potted evergreen, a notebook, and a soft fabric runner; soft shadows, natural textures, copy space on the left for headlines.",
+      "tool": "Adobe Firefly",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter gift guide minimalist set",
+      "prompt": "Minimalist arrangement of wrapped boxes with neutral paper, ribbon, a single ornament, and a linen backdrop; soft directional light, deep shadows to create depth, wide negative space on top for copy.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Cozy winter home spa moment",
+      "prompt": "Calm bathroom or bedroom scene with a wooden tray, bath salts, a rolled towel, a small plant, and softly glowing candlelight; natural light through a sheer curtain, gentle steam, plenty of copy space left.",
+      "tool": "Adobe Firefly",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Warm kitchen cozy morning",
+      "prompt": "Warm-toned kitchen scene with a ceramic mug, a loaf of bread on a wooden board, a spoon with honey, and a linen napkin; sunlight from a side window, shallow depth, left-side copy space.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter textures macro textures library (no people)",
+      "prompt": "Close-up macro of fabric weave, wood grain, and ceramic glaze, stacked textures with subtle color grading; soft front light, shallow depth, ample negative space for overlays.",
+      "tool": "Ideogram",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Festive table vignette with warm light",
+      "prompt": "A single wooden dining table with a simple centerpiece, candles, and warm-toned glassware; bokeh in the background, soft fall-off light, composition with space on the right for text.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year calm budget planning backdrop",
+      "prompt": "Neutral-toned desk scene with a notebook, pen, calculator, and a small plant; natural light, gentle shadows, clean composition with generous copy space on the left.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Back-to-work weeks mood board (after holidays)",
+      "prompt": "Flat lay of a corkboard or fabric board with neutral-toned sticky notes, a pen, and a coffee cup; subdued lighting, cool-to-warm gradient, ample left-side copy space.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "9:16",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Blue-hour tech desk (after holidays)",
+      "prompt": "Desk setup with a laptop, a sleek mouse, and a small glass orb, ambient blue-hour light casting soft reflections; muted colors, medium depth of field, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter wellness drink backdrop",
+      "prompt": "Flat lay of a mug with herbal tea, a honey dipper, citrus slices on a wooden board; warm light, textured linen backdrop, space on the right for copy.",
+      "tool": "Ideogram",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Minimalist winter abstract backdrop with depth",
+      "prompt": "Abstract composition with soft geometric shapes, layered translucent panels, subtle gradient from cool to warm tones; smooth texture, negative space on top-right for copy.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Diverse everyday winter scenes (medium distance)",
+      "prompt": "Medium-distance shot of a woman wearing a cozy knit, a man typing on a laptop in a sunlit living room, a child drawing at a desk in the background; natural light, balanced color, soft shadows, simple composition with copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Home office with healthy eating setup",
+      "prompt": "Bright desk with a laptop, glass water bottle, bowl of fruit, and a small plant; clean lines, natural wood desk, light-filled window, copy space on the left for text.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Tech-inspired abstract background with copy space",
+      "prompt": "Abstract graphic with circuit-like lines, soft glowing nodes, and a subtle grid, muted blues and grays with a warm highlight; plenty of negative space on the right for overlays.",
+      "tool": "Ideogram",
+      "aspect": "2:3",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Sustainable office tech concept",
+      "prompt": "Mid-distance shot of a corkboard layout with recycled-material notebook, bamboo desk accessories, and a solar-powered desk lamp; soft daylight, natural textures, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    }
+  ]
+}
