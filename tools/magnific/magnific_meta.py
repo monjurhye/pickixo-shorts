@@ -180,7 +180,8 @@ def describe(key, b64, crop_b64):
             {"type": "input_image", "image_url": "data:image/jpeg;base64," + b64},
             {"type": "input_image", "image_url": "data:image/jpeg;base64," + crop_b64}]}],
         "text": {"format": {"type": "json_schema", "name": "meta", "strict": True, "schema": SCHEMA}},
-        "max_output_tokens": 3000,
+        "max_output_tokens": 8000,
+        "reasoning": {"effort": "low"},
     }
     req = urllib.request.Request("https://api.openai.com/v1/responses", data=json.dumps(body).encode(),
                                  headers={"Authorization": "Bearer " + key,
@@ -191,7 +192,10 @@ def describe(key, b64, crop_b64):
     except urllib.error.HTTPError as e:
         raise RuntimeError("OpenAI HTTP {0}: {1}".format(e.code, e.read().decode("utf-8", "ignore")[:200]))
     text = data.get("output_text") or "".join(
-        c.get("text", "") for o in data.get("output", []) for c in o.get("content", []) if c.get("type") == "output_text")
+        c.get("text", "") for o in (data.get("output") or []) for c in (o.get("content") or [])
+        if c.get("type") == "output_text")
+    if not text.strip():
+        raise RuntimeError("empty AI reply ({0})".format(data.get("status") or "no text"))
     return json.loads(text)
 
 
@@ -271,7 +275,10 @@ def main():
             continue
         sharp = sharpness(img)
         try:
-            meta = describe(key, preview_jpeg(img), crop_jpeg(img))
+            try:
+                meta = describe(key, preview_jpeg(img), crop_jpeg(img))
+            except RuntimeError:
+                meta = describe(key, preview_jpeg(img), crop_jpeg(img))   # one retry
         except Exception as e:
             report.append((name, "AI error: {0}".format(e)))
             continue
