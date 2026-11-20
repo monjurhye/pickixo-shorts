@@ -93,7 +93,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}`));
+${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
 }
 
 function bdTime(iso) {
@@ -212,4 +212,25 @@ The Mac tool now scores every image and leaves weak ones out of the CSV (see mag
 <div class="grid">${cards}</div>
 <p><a class="btn" href="https://contributor.magnific.com/dashboard" target="_blank" rel="noopener">Magnific contributor ↗</a></p>
 <p class="muted">Also check <b>Search Trends</b> in the Magnific contributor menu and favour ideas that match it.</p>`;
+}
+
+function magnificToolSection() {
+  return `<h2 id="magnific-tool">Magnific · Upscale + metadata tool</h2>
+<p class="muted">Choose your finished images. For each one it: makes sure the short side is 2000px+ (AI upscale 4× with ESRGAN, then down to 2048,
+or a plain resize for small changes), checks quality at 100% like a reviewer, writes the title and keywords (45 incl. the AI tag), and builds
+Magnific's CSV. Weak images (below 7/10 or with problems such as fake text) are left out; you can tick them back in. Images stay in your browser;
+only small previews go to the AI.</p>
+<div class="card"><div class="row">
+<input type="file" id="mag-files" accept="image/jpeg,image/png,image/webp" multiple>
+<label><input type="checkbox" id="mag-ai" checked> AI upscale when needed</label>
+<input type="text" id="mag-model" placeholder="Model (as in Magnific's dropdown), optional" style="min-width:260px">
+<button class="primary" id="mag-run" onclick="window.__mag.run()">Check & make metadata</button></div>
+<div class="row" id="mag-out" style="display:none">
+<button onclick="window.__mag.jpgs()">⬇ Download JPGs (ticked)</button>
+<button onclick="window.__mag.csv()">⬇ Download CSV (ticked)</button>
+<a class="btn" href="https://contributor.magnific.com/" target="_blank" rel="noopener">Open Magnific ↗</a></div>
+<p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs → Import metadata → choose the CSV → check AI label and model → Submit.
+AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
+<div class="grid" id="mag-results"></div>
+<script src="/magnific-tool.js?v=2"></script>`;
 }
