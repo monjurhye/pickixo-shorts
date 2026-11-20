@@ -1,5 +1,5 @@
 // POST /api/pipeline/drafts {"draft": {...}} or {"error": "..."}  (header X-Pipeline-Key)
-// Stores Medium drafts for /admin. Drafts are never published automatically.
+// Stores Medium drafts for /admin (each one is already published on the shop blog).
 import { json, pipelineAuthorized } from "../../../lib/dashboard.js";
 import { getDrafts } from "../../../lib/drafts.js";
 
@@ -17,7 +17,7 @@ export async function onRequestPost(context) {
       tags: (x.tags || []).slice(0, 5).map((t) => String(t).slice(0, 40)),
       products: (x.products || []).slice(0, 10).map((t) => String(t).slice(0, 80)),
       html: String(x.html || "").slice(0, 60000), markdown: String(x.markdown || "").slice(0, 60000),
-      status: "new",
+      blog_url: String(x.blog_url || "").slice(0, 300), status: "new",
     }].concat(d.items.filter((i) => i.id !== x.id)).slice(0, 20);
     d.last_error = "";
   }

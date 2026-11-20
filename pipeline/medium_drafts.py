@@ -1,7 +1,8 @@
 """Daily Medium article DRAFTS about AppSumo deals (from the Impact API, read-only).
 
-Drafts are not published anywhere: they go to the dashboard (/admin -> Medium drafts),
-where the owner reads them, adds their own experience, and publishes by hand on Medium.
+Each article is published automatically on the shop blog (shop.pickixo.com/blog/<slug>/,
+data/blog/*.json -> site/build.py) and sent to the dashboard, where one click imports it into
+Medium (Medium's own "Import a story" keeps the blog as the canonical source).
 
 Honesty rules baked in: no invented first-person use ("I tested"), only facts from the
 deal data, affiliate disclosure at the top, AI-assisted note at the end, links labelled
@@ -28,7 +29,9 @@ SUB_ID = "medium"
 
 DISCLOSURE = ("Disclosure: this post contains affiliate links. If you buy through them, "
               "I may earn a commission at no extra cost to you.")
-AI_NOTE = "This article was drafted with AI assistance and reviewed and edited by the author."
+AI_NOTE = ("This article was written with AI assistance from the deal information AppSumo publishes. "
+           "Check each deal page for current terms before you buy.")
+BLOG_DIR = os.path.join(common.DATA_DIR, "blog")
 
 ARTICLE_SCHEMA = {
     "type": "object",
@@ -251,6 +254,14 @@ def main():
     for d in pick:
         st["used"][d["page"]] = draft["id"]
     common.save_json(STATE, st)
+    # publish on the shop blog (the site rebuilds on push)
+    slug = "{0}-{1}".format(datetime.now(timezone.utc).strftime("%Y-%m-%d"), common.slugify(art["title"], 60))
+    body = re.sub(r"^<h1>.*?</h1>\s*", "", page_html, count=1)
+    blog_url = cfg["site_url"].rstrip("/") + "/blog/" + slug + "/"
+    common.save_json(os.path.join(BLOG_DIR, slug + ".json"), {
+        "slug": slug, "date": draft["created"][:10], "title": art["title"], "subtitle": art["subtitle"],
+        "tags": draft["tags"], "products": names, "html": body})
+    draft["blog_url"] = blog_url
     if dashboard.enabled():
         dashboard.draft_report({"draft": draft})
     common.log("draft ready: " + art["title"])

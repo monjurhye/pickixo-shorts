@@ -5,7 +5,7 @@ name: IndexNow
 on:
   push:
     branches: [main]
-    paths: ["data/videos/**", "data/free_deals.json", "data/prompt_pack.json"]
+    paths: ["data/videos/**", "data/blog/**", "data/free_deals.json", "data/prompt_pack.json"]
   workflow_dispatch:
     inputs:
       all:

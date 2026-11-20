@@ -38,7 +38,7 @@ def page(title, body, desc="", canonical="", head_extra="", foot=""):
 {head_extra}
 </head><body>
 <header class="top"><a class="brand" href="/">{brand}</a>
-<nav><a href="/">Latest</a><a href="/disclosure/">Disclosure</a><a href="/privacy/">Privacy</a></nav></header>
+<nav><a href="/">Latest</a><a href="/blog/">Blog</a><a href="/disclosure/">Disclosure</a><a href="/privacy/">Privacy</a></nav></header>
 <main>{body}</main>
 <footer><p>{disc}</p><p>&copy; {brand} · {foot}</p></footer>
 </body></html>""".format(title=e(title), desc=e(desc), brand=e(cfg.get("brand", "Pickixo Picks")),
@@ -69,6 +69,10 @@ def sitemap_entries(videos):
     and /admin are left out on purpose (noindex / private)."""
     newest = videos[0]["date"] if videos else common.today_utc()
     out = [("/", newest), ("/disclosure/", ""), ("/privacy/", ""), ("/terms/", "")]
+    blog = load_blog()
+    if blog:
+        out.append(("/blog/", blog[0]["date"]))
+        out += [("/blog/{0}/".format(b["slug"]), b["date"]) for b in blog]
     for sub in ("free/lifetime-deals", "free/ios-without-mac", "free/ai-prompts"):
         if os.path.exists(os.path.join(OUT, sub, "index.html")):
             out.append(("/" + sub + "/", ""))
@@ -157,6 +161,36 @@ def index_page(videos):
 <div class="grid">{0}</div>""".format("".join(sections))
     return page("Pickixo Picks · Useful finds for everyday life", body,
                 "Short lists of handy Amazon finds for home, kitchen, pets and more.", site_url("/"))
+
+
+def load_blog():
+    posts = []
+    for p in glob.glob(os.path.join(common.DATA_DIR, "blog", "*.json")):
+        with open(p, encoding="utf-8") as f:
+            posts.append(json.load(f))
+    return sorted(posts, key=lambda x: (x["date"], x["slug"]), reverse=True)
+
+
+def blog_post_page(b):
+    tags = " ".join('<span class="tag">{0}</span>'.format(e(t)) for t in b.get("tags", []))
+    body = """<p class="kicker"><a href="/blog/">Blog</a> · {date}</p><h1>{title}</h1><p class="lead">{sub}</p>
+<article class="post">{html}</article><p class="tags">{tags}</p>""".format(
+        date=e(b["date"]), title=e(b["title"]), sub=e(b.get("subtitle", "")), html=b["html"], tags=tags)
+    head = ('<meta property="og:title" content="{0}"><meta property="og:type" content="article">'
+            '<meta property="og:description" content="{1}">').format(e(b["title"]), e(b.get("subtitle", "")))
+    return page(b["title"] + " · Pickixo Blog", body, b.get("subtitle", ""), site_url("/blog/" + b["slug"] + "/"),
+                head_extra=head, foot="Deal links go to AppSumo.")
+
+
+def blog_index_page(posts):
+    items = "".join('<li><a href="/blog/{0}/">{1}</a><span>{2}</span><p class="muted">{3}</p></li>'.format(
+        e(b["slug"]), e(b["title"]), e(b["date"]), e(b.get("subtitle", ""))) for b in posts)
+    body = """<section class="hero"><h1>Pickixo Blog</h1>
+<p class="lead">Short, practical write-ups of software deals and tools for small businesses and creators.</p></section>
+<ul class="bloglist">{0}</ul>""".format(items or "<li>First post coming soon.</li>")
+    return page("Pickixo Blog · Software deals and tools", body,
+                "Practical write-ups of software deals and tools for small businesses and creators.",
+                site_url("/blog/"))
 
 
 def disclosure_page():
@@ -372,6 +406,10 @@ def main():
     for v in videos:
         write(os.path.join(OUT, "v", v["key"], "index.html"), video_page(v))
     write(os.path.join(OUT, "index.html"), index_page(videos))
+    blog = load_blog()
+    write(os.path.join(OUT, "blog", "index.html"), blog_index_page(blog))
+    for b in blog:
+        write(os.path.join(OUT, "blog", b["slug"], "index.html"), blog_post_page(b))
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())
     write(os.path.join(OUT, "privacy", "index.html"), privacy_page())
     write(os.path.join(OUT, "terms", "index.html"), terms_page())

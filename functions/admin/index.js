@@ -235,6 +235,8 @@ function draftsSection(d) {
       : `<button class="primary" name="do" value="draft_done">Mark published</button>`;
     return `<details class="draft"><summary>${pill} ${esc(x.title)} <span class="muted">· ${bdTime(x.created)} · ${esc((x.products || []).join(", "))}</span></summary>
 <div class="row">
+${x.blog_url ? `<a class="btn" href="${esc(x.blog_url)}" target="_blank" rel="noopener">🌐 On the blog ↗</a>
+<a class="btn primary" href="https://medium.com/p/import" target="_blank" rel="noopener" onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(x.blog_url)}')">⬇ Import to Medium (link copied)</a>` : ""}
 <button type="button" onclick="copyDraft('${esc(x.id)}')">📋 Copy article</button>
 <button type="button" onclick="copyText('${esc(x.id)}-tags')">🏷 Copy tags</button>
 <a class="btn" href="https://medium.com/new-story" target="_blank" rel="noopener">✍ Open Medium editor</a>
@@ -246,9 +248,9 @@ function draftsSection(d) {
   }).join("") || `<p class="muted">No drafts yet. A new one is made every day at 3pm (Bangladesh).</p>`;
   const err = d.last_error ? `<div class="msg">${esc(d.last_error)}</div>` : "";
   return `<h2 id="drafts">Medium drafts · AppSumo</h2>
-<p class="muted">One draft a day from real AppSumo deal data (Impact, sub id <b>medium</b>). Nothing is posted for you:
-open a draft, add your own experience, click <b>Copy article</b>, paste into the Medium editor, add the tags, publish, then <b>Mark published</b>.
-Keep the disclosure line at the top.</p>
+<p class="muted">One article a day from real AppSumo deal data (Impact, sub id <b>medium</b>), published automatically on
+<a href="/blog/" target="_blank" rel="noopener">shop.pickixo.com/blog</a> and sent to Google/Bing. For Medium (no API): press
+<b>Import to Medium</b>, paste the copied link (Cmd+V), Import, add the tags, publish, then <b>Mark published</b>.</p>
 <div class="card"><h3>🔓 AI prompt pack (AdBlueMedia locker)</h3>
 <p><a href="/free/ai-prompts/" target="_blank" rel="noopener">shop.pickixo.com/free/ai-prompts/</a> · up to 100 stock-image prompts,
 10 new every morning. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
