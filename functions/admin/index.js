@@ -28,7 +28,10 @@ a{color:var(--accent)}main{max-width:1100px;margin:0 auto;padding:0 18px 70px}
 h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
 h2{--c:var(--accent);font-size:20px;margin:44px 0 4px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
 h2:before{content:"";width:10px;height:28px;border-radius:6px;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
-h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}
+h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}h2#play{--c:#01875f}h2#ios{--c:#0a84ff}
+.apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0}
+a.applink{text-decoration:none;color:var(--ink);display:block;transition:transform .08s,border-color .15s}a.applink:hover{transform:translateY(-2px);border-color:var(--accent)}
+a.applink h3{color:var(--accent);margin:4px 0 2px;font-size:15px}a.applink p{margin:0;font-size:13px}
 .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:16px 0}
 .stats{display:flex;gap:10px;flex-wrap:wrap}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;min-width:130px;box-shadow:var(--shadow)}
@@ -179,13 +182,13 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a></nav>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a></nav>
 ${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}`));
 }
 
 function bdTime(iso) {
@@ -310,6 +313,32 @@ The Mac tool now scores every image and leaves weak ones out of the CSV (see mag
 <div class="grid">${cards}</div>
 <p><a class="btn" href="https://contributor.magnific.com/dashboard" target="_blank" rel="noopener">Magnific contributor ↗</a></p>
 <p class="muted">Also check <b>Search Trends</b> in the Magnific contributor menu and favour ideas that match it.</p>`;
+}
+
+// Quick links to the app stores (no API: they open in a new tab, already signed in).
+function appsSection() {
+  const links = (items) => items.map(([n, u, t]) =>
+    `<a class="card applink" href="${u}" target="_blank" rel="noopener"><h3>${esc(n)} ↗</h3><p class="muted">${esc(t)}</p></a>`).join("");
+  return `<h2 id="play">Google Play Console</h2>
+<p class="muted">Android apps: releases, reviews, statistics and earnings.</p>
+<div class="apps">${links([
+    ["All apps", "https://play.google.com/console/developers", "Every app, its status and quick actions"],
+    ["Releases & testing", "https://play.google.com/console/developers/app-list", "Pick an app → Test and release → Production"],
+    ["Ratings & reviews", "https://play.google.com/console/developers/app-list", "Pick an app → Ratings and reviews (reply to users)"],
+    ["Statistics", "https://play.google.com/console/developers/app-list", "Installs, uninstalls, active users"],
+    ["Earnings & payouts", "https://play.google.com/console/developers/payments", "Revenue, payments profile, payouts"],
+    ["Policy status", "https://play.google.com/console/developers/policy-status", "Warnings and rejected updates"],
+  ])}</div>
+<h2 id="ios">iOS · App Store Connect</h2>
+<p class="muted">iPhone apps: builds, TestFlight, App Store listing, sales.</p>
+<div class="apps">${links([
+    ["My apps", "https://appstoreconnect.apple.com/apps", "All iOS apps and their review status"],
+    ["TestFlight", "https://appstoreconnect.apple.com/apps", "Pick an app → TestFlight (testers and builds)"],
+    ["Sales & trends", "https://appstoreconnect.apple.com/trends", "Downloads, proceeds, countries"],
+    ["Payments & financial", "https://appstoreconnect.apple.com/itc/payments_and_financial_reports", "Bank, tax and payouts"],
+    ["Ratings & reviews", "https://appstoreconnect.apple.com/apps", "Pick an app → Ratings and Reviews"],
+    ["Developer account", "https://developer.apple.com/account", "Certificates, identifiers, membership"],
+  ])}</div>`;
 }
 
 function magnificToolSection() {
