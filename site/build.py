@@ -408,6 +408,9 @@ def main():
     write(os.path.join(OUT, "index.html"), index_page(videos))
     blog = load_blog()
     write(os.path.join(OUT, "blog", "index.html"), blog_index_page(blog))
+    # read by /admin to link drafts to their blog post
+    write(os.path.join(OUT, "blog", "index.json"), json.dumps(
+        [{"title": b["title"], "url": site_url("/blog/" + b["slug"] + "/")} for b in blog]))
     for b in blog:
         write(os.path.join(OUT, "blog", b["slug"], "index.html"), blog_post_page(b))
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())

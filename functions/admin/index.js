@@ -142,6 +142,16 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
   const fb = fbRaw ? JSON.parse(fbRaw) : { posts: [] };
+  // drafts that lost their blog link (e.g. sent before the dashboard knew the field): match by title
+  try {
+    const br = await context.env.ASSETS.fetch(new URL("/blog/index.json", context.request.url));
+    if (br.ok) {
+      const posts = await br.json();
+      for (const x of drafts.items || []) {
+        if (!x.blog_url) { const m = posts.find((p) => p.title === x.title); if (m) x.blog_url = m.url; }
+      }
+    }
+  } catch (e) { /* no blog yet */ }
   const planRes = await context.env.ASSETS.fetch(new URL("/facebook-plan.json", context.request.url));
   const fbPlan = planRes.ok ? await planRes.json() : null;
   let connected = 0, active = 0, errors = 0;
@@ -227,6 +237,12 @@ ${msg}${probHtml}
 <table><thead><tr><th>Time (BD)</th><th>Pin</th><th>Board</th><th>Link</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
+// Older drafts carried "reviewed and edited by the author"; nobody reviews them now.
+function fixNote(t) {
+  return String(t || "").replace("This article was drafted with AI assistance and reviewed and edited by the author.",
+    "This article was written with AI assistance from the deal information AppSumo publishes. Check each deal page for current terms before you buy.");
+}
+
 function draftsSection(d) {
   const items = (d.items || []).map((x) => {
     const pill = x.status === "published" ? `<span class="pill off">Published</span>` : `<span class="pill on">New</span>`;
@@ -243,8 +259,8 @@ ${x.blog_url ? `<a class="btn" href="${esc(x.blog_url)}" target="_blank" rel="no
 <form method="post" action="/admin/action"><input type="hidden" name="id" value="${esc(x.id)}">${toggle}
 <button class="danger" name="do" value="draft_delete" onclick="return confirm('Delete this draft?')">Delete</button></form></div>
 <p class="muted">Tags: <span id="${esc(x.id)}-tags">${esc((x.tags || []).join(", "))}</span></p>
-<div class="preview" id="${esc(x.id)}-html">${x.html}</div>
-<textarea id="${esc(x.id)}-md" hidden>${esc(x.markdown)}</textarea></details>`;
+<div class="preview" id="${esc(x.id)}-html">${fixNote(x.html)}</div>
+<textarea id="${esc(x.id)}-md" hidden>${esc(fixNote(x.markdown))}</textarea></details>`;
   }).join("") || `<p class="muted">No drafts yet. A new one is made every day at 3pm (Bangladesh).</p>`;
   const err = d.last_error ? `<div class="msg">${esc(d.last_error)}</div>` : "";
   return `<h2 id="drafts">Medium · AppSumo + AdBlueMedia</h2>
@@ -254,7 +270,7 @@ Both are sent to Google/Bing. For Medium (no API): press
 <b>Import to Medium</b>, paste the copied link (Cmd+V), Import, add the tags, publish, then <b>Mark published</b>.</p>
 <div class="card"><h3>🔓 AI prompt pack (AdBlueMedia locker)</h3>
 <p><a href="/free/ai-prompts/" target="_blank" rel="noopener">shop.pickixo.com/free/ai-prompts/</a> · up to 100 stock-image prompts,
-10 new every morning. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
+10 more each time you press <b>Make new prompts</b>. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
 <p class="muted"><b>Who wants it:</b> people making AI images for stock sites, Etsy, social media. <b>Where to share:</b> a Medium article
 like "How I pick AI image ideas that sell on stock sites" with the pack linked at the end; LinkedIn/X posts; Quora answers about AI stock photos;
 Pinterest pins of example images. <b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money or prizes;
