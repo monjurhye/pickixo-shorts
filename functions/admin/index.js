@@ -113,7 +113,7 @@ const TABS_JS = `<script>
   window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
   show(location.hash.slice(1));
   // keep each tab short: long intros show 2 lines, tall cards fold, click to open
-  document.querySelectorAll('.tab > p.muted').forEach(function(p){ if(p.textContent.length>140){p.classList.add('clamp');p.title='Click to read more';p.addEventListener('click',function(){p.classList.toggle('open')});}});
+  document.querySelectorAll('.tab > p, .tab > .msg').forEach(function(p){ if(p.textContent.length>160 && !p.querySelector('form,input,button')){p.classList.add('clamp');p.title='Click to read more';p.addEventListener('click',function(){p.classList.toggle('open')});}});
 })();
 </script>`;
 
