@@ -126,6 +126,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--setup", action="store_true")
     ap.add_argument("--test-ali", action="store_true", help="only fetch AliExpress products, post nothing")
+    ap.add_argument("--test-one", action="store_true", help="schedule just 1 real pin ~15 minutes from now")
     args = ap.parse_args()
     if args.setup:
         return setup()
@@ -160,11 +161,13 @@ def main():
                          buffer.pinterest_boards(cfg["buffer_organization_id"], cfg["buffer_channel_id"])}
         except buffer.BufferError as e:
             common.log("could not list boards: {0}".format(e))
-    want = int(cfg.get("pins_per_day", 6))
+    want = 1 if args.test_one else int(cfg.get("pins_per_day", 6))
     prods = sample_products() if args.dry_run else pick_products(cfg, st, want)
 
     start = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
     start = max(start.replace(hour=int(cfg.get("first_pin_utc_hour", 13))), start + timedelta(hours=1))
+    if args.test_one:
+        start = datetime.now(timezone.utc).replace(second=0, microsecond=0) + timedelta(minutes=15)
     rows = []
     for i, p in enumerate(prods):
         row = {"keyword": p["keyword"], "product": p["title"][:60], "status": "", "note": ""}
