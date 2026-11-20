@@ -101,8 +101,24 @@ def setup():
             print("  channel {0}  service={1}  {2}".format(ch["id"], ch["service"],
                                                            ch.get("displayName") or ch["name"]))
             if "pinterest" in str(ch["service"]).lower():
-                for b in buffer.pinterest_boards(org["id"], ch["id"]):
+                boards = buffer.pinterest_boards(org["id"], ch["id"])
+                for b in boards:
                     print("    board {0}  {1}".format(b["serviceId"], b["name"]))
+                if not boards:
+                    print("    no boards found; schema hints:")
+                    for t in ("ChannelMetadata", "PinterestMetadata", "PinterestBoard"):
+                        try:
+                            d = buffer.gql('query($n:String!){ __type(name:$n){ kind possibleTypes{name} '
+                                           'fields{name type{name kind ofType{name kind}}} } }', {"n": t})
+                            print("     ", t, d.get("__type"))
+                        except buffer.BufferError as e:
+                            print("     ", t, "error:", e)
+                    try:
+                        d = buffer.gql("""query($org: OrganizationId!) { channels(input: {organizationId: $org})
+                            { id metadata { __typename } } }""", {"org": org["id"]})
+                        print("      metadata types:", d)
+                    except buffer.BufferError as e:
+                        print("      metadata error:", e)
 
 
 def main():
