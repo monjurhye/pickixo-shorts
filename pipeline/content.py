@@ -211,7 +211,8 @@ def local_checks(script):
         fields += [it.get("name", ""), it.get("benefit", "")]
     blob = " ".join(fields).lower()
     for b in BANNED:
-        if b in blob:
+        # whole-word match so "secure"/"obscure" don't trip "cure"
+        if re.search(r"(?<![a-z])" + re.escape(b) + r"(?![a-z])", blob):
             issues.append("banned phrase: {0!r}".format(b))
     if PRICE_RE.search(blob):
         issues.append("specific price mentioned")
