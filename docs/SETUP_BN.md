@@ -95,3 +95,12 @@ Repo খুলুন: **Settings → Secrets and variables → Actions → Varia
 - "Google hasn't verified this app" দেখালে **Advanced → Go to Pickixo Shorts Uploader** চাপুন।
 
 Cloudflare Pages এর সেটিংস যা লাগে: KV binding `CHANNELS_KV`; variables `GOOGLE_CLIENT_ID`, `OWNER_EMAILS`; secrets `GOOGLE_CLIENT_SECRET`, `PIPELINE_KEY` (GitHub এর `PIPELINE_KEY` এর সাথে একই মান হতে হবে)।
+
+## Pinterest (AliExpress) pins
+
+প্রতিদিন 11:30 UTC-তে `Daily Pins` workflow AliExpress-এর hot product নেয়, pin-এর লেখা বানায় (OpenAI), আর Buffer দিয়ে Pinterest-এ ৬টা pin schedule করে (13:00 UTC থেকে ২ ঘণ্টা পরপর)। Settings: `config/pinterest.json`।
+
+1. **AliExpress API key:** https://openservice.aliexpress.com → developer account → app বানান → **Affiliates API** permission নিন। App Key আর App Secret GitHub secret হিসেবে রাখুন: `ALIEXPRESS_APP_KEY`, `ALIEXPRESS_APP_SECRET`। Tracking ID `Pinterest` (Portals-এ আগে থেকেই আছে)।
+2. **Buffer:** buffer.com-এ Pinterest account connect করুন। তারপর https://publish.buffer.com/settings/api থেকে API key বানিয়ে GitHub secret `BUFFER_API_KEY` রাখুন।
+3. Actions → **Daily Pins** → Run workflow → `setup` টিক দিন। Log-এ organization, Pinterest channel আর board-এর ID আসবে। সেগুলো `config/pinterest.json`-এর `buffer_organization_id`, `buffer_channel_id`, `board_service_id`-এ বসান।
+4. **থামাতে:** repo variable `PINS_PAUSED` = `true`।

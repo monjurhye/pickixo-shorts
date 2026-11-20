@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "tracking_id": "Pinterest",
+  "pins_per_day": 6,
+  "first_pin_utc_hour": 13,
+  "hours_between_pins": 2,
+  "buffer_organization_id": "",
+  "buffer_channel_id": "",
+  "board_service_id": "",
+  "disclosure": "#ad Affiliate link: I may earn a commission if you buy through it.",
+  "keywords": [
+    "kitchen gadgets", "storage organizer", "home decor", "led lights",
+    "phone accessories", "pet supplies", "bathroom accessories", "car accessories",
+    "desk organizer", "camping gear", "baking tools", "jewelry", "makeup brushes",
+    "fitness accessories", "travel accessories", "christmas decorations"
+  ],
+  "min_rating_percent": 90,
+  "note": "Fill buffer_* and board_service_id with: python -m pipeline.run_pins --setup (needs BUFFER_API_KEY)."
+}
