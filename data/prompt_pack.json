@@ -2,6 +2,76 @@
   "updated": "2026-11-20",
   "prompts": [
     {
+      "theme": "Cozy Christmas living room scene with warm textures",
+      "prompt": "A cozy Christmas living room at golden hour: a lit fireplace, plush textiles, a softly decorated tree in the background, a wooden coffee table with pine cones, a mug and a small gift, natural wood textures, soft shadows, medium distance, 16:9, realistic photography style, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Kwanzaa-inspired still life with candles and crafts",
+      "prompt": "Decorative still life for Kwanzaa: a wooden table with Kinara candle holder, woven fabrics, beads, and a small ceramic bowl; warm ambient lighting, subtle shadows, medium distance, 4:3, illustration/photography blend with organic textures, ample copy space on the left.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year desk setup for resolutions and planning",
+      "prompt": "New Year planning desk: notebook, pen, calendar, and a plant on a clean white desk, soft natural light from a window, calm color palette, shallow depth of field, medium distance, 16:9, photographic style, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter travel planning with snowy landscape and cozy travel essentials",
+      "prompt": "Winter travel planning scene: snowy window view, a notebook, map, and a thermos on a wooden table; soft morning light, cool blue-gray palette with warm accent tones, medium shot, 3:2, photographic style, copy space on the left.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Remote team collaboration in a modern home office",
+      "prompt": "Modern home office with a laptop, two notebooks, and a mug, one person at a medium distance on screen in a virtual meeting to avoid close-ups; natural light, soft shadows, muted colors, 16:9, photographic style, copy space on the right.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Healthy winter meals on a wooden board",
+      "prompt": "Healthy winter ingredients arranged on a wooden board: quinoa, roasted vegetables, herbs, a ceramic bowl of oil, natural light from a side window, close to medium shot, 4:3, photographic style with texture detail, empty space on the left for copy.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "AI concepts as abstract desk visuals",
+      "prompt": "Abstract desk concept with AI-inspired elements: light-palette circuitry patterns, glass computer screens, a plant, and a clean desk; soft shadows, medium depth of field, 16:9, illustration/photo blend with subtle gradients, copy space on the left.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Minimalist textured background with copy space",
+      "prompt": "Minimalist textured background featuring linen weave or ceramic glaze with subtle color variation, large flat copy space, soft directional light creating gentle shadows, 1:1 or 4:3 options, photographic/illustration blend, muted palette.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Isometric tech setup with sustainable devices",
+      "prompt": "Isometric tech setup: laptop, wireless charger, plant, and reusable mug on a clean desk; matte finishes, soft shadows, cool-neutral palette with a warm accent, medium distance, 4:3, illustration style with depth, copy space on the right.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Soft-wocus lifestyle portrait at medium distance",
+      "prompt": "A lone individual in a softly lit living space viewed at medium distance to avoid facial close-ups; warm textures, natural fabrics, neutral color palette, shallow depth of field, 16:9, photographic style, copy space on the left.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
       "theme": "Cozy Christmas living room with warm textures",
       "prompt": "A cozy Christmas living room scene with a softly lit fireplace, a decorated tree in the corner, knitted throws, and a wooden coffee table. Natural daylight from a window, shallow depth of field, subtle shadows, textures visible: wool, wood grain, ceramic mug. Copy space on the left for headlines; calm color palette with red-green-cream accents.",
       "tool": "Adobe Firefly",
