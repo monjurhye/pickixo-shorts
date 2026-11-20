@@ -104,6 +104,33 @@ def create_pin(channel_id, board_id, title, description, image_url, link, due_at
     return res["post"]
 
 
+def delete_post(post_id):
+    """Removes a queued post. Tries the documented input shape first, then an `id` argument."""
+    tries = [
+        ('mutation($id: PostId!) { deletePost(input: {id: $id}) { __typename ... on PostActionSuccess { post { id } } } }'),
+        ('mutation($id: PostId!) { deletePost(input: {id: $id}) { __typename } }'),
+        ('mutation($id: PostId!) { deletePost(id: $id) { __typename } }'),
+        ('mutation($id: String!) { deletePost(input: {id: $id}) { __typename } }'),
+    ]
+    errors = []
+    for q in tries:
+        try:
+            res = gql(q, {"id": post_id}).get("deletePost") or {}
+            name = res.get("__typename", "")
+            if "Error" in name:
+                raise BufferError(name)
+            return name or "ok"
+        except BufferError as e:
+            errors.append(str(e)[:150])
+    hint = ""
+    try:
+        d = gql('{ __type(name:"Mutation"){ fields{ name args{ name type{ name kind ofType{ name } } } } } }')
+        hint = [f for f in d["__type"]["fields"] if "delete" in f["name"].lower() or "remove" in f["name"].lower()]
+    except BufferError:
+        pass
+    raise BufferError("delete failed: {0} | schema: {1}".format(" / ".join(errors), str(hint)[:600]))
+
+
 def create_post(channel_id, text, image_url="", due_at=None):
     """Generic scheduled post (e.g. a Facebook Page) with an optional image."""
     sched = 'mode: customScheduled, dueAt: $due' if due_at else "mode: addToQueue"

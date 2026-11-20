@@ -147,6 +147,7 @@ def main():
     ap.add_argument("--test-ali", action="store_true", help="only fetch AliExpress products, post nothing")
     ap.add_argument("--test-one", action="store_true", help="schedule just 1 real pin ~15 minutes from now")
     ap.add_argument("--test-impact", action="store_true", help="list Impact programs and catalogs")
+    ap.add_argument("--delete-posts", default="", help="comma-separated Buffer post ids to remove from the queue")
     ap.add_argument("--sync-dashboard", action="store_true", help="send already posted pins to the dashboard")
     args = ap.parse_args()
     if args.setup:
@@ -199,6 +200,18 @@ def main():
             for it in items:
                 common.log("  sample item | {0} | img {1} | link {2}".format(
                     str(it.get("Name"))[:60], bool(it.get("ImageUrl")), str(it.get("Url"))[:45]))
+        return
+    if args.delete_posts:
+        st = common.load_json(STATE, {"keyword_index": 0, "posted": {}})
+        for pid in [x.strip() for x in args.delete_posts.split(",") if x.strip()]:
+            try:
+                print("deleted", pid, buffer.delete_post(pid))
+                for v in st["posted"].values():
+                    if v.get("buffer_id") == pid:
+                        v["deleted"] = True
+            except buffer.BufferError as e:
+                print("could not delete", pid, e)
+        common.save_json(STATE, st)
         return
     if args.sync_dashboard:
         st = common.load_json(STATE, {"posted": {}})

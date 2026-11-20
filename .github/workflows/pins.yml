@@ -25,6 +25,9 @@ on:
         description: "Send already posted pins to the dashboard"
         type: boolean
         default: false
+      delete_posts:
+        description: "Buffer post ids to remove from the queue (comma-separated)"
+        default: ""
       test_one:
         description: "Schedule just 1 real pin about 15 minutes from now"
         type: boolean
@@ -59,6 +62,7 @@ jobs:
           IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
           IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
           PINS_PAUSED: ${{ vars.PINS_PAUSED }}
+          DELETE_POSTS: ${{ inputs.delete_posts }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           ARGS=""
@@ -68,6 +72,7 @@ jobs:
           if [ "${{ inputs.test_one }}" = "true" ]; then ARGS="--test-one"; fi
           if [ "${{ inputs.sync_dashboard }}" = "true" ]; then ARGS="--sync-dashboard"; fi
           if [ "${{ inputs.test_impact }}" = "true" ]; then ARGS="--test-impact"; fi
+          if [ -n "$DELETE_POSTS" ]; then python -m pipeline.run_pins --delete-posts "$DELETE_POSTS"; exit 0; fi
           python -m pipeline.run_pins $ARGS
       - name: Commit pin records
         if: ${{ !inputs.dry_run && !inputs.setup && !inputs.test_ali && !inputs.sync_dashboard && !inputs.test_impact }}
