@@ -4,9 +4,13 @@ on:
   schedule:
     - cron: "0 2 * * *"   # 8am Bangladesh: Magnific image ideas to the dashboard
   workflow_dispatch:
+    inputs:
+      pack:
+        description: "Extra batches of 10 for the prompt pack (0 = normal day)"
+        default: "0"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   run:
@@ -23,4 +27,13 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
-        run: python -m pipeline.image_ideas
+        run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
+      - name: Commit prompt pack (updates /free/ai-prompts/)
+        run: |
+          git config user.name "pickixo-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/prompt_pack.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Prompt pack $(date -u +%F)"
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done
+          exit 1

@@ -10,6 +10,7 @@ Sent to the dashboard (/admin -> Magnific image ideas).
 """
 
 import argparse
+import os
 from datetime import datetime, timezone
 
 from . import common, content, dashboard
@@ -79,6 +80,7 @@ season_note: one sentence on what buyers are preparing for right now."""
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--pack", type=int, default=0, help="also make N extra batches for the prompt pack")
     args = ap.parse_args()
     today = datetime.now(timezone.utc)
     from datetime import timedelta
@@ -101,6 +103,29 @@ def main():
     if dashboard.enabled():
         dashboard.ideas_report(payload)
     common.log("ideas ready: {0}".format(len(ideas)))
+    extra = []
+    for _ in range(args.pack):
+        more = content._call_json(SYSTEM, user + " Make them different from these themes: " +
+                                  "; ".join(i["theme"] for i in ideas + extra), SCHEMA, common.settings(), 6000)
+        extra += more.get("ideas", [])
+    add_to_pack(ideas + extra, today.strftime("%Y-%m-%d"))
+
+
+PACK = os.path.join(common.DATA_DIR, "prompt_pack.json")
+
+
+def add_to_pack(ideas, date):
+    """Newest prompts first, unique by theme, max 100 (used by /free/ai-prompts/)."""
+    pack = common.load_json(PACK, {"prompts": []})
+    seen, out = set(), []
+    for i in [dict(theme=x["theme"], prompt=x["prompt"], tool=x["best_tool"], aspect=x["aspect"], date=date)
+              for x in ideas] + pack["prompts"]:
+        k = i["theme"].strip().lower()
+        if k not in seen and not any(b in i["prompt"].lower() for b in ("logo", "brand", "celebrity", "in the style of")):
+            seen.add(k)
+            out.append(i)
+    common.save_json(PACK, {"updated": date, "prompts": out[:100]})
+    common.log("prompt pack: {0}".format(len(out[:100])))
 
 
 if __name__ == "__main__":

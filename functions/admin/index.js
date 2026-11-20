@@ -154,16 +154,16 @@ function draftsSection(d) {
 <p class="muted">One draft a day from real AppSumo deal data (Impact, sub id <b>medium</b>). Nothing is posted for you:
 open a draft, add your own experience, click <b>Copy article</b>, paste into the Medium editor, add the tags, publish, then <b>Mark published</b>.
 Keep the disclosure line at the top.</p>
-<div class="card"><h3>🔓 Free deals page (AdBlueMedia locker)</h3>
-<p><a href="/free/lifetime-deals/" target="_blank" rel="noopener">shop.pickixo.com/free/lifetime-deals/</a> · updates daily with the newest AppSumo deals (sub id <b>freepage</b>).
-First 3 deals are open; the full list (/free/lifetime-deals/full/) opens after the visitor completes one AdBlueMedia sponsor offer
-(AdBlueMedia URL locker with that page as destination).</p>
-<p class="muted"><b>How to use it:</b> share it where people look for software deals: your Medium author bio and newsletter,
-a LinkedIn post ("I keep a free list of lifetime deals"), answers on Quora. In a Medium article, link it once near the end
-("Full updated list: …"), not instead of the article's own links.
-<b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money, prizes or "free premium accounts";
-no fake countdowns; don't post the link in groups that ban self-promotion.
-<b>Check results:</b> AdBlueMedia dashboard (unlocks/earnings) and Impact reports for sub id <b>freepage</b> (AppSumo sales).</p></div>
+<div class="card"><h3>🔓 AI prompt pack (AdBlueMedia locker)</h3>
+<p><a href="/free/ai-prompts/" target="_blank" rel="noopener">shop.pickixo.com/free/ai-prompts/</a> · up to 100 stock-image prompts,
+10 new every morning. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
+<p class="muted"><b>Who wants it:</b> people making AI images for stock sites, Etsy, social media. <b>Where to share:</b> a Medium article
+like "How I pick AI image ideas that sell on stock sites" with the pack linked at the end; LinkedIn/X posts; Quora answers about AI stock photos;
+Pinterest pins of example images. <b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money or prizes;
+no fake countdowns; don't spam groups. <b>Results:</b> AdBlueMedia dashboard (clicks, unlocks, earnings).</p></div>
+<div class="card"><h3>📋 AppSumo deals list (open, no locker)</h3>
+<p><a href="/free/lifetime-deals/" target="_blank" rel="noopener">shop.pickixo.com/free/lifetime-deals/</a> · 25 newest AppSumo deals, sub id <b>freepage</b>.
+Good as the "full updated list" link at the end of your AppSumo Medium articles.</p></div>
 ${err}${items}
 <script>
 async function copyDraft(id){

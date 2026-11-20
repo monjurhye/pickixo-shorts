@@ -134,48 +134,61 @@ LOCKER_HEAD = """<script type="text/javascript">var gJXKc_sbq_gLMDqc={"it":43839
 <script src="https://d1chbu4sfo2xhu.cloudfront.net/71fd049.js"></script>"""
 
 
-def free_deals_page(full=False):
-    """Teaser page (3 deals + unlock button) or, with full=True, the unlocked full list.
-    Unlock goes through the AdBlueMedia URL locker (settings: adbluemedia_locker_url), whose
-    destination should be /free/lifetime-deals/full/."""
+def free_deals_page():
+    """Open list of the newest AppSumo deals (no locker). Sub id 'freepage'."""
     data = common.load_json(os.path.join(common.DATA_DIR, "free_deals.json"), {"deals": []})
-    locker_url = common.settings().get("adbluemedia_locker_url", "")
     deals = data.get("deals", [])
-    def card(i, d):
-        return """<li class="card"><span class="num">{n}</span>
+    cards = "".join("""<li class="card"><span class="num">{n}</span>
 <div class="txt"><h3>{name}</h3><p>{desc}</p></div>
 <a class="btn" href="{link}" target="_blank" rel="sponsored nofollow noopener">See the deal on AppSumo →</a></li>""".format(
-            n=i, name=e(d["name"]), desc=e(d["desc"] or "Software deal on AppSumo."), link=e(d["link"]))
-    teaser = "".join(card(i, d) for i, d in enumerate(deals[:3], 1))
-    rest = "".join(card(i, d) for i, d in enumerate(deals[3:], 4)) if full else ""
-    if full:
-        button = '<p><b>Unlocked, thanks!</b> Here is the full list.</p>'
-    elif locker_url:
-        button = '<p><a class="btn" href="{0}" rel="nofollow">Unlock the full list</a></p>'.format(e(locker_url))
-    else:
-        button = '<p><button class="btn" onclick="if(typeof _ET===\'function\'){{_ET();}}">Unlock the full list</button></p>'
-    button = button.replace("{{", "{").replace("}}", "}")
+        n=i, name=e(d["name"]), desc=e(d["desc"] or "Software deal on AppSumo."), link=e(d["link"]))
+        for i, d in enumerate(deals, 1))
     body = """<section class="hero"><h1>{n} Lifetime Software Deals That Replace Monthly Subscriptions</h1>
 <p>A free, regularly updated list of one-time-payment software deals on AppSumo for solopreneurs,
 freelancers and small teams. Updated {up}.</p></section>
-<ol class="cards">{teaser}</ol>
-<div class="unlock"><h2>See the full list ({more} more deals)</h2>
-<p>The full list is free. To unlock it, complete <b>one short offer from our sponsor</b>
-(for example a quick survey or a free app). This keeps the list free. You don't have to buy anything.</p>
-{button}</div>
-<ol class="cards" start="4">{rest}</ol>
+<ol class="cards">{cards}</ol>
 <p class="note">Before buying any lifetime deal, read the plan limits and refund window on the deal page.
 Lifetime deals depend on the company staying in business.</p>""".format(
-        n=len(deals), up=e(data.get("updated", "")), teaser=teaser, more=max(0, len(deals) - 3), rest=rest,
-        button=button)
-    foot = ("Some links on this page are affiliate links (AppSumo via Impact); we may earn a commission. "
-            "The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
-    head = LOCKER_HEAD if not (full or locker_url) else ""
-    if full:
-        head += '<meta name="robots" content="noindex">'
-    return page("Free list: lifetime software deals (AppSumo)", body,
+        n=len(deals), up=e(data.get("updated", "")), cards=cards)
+    return page("Lifetime software deals list (AppSumo)", body,
                 "Free updated list of AppSumo lifetime software deals that replace monthly subscriptions.",
-                head_extra=head, foot=foot)
+                foot="Links on this page are affiliate links (AppSumo via Impact); we may earn a commission.")
+
+
+def prompt_pack_page(full=False):
+    """AI image prompt pack. Teaser shows 5 prompts; the rest are on /full/ (noindex), reached
+    through the AdBlueMedia locker. With a URL locker (settings: adbluemedia_locker_url,
+    destination /free/ai-prompts/full/) the button goes there; otherwise it opens the JS locker."""
+    data = common.load_json(os.path.join(common.DATA_DIR, "prompt_pack.json"), {"prompts": []})
+    prompts = data.get("prompts", [])
+    locker_url = common.settings().get("adbluemedia_locker_url", "")
+    def card(i, p):
+        return """<li class="card"><span class="num">{n}</span><div class="txt"><h3>{t}</h3>
+<p class="muted">{tool} · {aspect}</p><p>{prompt}</p></div></li>""".format(
+            n=i, t=e(p["theme"]), tool=e(p.get("tool", "")), aspect=e(p.get("aspect", "")), prompt=e(p["prompt"]))
+    shown = prompts if full else prompts[:5]
+    cards = "".join(card(i, p) for i, p in enumerate(shown, 1))
+    if full:
+        unlock = '<div class="unlock"><b>Unlocked, thanks!</b> Here is the full pack. Bookmark this page; it updates every day.</div>'
+    else:
+        btn = ('<a class="btn" href="{0}" rel="nofollow">Unlock all {1} prompts</a>'.format(e(locker_url), len(prompts))
+               if locker_url else
+               '<button class="btn" onclick="if(typeof _ET===\'function\'){_ET();}">Unlock all ' + str(len(prompts)) + ' prompts</button>')
+        unlock = """<div class="unlock"><h2>Get all {n} prompts</h2>
+<p>The full pack is free. To unlock it, complete <b>one short offer from our sponsor</b>
+(for example a quick survey or a free app). You don't have to buy anything.</p><p>{btn}</p></div>""".format(
+            n=len(prompts), btn=btn)
+    body = """<section class="hero"><h1>{n} AI Image Prompts for Stock Photos (Updated Daily)</h1>
+<p>Ready-to-use prompts for Adobe Firefly, Ideogram and FLUX: seasonal and evergreen themes that buyers search for,
+written to avoid common AI mistakes (no text, no logos, no hand close-ups). Updated {up}.</p></section>
+<ol class="cards">{cards}</ol>{unlock}
+<p class="note">Tips: make 4-8 images per prompt, keep only clean ones, check at 100% zoom, and label AI images
+when you upload them to stock sites.</p>""".format(n=len(prompts), up=e(data.get("updated", "")), cards=cards, unlock=unlock)
+    head = '<meta name="robots" content="noindex">' if full else ("" if locker_url else LOCKER_HEAD)
+    return page("AI image prompt pack for stock photos", body,
+                "Free daily-updated pack of AI image prompts for stock photos: seasonal and evergreen themes.",
+                head_extra=head,
+                foot="The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
 
 
 def write(path, text):
@@ -201,7 +214,9 @@ def main():
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
     if os.path.exists(os.path.join(common.DATA_DIR, "free_deals.json")):
         write(os.path.join(OUT, "free", "lifetime-deals", "index.html"), free_deals_page())
-        write(os.path.join(OUT, "free", "lifetime-deals", "full", "index.html"), free_deals_page(full=True))
+    if os.path.exists(os.path.join(common.DATA_DIR, "prompt_pack.json")):
+        write(os.path.join(OUT, "free", "ai-prompts", "index.html"), prompt_pack_page())
+        write(os.path.join(OUT, "free", "ai-prompts", "full", "index.html"), prompt_pack_page(full=True))
     with open(os.path.join(OUT, "channels.json"), "w", encoding="utf-8") as f:
         json.dump({"channels": [{"id": c["id"], "niche": c["niche"]} for c in common.channels()]}, f)
     for name in os.listdir(STATIC):
