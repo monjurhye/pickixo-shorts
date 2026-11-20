@@ -74,7 +74,12 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     today = datetime.now(timezone.utc)
-    user = "Today is {0} ({1}). Write today's 10 ideas.".format(today.strftime("%Y-%m-%d"), today.strftime("%A"))
+    from datetime import timedelta
+    a, b = today + timedelta(weeks=3), today + timedelta(weeks=8)
+    user = ("Today is {0} ({1}). Seasonal ideas must be for events/seasons between {2} and {3}; "
+            "do NOT suggest anything that happens before {2} (too late for buyers). "
+            "Write today's 10 ideas.").format(today.strftime("%Y-%m-%d"), today.strftime("%A"),
+                                            a.strftime("%B %d"), b.strftime("%B %d"))
     if args.dry_run:
         print(user)
         return
