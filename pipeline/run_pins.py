@@ -34,7 +34,10 @@ Given one product's raw marketplace title, write:
 - description: 1-2 friendly sentences (<= 300 characters) on what it does and why it is handy.
 - hashtags: 3-5 relevant lowercase hashtags without the # sign.
 - ok: false if the product looks unsafe, adult, counterfeit/branded knock-off, medical,
-  weapon-related, or the title is too unclear to describe honestly; otherwise true.
+  weapon-related, or the title is too unclear to describe honestly; also false if it names
+  or is made for a brand or trademark (car makes, Apple/iPhone, Samsung, Disney, Nike, etc.),
+  if it is an electronic part/component, SIM/eSIM/unlock/hacking gadget, vape or e-cigarette,
+  or if it would look out of place on the given Pinterest board; otherwise true.
 Rules: never state a price, discount or shipping time; no fake urgency ("today only",
 "limited", "selling out"); no health, safety or performance claims you cannot know;
 never claim you personally used or reviewed it."""
@@ -48,9 +51,17 @@ def load_cfg():
     return common.load_json(CONFIG, {})
 
 
-def checks(pin):
+BRANDS_RE = re.compile(r"\b(tesla|bmw|toyota|honda|ford|mercedes|audi|apple|iphone|ipad|airpods|samsung|"
+                       r"galaxy|xiaomi|huawei|disney|marvel|pokemon|nike|adidas|lego|dyson|stanley|"
+                       r"esim|sim card|unlock|vape|e-cig|switch module|relay module)\b", re.I)
+
+
+def checks(pin, product_title=""):
     blob = (pin["title"] + " " + pin["description"]).lower()
     issues = ["banned phrase " + b for b in BANNED if b in blob]
+    m = BRANDS_RE.search(blob + " " + product_title.lower())
+    if m:
+        issues.append("brand or risky item: " + m.group(0))
     if PRICE_RE.search(blob):
         issues.append("price mentioned")
     if not pin.get("ok"):
@@ -83,12 +94,16 @@ def pick_products(cfg, st, want):
         except aliexpress.AliError as e:
             common.log("AliExpress {0!r}: {1}".format(kw, e))
             continue
+        cands = []
         for p in prods:
             rate = float(str(p.get("rating") or "0").rstrip("%") or 0)
             if p["id"] in st["posted"] or rate < cfg.get("min_rating_percent", 0):
                 continue
-            picked.append(dict(p, keyword=kw))
-            break  # one product per keyword keeps the board varied
+            cands.append(dict(p, keyword=kw))
+            if len(cands) >= 4:
+                break
+        if cands:  # one pin per keyword keeps the boards varied; the rest are backups
+            picked.append(dict(cands[0], backups=cands[1:]))
     return picked
 
 
@@ -244,17 +259,27 @@ def main():
                "title": "", "board": "", "due": "", "link": p.get("link", "")}
         rows.append(row)
         try:
-            if args.dry_run:
-                pin = {"title": "Magnetic spice rack that frees up cabinet space",
-                       "description": "Sticks to the fridge and keeps spices in reach.",
-                       "hashtags": ["kitchenorganization", "kitchenhacks"], "ok": True}
-            else:
-                pin = content._call_json(PIN_SYSTEM, "Product: " + p["title"] +
-                                         "\nSearch topic: " + p["keyword"], PIN_SCHEMA, ai_cfg, 800)
-            issues = checks(pin)
-            if issues:
-                row.update(status="skipped", note="; ".join(issues))
-                st["posted"][p["id"]] = {"date": date, "skipped": True}
+            pin, skipped = None, []
+            for cand in [p] + list(p.get("backups", [])):
+                if args.dry_run:
+                    pin = {"title": "Magnetic spice rack that frees up cabinet space",
+                           "description": "Sticks to the fridge and keeps spices in reach.",
+                           "hashtags": ["kitchenorganization", "kitchenhacks"], "ok": True}
+                else:
+                    pin = content._call_json(PIN_SYSTEM, "Product: " + cand["title"] +
+                                             "\nSearch topic: " + cand["keyword"] +
+                                             "\nPinterest board: " + board_name(cfg, cand["keyword"]),
+                                             PIN_SCHEMA, ai_cfg, 800)
+                issues = checks(pin, cand["title"])
+                if not issues:
+                    p = cand
+                    row.update(product=cand["title"][:60], link=cand.get("link", ""))
+                    break
+                st["posted"][cand["id"]] = {"date": date, "skipped": True}
+                skipped.append(cand["title"][:40] + ": " + "; ".join(issues))
+                pin = None
+            if not pin:
+                row.update(status="skipped", note=" | ".join(skipped)[:300])
                 continue
             tags = " ".join("#" + re.sub(r"[^a-z0-9]", "", t.lower()) for t in pin["hashtags"][:5])
             desc = "{0}\n\n{1}\n{2}".format(pin["description"].strip(), cfg["disclosure"], tags)
