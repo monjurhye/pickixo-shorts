@@ -110,7 +110,7 @@ def find_for_channel(channel, want, cfg, avoid_names=()):
         channel["niche"], want,
         ("Already have (pick other types): " + ", ".join(avoid_names) + "\n") if avoid_names else "")
     params = dict(
-        model=cfg.get("product_finder_model", "gpt-5-mini"),
+        model=cfg.get("product_finder_model", "gpt-5-nano"),
         instructions=SYSTEM,
         input=user,
         tools=[{"type": "web_search"}],

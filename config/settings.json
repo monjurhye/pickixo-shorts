@@ -25,7 +25,7 @@
   "indexnow_key": "cb97c59a71f60c3eff376539cdb2f71b",
   "google_site_verification": "",
   "bing_site_verification": "",
-  "product_finder_model": "gpt-5-mini",
+  "product_finder_model": "gpt-5-nano",
   "product_finder_effort": "low",
   "product_finder_batch": 12,
   "product_finder_min": 8,
