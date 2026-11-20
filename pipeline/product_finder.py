@@ -1,10 +1,10 @@
 """Product finder agent: fills data/products.json with real Amazon products (ASINs) per
 channel, fully automatic, without the Product Advertising API and without scraping Amazon.
 
-How an ASIN is trusted: an OpenAI model uses its web_search tool to look for products on
-amazon.com. A product is kept ONLY if its ASIN comes from an amazon.com URL that the search
-tool itself returned (a source or a citation). An ASIN that appears only in the model's own
-text is thrown away, so nothing is ever guessed. Only ASIN + a short generic name are
+How an ASIN is trusted: the model first lists generic product types for the niche, then
+one web search per type ("site:amazon.com <type>"). The ASIN is taken ONLY from an
+amazon.com product URL that the search tool itself returned (a source or a citation),
+never from the model's own text, so nothing is ever guessed. Only ASIN + a short generic name are
 stored: no prices, no images, no reviews.
 
   python -m pipeline.product_finder              # refresh channels that need it
@@ -22,42 +22,6 @@ from datetime import datetime, timedelta, timezone
 from . import common
 
 AUTO_PATH = os.path.join(common.DATA_DIR, "products.json")
-
-SCHEMA = {
-    "type": "object",
-    "properties": {
-        "products": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": {"type": "string"},
-                    "url": {"type": "string"},
-                },
-                "required": ["name", "url"],
-                "additionalProperties": False,
-            },
-        },
-    },
-    "required": ["products"],
-    "additionalProperties": False,
-}
-
-SYSTEM = """You find real products on amazon.com (United States) for a channel of short \
-"useful finds" videos. Use the web search tool and search amazon.com itself \
-(for example "site:amazon.com magnetic spice rack").
-
-Rules:
-- Every product must be a real listing you saw in the search results, with its amazon.com \
-product URL containing /dp/<ASIN> exactly as the search result shows it. Never type or \
-change an ASIN yourself; if you did not see the URL, leave that product out.
-- Pick well-reviewed, everyday products that clearly fit the niche, each a DIFFERENT \
-product type. If the niche names a budget (like "under $30"), only pick products that \
-are normally within it.
-- No adult, weapon, medical-device, supplement, drug, or baby-sleep-safety products.
-- name: the generic product type in at most 5 words, no brand (e.g. "Magnetic spice rack").
-Return fewer products rather than any you are unsure about."""
-
 
 def load_auto():
     return common.load_json(AUTO_PATH, None) or {"products": []}
@@ -101,46 +65,76 @@ def _tool_urls(resp):
     return [u for u in urls if u]
 
 
-def find_for_channel(channel, want, cfg, avoid_names=()):
-    import json
-    import openai  # lazy; reads OPENAI_API_KEY
-    client = openai.OpenAI()
-    user = ("Channel niche: {0}\nFind {1} products.\n{2}"
-            "Return JSON only.").format(
-        channel["niche"], want,
-        ("Already have (pick other types): " + ", ".join(avoid_names) + "\n") if avoid_names else "")
-    params = dict(
-        model=cfg.get("product_finder_model", "gpt-5-nano"),
-        instructions=SYSTEM,
-        input=user,
-        tools=[{"type": "web_search"}],
-        include=["web_search_call.action.sources"],
-        max_output_tokens=12000,
-        text={"format": {"type": "json_schema", "name": "products", "strict": True, "schema": SCHEMA}},
-    )
+TYPES_SCHEMA = {
+    "type": "object",
+    "properties": {"types": {"type": "array", "items": {"type": "string"}}},
+    "required": ["types"],
+    "additionalProperties": False,
+}
+
+TYPES_SYSTEM = """You plan products for a channel of short "useful finds" videos for US \
+Amazon shoppers. List generic product TYPES (no brands), each a different everyday item \
+that is widely sold on amazon.com and clearly fits the niche, at most 5 words each \
+(e.g. "Magnetic spice rack"). If the niche names a budget, only types normally within it. \
+No adult, weapon, medical-device, supplement, drug or baby-sleep products."""
+
+
+def _responses(client, cfg, **params):
+    import openai
     effort = cfg.get("product_finder_effort", "low")
     try:
-        resp = client.responses.create(reasoning={"effort": effort}, **params)
+        return client.responses.create(reasoning={"effort": effort}, **params)
     except openai.BadRequestError as e:
-        if "reasoning" in str(e).lower():
-            resp = client.responses.create(**params)
-        else:
-            raise
-    seen = _amazon_asins(_tool_urls(resp))
-    try:
-        data = json.loads(resp.output_text or "{}")
-    except ValueError:
-        data = {"products": []}
-    kept, dropped = [], 0
-    for p in data.get("products", []):
-        asin = common.parse_asin(p.get("url", ""))
-        name = " ".join((p.get("name") or "").split()[:6])
-        if asin and asin in seen and name:
-            kept.append({"asin": asin, "name": name})
-        else:
-            dropped += 1
-    common.log("[{0}] product finder: {1} verified, {2} dropped (not in search results), "
-               "{3} amazon urls seen".format(channel["id"], len(kept), dropped, len(seen)))
+        if "reasoning" in str(e).lower() or "tool_choice" in str(e).lower():
+            params.pop("tool_choice", None)
+            return client.responses.create(**params)
+        raise
+
+
+def product_types(client, channel, want, cfg, avoid_names=()):
+    import json
+    user = "Channel niche: {0}\nList {1} product types.\n{2}".format(
+        channel["niche"], want,
+        ("Already covered (pick other types): " + ", ".join(avoid_names)) if avoid_names else "")
+    resp = _responses(client, cfg, model=cfg.get("product_finder_model", "gpt-5-nano"),
+                      instructions=TYPES_SYSTEM, input=user, max_output_tokens=4000,
+                      text={"format": {"type": "json_schema", "name": "types", "strict": True,
+                                       "schema": TYPES_SCHEMA}})
+    types = json.loads(resp.output_text or "{}").get("types", [])
+    return [" ".join(t.split()[:6]) for t in types if t.strip()][:want]
+
+
+def search_asin(client, ptype, cfg):
+    """One web search on amazon.com for a product type. Returns the first ASIN found in an
+    amazon.com product URL that the search tool returned, or ""."""
+    resp = _responses(client, cfg, model=cfg.get("product_finder_model", "gpt-5-nano"),
+                      instructions=("Search the web for this product on amazon.com and list the "
+                                    "amazon.com product page URLs (with /dp/) you found."),
+                      input="site:amazon.com " + ptype,
+                      tools=[{"type": "web_search"}], tool_choice="required",
+                      include=["web_search_call.action.sources"], max_output_tokens=3000)
+    urls = _tool_urls(resp)
+    for u in urls:
+        found = _amazon_asins([u])
+        if found:
+            return found.pop()
+    common.log("  no amazon.com product url for {0!r} ({1} urls seen)".format(ptype, len(urls)))
+    return ""
+
+
+def find_for_channel(channel, want, cfg, avoid_names=()):
+    import openai  # lazy; reads OPENAI_API_KEY
+    client = openai.OpenAI()
+    kept = []
+    for t in product_types(client, channel, want, cfg, avoid_names):
+        try:
+            asin = search_asin(client, t, cfg)
+        except Exception as e:
+            common.log("  search failed for {0!r}: {1}".format(t, str(e)[:150]))
+            continue
+        if asin and asin not in {k["asin"] for k in kept}:
+            kept.append({"asin": asin, "name": t})
+    common.log("[{0}] product finder: {1} verified of {2} wanted".format(channel["id"], len(kept), want))
     return kept
 
 
