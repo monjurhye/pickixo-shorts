@@ -10,7 +10,7 @@ import os
 import re
 from datetime import datetime, timedelta, timezone
 
-from . import aliexpress, buffer, common, content, report
+from . import aliexpress, buffer, common, content, dashboard, report
 
 CONFIG = os.path.join(common.CONFIG_DIR, "pinterest.json")
 STATE = os.path.join(common.DATA_DIR, "pins.json")
@@ -58,6 +58,10 @@ def checks(pin):
     if len(pin["title"]) > 100:
         issues.append("title too long")
     return issues
+
+
+def board_name(cfg, keyword):
+    return next((b for b, kws in cfg.get("boards", {}).items() if keyword in kws), cfg.get("default_board", ""))
 
 
 def board_for(cfg, keyword, board_ids):
@@ -127,9 +131,19 @@ def main():
     ap.add_argument("--setup", action="store_true")
     ap.add_argument("--test-ali", action="store_true", help="only fetch AliExpress products, post nothing")
     ap.add_argument("--test-one", action="store_true", help="schedule just 1 real pin ~15 minutes from now")
+    ap.add_argument("--sync-dashboard", action="store_true", help="send already posted pins to the dashboard")
     args = ap.parse_args()
     if args.setup:
         return setup()
+    if args.sync_dashboard:
+        st = common.load_json(STATE, {"posted": {}})
+        rows = [dict(status="scheduled", keyword=v.get("keyword", ""), product=v.get("title", ""),
+                     title=v.get("title", ""), board=v.get("board", ""), due=v.get("due", v.get("date", "")),
+                     link=v.get("link", ""), note="") for v in st["posted"].values() if v.get("buffer_id")]
+        dashboard.pins_report({"date": common.today_utc(), "want": len(rows), "rows": rows,
+                               "message": "Synced {0} earlier pin(s).".format(len(rows))})
+        common.log("synced {0} pins".format(len(rows)))
+        return
     if args.test_ali:
         cfg = load_cfg()
         prods = aliexpress.hot_products(cfg["keywords"][0], cfg["tracking_id"])
@@ -141,14 +155,20 @@ def main():
     cfg, ai_cfg = load_cfg(), common.settings()
     date = common.today_utc()
     if not args.dry_run:
-        if os.environ.get("PINS_PAUSED", "").lower() == "true" or not cfg.get("enabled"):
+        if os.environ.get("PINS_PAUSED", "").lower() == "true" or not cfg.get("enabled") \
+                or (dashboard.enabled() and dashboard.pins_paused()):
             common.log("pins paused")
+            if dashboard.enabled():
+                dashboard.pins_report({"date": date, "want": 0, "rows": [], "message": "Paused, nothing posted."})
             return
         missing = [n for n, ok in (("ALIEXPRESS keys", aliexpress.enabled()),
                                    ("BUFFER_API_KEY", buffer.enabled()),
                                    ("buffer_channel_id", cfg.get("buffer_channel_id")),
                                    ("buffer_organization_id", cfg.get("buffer_organization_id"))) if not ok]
         if missing:
+            if dashboard.enabled():
+                dashboard.pins_report({"date": date, "want": 0, "rows": [],
+                                       "message": "Not set up, missing: " + ", ".join(missing)})
             report.publish("# Pickixo pins — {0}\n\nNot set up yet, nothing posted. Missing: {1}"
                            .format(date, ", ".join(missing)))
             return
@@ -170,7 +190,8 @@ def main():
         start = datetime.now(timezone.utc).replace(second=0, microsecond=0) + timedelta(minutes=15)
     rows = []
     for i, p in enumerate(prods):
-        row = {"keyword": p["keyword"], "product": p["title"][:60], "status": "", "note": ""}
+        row = {"keyword": p["keyword"], "product": p["title"][:60], "status": "", "note": "",
+               "title": "", "board": "", "due": "", "link": p.get("link", "")}
         rows.append(row)
         try:
             if args.dry_run:
@@ -199,8 +220,11 @@ def main():
             post = buffer.create_pin(cfg["buffer_channel_id"], board,
                                      pin["title"][:100], desc[:500], p["image"], p["link"],
                                      due.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
-            st["posted"][p["id"]] = {"date": date, "title": pin["title"], "buffer_id": post.get("id")}
-            row.update(status="scheduled", note=due.strftime("%H:%M UTC"))
+            st["posted"][p["id"]] = {"date": date, "title": pin["title"], "buffer_id": post.get("id"),
+                                     "keyword": p["keyword"], "board": board_name(cfg, p["keyword"]),
+                                     "due": due.strftime("%Y-%m-%dT%H:%M:%SZ"), "link": p["link"]}
+            row.update(status="scheduled", note=due.strftime("%H:%M UTC"), title=pin["title"][:100],
+                       board=board_name(cfg, p["keyword"]), due=due.strftime("%Y-%m-%dT%H:%M:%SZ"))
         except Exception as e:
             row.update(status="error", note=str(e)[:200])
             common.log("pin error: {0}".format(e))
@@ -209,10 +233,12 @@ def main():
         return
     common.save_json(STATE, st)
     ok = sum(1 for r in rows if r["status"] == "scheduled")
+    if dashboard.enabled():
+        dashboard.pins_report({"date": date, "want": want, "rows": rows})
     md = ["# Pickixo pins — {0}".format(date), "", "**Scheduled:** {0} / {1}".format(ok, want), "",
           "| Topic | Product | Status | Note |", "|---|---|---|---|"]
     md += ["| {keyword} | {product} | {status} | {note} |".format(
-        **{k: str(v).replace("|", "/") for k, v in r.items()}) for r in rows]
+        **{k: str(r.get(k, "")).replace("|", "/") for k in ("keyword", "product", "status", "note")}) for r in rows]
     md += ["", "**STOP pins:** repo variable `PINS_PAUSED` = `true`."]
     report.publish("\n".join(md))
 

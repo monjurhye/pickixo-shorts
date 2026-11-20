@@ -55,3 +55,23 @@ def report(channel_id, error, disable=False):
         _call("/api/pipeline/report", {"ch": channel_id, "error": error, "disable": disable})
     except Exception as e:
         common.log("dashboard report failed: {0}".format(e))
+
+
+def pins_paused():
+    """True if pins are paused on the dashboard (False if unreachable, so the GitHub
+    variable PINS_PAUSED stays the main switch)."""
+    try:
+        code, data = _call("/api/pipeline/pins")
+        return code == 200 and bool(data.get("paused"))
+    except Exception as e:
+        common.log("dashboard pins state failed: {0}".format(e))
+        return False
+
+
+def pins_report(run):
+    try:
+        code, data = _call("/api/pipeline/pins", run)
+        if code != 200:
+            common.log("dashboard pins report failed ({0}): {1}".format(code, data))
+    except Exception as e:
+        common.log("dashboard pins report failed: {0}".format(e))

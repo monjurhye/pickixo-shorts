@@ -1,5 +1,6 @@
 // POST /admin/action  -> pause/resume/disconnect a channel, or pause/resume everything
 import { getState, putState, redirect, session } from "../../lib/dashboard.js";
+import { getPins, putPins } from "../../lib/pins.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -14,6 +15,12 @@ export async function onRequestPost(context) {
   const st = await getState(env);
   let msg = "";
 
+  if (action === "pins_pause" || action === "pins_resume") {
+    const p = await getPins(env);
+    p.paused = action === "pins_pause";
+    await putPins(env, p);
+    return redirect("/admin?msg=" + encodeURIComponent(p.paused ? "Pinterest pins paused." : "Pinterest pins resumed."));
+  }
   if (action === "pause_all") { st.paused = true; msg = "All uploads paused."; }
   else if (action === "resume_all") { st.paused = false; msg = "Uploads resumed."; }
   else if (st.channels[ch]) {
