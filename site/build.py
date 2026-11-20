@@ -67,7 +67,31 @@ def video_page(v):
 {embed}{cards}<p class="note">Tap an item to see current options and prices on Amazon.</p>""".format(
         niche=e(v["niche"]), title=e(v["title"]), desc=e(v.get("description", "")),
         embed=embed, cards=item_cards(v["items"]))
-    return page(v["title"] + " · Pickixo Picks", body, v.get("description", ""), v.get("page_url", ""))
+    og = thumb(v)[0]
+    head = ('<meta property="og:title" content="{0}"><meta property="og:image" content="{1}">'
+            '<meta name="twitter:card" content="summary_large_image">').format(e(v["title"]), e(og)) if og else ""
+    return page(v["title"] + " · Pickixo Picks", body, v.get("description", ""), v.get("page_url", ""),
+                head_extra=head)
+
+
+def thumb(v):
+    """Card image: the Pexels still saved with the video (free license), else the
+    thumbnail of our own YouTube Short. Never Amazon product images."""
+    if v.get("image"):
+        return v["image"], ""
+    if v.get("youtube_id"):
+        return "https://i.ytimg.com/vi/{0}/hqdefault.jpg".format(e(v["youtube_id"])), "yt"
+    return "", ""
+
+
+def img_tag(v):
+    """YouTube's hqdefault for a Short is 4:3 with black side bars, so it is zoomed to the
+    centre (class yt); Pexels stills are shown as they are."""
+    src, kind = thumb(v)
+    if not src:
+        return ""
+    return '<span class="thumbw"><img class="thumb {0}" src="{1}" alt="{2}" loading="lazy"></span>'.format(
+        kind, e(src), e(v["title"]))
 
 
 def index_page(videos):
@@ -78,7 +102,8 @@ def index_page(videos):
     for niche, vs in groups.items():
         links = "".join('<li><a href="/v/{0}/">{1}</a><span>{2}</span></li>'.format(
             e(v["key"]), e(v["title"]), e(v["date"])) for v in vs[:8])
-        sections.append('<section class="niche"><h2>{0}</h2><ul>{1}</ul></section>'.format(e(niche), links))
+        cover = '<a href="/v/{0}/">{1}</a>'.format(e(vs[0]["key"]), img_tag(vs[0])) if thumb(vs[0])[0] else ""
+        sections.append('<section class="niche">{2}<h2>{0}</h2><ul>{1}</ul></section>'.format(e(niche), links, cover))
     if not sections:
         sections = ['<p class="lead">New picks are on the way. Check back tomorrow.</p>']
     body = """<section class="hero"><h1>Useful finds, fewer regrets.</h1>

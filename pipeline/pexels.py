@@ -51,7 +51,8 @@ def find_clips(queries, count, used_ids, key):
                 continue
             f = _best_file(v)
             if f:
-                picked.append({"id": v["id"], "url": f["link"], "duration": v["duration"]})
+                picked.append({"id": v["id"], "url": f["link"], "duration": v["duration"],
+                               "image": v.get("image", ""), "page": v.get("url", "")})
                 seen.add(str(v["id"]))
     return picked
 

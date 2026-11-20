@@ -42,3 +42,5 @@ footer{max-width:860px;margin:0 auto;padding:24px 20px 40px;color:var(--muted);f
 .tw{overflow-x:auto}.ebook table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}.ebook th,.ebook td{border:1px solid #e7e2db;padding:6px 8px;text-align:left;vertical-align:top}
 @media (prefers-color-scheme:dark){.ebook blockquote{background:#221a14}.ebook th,.ebook td,.ebook h2{border-color:#2a2f37}}
 @media print{header.top,footer,.unlock button,.unlock .btn{display:none}.ebook pre{background:#f3f3f3;color:#000}}
+.niche{overflow:hidden}.thumbw{display:block;margin:-18px -18px 14px;aspect-ratio:4/3;overflow:hidden;background:#e7e2db}
+.thumbw .thumb{display:block;width:100%;height:100%;object-fit:cover}.thumbw .thumb.yt{transform:scale(2.3)}

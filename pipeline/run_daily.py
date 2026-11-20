@@ -55,12 +55,14 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
         os.makedirs(work, exist_ok=True)
 
         # 2. stock footage (falls back to plain backgrounds without a Pexels key)
-        clip_paths, pkey = [], common.secret("PEXELS_API_KEY")
+        clip_paths, pkey, cover = [], common.secret("PEXELS_API_KEY"), {}
         if pkey and not dry:
             queries = list(script.get("stock_queries", [])) + list(ch.get("stock_queries", []))
             for c in pexels.find_clips(queries, 3, chstate["used_clips"], pkey):
                 try:
                     clip_paths.append(pexels.download(c, work))
+                    if not cover and c.get("image"):
+                        cover = {"image": c["image"], "image_credit": c.get("page", "")}
                     state.remember_clip(chstate, c["id"])
                 except Exception as e:
                     common.log("[{0}] clip download failed: {1}".format(ch["id"], e))
@@ -95,7 +97,7 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
                 "channel_name": ch.get("name", ""), "niche": ch["niche"],
                 "title": script["title"], "hook": script["hook"],
                 "description": script["description"], "items": links,
-                "youtube_id": video_id, "page_url": page_url,
+                "youtube_id": video_id, "page_url": page_url, **cover,
             })
         if dry or no_upload:
             row["note"] += " | title: " + script["title"] + " | clips: " + str(len(clip_paths))
