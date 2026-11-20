@@ -9,6 +9,10 @@ on:
         description: "Dry run (sample deals, no API calls)"
         type: boolean
         default: false
+      locker_only:
+        description: "Only the AdBlueMedia how-to article"
+        type: boolean
+        default: false
       deals_only:
         description: "Only refresh the free deals page list (no draft)"
         type: boolean
@@ -42,13 +46,16 @@ jobs:
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="--dry-run"; fi
           if [ "${{ inputs.deals_only }}" = "true" ]; then ARGS="--deals-only"; fi
+          if [ "${{ inputs.locker_only }}" = "true" ]; then python -m pipeline.locker_articles; exit 0; fi
           python -m pipeline.medium_drafts $ARGS
+          # second article of the day: a how-to that offers the AdBlueMedia free resources
+          if [ -z "$ARGS" ]; then python -m pipeline.locker_articles || echo "locker article failed"; fi
       - name: Commit draft records
         if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/medium.json data/free_deals.json data/blog 2>/dev/null || true
+          git add data/medium.json data/free_deals.json data/blog data/locker_articles.json 2>/dev/null || git add data/medium.json data/free_deals.json data/blog 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "Medium draft records $(date -u +%F)"
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done

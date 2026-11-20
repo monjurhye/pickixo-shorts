@@ -247,9 +247,10 @@ ${x.blog_url ? `<a class="btn" href="${esc(x.blog_url)}" target="_blank" rel="no
 <textarea id="${esc(x.id)}-md" hidden>${esc(x.markdown)}</textarea></details>`;
   }).join("") || `<p class="muted">No drafts yet. A new one is made every day at 3pm (Bangladesh).</p>`;
   const err = d.last_error ? `<div class="msg">${esc(d.last_error)}</div>` : "";
-  return `<h2 id="drafts">Medium drafts · AppSumo</h2>
-<p class="muted">One article a day from real AppSumo deal data (Impact, sub id <b>medium</b>), published automatically on
-<a href="/blog/" target="_blank" rel="noopener">shop.pickixo.com/blog</a> and sent to Google/Bing. For Medium (no API): press
+  return `<h2 id="drafts">Medium · AppSumo + AdBlueMedia</h2>
+<p class="muted">Two articles a day: one from real AppSumo deal data (Impact, sub id <b>medium</b>), published automatically on
+<a href="/blog/" target="_blank" rel="noopener">shop.pickixo.com/blog</a> and one how-to (AI stock images / iOS without a Mac) that offers the AdBlueMedia free pack or ebook at the end.
+Both are sent to Google/Bing. For Medium (no API): press
 <b>Import to Medium</b>, paste the copied link (Cmd+V), Import, add the tags, publish, then <b>Mark published</b>.</p>
 <div class="card"><h3>🔓 AI prompt pack (AdBlueMedia locker)</h3>
 <p><a href="/free/ai-prompts/" target="_blank" rel="noopener">shop.pickixo.com/free/ai-prompts/</a> · up to 100 stock-image prompts,
