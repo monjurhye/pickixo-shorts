@@ -60,6 +60,13 @@ def checks(pin):
     return issues
 
 
+def board_for(cfg, keyword, board_ids):
+    """Board serviceId for a keyword: its mapped board, else the default board, else board_service_id."""
+    name = next((b for b, kws in cfg.get("boards", {}).items() if keyword in kws), cfg.get("default_board", ""))
+    return board_ids.get(name.strip().lower()) or board_ids.get(cfg.get("default_board", "").lower()) \
+        or cfg.get("board_service_id", "")
+
+
 def pick_products(cfg, st, want):
     kws = cfg["keywords"]
     picked, tried = [], 0
@@ -123,13 +130,20 @@ def main():
         missing = [n for n, ok in (("ALIEXPRESS keys", aliexpress.enabled()),
                                    ("BUFFER_API_KEY", buffer.enabled()),
                                    ("buffer_channel_id", cfg.get("buffer_channel_id")),
-                                   ("board_service_id", cfg.get("board_service_id"))) if not ok]
+                                   ("buffer_organization_id", cfg.get("buffer_organization_id"))) if not ok]
         if missing:
             report.publish("# Pickixo pins — {0}\n\nNot set up yet, nothing posted. Missing: {1}"
                            .format(date, ", ".join(missing)))
             return
 
     st = common.load_json(STATE, {"keyword_index": 0, "posted": {}})
+    board_ids = {}
+    if not args.dry_run:
+        try:
+            board_ids = {b["name"].strip().lower(): b["serviceId"] for b in
+                         buffer.pinterest_boards(cfg["buffer_organization_id"], cfg["buffer_channel_id"])}
+        except buffer.BufferError as e:
+            common.log("could not list boards: {0}".format(e))
     want = int(cfg.get("pins_per_day", 6))
     prods = sample_products() if args.dry_run else pick_products(cfg, st, want)
 
@@ -159,7 +173,11 @@ def main():
                 common.log("DRY pin: {0} | {1} | due {2}".format(pin["title"], desc, due.isoformat()))
                 row.update(status="dry-run")
                 continue
-            post = buffer.create_pin(cfg["buffer_channel_id"], cfg["board_service_id"],
+            board = board_for(cfg, p["keyword"], board_ids)
+            if not board:
+                row.update(status="error", note="no board found in Buffer for " + p["keyword"])
+                continue
+            post = buffer.create_pin(cfg["buffer_channel_id"], board,
                                      pin["title"][:100], desc[:500], p["image"], p["link"],
                                      due.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
             st["posted"][p["id"]] = {"date": date, "title": pin["title"], "buffer_id": post.get("id")}
