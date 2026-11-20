@@ -75,3 +75,13 @@ def pins_report(run):
             common.log("dashboard pins report failed ({0}): {1}".format(code, data))
     except Exception as e:
         common.log("dashboard pins report failed: {0}".format(e))
+
+
+def draft_report(payload):
+    """Send a Medium draft (or an error note) to the dashboard."""
+    try:
+        code, data = _call("/api/pipeline/drafts", payload)
+        if code != 200:
+            common.log("dashboard draft report failed ({0}): {1}".format(code, data))
+    except Exception as e:
+        common.log("dashboard draft report failed: {0}".format(e))

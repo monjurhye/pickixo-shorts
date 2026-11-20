@@ -15,6 +15,15 @@ export async function onRequestPost(context) {
   const st = await getState(env);
   let msg = "";
 
+  if (action === "draft_done" || action === "draft_delete" || action === "draft_new") {
+    const raw = await env.CHANNELS_KV.get("drafts");
+    const d = raw ? JSON.parse(raw) : { items: [] };
+    const id = String(form.get("id") || "");
+    if (action === "draft_delete") d.items = d.items.filter((i) => i.id !== id);
+    else d.items.forEach((i) => { if (i.id === id) i.status = action === "draft_done" ? "published" : "new"; });
+    await env.CHANNELS_KV.put("drafts", JSON.stringify(d));
+    return redirect("/admin?msg=" + encodeURIComponent(action === "draft_delete" ? "Draft deleted." : "Draft updated.") + "#drafts");
+  }
   if (action === "pins_pause" || action === "pins_resume") {
     const p = await getPins(env);
     p.paused = action === "pins_pause";

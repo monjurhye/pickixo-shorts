@@ -1,6 +1,7 @@
 // GET /admin  -> channel dashboard (sign in with Google first)
 import { channelList, esc, getState, html, session } from "../../lib/dashboard.js";
 import { getPins } from "../../lib/pins.js";
+import { getDrafts } from "../../lib/drafts.js";
 
 const CSS = `
 :root{--bg:#faf8f5;--ink:#1c1917;--muted:#6b6560;--line:#e7e2db;--accent:#c2410c;--ok:#15803d;--bad:#b91c1c;--card:#fff}
@@ -23,6 +24,11 @@ button,.btn{font:inherit;font-weight:700;font-size:13px;border-radius:9px;paddin
 .primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .danger{color:var(--bad)}
 form{display:inline}
+details.draft{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+details.draft summary{cursor:pointer;font-weight:700}
+.preview{border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
+.preview h1{font-size:22px}.preview h2{font-size:18px}.preview h3{font-size:15px;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 @media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}}
 `;
 
@@ -41,7 +47,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`));
   }
 
-  const [chans, st, pins] = await Promise.all([channelList(context), getState(context.env), getPins(context.env)]);
+  const [chans, st, pins, drafts] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env)]);
   let connected = 0, active = 0, errors = 0;
   const rows = chans.map((c) => {
     const info = st.channels[c.id];
@@ -83,7 +89,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${pinsSection(pins)}`));
+${pinsSection(pins)}${draftsSection(drafts)}`));
 }
 
 function bdTime(iso) {
@@ -120,4 +126,36 @@ function pinsSection(p) {
 <a class="btn" href="https://github.com/monjurhye/pickixo-shorts/actions/workflows/pins.yml" target="_blank" rel="noopener">Pins workflow</a></p>
 ${msg}${probHtml}
 <table><thead><tr><th>Time (BD)</th><th>Pin</th><th>Board</th><th>Link</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function draftsSection(d) {
+  const items = (d.items || []).map((x) => {
+    const pill = x.status === "published" ? `<span class="pill off">Published</span>` : `<span class="pill on">New</span>`;
+    const toggle = x.status === "published"
+      ? `<button name="do" value="draft_new">Mark as new</button>`
+      : `<button class="primary" name="do" value="draft_done">Mark published</button>`;
+    return `<details class="draft"><summary>${pill} ${esc(x.title)} <span class="muted">· ${bdTime(x.created)} · ${esc((x.products || []).join(", "))}</span></summary>
+<div class="row">
+<button type="button" onclick="copyDraft('${esc(x.id)}')">📋 Copy article</button>
+<button type="button" onclick="copyText('${esc(x.id)}-tags')">🏷 Copy tags</button>
+<a class="btn" href="https://medium.com/new-story" target="_blank" rel="noopener">✍ Open Medium editor</a>
+<form method="post" action="/admin/action"><input type="hidden" name="id" value="${esc(x.id)}">${toggle}
+<button class="danger" name="do" value="draft_delete" onclick="return confirm('Delete this draft?')">Delete</button></form></div>
+<p class="muted">Tags: <span id="${esc(x.id)}-tags">${esc((x.tags || []).join(", "))}</span></p>
+<div class="preview" id="${esc(x.id)}-html">${x.html}</div>
+<textarea id="${esc(x.id)}-md" hidden>${esc(x.markdown)}</textarea></details>`;
+  }).join("") || `<p class="muted">No drafts yet. A new one is made every day at 3pm (Bangladesh).</p>`;
+  const err = d.last_error ? `<div class="msg">${esc(d.last_error)}</div>` : "";
+  return `<h2 id="drafts">Medium drafts · AppSumo</h2>
+<p class="muted">One draft a day from real AppSumo deal data (Impact, sub id <b>medium</b>). Nothing is posted for you:
+open a draft, add your own experience, click <b>Copy article</b>, paste into the Medium editor, add the tags, publish, then <b>Mark published</b>.
+Keep the disclosure line at the top.</p>${err}${items}
+<script>
+async function copyDraft(id){
+  const h=document.getElementById(id+'-html').innerHTML, t=document.getElementById(id+'-md').value;
+  try{ await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([h],{type:'text/html'}),'text/plain':new Blob([t],{type:'text/plain'})})]); alert('Article copied. Paste it into the Medium editor.'); }
+  catch(e){ try{ await navigator.clipboard.writeText(t); alert('Copied as plain text.'); }catch(e2){ alert('Copy failed: select the preview and press Cmd+C.'); } }
+}
+async function copyText(id){ try{ await navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Tags copied.'); }catch(e){ alert('Copy failed.'); } }
+</script>`;
 }
