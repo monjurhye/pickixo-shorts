@@ -52,7 +52,9 @@ def verify_tags(cfg):
     """Search Console / Bing Webmaster verification codes from config/settings.json."""
     out = ""
     for key, name in (("google_site_verification", "google-site-verification"),
-                      ("bing_site_verification", "msvalidate.01")):
+                      ("bing_site_verification", "msvalidate.01"),
+                      ("yandex_site_verification", "yandex-verification"),
+                      ("naver_site_verification", "naver-site-verification")):
         if cfg.get(key):
             out += '<meta name="{0}" content="{1}">\n'.format(name, e(cfg[key]))
     return out

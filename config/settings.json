@@ -30,5 +30,7 @@
   "product_finder_batch": 10,
   "product_finder_min": 6,
   "product_finder_max_age_days": 30,
-  "product_finder_channels_per_run": 20
+  "product_finder_channels_per_run": 20,
+  "yandex_site_verification": "15310278f8a28483",
+  "naver_site_verification": ""
 }
