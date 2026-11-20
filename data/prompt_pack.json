@@ -2,6 +2,83 @@
   "updated": "2026-11-20",
   "prompts": [
     {
+      "theme": "Cozy winter home office in soft glow",
+      "prompt": "A medium-distance scene of a cozy winter home office at golden-hour light, warm desk lamp glow, wooden desk with a steaming mug, a window showing light snow outside, subtle textures like wool, linen, and ceramic glaze; minimal clutter, copy space on the left for text, natural colors, shallow depth of field.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Gift-wrapping corner with muted palette",
+      "prompt": "Medium-distance shot of a neat gift-wrapping station: kraft paper, twine, fabric ribbon, a stack of unmarked gift boxes, scissors, and a potted plant; soft natural light from a window; matte textures, lint-free surface, balanced composition with generous left copy space.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "New Year wellness reset montage",
+      "prompt": "Illustrated montage of winter wellness items: a water bottle, herbal tea, notebook, fitness bands, and a small plant on a clean desk; muted blues and warm beiges, subtle gradients, clean vector shading; ample negative space on the left for copy.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "January sales and planning desk",
+      "prompt": "Flat lay of a desk with a planner, pen, sticky notes, a calendar page showing December/January, a laptop partially visible, soft natural light, textures like wood and fabric, cool neutral palette with a splash of warm accent, empty space on the right for copy.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "1:1",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Hanukkah/holiday lights atmosphere (non-branding)",
+      "prompt": "Medium-distance scene of a table with softly glowing decorative lights, glass ornaments, and a candle in a frosted holder; warm amber and cool blue highlights, textured surfaces like wood and ceramic, soft shadows, plenty of open space on the left for copy.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter fashion layering outdoors (stylized)",
+      "prompt": "Stylized outdoor scene with a neatly staged coat, scarf, and boots on a weathered bench in fresh snow; diffuse daylight, shallow depth with textured fabrics visible, muted blue-gray palette, wide shot leaving space on the left for headline copy.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Winter baking textures (no hands)",
+      "prompt": "Top-down shot of a baking setup: mixing bowl with flour, rolling pin on a wooden board, cookie cutters and a napkin, subtle steam rising, natural light casting soft shadows; warm creamy tones and rich wood grain, copy space on the left.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Tech-friendly home office setup with AI vibe",
+      "prompt": "Medium-distance shot of a minimal desk with a slim laptop, wireless monitor, smart speaker, and a plant; near-field textures visible (wood grain, fabric), cool daylight from a window, clean copy space on the left, shallow depth and balanced composition.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Healthy lunch bowl with fresh ingredients",
+      "prompt": "Medium shot of a clean countertop with a wellness bowl of grains, greens, and colorful veggies; natural light from a side window, subtle shadows, natural textures like ceramic bowl and wooden board, plenty of left-side copy space.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Abstract tech-inspired background with copy space",
+      "prompt": "Abstract textured background with soft geometric gradients, subtle grid lines, muted blues and grays, rough to smooth texture transitions, generous left copy space, clean composition, suitable for overlay text.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
+      "theme": "Diverse daily life still-life (no people close)",
+      "prompt": "Medium-distance still life featuring a coffee mug, notebook, pen, and plant on a clean desk; warm natural light, soft shadows, wood grain and fabric textures visible, balanced composition with space on the right for copy.",
+      "tool": "Ideogram",
+      "aspect": "16:9",
+      "date": "2026-11-20"
+    },
+    {
       "theme": "Holiday gift-wrapping desk flat lay",
       "prompt": "A cozy flat-lay of a wooden table with a neatly wrapped gift, kraft paper, twine, pine needles, and a lit candle; soft natural light from a nearby window, shallow depth of field, warm muted tones, negative space on the left for copy; textures show paper grain and fabric of a scarf nearby, no people.",
       "tool": "Adobe Firefly",
