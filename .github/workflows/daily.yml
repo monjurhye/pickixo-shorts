@@ -48,10 +48,34 @@ jobs:
 
       - name: Make and upload videos
         env:
-          ALL_SECRETS: ${{ toJSON(secrets) }}          # YT_REFRESH_CH01..CH20 etc.
+          # Each secret by name (passing all secrets as one blob gets the workflow
+          # flagged by GitHub). Add a line here if you add a channel past ch20.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_CH01: ${{ secrets.YT_REFRESH_CH01 }}
+          YT_REFRESH_CH02: ${{ secrets.YT_REFRESH_CH02 }}
+          YT_REFRESH_CH03: ${{ secrets.YT_REFRESH_CH03 }}
+          YT_REFRESH_CH04: ${{ secrets.YT_REFRESH_CH04 }}
+          YT_REFRESH_CH05: ${{ secrets.YT_REFRESH_CH05 }}
+          YT_REFRESH_CH06: ${{ secrets.YT_REFRESH_CH06 }}
+          YT_REFRESH_CH07: ${{ secrets.YT_REFRESH_CH07 }}
+          YT_REFRESH_CH08: ${{ secrets.YT_REFRESH_CH08 }}
+          YT_REFRESH_CH09: ${{ secrets.YT_REFRESH_CH09 }}
+          YT_REFRESH_CH10: ${{ secrets.YT_REFRESH_CH10 }}
+          YT_REFRESH_CH11: ${{ secrets.YT_REFRESH_CH11 }}
+          YT_REFRESH_CH12: ${{ secrets.YT_REFRESH_CH12 }}
+          YT_REFRESH_CH13: ${{ secrets.YT_REFRESH_CH13 }}
+          YT_REFRESH_CH14: ${{ secrets.YT_REFRESH_CH14 }}
+          YT_REFRESH_CH15: ${{ secrets.YT_REFRESH_CH15 }}
+          YT_REFRESH_CH16: ${{ secrets.YT_REFRESH_CH16 }}
+          YT_REFRESH_CH17: ${{ secrets.YT_REFRESH_CH17 }}
+          YT_REFRESH_CH18: ${{ secrets.YT_REFRESH_CH18 }}
+          YT_REFRESH_CH19: ${{ secrets.YT_REFRESH_CH19 }}
+          YT_REFRESH_CH20: ${{ secrets.YT_REFRESH_CH20 }}
           PAUSED: ${{ vars.PAUSED }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |

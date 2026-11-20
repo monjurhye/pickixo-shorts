@@ -59,18 +59,9 @@ def amazon_search_link(query, tracking_id):
 
 
 def secret(name):
-    """Read a secret from env. In Actions, all secrets arrive as one JSON blob
-    (ALL_SECRETS) so per-channel names don't need to be listed in the workflow."""
-    v = os.environ.get(name)
-    if v:
-        return v
-    blob = os.environ.get("ALL_SECRETS")
-    if blob:
-        try:
-            return json.loads(blob).get(name) or ""
-        except ValueError:
-            return ""
-    return ""
+    """Read a secret from env. The workflow passes each secret by name
+    (daily.yml lists YT_REFRESH_CH01..CH20)."""
+    return os.environ.get(name) or ""
 
 
 def ffmpeg_bin():
