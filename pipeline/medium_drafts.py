@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from . import common, content, dashboard, impact
 
 STATE = os.path.join(common.DATA_DIR, "medium.json")
+FREE_DEALS = os.path.join(common.DATA_DIR, "free_deals.json")   # used by site/build.py -> /free/lifetime-deals/
 APPSUMO_CAMPAIGN = 7443
 SUB_ID = "medium"
 
@@ -92,11 +93,11 @@ THEMES = [
 ]
 
 
-def tracked(link):
-    """Impact tracking link with sub id 'medium' so Medium sales show separately."""
+def tracked(link, sub=SUB_ID):
+    """Impact tracking link with a sub id so each place's sales show separately."""
     p = urllib.parse.urlparse(link)
     q = dict(urllib.parse.parse_qsl(p.query))
-    q["subId1"] = SUB_ID
+    q["subId1"] = sub
     return urllib.parse.urlunparse(p._replace(query=urllib.parse.urlencode(q)))
 
 
@@ -121,6 +122,15 @@ def appsumo_deals():
             break
     out.sort(key=lambda d: str(d["created"]), reverse=True)
     return out
+
+
+def save_free_deals(deals):
+    """Newest 25 deals for the site's free list page (sub id 'freepage')."""
+    rows = [{"name": d["name"], "desc": d["desc"], "page": d["page"],
+             "link": tracked(d["link"], "freepage")} for d in deals[:25]]
+    if rows:
+        common.save_json(FREE_DEALS, {"updated": common.today_utc(), "deals": rows})
+        common.log("free deals list: {0}".format(len(rows)))
 
 
 def sample_deals():
@@ -180,6 +190,7 @@ def render(art, deals):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--deals-only", action="store_true", help="only refresh data/free_deals.json")
     args = ap.parse_args()
     cfg = common.settings()
     st = common.load_json(STATE, {"used": {}, "theme_index": 0})
@@ -190,7 +201,11 @@ def main():
         if not impact.enabled():
             common.log("Impact keys missing; nothing to do")
             return
-        deals = [d for d in appsumo_deals() if d["page"] not in st["used"]]
+        all_deals = appsumo_deals()
+        save_free_deals(all_deals)
+        if args.deals_only:
+            return
+        deals = [d for d in all_deals if d["page"] not in st["used"]]
     if len(deals) < 3:
         common.log("not enough new AppSumo deals ({0})".format(len(deals)))
         return

@@ -24,7 +24,7 @@ STATIC = os.path.join(ROOT, "site", "static")
 e = html.escape
 
 
-def page(title, body, desc="", canonical=""):
+def page(title, body, desc="", canonical="", head_extra="", foot=""):
     cfg = common.settings()
     return """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -34,14 +34,17 @@ def page(title, body, desc="", canonical=""):
 <meta name="description" content="{desc}">
 {canon}
 <link rel="stylesheet" href="/style.css">
+{head_extra}
 </head><body>
 <header class="top"><a class="brand" href="/">{brand}</a>
 <nav><a href="/">Latest</a><a href="/disclosure/">Disclosure</a><a href="/privacy/">Privacy</a></nav></header>
 <main>{body}</main>
-<footer><p>{disc}</p><p>&copy; {brand} · Product links go to Amazon.com search results.</p></footer>
+<footer><p>{disc}</p><p>&copy; {brand} · {foot}</p></footer>
 </body></html>""".format(title=e(title), desc=e(desc), brand=e(cfg.get("brand", "Pickixo Picks")),
                          canon='<link rel="canonical" href="{0}">'.format(e(canonical)) if canonical else "",
-                         body=body, disc=e(cfg.get("disclosure", "")))
+                         body=body, head_extra=head_extra,
+                         foot=e(foot or "Product links go to Amazon.com search results."),
+                         disc=e(cfg.get("disclosure", "")))
 
 
 def item_cards(items):
@@ -126,6 +129,40 @@ cost to you. Content is provided "as is" without warranties.</p>"""
     return page("Terms · Pickixo Picks", body)
 
 
+# AdBlueMedia content locker (public snippet from the AdBlueMedia dashboard; no secret in it).
+LOCKER_HEAD = """<script type="text/javascript">var gJXKc_sbq_gLMDqc={"it":4383972,"key":"ae49a"};</script>
+<script src="https://d1chbu4sfo2xhu.cloudfront.net/71fd049.js"></script>"""
+
+
+def free_deals_page():
+    data = common.load_json(os.path.join(common.DATA_DIR, "free_deals.json"), {"deals": []})
+    deals = data.get("deals", [])
+    def card(i, d):
+        return """<li class="card"><span class="num">{n}</span>
+<div class="txt"><h3>{name}</h3><p>{desc}</p></div>
+<a class="btn" href="{link}" target="_blank" rel="sponsored nofollow noopener">See the deal on AppSumo →</a></li>""".format(
+            n=i, name=e(d["name"]), desc=e(d["desc"] or "Software deal on AppSumo."), link=e(d["link"]))
+    teaser = "".join(card(i, d) for i, d in enumerate(deals[:3], 1))
+    rest = "".join(card(i, d) for i, d in enumerate(deals[3:], 4))
+    body = """<section class="hero"><h1>{n} Lifetime Software Deals That Replace Monthly Subscriptions</h1>
+<p>A free, regularly updated list of one-time-payment software deals on AppSumo for solopreneurs,
+freelancers and small teams. Updated {up}.</p></section>
+<ol class="cards">{teaser}</ol>
+<div class="unlock"><h2>See the full list ({more} more deals)</h2>
+<p>The full list is free. To unlock it, complete <b>one short offer from our sponsor</b>
+(for example a quick survey or a free app). This keeps the list free. You don't have to buy anything.</p>
+<p><button class="btn" onclick="if(typeof _ET==='function'){{_ET();}}">Unlock the full list</button></p></div>
+<ol class="cards" start="4">{rest}</ol>
+<p class="note">Before buying any lifetime deal, read the plan limits and refund window on the deal page.
+Lifetime deals depend on the company staying in business.</p>""".format(
+        n=len(deals), up=e(data.get("updated", "")), teaser=teaser, more=max(0, len(deals) - 3), rest=rest)
+    foot = ("Some links on this page are affiliate links (AppSumo via Impact); we may earn a commission. "
+            "The unlock offers come from our sponsor AdBlueMedia; we may earn when you complete one.")
+    return page("Free list: lifetime software deals (AppSumo)", body,
+                "Free updated list of AppSumo lifetime software deals that replace monthly subscriptions.",
+                head_extra=LOCKER_HEAD, foot=foot)
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -147,6 +184,8 @@ def main():
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())
     write(os.path.join(OUT, "privacy", "index.html"), privacy_page())
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
+    if os.path.exists(os.path.join(common.DATA_DIR, "free_deals.json")):
+        write(os.path.join(OUT, "free", "lifetime-deals", "index.html"), free_deals_page())
     with open(os.path.join(OUT, "channels.json"), "w", encoding="utf-8") as f:
         json.dump({"channels": [{"id": c["id"], "niche": c["niche"]} for c in common.channels()]}, f)
     for name in os.listdir(STATIC):

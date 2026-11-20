@@ -153,7 +153,17 @@ function draftsSection(d) {
   return `<h2 id="drafts">Medium drafts · AppSumo</h2>
 <p class="muted">One draft a day from real AppSumo deal data (Impact, sub id <b>medium</b>). Nothing is posted for you:
 open a draft, add your own experience, click <b>Copy article</b>, paste into the Medium editor, add the tags, publish, then <b>Mark published</b>.
-Keep the disclosure line at the top.</p>${err}${items}
+Keep the disclosure line at the top.</p>
+<div class="card"><h3>🔓 Free deals page (AdBlueMedia locker)</h3>
+<p><a href="/free/lifetime-deals/" target="_blank" rel="noopener">shop.pickixo.com/free/lifetime-deals/</a> · updates daily with the newest AppSumo deals (sub id <b>freepage</b>).
+First 3 deals are open; the rest unlock after the visitor completes one AdBlueMedia sponsor offer.</p>
+<p class="muted"><b>How to use it:</b> share it where people look for software deals: your Medium author bio and newsletter,
+a LinkedIn post ("I keep a free list of lifetime deals"), answers on Quora. In a Medium article, link it once near the end
+("Full updated list: …"), not instead of the article's own links.
+<b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money, prizes or "free premium accounts";
+no fake countdowns; don't post the link in groups that ban self-promotion.
+<b>Check results:</b> AdBlueMedia dashboard (unlocks/earnings) and Impact reports for sub id <b>freepage</b> (AppSumo sales).</p></div>
+${err}${items}
 <script>
 async function copyDraft(id){
   const h=document.getElementById(id+'-html').innerHTML, t=document.getElementById(id+'-md').value;

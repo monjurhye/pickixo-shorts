@@ -9,6 +9,10 @@ on:
         description: "Dry run (sample deals, no API calls)"
         type: boolean
         default: false
+      deals_only:
+        description: "Only refresh the free deals page list (no draft)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -37,13 +41,14 @@ jobs:
         run: |
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="--dry-run"; fi
+          if [ "${{ inputs.deals_only }}" = "true" ]; then ARGS="--deals-only"; fi
           python -m pipeline.medium_drafts $ARGS
       - name: Commit draft records
         if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/medium.json 2>/dev/null || true
+          git add data/medium.json data/free_deals.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "Medium draft records $(date -u +%F)"
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done

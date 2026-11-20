@@ -32,3 +32,6 @@ h2{font-size:20px;margin:0 0 10px}
 .note{color:var(--muted);font-size:14px}
 footer{max-width:860px;margin:0 auto;padding:24px 20px 40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){.card{flex-wrap:wrap}.btn{width:100%;text-align:center}}
+.unlock{border:2px dashed #c2410c;border-radius:14px;padding:16px 18px;margin:22px 0;background:#fff7f0}
+.unlock h2{margin:0 0 6px}.note{color:#6b6560;font-size:14px;margin-top:18px}
+@media (prefers-color-scheme:dark){.unlock{background:#221a14}}
