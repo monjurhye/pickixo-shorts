@@ -88,6 +88,49 @@ def api_key():
         return ""
 
 
+UPSCAYL_DIRS = ["/Applications/Upscayl.app/Contents/Resources",
+                os.path.expanduser("~/Applications/Upscayl.app/Contents/Resources")]
+# realistic models first; "digital art" style models make photos look plastic
+UPSCAYL_MODELS = ["high-fidelity-4x", "upscayl-standard-4x", "realesrgan-x4plus", "remacri-4x"]
+TARGET_SHORT = 2048             # final short side after supersampling
+
+
+def upscayl():
+    """(binary, models_dir, model) from an installed Upscayl app, or None."""
+    for base in UPSCAYL_DIRS:
+        b, m = os.path.join(base, "bin", "upscayl-bin"), os.path.join(base, "models")
+        if os.path.isfile(b) and os.path.isdir(m):
+            have = {f[:-6] for f in os.listdir(m) if f.endswith(".param")}
+            model = next((x for x in UPSCAYL_MODELS if x in have), None) or (sorted(have)[0] if have else None)
+            if model:
+                return b, m, model
+    return None
+
+
+def supersample(path, ups):
+    """Upscale 4x with Upscayl, then shrink so the short side is 2048 px (cleaner than a
+    straight 2x). Writes <name>_up.jpg next to the original; returns that path."""
+    import tempfile
+    stem = os.path.splitext(path)[0]
+    out = stem + "_up.jpg"
+    if os.path.exists(out):
+        return out
+    b, models, model = ups
+    with tempfile.TemporaryDirectory() as td:
+        tmp = os.path.join(td, "x4.png")
+        r = subprocess.run([b, "-i", path, "-o", tmp, "-s", "4", "-m", models, "-n", model, "-f", "png"],
+                           capture_output=True, text=True)
+        if r.returncode != 0 or not os.path.exists(tmp):
+            raise RuntimeError("Upscayl failed: " + (r.stderr or r.stdout)[-300:])
+        big = Image.open(tmp).convert("RGB")
+        w, h = big.size
+        k = TARGET_SHORT / float(min(w, h))
+        if k < 1:
+            big = big.resize((round(w * k), round(h * k)), Image.LANCZOS)
+        big.save(out, "JPEG", quality=95, subsampling=0)
+    return out
+
+
 def dhash(img, size=8):
     g = img.convert("L").resize((size + 1, size), Image.LANCZOS)
     px = list(g.getdata())
@@ -168,6 +211,7 @@ def main():
     ap.add_argument("folder")
     ap.add_argument("--model-name", default="", help="generator you used, e.g. Midjourney (for the Model column)")
     ap.add_argument("--check-only", action="store_true", help="only size/duplicate checks, no AI calls")
+    ap.add_argument("--no-upscale", action="store_true", help="do not upscale small images")
     args = ap.parse_args()
 
     folder = os.path.expanduser(args.folder)
@@ -176,7 +220,8 @@ def main():
         subprocess.run(["open", folder])
         sys.exit("Created the folder " + folder + " (opened in Finder).\n"
                  "Put your images (.jpg/.png) in it, then run the same command again.")
-    files = sorted(f for f in os.listdir(folder) if f.lower().endswith(EXTS))
+    files = sorted(f for f in os.listdir(folder)
+                   if f.lower().endswith(EXTS) and not f.lower().endswith("_up.jpg"))
     if not files:
         subprocess.run(["open", folder])
         sys.exit("No .jpg/.png files in " + folder + " (opened in Finder). Add images and run again.")
@@ -185,6 +230,10 @@ def main():
         sys.exit("No OpenAI key. Save it once with:\n  security add-generic-password -s pickixo-openai -a openai -w\n"
                  "(it asks for the key; paste it there, not in chat)")
 
+    ups = None if args.no_upscale else upscayl()
+    if not args.no_upscale and not ups:
+        print("Upscayl not found in Applications: small images will be skipped, not upscaled.\n"
+              "Install it from https://upscayl.org to upscale automatically.\n")
     rows, report, hashes = [], [], []
     for i, name in enumerate(files, 1):
         path = os.path.join(folder, name)
@@ -195,9 +244,21 @@ def main():
             report.append((name, "cannot open: {0}".format(e)))
             continue
         w, h = img.size
+        if w * h < MIN_PIXELS and ups and min(w, h) >= 512:
+            try:
+                print("[{0}/{1}] {2} is {3}x{4}, upscaling (4x then down to 2048)...".format(i, len(files), name, w, h))
+                path = supersample(path, ups)
+                name = os.path.basename(path)
+                img = Image.open(path)
+                img.load()
+                w, h = img.size
+                report.append((name, "made by upscaling the original; upload THIS file, not the original"))
+            except Exception as e:
+                report.append((name, "upscale failed: {0}".format(e)))
+                continue
         if w * h < MIN_PIXELS:
             report.append((name, "too small ({0}x{1}); make it bigger at the source (Firefly ~2048px) "
-                                 "or upscale 2x only and check at 100% zoom".format(w, h)))
+                                 "or install Upscayl so the tool can upscale it".format(w, h)))
             continue
         hsh = dhash(img)
         twin = next((n for n, x in hashes if bin(x ^ hsh).count("1") <= DUP_DISTANCE), None)
