@@ -29,6 +29,7 @@ def page(title, body, desc="", canonical=""):
     return """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="p:domain_verify" content="87ee4dd376b44ff90c6f4add82b02f56"/>
 <title>{title}</title>
 <meta name="description" content="{desc}">
 {canon}
