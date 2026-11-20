@@ -33,6 +33,7 @@ from PIL import Image
 EXTS = (".jpg", ".jpeg", ".png")
 MIN_QUALITY = 7                 # AI quality score needed to go into the CSV
 MIN_SHARPNESS = 2.5             # edge energy below this looks soft at 100% (rough guide; tune after a few batches)
+MIN_SHORT = 2000                # Magnific rejects "Min dimensions not reached" below this
 MIN_PIXELS = 4_000_000          # ~2000x2000; smaller files are usually rejected
 DUP_DISTANCE = 6                # dHash bits; lower = more similar
 MODEL = os.environ.get("MAGNIFIC_MODEL", "gpt-5-nano")
@@ -248,7 +249,7 @@ def main():
             report.append((name, "cannot open: {0}".format(e)))
             continue
         w, h = img.size
-        if w * h < MIN_PIXELS and ups and min(w, h) >= 512:
+        if (w * h < MIN_PIXELS or min(w, h) < MIN_SHORT) and ups and min(w, h) >= 512:
             try:
                 print("[{0}/{1}] {2} is {3}x{4}, upscaling (4x then down to 2048)...".format(i, len(files), name, w, h))
                 path = supersample(path, ups)
@@ -260,8 +261,8 @@ def main():
             except Exception as e:
                 report.append((name, "upscale failed: {0}".format(e)))
                 continue
-        if w * h < MIN_PIXELS:
-            report.append((name, "too small ({0}x{1}); make it bigger at the source (Firefly ~2048px) "
+        if w * h < MIN_PIXELS or min(w, h) < MIN_SHORT:
+            report.append((name, "too small ({0}x{1}, short side must be 2000+); make it bigger at the source (Firefly ~2048px) "
                                  "or install Upscayl so the tool can upscale it".format(w, h)))
             continue
         hsh = dhash(img)
