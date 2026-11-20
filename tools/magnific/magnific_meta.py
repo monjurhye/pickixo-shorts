@@ -207,7 +207,7 @@ def clean_keywords(words):
         if w and w not in seen:
             seen.add(w)
             out.append(w)
-    out = [w for w in out if w != AI_TAG][:49]
+    out = [w for w in out if w != AI_TAG][:44]   # 45 with the AI tag (50 exactly was not imported)
     return out + [AI_TAG]
 
 
