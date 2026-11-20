@@ -131,10 +131,30 @@ def main():
     ap.add_argument("--setup", action="store_true")
     ap.add_argument("--test-ali", action="store_true", help="only fetch AliExpress products, post nothing")
     ap.add_argument("--test-one", action="store_true", help="schedule just 1 real pin ~15 minutes from now")
+    ap.add_argument("--test-impact", action="store_true", help="list Impact programs and catalogs")
     ap.add_argument("--sync-dashboard", action="store_true", help="send already posted pins to the dashboard")
     args = ap.parse_args()
     if args.setup:
         return setup()
+    if args.test_impact:
+        from . import impact
+        camps = impact.campaigns()
+        common.log("Impact OK: {0} joined programs".format(len(camps)))
+        for c in camps:
+            common.log("  program {0} | {1} | {2}".format(c.get("CampaignId"), c.get("CampaignName"),
+                                                         c.get("ContractStatus") or c.get("Status") or ""))
+        cats = impact.catalogs()
+        common.log("{0} catalogs".format(len(cats)))
+        for c in cats:
+            common.log("  catalog {0} | {1} | {2} | items {3}".format(
+                c.get("Id"), c.get("CampaignName") or c.get("AdvertiserName"), c.get("Name"),
+                c.get("NumberOfItems") or c.get("ItemCount") or "?"))
+        if cats:
+            items = impact.catalog_items(cats[0]["Id"], 3)
+            for it in items:
+                common.log("  sample item | {0} | img {1} | link {2}".format(
+                    str(it.get("Name"))[:60], bool(it.get("ImageUrl")), str(it.get("Url"))[:45]))
+        return
     if args.sync_dashboard:
         st = common.load_json(STATE, {"posted": {}})
         rows = [dict(status="scheduled", keyword=v.get("keyword", ""), product=v.get("title", ""),

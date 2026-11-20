@@ -17,6 +17,10 @@ on:
         description: "Only test the AliExpress API (posts nothing)"
         type: boolean
         default: false
+      test_impact:
+        description: "List Impact programs and catalogs (posts nothing)"
+        type: boolean
+        default: false
       sync_dashboard:
         description: "Send already posted pins to the dashboard"
         type: boolean
@@ -52,6 +56,8 @@ jobs:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
           PINS_PAUSED: ${{ vars.PINS_PAUSED }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -61,9 +67,10 @@ jobs:
           if [ "${{ inputs.test_ali }}" = "true" ]; then ARGS="--test-ali"; fi
           if [ "${{ inputs.test_one }}" = "true" ]; then ARGS="--test-one"; fi
           if [ "${{ inputs.sync_dashboard }}" = "true" ]; then ARGS="--sync-dashboard"; fi
+          if [ "${{ inputs.test_impact }}" = "true" ]; then ARGS="--test-impact"; fi
           python -m pipeline.run_pins $ARGS
       - name: Commit pin records
-        if: ${{ !inputs.dry_run && !inputs.setup && !inputs.test_ali && !inputs.sync_dashboard }}
+        if: ${{ !inputs.dry_run && !inputs.setup && !inputs.test_ali && !inputs.sync_dashboard && !inputs.test_impact }}
         run: |
           git config user.name "pickixo-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
