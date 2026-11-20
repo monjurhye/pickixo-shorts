@@ -118,7 +118,11 @@ def search_asin(client, ptype, cfg):
         found = _amazon_asins([u])
         if found:
             return found.pop()
-    common.log("  no amazon.com product url for {0!r} ({1} urls seen)".format(ptype, len(urls)))
+    common.log("  no amazon.com product url for {0!r} ({1} urls seen, e.g. {2})".format(
+        ptype, len(urls), ", ".join(sorted({re.sub(r"^https?://([^/]+).*", r"\1", u) for u in urls})[:8])))
+    am = [u for u in urls if "amazon." in u][:3]
+    if am:
+        common.log("  amazon urls: " + " | ".join(u[:120] for u in am))
     return ""
 
 
