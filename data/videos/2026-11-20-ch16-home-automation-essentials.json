@@ -1,0 +1,44 @@
+{
+  "key": "2026-11-20-ch16-home-automation-essentials",
+  "date": "2026-11-20",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Home automation essentials",
+  "hook": "Boost your smart home setup",
+  "description": "Compact list of home automation essentials you can find on Amazon. Ideal for building a more connected space without special hardware.",
+  "items": [
+    {
+      "name": "Smart plug",
+      "benefit": "Remotely control lamps and gadgets",
+      "amazon_search": "smart plug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+plug&tag=monjur09-20"
+    },
+    {
+      "name": "Smart light switch",
+      "benefit": "Voice or app controlled lighting",
+      "amazon_search": "smart light switch",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+light+switch&tag=monjur09-20"
+    },
+    {
+      "name": "WiFi range extender",
+      "benefit": "Extend coverage for smart devices",
+      "amazon_search": "wifi range extender",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=wifi+range+extender&tag=monjur09-20"
+    },
+    {
+      "name": "Voice assistant speaker",
+      "benefit": "Central hub for commands",
+      "amazon_search": "voice assistant speaker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=voice+assistant+speaker&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "8zUiGCBoPfE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch16-home-automation-essentials/",
+  "image": "https://images.pexels.com/videos/6375332/pexels-photo-6375332.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-laptop-over-the-table-6375332/"
+}

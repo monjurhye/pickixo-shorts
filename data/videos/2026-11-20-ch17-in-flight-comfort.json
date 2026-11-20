@@ -1,0 +1,44 @@
+{
+  "key": "2026-11-20-ch17-in-flight-comfort",
+  "date": "2026-11-20",
+  "channel_id": "ch17",
+  "channel_name": "Rasmus Holland",
+  "niche": "Travel essentials",
+  "title": "In-Flight Comfort Essentials",
+  "hook": "Cozy flights start here",
+  "description": "A quick guide to four essential in-flight comforts you can browse on Amazon. Great for making long flights more relaxing.",
+  "items": [
+    {
+      "name": "Neck pillow",
+      "benefit": "Supports neck for comfortable sleep",
+      "amazon_search": "neck pillow travel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=neck+pillow+travel&tag=monjur09-20"
+    },
+    {
+      "name": "Travel blanket",
+      "benefit": "Compact warmth on long flights",
+      "amazon_search": "travel blanket compact",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=travel+blanket+compact&tag=monjur09-20"
+    },
+    {
+      "name": "Noise cancelling headphones",
+      "benefit": "Block cabin chatter effectively",
+      "amazon_search": "noise cancelling headphones travel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=noise+cancelling+headphones+travel&tag=monjur09-20"
+    },
+    {
+      "name": "Lightweight eye mask",
+      "benefit": "Darkness for restful rest",
+      "amazon_search": "eye mask travel comfort",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=eye+mask+travel+comfort&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "TGtaNXSZRw8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch17-in-flight-comfort/",
+  "image": "https://images.pexels.com/videos/7318808/bible-coffin-family-farewell-7318808.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/plane-wing-from-a-window-7318808/"
+}

@@ -1,0 +1,44 @@
+{
+  "key": "2026-11-20-ch13-outdoor-gear-finds",
+  "date": "2026-11-20",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Camping Essentials: 4 Useful Finds",
+  "hook": "4 camping essentials",
+  "description": "A quick showcase of four practical camping essentials to upgrade outdoor trips.",
+  "items": [
+    {
+      "name": "Portable camping stove",
+      "benefit": "Cooks meals anywhere",
+      "amazon_search": "portable camping stove",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+camping+stove&tag=monjur09-20"
+    },
+    {
+      "name": "Compact LED lantern",
+      "benefit": "Bright light, long battery",
+      "amazon_search": "compact led lantern",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+led+lantern&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated camping mug",
+      "benefit": "Keeps drinks hot longer",
+      "amazon_search": "insulated camping mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+camping+mug&tag=monjur09-20"
+    },
+    {
+      "name": "Foldable camping chair",
+      "benefit": "Sturdy seat for relaxing",
+      "amazon_search": "foldable camping chair",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=foldable+camping+chair&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "gG9AltyT2oE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch13-outdoor-gear-finds/",
+  "image": "https://images.pexels.com/videos/35639469/pexels-photo-35639469.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cozy-campfire-setup-in-forest-campsite-35639469/"
+}

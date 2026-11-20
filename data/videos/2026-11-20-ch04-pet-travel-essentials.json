@@ -1,0 +1,44 @@
+{
+  "key": "2026-11-20-ch04-pet-travel-essentials",
+  "date": "2026-11-20",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "Pet Travel Essentials for On-the-Go",
+  "hook": "Top pet travel essentials",
+  "description": "Four practical pet travel gadgets to keep trips smooth and safe. Clear on-screen text lists each essential and how it helps.",
+  "items": [
+    {
+      "name": "Foldable Pet Carrier",
+      "benefit": "Lightweight, compact for trips",
+      "amazon_search": "foldable pet carrier",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=foldable+pet+carrier&tag=monjur09-20"
+    },
+    {
+      "name": "Pet Travel Water Bottle",
+      "benefit": "Keeps pets hydrated on walks",
+      "amazon_search": "pet travel water bottle",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=pet+travel+water+bottle&tag=monjur09-20"
+    },
+    {
+      "name": "Car Seat Belt Harness",
+      "benefit": "Safe car rides, easy setup",
+      "amazon_search": "dog car seat belt harness",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=dog+car+seat+belt+harness&tag=monjur09-20"
+    },
+    {
+      "name": "Portable Pet Feeder",
+      "benefit": "On-the-go meals, spill-free",
+      "amazon_search": "portable pet feeder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+pet+feeder&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "42tgrnwUv3o",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch04-pet-travel-essentials/",
+  "image": "https://images.pexels.com/videos/35655240/pexels-photo-35655240.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/nighttime-airplane-arrival-at-foggy-airport-35655240/"
+}

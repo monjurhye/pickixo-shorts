@@ -1,0 +1,44 @@
+{
+  "key": "2026-11-20-ch02-gifts-under-25",
+  "date": "2026-11-20",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Home Essentials Gifts Under $25",
+  "hook": "Gifts under $25 you’ll love",
+  "description": "Four practical home essentials under $25. Great for gifting or treating yourself.",
+  "items": [
+    {
+      "name": "Scented candle set",
+      "benefit": "Creates cozy ambiance and scent",
+      "amazon_search": "scented candle set",
+      "asin": "B000S5VEG6",
+      "link": "https://www.amazon.com/dp/B000S5VEG6?tag=monjur09-20"
+    },
+    {
+      "name": "Cozy throw blanket",
+      "benefit": "Adds warmth and comfort",
+      "amazon_search": "cozy throw blanket",
+      "asin": "B0158EQJSY",
+      "link": "https://www.amazon.com/dp/B0158EQJSY?tag=monjur09-20"
+    },
+    {
+      "name": "Desk organizer tray",
+      "benefit": "Keeps workspace tidy",
+      "amazon_search": "desk organizer tray",
+      "asin": "B0D9M2D3HY",
+      "link": "https://www.amazon.com/dp/B0D9M2D3HY?tag=monjur09-20"
+    },
+    {
+      "name": "Stainless steel tumbler",
+      "benefit": "Keeps drinks cold or hot",
+      "amazon_search": "stainless steel tumbler",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "HgHOtae6X-g",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch02-gifts-under-25/",
+  "image": "https://images.pexels.com/videos/7316029/pexels-photo-7316029.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/grey-armchair-7316029/"
+}
