@@ -145,7 +145,6 @@ def main():
                                                          c.get("ContractStatus") or c.get("Status") or ""))
         try:
             from collections import defaultdict
-            from datetime import datetime, timezone
             now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             acts = impact.get("/Actions", ActionDateStart="2026-01-01T00:00:00Z", ActionDateEnd=now,
                               PageSize=1000).get("Actions", [])
