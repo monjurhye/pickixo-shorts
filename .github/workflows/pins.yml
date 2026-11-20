@@ -1,8 +1,8 @@
 name: Daily Pins
 
+# Started on time by the Cloudflare timer worker (timer/worker.js); GitHub's own
+# schedule was removed because it ran hours late or not at all.
 on:
-  schedule:
-    - cron: "30 11 * * *"   # schedules the day's pins (first one ~13:00 UTC)
   workflow_dispatch:
     inputs:
       dry_run:

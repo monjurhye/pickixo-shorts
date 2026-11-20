@@ -5,41 +5,99 @@ import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 
 const CSS = `
-:root{--bg:#faf8f5;--ink:#1c1917;--muted:#6b6560;--line:#e7e2db;--accent:#c2410c;--ok:#15803d;--bad:#b91c1c;--card:#fff}
-@media (prefers-color-scheme:dark){:root{--bg:#14171c;--ink:#ece8e3;--muted:#a39d96;--line:#2a2f37;--accent:#fb923c;--ok:#4ade80;--bad:#f87171;--card:#1b1f26}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-main{max-width:980px;margin:0 auto;padding:24px 16px 60px}
-h2{font-size:21px;margin:36px 0 4px;letter-spacing:-.01em}h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}.muted{color:var(--muted)}
+:root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
+--accent:#6d28d9;--accent2:#db2777;--ok:#059669;--bad:#dc2626;--warn:#d97706;
+--grad:linear-gradient(135deg,#6d28d9 0%,#db2777 55%,#f59e0b 100%);--shadow:0 1px 2px rgba(20,24,40,.06),0 8px 24px rgba(20,24,40,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1018;--ink:#eceef6;--muted:#9aa1b8;--line:#262a3a;--card:#161926;--soft:#1b1f2e;
+--accent:#a78bfa;--accent2:#f472b6;--ok:#34d399;--bad:#f87171;--warn:#fbbf24;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}main{max-width:1100px;margin:0 auto;padding:0 18px 70px}
+.muted{color:var(--muted)}
+.hero{background:var(--grad);color:#fff;border-radius:0 0 22px 22px;padding:18px 22px 14px;margin:0 -18px 0;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero h1{font-size:24px;margin:0 0 2px;letter-spacing:-.02em}.hero p{margin:0;opacity:.92}.hero a{color:#fff;font-weight:700}
+.hero .bar{margin:10px 0 0}.hero .stat{padding:6px 14px}.hero .stat b{font-size:19px}.hero .stat{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(6px)}
+.hero .stat .muted{color:rgba(255,255,255,.85)}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:700;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;box-shadow:var(--shadow)}
+.nav a:hover{border-color:var(--accent);color:var(--accent)}
+.nav a.active{background:var(--grad);color:#fff;border-color:transparent}
+.tab{display:none;animation:fade .18s ease}.tab.active{display:block}.tab h2{margin-top:8px}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
+h2{--c:var(--accent);font-size:22px;margin:44px 0 6px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+h2:before{content:"";width:10px;height:28px;border-radius:6px;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
+h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}
 .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:16px 0}
-.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
-.stat b{display:block;font-size:22px}
-.msg{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px;margin:12px 0}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-th,td{padding:10px 12px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
-th{border-top:0;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
-.on{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
-.off{background:color-mix(in srgb,var(--muted) 15%,transparent);color:var(--muted)}
-.err{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
-button,.btn{font:inherit;font-weight:700;font-size:13px;border-radius:9px;padding:7px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block}
-.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.danger{color:var(--bad)}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;min-width:130px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:24px;line-height:1.2}
+.msg{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-left:5px solid var(--accent);border-radius:12px;padding:11px 15px;margin:12px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+th,td{padding:11px 13px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
+th{border-top:0;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--soft)}
+tbody tr:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+td b{background:color-mix(in srgb,#ef4444 12%,transparent);color:#ef4444;border-radius:7px;padding:2px 7px;font-size:12px}
+.pill{display:inline-block;border-radius:999px;padding:3px 11px;font-size:12px;font-weight:800;letter-spacing:.01em}
+.on{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.off{background:color-mix(in srgb,var(--muted) 16%,transparent);color:var(--muted)}
+.err{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.hero .pill.on{background:#fff;color:var(--ok)}
+button,.btn{font:inherit;font-weight:700;font-size:13px;border-radius:10px;padding:8px 13px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block;margin:2px 0;transition:transform .08s,box-shadow .15s,border-color .15s}
+button:hover,.btn:hover{border-color:var(--accent);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 22%,transparent);transform:translateY(-1px)}
+.primary{background:var(--grad);color:#fff;border-color:transparent}
+.hero .primary,.hero button{background:#fff;color:#6d28d9;border-color:#fff}
+.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 35%,var(--line))}
+.hero .danger{background:rgba(255,255,255,.95);color:#dc2626}
 form{display:inline}
-details.draft{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+details.draft{background:var(--card);border:1px solid var(--line);border-left:5px solid #10b981;border-radius:14px;padding:12px 15px;margin:10px 0;box-shadow:var(--shadow)}
 details.draft summary{cursor:pointer;font-weight:700}
 .preview{border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
-.preview h1{font-size:22px}.preview h2{font-size:18px}.preview h3{font-size:15px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:12px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.card h3{margin:4px 0 6px;font-size:16px}.prompt{font-size:13px;background:color-mix(in srgb,var(--muted) 10%,transparent);border-radius:8px;padding:8px;margin:8px 0;white-space:pre-wrap}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-@media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}}
+.preview h1{font-size:22px}.preview h2{font-size:18px;margin:16px 0 4px}.preview h2:before{display:none}.preview h3{font-size:15px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--grad)}
+.card h3{margin:6px 0 6px;font-size:16px}
+.prompt{font-size:13px;background:var(--soft);border:1px dashed var(--line);border-radius:10px;padding:9px;margin:8px 0;white-space:pre-wrap}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+input[type=text],input[type=file],select,textarea{font:inherit;border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--card);color:var(--ink)}
+.signin{max-width:440px;margin:12vh auto;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 28px;box-shadow:var(--shadow)}
+.signin .logo{width:64px;height:64px;border-radius:18px;background:var(--grad);margin:0 auto 14px;display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900}
+@media (max-width:700px){table.ch td:nth-child(2),table.ch th:nth-child(2){display:none}.hero h1{font-size:24px}.stat{min-width:0;flex:1 1 40%}}
 `;
 
+// Each section (from one <h2 id="..."> to the next) becomes a tab, so the page fits
+// on one screen: the nav buttons switch sections instead of scrolling down.
+function tabify(body) {
+  if (!body.includes('class="nav"')) return body;
+  const parts = body.split('<h2 id="');
+  return parts[0] + parts.slice(1).map((p) => {
+    const id = p.slice(0, p.indexOf('"'));
+    return `<section class="tab" data-tab="${id}"><h2 id="${p}</section>`;
+  }).join("");
+}
+
+const TABS_JS = `<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab')), links=[].slice.call(document.querySelectorAll('.nav a'));
+  function show(id){
+    if(!tabs.some(function(t){return t.dataset.tab===id})) id=tabs.length?tabs[0].dataset.tab:'';
+    tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===id)});
+    links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+  }
+  links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);
+    history.replaceState(null,'','#'+id);show(id);window.scrollTo(0,0);});});
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+  show(location.hash.slice(1));
+})();
+</script>`;
+
 function page(body) {
+  body = tabify(body);
   return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
-<title>Pickixo · Dashboard</title><style>${CSS}</style></head><body><main>${body}</main></body></html>`;
+<title>Pickixo · Dashboard</title><style>${CSS}</style></head><body><main>${body}</main>${body.includes('class="tab"') ? TABS_JS : ""}</body></html>`;
 }
 
 export async function onRequestGet(context) {
@@ -47,8 +105,9 @@ export async function onRequestGet(context) {
   const note = msg ? `<div class="msg">${esc(msg)}</div>` : "";
   const s = await session(context);
   if (!s) {
-    return html(page(`<h1>Pickixo channels</h1><p class="muted">Sign in with the owner Google account to manage YouTube channels.</p>
-${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`));
+    return html(page(`<div class="signin"><div class="logo">P</div><h1>Pickixo dashboard</h1>
+<p class="muted">Sign in with the owner Google account to manage channels, posts and tools.</p>
+${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
   const [chans, st, pins, drafts, ideas, ideasReq] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env)]);
@@ -87,14 +146,16 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
     ? `<button class="primary" name="do" value="resume_all">▶ Resume all</button>`
     : `<button class="danger" name="do" value="pause_all">■ Pause all uploads</button>`;
 
-  return html(page(`<h1>Pickixo channels</h1>
-<p class="muted">Signed in as ${esc(s.email)} · <a href="/auth/logout">Sign out</a></p>${note}
+  return html(page(`<header class="hero"><h1>Pickixo dashboard</h1>
+<p>Signed in as ${esc(s.email)} · <a href="/auth/logout">Sign out</a></p>
 <div class="bar"><div class="stats">
 <div class="stat"><span class="muted">Connected</span><b>${connected} / ${chans.length}</b></div>
 <div class="stat"><span class="muted">Uploading</span><b>${st.paused ? 0 : active}</b></div>
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
-<form method="post" action="/admin/action">${pauseBtn}</form></div>
+<form method="post" action="/admin/action">${pauseBtn}</form></div></header>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a></nav>
+${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
@@ -123,7 +184,7 @@ function pinsSection(p) {
   const probHtml = problems.length ? `<div class="msg"><b>Last run, skipped or failed:</b><br>${problems.map((r) =>
     `${esc(r.keyword)} · ${esc(r.status)} · <span class="muted">${esc(r.note)}</span>`).join("<br>")}</div>` : "";
   const msg = lr && lr.message ? `<div class="msg">${esc(lr.message)}</div>` : "";
-  return `<h2>Pinterest · AliExpress</h2>
+  return `<h2 id="pins">Pinterest · AliExpress</h2>
 <p class="muted">AliExpress best sellers → pin text → Buffer → Pinterest board. Runs every day at 5:30pm (Bangladesh), 6 pins, 2 hours apart. Tracking ID <b>Pinterest</b>.</p>
 <div class="bar"><div class="stats">
 <div class="stat"><span class="muted">Pins</span><b>${statusPill}</b></div>

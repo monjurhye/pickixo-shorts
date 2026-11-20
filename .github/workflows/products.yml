@@ -3,9 +3,9 @@ name: Product Finder
 # Finds real Amazon products (ASINs) per channel with web search, keeps only ASINs from
 # amazon.com URLs the search returned, writes data/products.json. Runs before the first
 # daily video run; channels that already have 8+ fresh products are skipped (no API cost).
+# Started on time by the Cloudflare timer worker (timer/worker.js); GitHub's own
+# schedule was removed because it ran hours late or not at all.
 on:
-  schedule:
-    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       channel:

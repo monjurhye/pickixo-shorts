@@ -1,9 +1,8 @@
 name: Image Ideas
 
+# Started on time by the Cloudflare timer worker (timer/worker.js); GitHub's own
+# schedule was removed because it ran hours late or not at all.
 on:
-  schedule:
-    - cron: "0 2 * * *"      # 8am Bangladesh: Facebook posts only (no image ideas)
-    - cron: "*/10 * * * *"   # image ideas ONLY if the dashboard button was pressed
   workflow_dispatch:
     inputs:
       mode:

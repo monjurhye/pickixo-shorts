@@ -1,8 +1,8 @@
 name: Medium Drafts
 
+# Started on time by the Cloudflare timer worker (timer/worker.js); GitHub's own
+# schedule was removed because it ran hours late or not at all.
 on:
-  schedule:
-    - cron: "0 9 * * *"   # 3pm Bangladesh: one AppSumo draft to the dashboard
   workflow_dispatch:
     inputs:
       dry_run:
