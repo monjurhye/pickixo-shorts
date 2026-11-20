@@ -59,6 +59,12 @@ Rules so images get APPROVED (Magnific rejects these):
 - Useful for designers: clean composition, copy space where it fits, good light.
 - Each prompt must be clearly different from the others (no near-duplicates).
 
+Quality (Magnific rejects "Low quality" a lot): ask for real, detailed textures (wood grain,
+linen weave, knit wool, ceramic glaze, skin pores at medium distance), natural light with
+soft shadows, realistic depth of field, muted true-to-life colours, simple uncluttered
+composition with few objects (fewer objects = fewer AI errors). Avoid "8k, ultra HD,
+hyperrealistic" fluff, glossy plastic looks, heavy bokeh orbs, neon overload.
+
 Prompt style: one paragraph, 40-80 words, photographic or illustration details (subject,
 setting, light, camera/lens or art style, colors, mood, composition, "copy space on the
 left" when useful). English only.

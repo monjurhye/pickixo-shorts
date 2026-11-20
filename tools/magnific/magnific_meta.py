@@ -31,6 +31,8 @@ import urllib.request
 from PIL import Image
 
 EXTS = (".jpg", ".jpeg", ".png")
+MIN_QUALITY = 7                 # AI quality score needed to go into the CSV
+MIN_SHARPNESS = 2.5             # edge energy below this looks soft at 100% (rough guide; tune after a few batches)
 MIN_PIXELS = 4_000_000          # ~2000x2000; smaller files are usually rejected
 DUP_DISTANCE = 6                # dHash bits; lower = more similar
 MODEL = os.environ.get("MAGNIFIC_MODEL", "gpt-5-nano")
@@ -49,8 +51,10 @@ SCHEMA = {
         "keywords": {"type": "array", "items": {"type": "string"}},
         "category": {"type": "string", "enum": CATEGORIES},
         "problems": {"type": "array", "items": {"type": "string"}},
+        "quality": {"type": "integer"},
+        "quality_notes": {"type": "string"},
     },
-    "required": ["title", "keywords", "category", "problems"],
+    "required": ["title", "keywords", "category", "problems", "quality", "quality_notes"],
     "additionalProperties": False,
 }
 
@@ -64,7 +68,13 @@ Look at the image and return:
 - category: the best one from the list.
 - problems: anything that would get the image rejected: malformed hands/fingers/faces,
   garbled or fake text, logos or brands, watermarks, a recognizable real person, blur,
-  heavy artifacts, flat low-detail texture. Empty list if none."""
+  heavy artifacts, flat low-detail texture. Empty list if none.
+- quality: 1-10, judged like a strict stock reviewer. The SECOND image is a 100% crop
+  from the centre of the full-size file: judge real detail there. Score 7+ only if
+  textures look natural (no plastic/waxy surfaces, no smeared or melted details, no
+  over-sharpened halos, no upscaling artifacts), light and composition are professional,
+  and nothing looks AI-broken. 5-6 = likely "Low quality" rejection. 1-4 = clearly reject.
+- quality_notes: one short sentence on the main weakness (or "clean")."""
 
 
 def api_key():
@@ -96,13 +106,36 @@ def preview_jpeg(img):
     return base64.b64encode(buf.getvalue()).decode()
 
 
-def describe(key, b64):
+def crop_jpeg(img):
+    """1024x1024 crop at full resolution from the centre (what a reviewer sees at 100%)."""
+    im = img.convert("RGB")
+    w, h = im.size
+    s = min(1024, w, h)
+    box = ((w - s) // 2, (h - s) // 2, (w - s) // 2 + s, (h - s) // 2 + s)
+    buf = io.BytesIO()
+    im.crop(box).save(buf, "JPEG", quality=90)
+    return base64.b64encode(buf.getvalue()).decode()
+
+
+def sharpness(img):
+    """Edge energy of a full-resolution centre crop; very low = soft/blurry."""
+    from PIL import ImageFilter, ImageStat
+    g = img.convert("L")
+    w, h = g.size
+    s = min(1024, w, h)
+    c = g.crop(((w - s) // 2, (h - s) // 2, (w - s) // 2 + s, (h - s) // 2 + s))
+    return ImageStat.Stat(c.filter(ImageFilter.FIND_EDGES)).mean[0]
+
+
+def describe(key, b64, crop_b64):
     body = {
         "model": MODEL,
         "instructions": INSTRUCTIONS,
         "input": [{"role": "user", "content": [
-            {"type": "input_text", "text": "Write the metadata for this image."},
-            {"type": "input_image", "image_url": "data:image/jpeg;base64," + b64}]}],
+            {"type": "input_text", "text": "Write the metadata for this image. First image: whole "
+                                            "picture (reduced). Second image: 100% centre crop."},
+            {"type": "input_image", "image_url": "data:image/jpeg;base64," + b64},
+            {"type": "input_image", "image_url": "data:image/jpeg;base64," + crop_b64}]}],
         "text": {"format": {"type": "json_schema", "name": "meta", "strict": True, "schema": SCHEMA}},
         "max_output_tokens": 3000,
     }
@@ -175,16 +208,25 @@ def main():
         if args.check_only:
             print("[{0}/{1}] ok {2}".format(i, len(files), name))
             continue
+        sharp = sharpness(img)
         try:
-            meta = describe(key, preview_jpeg(img))
+            meta = describe(key, preview_jpeg(img), crop_jpeg(img))
         except Exception as e:
             report.append((name, "AI error: {0}".format(e)))
             continue
+        q = int(meta.get("quality", 0))
+        if q < MIN_QUALITY or sharp < MIN_SHARPNESS:
+            report.append((name, "NOT in CSV, likely 'Low quality' (score {0}/10, sharpness {1:.1f}): {2}{3}".format(
+                q, sharp, meta.get("quality_notes", ""),
+                "; problems: " + "; ".join(meta["problems"]) if meta.get("problems") else "")))
+            print("[{0}/{1}] {2} -> low quality {3}/10, skipped".format(i, len(files), name, q))
+            continue
         if meta.get("problems"):
-            report.append((name, "check before uploading: " + "; ".join(meta["problems"])))
+            report.append((name, "in CSV but check: " + "; ".join(meta["problems"])))
         rows.append([name, meta["title"].strip().rstrip("."), ",".join(clean_keywords(meta["keywords"])),
                      "", args.model_name])
-        print("[{0}/{1}] {2} -> {3} ({4})".format(i, len(files), name, meta["title"], meta["category"]))
+        print("[{0}/{1}] {2} -> {3} ({4}, quality {5}/10)".format(i, len(files), name, meta["title"],
+                                                               meta["category"], q))
 
     if rows:
         out = os.path.join(folder, "magnific_metadata.csv")

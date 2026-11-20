@@ -187,6 +187,9 @@ function ideasSection(d) {
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
 <p><b>Free workflow:</b> copy a prompt → make 4-8 images (Adobe Firefly first: big enough without upscaling) → keep only clean ones (hands, faces, no text) →
 if smaller than ~2000px, upscale 2x only and check at 100% zoom → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
+<div class="msg"><b>Avoid "Low quality" rejections:</b> zoom to 100% before uploading. Reject images with plastic or waxy surfaces,
+smeared small details, over-sharp edges, odd hands or fake text. Fewer objects in a scene = fewer AI mistakes.
+The Mac tool now scores every image and leaves weak ones out of the CSV (see magnific_report.txt).</div>
 <div class="grid">${tools}</div>
 <div class="grid">${cards}</div>
 <p><a class="btn" href="https://contributor.magnific.com/dashboard" target="_blank" rel="noopener">Magnific contributor ↗</a></p>
