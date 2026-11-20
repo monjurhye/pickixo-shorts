@@ -18,16 +18,28 @@ def enabled():
     return bool(common.secret("BUFFER_API_KEY"))
 
 
+def _key():
+    k = common.secret("BUFFER_API_KEY").strip().strip('"').strip("'")
+    bad = sum(1 for ch in k if ord(ch) > 126 or ord(ch) < 33)
+    if bad:
+        raise BufferError("BUFFER_API_KEY looks wrong: {0} characters long, {1} are not plain "
+                          "letters/numbers. Copy the key again from publish.buffer.com/settings/api "
+                          "and save it in the GitHub secret.".format(len(k), bad))
+    return k
+
+
 def gql(query, variables=None):
     body = json.dumps({"query": query, "variables": variables or {}}).encode()
     req = urllib.request.Request(API, data=body, method="POST", headers={
-        "Authorization": "Bearer " + common.secret("BUFFER_API_KEY"),
+        "Authorization": "Bearer " + _key(),
         "Content-Type": "application/json",
         "User-Agent": "pickixo-pins/1.0",
     })
     try:
         with urllib.request.urlopen(req, timeout=40) as r:
             data = json.loads(r.read().decode())
+    except BufferError:
+        raise
     except urllib.error.HTTPError as e:
         raise BufferError("HTTP {0}: {1}".format(e.code, e.read().decode("utf-8", "ignore")[:300]))
     except Exception as e:
