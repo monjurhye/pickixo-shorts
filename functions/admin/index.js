@@ -14,10 +14,10 @@ const CSS = `
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 a{color:var(--accent)}main{max-width:1100px;margin:0 auto;padding:0 18px 70px}
 .muted{color:var(--muted)}
-.hero{background:var(--grad);color:#fff;border-radius:0 0 22px 22px;padding:18px 22px 14px;margin:0 -18px 0;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero{background:var(--grad);color:#fff;border-radius:0 0 20px 20px;padding:12px 20px 12px;margin:0 -18px 0;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .hero:after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.12)}
-.hero h1{font-size:24px;margin:0 0 2px;letter-spacing:-.02em}.hero p{margin:0;opacity:.92}.hero a{color:#fff;font-weight:700}
-.hero .bar{margin:10px 0 0}.hero .stat{padding:6px 14px}.hero .stat b{font-size:19px}.hero .stat{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(6px)}
+.hero h1{font-size:21px;margin:0 0 2px;letter-spacing:-.02em}.hero p{margin:0;opacity:.92}.hero a{color:#fff;font-weight:700}
+.hero .bar{margin:8px 0 0}.hero .stat{padding:4px 12px;min-width:110px;box-shadow:none}.hero .stat b{font-size:17px}.hero .stat .muted{font-size:12px}.hero .stat{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(6px)}
 .hero .stat .muted{color:rgba(255,255,255,.85)}
 .nav{position:sticky;top:0;z-index:10;display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
 .nav a{white-space:nowrap;text-decoration:none;font-weight:700;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;box-shadow:var(--shadow)}
@@ -26,7 +26,7 @@ a{color:var(--accent)}main{max-width:1100px;margin:0 auto;padding:0 18px 70px}
 .tab{display:none;animation:fade .18s ease}.tab.active{display:block}.tab h2{margin-top:8px}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
-h2{--c:var(--accent);font-size:22px;margin:44px 0 6px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+h2{--c:var(--accent);font-size:20px;margin:44px 0 4px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
 h2:before{content:"";width:10px;height:28px;border-radius:6px;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
 h2#channels{--c:#ef4444}h2#facebook{--c:#1877f2}h2#pins{--c:#e60023}h2#drafts{--c:#10b981}h2#ideas{--c:#8b5cf6}h2#magnific-tool{--c:#f59e0b}
 .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:16px 0}
@@ -99,6 +99,11 @@ const TABS_JS = `<script>
     if(!tabs.some(function(t){return t.dataset.tab===id})) id=tabs.length?tabs[0].dataset.tab:'';
     tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===id)});
     links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+    // fold tall cards of the visible tab (heights are only known once it is shown)
+    var t=tabs.filter(function(x){return x.dataset.tab===id})[0];
+    if(t) [].slice.call(t.querySelectorAll('.grid > .card, .tab > .card')).forEach(function(c){
+      if(c.dataset.fold||c.scrollHeight<=360||c.querySelector('input[type=file]'))return; c.dataset.fold='1';
+      c.classList.add('clampable');c.addEventListener('click',function(e){if(e.target.closest('a,button,input,select,textarea,label'))return;c.classList.toggle('open')});});
   }
   links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);
     history.replaceState(null,'','#'+id);show(id);window.scrollTo(0,0);});});
@@ -106,7 +111,6 @@ const TABS_JS = `<script>
   show(location.hash.slice(1));
   // keep each tab short: long intros show 2 lines, tall cards fold, click to open
   document.querySelectorAll('.tab > p.muted').forEach(function(p){ if(p.textContent.length>140){p.classList.add('clamp');p.title='Click to read more';p.addEventListener('click',function(){p.classList.toggle('open')});}});
-  document.querySelectorAll('.tab .grid > .card').forEach(function(c){ if(c.scrollHeight>360){c.classList.add('clampable');c.addEventListener('click',function(e){if(e.target.closest('a,button,input,select,textarea,label'))return;c.classList.toggle('open')});}});
 })();
 </script>`;
 
