@@ -1,1 +1,246 @@
-{"channels": {}}
+{
+  "channels": {
+    "ch01": {
+      "recent_topics": [
+        "Kitchen gadgets under $30"
+      ],
+      "used_clips": [
+        "5823682",
+        "7597169",
+        "4008525"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch02": {
+      "recent_topics": [],
+      "used_clips": [],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch03": {
+      "recent_topics": [
+        "Home organization"
+      ],
+      "used_clips": [
+        "6264889",
+        "38413548",
+        "12908870"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch04": {
+      "recent_topics": [
+        "Pet gadgets"
+      ],
+      "used_clips": [
+        "39936356",
+        "7239168",
+        "6263194"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch05": {
+      "recent_topics": [
+        "Coffee & tea gear"
+      ],
+      "used_clips": [
+        "8286870",
+        "5823682",
+        "7579697"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch06": {
+      "recent_topics": [],
+      "used_clips": [],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch07": {
+      "recent_topics": [
+        "Plant & garden"
+      ],
+      "used_clips": [
+        "36623154",
+        "36521858",
+        "33731946"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch08": {
+      "recent_topics": [
+        "Laundry & cleaning"
+      ],
+      "used_clips": [
+        "29454150",
+        "8756892",
+        "10565830"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch09": {
+      "recent_topics": [
+        "Beauty tools"
+      ],
+      "used_clips": [
+        "8479086",
+        "7306362",
+        "6000652"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch10": {
+      "recent_topics": [
+        "Home fitness"
+      ],
+      "used_clips": [
+        "8027444",
+        "8426497",
+        "34920989"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch11": {
+      "recent_topics": [
+        "Baby & toddler"
+      ],
+      "used_clips": [
+        "7508453",
+        "7280800",
+        "7508628"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch12": {
+      "recent_topics": [],
+      "used_clips": [],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch13": {
+      "recent_topics": [
+        "Camping & outdoors"
+      ],
+      "used_clips": [
+        "40425618",
+        "39448046",
+        "12491757"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch14": {
+      "recent_topics": [
+        "Desk & study setup"
+      ],
+      "used_clips": [
+        "10567473",
+        "6176547",
+        "10567222"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch15": {
+      "recent_topics": [
+        "Gaming accessories"
+      ],
+      "used_clips": [
+        "8128344",
+        "34280527",
+        "7914773"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch16": {
+      "recent_topics": [
+        "Smart home"
+      ],
+      "used_clips": [
+        "37522021",
+        "6853399",
+        "35426476"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch17": {
+      "recent_topics": [
+        "Travel essentials"
+      ],
+      "used_clips": [
+        "9142400",
+        "9146510",
+        "9141840"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch18": {
+      "recent_topics": [
+        "Kids toys"
+      ],
+      "used_clips": [
+        "3682357",
+        "12750869",
+        "3676949"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch19": {
+      "recent_topics": [
+        "Baking tools"
+      ],
+      "used_clips": [
+        "34771925",
+        "6353447",
+        "4008525"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    },
+    "ch20": {
+      "recent_topics": [
+        "Bedroom & sleep"
+      ],
+      "used_clips": [
+        "3713695",
+        "33997135",
+        "6944076"
+      ],
+      "upload_errors": 0,
+      "auto_disabled": false,
+      "last_error": ""
+    }
+  }
+}

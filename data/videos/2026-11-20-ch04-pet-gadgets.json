@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch04-pet-gadgets",
+  "date": "2026-11-20",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "Top 4 Pet Gadgets You Can Find on Amazon",
+  "hook": "4 must-have pet gadgets",
+  "description": "Four popular pet gadgets shown as quick slides. Perfect for Amazon searches.",
+  "items": [
+    {
+      "name": "Automatic Pet Feeder",
+      "benefit": "Keeps meals on schedule",
+      "amazon_search": "automatic pet feeder",
+      "link": "https://www.amazon.com/s?k=automatic+pet+feeder&tag=monjur09-20"
+    },
+    {
+      "name": "Interactive Pet Camera",
+      "benefit": "Watch and talk remotely",
+      "amazon_search": "interactive pet camera",
+      "link": "https://www.amazon.com/s?k=interactive+pet+camera&tag=monjur09-20"
+    },
+    {
+      "name": "Pet Cooling Mat",
+      "benefit": "Keeps pets comfortable in heat",
+      "amazon_search": "pet cooling mat",
+      "link": "https://www.amazon.com/s?k=pet+cooling+mat&tag=monjur09-20"
+    },
+    {
+      "name": "Automatic Laser Toy",
+      "benefit": "Promotes active play and exercise",
+      "amazon_search": "automatic laser toy for pets",
+      "link": "https://www.amazon.com/s?k=automatic+laser+toy+for+pets&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "xlFHND2H03I",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch04-pet-gadgets/"
+}

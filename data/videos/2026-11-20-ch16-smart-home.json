@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch16-smart-home",
+  "date": "2026-11-20",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "4 Easy Smart Home Essentials",
+  "hook": "Boost your home with smart gear",
+  "description": "A quick slide tour of four popular smart home gear. Tap the links to search each item on Amazon.",
+  "items": [
+    {
+      "name": "Smart Plug",
+      "benefit": "Remotely control devices, schedules, and scenes",
+      "amazon_search": "Smart Plug Amazon",
+      "link": "https://www.amazon.com/s?k=Smart+Plug+Amazon&tag=monjur09-20"
+    },
+    {
+      "name": "Wi-Fi Smart Bulb",
+      "benefit": "Voice or app control with dimming",
+      "amazon_search": "Wi-Fi Smart Bulb Amazon",
+      "link": "https://www.amazon.com/s?k=Wi-Fi+Smart+Bulb+Amazon&tag=monjur09-20"
+    },
+    {
+      "name": "Video Doorbell",
+      "benefit": "See visitors from your phone",
+      "amazon_search": "Video Doorbell Amazon",
+      "link": "https://www.amazon.com/s?k=Video+Doorbell+Amazon&tag=monjur09-20"
+    },
+    {
+      "name": "Smart Thermostat",
+      "benefit": "Saving energy with programmable schedules",
+      "amazon_search": "Smart Thermostat Amazon",
+      "link": "https://www.amazon.com/s?k=Smart+Thermostat+Amazon&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "mkL-64JSm4g",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch16-smart-home/"
+}

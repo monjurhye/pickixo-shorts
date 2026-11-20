@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch07-plant-garden",
+  "date": "2026-11-20",
+  "channel_id": "ch07",
+  "channel_name": "SmartPet Solar",
+  "niche": "Plant & garden",
+  "title": "4 Must-Have Plant & Garden Tools",
+  "hook": "Essential gear for thriving plants",
+  "description": "This short slideshow highlights practical plant and garden tools. Tap the link to search each item on Amazon.",
+  "items": [
+    {
+      "name": "Drip irrigation kit",
+      "benefit": "Water plants easily and evenly",
+      "amazon_search": "drip irrigation kit",
+      "link": "https://www.amazon.com/s?k=drip+irrigation+kit&tag=monjur09-20"
+    },
+    {
+      "name": "Self-watering planter",
+      "benefit": "Keeps soil moist between waterings",
+      "amazon_search": "self-watering planter",
+      "link": "https://www.amazon.com/s?k=self-watering+planter&tag=monjur09-20"
+    },
+    {
+      "name": "Garden kneeler pad",
+      "benefit": "Cushions knees while gardening",
+      "amazon_search": "garden kneeler pad",
+      "link": "https://www.amazon.com/s?k=garden+kneeler+pad&tag=monjur09-20"
+    },
+    {
+      "name": "Solar garden fountain",
+      "benefit": "Adds gentle water sound to yard",
+      "amazon_search": "solar garden fountain",
+      "link": "https://www.amazon.com/s?k=solar+garden+fountain&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "sHvTHMo6uMk",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch07-plant-garden/"
+}

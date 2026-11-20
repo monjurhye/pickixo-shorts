@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch10-home-fitness",
+  "date": "2026-11-20",
+  "channel_id": "ch10",
+  "channel_name": "SolarPet Guard",
+  "niche": "Home fitness",
+  "title": "4 Must-Have Home Fitness Gear",
+  "hook": "Top gear for home workouts",
+  "description": "A quick slide list of essential home fitness gear you can find on Amazon. Great for small spaces.",
+  "items": [
+    {
+      "name": "Foam Roller",
+      "benefit": "Relieves soreness and aids recovery",
+      "amazon_search": "foam roller",
+      "link": "https://www.amazon.com/s?k=foam+roller&tag=monjur09-20"
+    },
+    {
+      "name": "Resistance bands set",
+      "benefit": "Versatile for full-body workouts",
+      "amazon_search": "resistance bands set",
+      "link": "https://www.amazon.com/s?k=resistance+bands+set&tag=monjur09-20"
+    },
+    {
+      "name": "Adjustable Dumbbells",
+      "benefit": "Save space, customize weights",
+      "amazon_search": "adjustable dumbbells",
+      "link": "https://www.amazon.com/s?k=adjustable+dumbbells&tag=monjur09-20"
+    },
+    {
+      "name": "Pull-Up Bar",
+      "benefit": "Home upper-body training",
+      "amazon_search": "pull-up bar doorway",
+      "link": "https://www.amazon.com/s?k=pull-up+bar+doorway&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "LTmUYb63n4c",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch10-home-fitness/"
+}

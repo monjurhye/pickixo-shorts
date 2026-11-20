@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch01-kitchen-gadgets-under-30",
+  "date": "2026-11-20",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Four Kitchen Gadgets Under $30",
+  "hook": "Smart kitchen gear under $30",
+  "description": "A quick showcase of four practical kitchen gadgets under $30 to simplify your cooking routines.",
+  "items": [
+    {
+      "name": "Magnetic spice rack",
+      "benefit": "Keeps spices organized and accessible",
+      "amazon_search": "magnetic spice rack",
+      "link": "https://www.amazon.com/s?k=magnetic+spice+rack&tag=monjur09-20"
+    },
+    {
+      "name": "Silicone baking mats",
+      "benefit": "Reusable non-stick liners for pans",
+      "amazon_search": "silicone baking mats",
+      "link": "https://www.amazon.com/s?k=silicone+baking+mats&tag=monjur09-20"
+    },
+    {
+      "name": "Garlic press",
+      "benefit": "Effortless mincing for meals",
+      "amazon_search": "garlic press",
+      "link": "https://www.amazon.com/s?k=garlic+press&tag=monjur09-20"
+    },
+    {
+      "name": "Egg separator",
+      "benefit": "Separate yolk from white quickly",
+      "amazon_search": "egg separator",
+      "link": "https://www.amazon.com/s?k=egg+separator&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "grLNyYMceIo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch01-kitchen-gadgets-under-30/"
+}

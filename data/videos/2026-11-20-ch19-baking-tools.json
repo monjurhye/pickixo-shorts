@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch19-baking-tools",
+  "date": "2026-11-20",
+  "channel_id": "ch19",
+  "channel_name": "Sai Ma",
+  "niche": "Baking tools",
+  "title": "4 Essential Baking Tools for Beginners",
+  "hook": "Upgrade your bake game",
+  "description": "A quick look at four handy baking tools that streamline prep and cleanup. Each item links to its Amazon search.",
+  "items": [
+    {
+      "name": "Silicone Baking Mats",
+      "benefit": "Non-stick, reusable; saves parchment",
+      "amazon_search": "silicone baking mats",
+      "link": "https://www.amazon.com/s?k=silicone+baking+mats&tag=monjur09-20"
+    },
+    {
+      "name": "Stainless Mixing Bowls",
+      "benefit": "Non-slip bases; stackable for storage",
+      "amazon_search": "stainless steel mixing bowls set",
+      "link": "https://www.amazon.com/s?k=stainless+steel+mixing+bowls+set&tag=monjur09-20"
+    },
+    {
+      "name": "Parchment Dispenser",
+      "benefit": "Cuts clean sheets; mess-free",
+      "amazon_search": "parchment paper dispenser",
+      "link": "https://www.amazon.com/s?k=parchment+paper+dispenser&tag=monjur09-20"
+    },
+    {
+      "name": "Digital Kitchen Scale",
+      "benefit": "Precise measurements for baking",
+      "amazon_search": "digital kitchen scale",
+      "link": "https://www.amazon.com/s?k=digital+kitchen+scale&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "7voyYmv7MQ8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch19-baking-tools/"
+}

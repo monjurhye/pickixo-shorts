@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch11-baby-toddler",
+  "date": "2026-11-20",
+  "channel_id": "ch11",
+  "channel_name": "NightSolar Pets",
+  "niche": "Baby & toddler",
+  "title": "4 Easy Baby Essentials You Can Get on Amazon",
+  "hook": "Must-have baby gear you actually need",
+  "description": "A quick slideshow of practical baby items. Each item links to a simple Amazon search.",
+  "items": [
+    {
+      "name": "Baby monitor camera",
+      "benefit": "Hear and see baby remotely",
+      "amazon_search": "baby monitor camera",
+      "link": "https://www.amazon.com/s?k=baby+monitor+camera&tag=monjur09-20"
+    },
+    {
+      "name": "Soft baby blanket",
+      "benefit": "Cozy and gentle on skin",
+      "amazon_search": "soft baby blanket",
+      "link": "https://www.amazon.com/s?k=soft+baby+blanket&tag=monjur09-20"
+    },
+    {
+      "name": "Portable changing pad",
+      "benefit": "Keeps baby comfy on trips",
+      "amazon_search": "portable changing pad",
+      "link": "https://www.amazon.com/s?k=portable+changing+pad&tag=monjur09-20"
+    },
+    {
+      "name": "Sippy cup with spout",
+      "benefit": "Prevents spills at meals",
+      "amazon_search": "sippy cup with spout",
+      "link": "https://www.amazon.com/s?k=sippy+cup+with+spout&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "FKtSF0Hwem8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch11-baby-toddler/"
+}

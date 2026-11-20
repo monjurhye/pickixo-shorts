@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch17-travel-essentials",
+  "date": "2026-11-20",
+  "channel_id": "ch17",
+  "channel_name": "Rasmus Holland",
+  "niche": "Travel essentials",
+  "title": "4 Travel Essentials You Can Buy on Amazon",
+  "hook": "Must-have travel essentials",
+  "description": "A quick slideshow of four practical travel essentials. Tap the search links to find each item on Amazon.",
+  "items": [
+    {
+      "name": "Packing cubes set",
+      "benefit": "Maximize suitcase space",
+      "amazon_search": "packing cubes set",
+      "link": "https://www.amazon.com/s?k=packing+cubes+set&tag=monjur09-20"
+    },
+    {
+      "name": "Portable power bank",
+      "benefit": "Charges devices on the go",
+      "amazon_search": "portable power bank",
+      "link": "https://www.amazon.com/s?k=portable+power+bank&tag=monjur09-20"
+    },
+    {
+      "name": "Folding travel umbrella",
+      "benefit": "Wind-resistant and compact",
+      "amazon_search": "folding travel umbrella",
+      "link": "https://www.amazon.com/s?k=folding+travel+umbrella&tag=monjur09-20"
+    },
+    {
+      "name": "Travel neck pillow",
+      "benefit": "Comfort on long flights",
+      "amazon_search": "travel neck pillow",
+      "link": "https://www.amazon.com/s?k=travel+neck+pillow&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "8F29gUPAunA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch17-travel-essentials/"
+}

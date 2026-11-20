@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch18-kids-toys",
+  "date": "2026-11-20",
+  "channel_id": "ch18",
+  "channel_name": "Top Pick Zone",
+  "niche": "Kids toys",
+  "title": "4 Popular Kid Toys You Can Buy on Amazon",
+  "hook": "Top toy picks for kids",
+  "description": "A quick slideshow of four popular kid-friendly toy types shoppers commonly find on Amazon. Perfect for quick inspiration.",
+  "items": [
+    {
+      "name": "Building blocks set",
+      "benefit": "Encourages creativity and fine motor skills",
+      "amazon_search": "building blocks set kids",
+      "link": "https://www.amazon.com/s?k=building+blocks+set+kids&tag=monjur09-20"
+    },
+    {
+      "name": "Wooden shape sorter",
+      "benefit": "Develops problem solving and hand-eye coordination",
+      "amazon_search": "wooden shape sorter",
+      "link": "https://www.amazon.com/s?k=wooden+shape+sorter&tag=monjur09-20"
+    },
+    {
+      "name": "Remote control car",
+      "benefit": "Exciting action with simple controls",
+      "amazon_search": "remote control car kids",
+      "link": "https://www.amazon.com/s?k=remote+control+car+kids&tag=monjur09-20"
+    },
+    {
+      "name": "Kids craft kit",
+      "benefit": "Fosters creativity with easy projects",
+      "amazon_search": "kids craft kit",
+      "link": "https://www.amazon.com/s?k=kids+craft+kit&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "FVh3NLA6LGo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch18-kids-toys/"
+}

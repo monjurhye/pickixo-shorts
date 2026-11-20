@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch05-coffee-tea-gear",
+  "date": "2026-11-20",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "4 Coffee & Tea Gear Must-Haves",
+  "hook": "Small gear, big coffee upgrade",
+  "description": "A quick slide guide to four essential coffee gear items you can easily find on Amazon. Great for upgrading your daily brew.",
+  "items": [
+    {
+      "name": "French press",
+      "benefit": "Easy, full-bodied brew every time",
+      "amazon_search": "French press",
+      "link": "https://www.amazon.com/s?k=French+press&tag=monjur09-20"
+    },
+    {
+      "name": "Gooseneck kettle",
+      "benefit": "Precise pouring for better extraction",
+      "amazon_search": "gooseneck kettle",
+      "link": "https://www.amazon.com/s?k=gooseneck+kettle&tag=monjur09-20"
+    },
+    {
+      "name": "Milk frother",
+      "benefit": "Silky foam for lattes at home",
+      "amazon_search": "milk frother",
+      "link": "https://www.amazon.com/s?k=milk+frother&tag=monjur09-20"
+    },
+    {
+      "name": "Digital coffee scale",
+      "benefit": "Accurate brewing with precise measurements",
+      "amazon_search": "digital coffee scale",
+      "link": "https://www.amazon.com/s?k=digital+coffee+scale&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "ezYYR-LzM-E",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch05-coffee-tea-gear/"
+}

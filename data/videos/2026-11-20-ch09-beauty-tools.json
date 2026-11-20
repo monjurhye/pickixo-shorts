@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch09-beauty-tools",
+  "date": "2026-11-20",
+  "channel_id": "ch09",
+  "channel_name": "EcoSolar Pets",
+  "niche": "Beauty tools",
+  "title": "Top Beauty Tools for Your Routine",
+  "hook": "Top beauty tools for your routine",
+  "description": "A quick lineup of four popular beauty tools shoppers routinely buy on Amazon.",
+  "items": [
+    {
+      "name": "Facial cleansing brush",
+      "benefit": "Gently cleans pores and exfoliates skin",
+      "amazon_search": "facial cleansing brush",
+      "link": "https://www.amazon.com/s?k=facial+cleansing+brush&tag=monjur09-20"
+    },
+    {
+      "name": "Silicone makeup spatula",
+      "benefit": "Hygienic, easy makeup mixing and scraping",
+      "amazon_search": "silicone makeup spatula",
+      "link": "https://www.amazon.com/s?k=silicone+makeup+spatula&tag=monjur09-20"
+    },
+    {
+      "name": "Derma roller",
+      "benefit": "Professional-style skincare tool at home",
+      "amazon_search": "derma roller",
+      "link": "https://www.amazon.com/s?k=derma+roller&tag=monjur09-20"
+    },
+    {
+      "name": "Eyelash curler",
+      "benefit": "Quick lift for curling lashes",
+      "amazon_search": "eyelash curler",
+      "link": "https://www.amazon.com/s?k=eyelash+curler&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "EDxvKki0nro",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch09-beauty-tools/"
+}

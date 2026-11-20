@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch03-home-organization",
+  "date": "2026-11-20",
+  "channel_id": "ch03",
+  "channel_name": "Pet Gadget Lab",
+  "niche": "Home organization",
+  "title": "4 Easy Home Organizer Essentials",
+  "hook": "4 home organizers for tidy spaces",
+  "description": "A quick look at four common home organization items. Perfect for tidying shelves, closets, and spaces without clutter.",
+  "items": [
+    {
+      "name": "Stackable storage bins",
+      "benefit": "Clear lids help see contents",
+      "amazon_search": "stackable storage bins clear lid",
+      "link": "https://www.amazon.com/s?k=stackable+storage+bins+clear+lid&tag=monjur09-20"
+    },
+    {
+      "name": "Over-the-door organizer",
+      "benefit": "Keeps small items off shelves",
+      "amazon_search": "over-the-door organizer",
+      "link": "https://www.amazon.com/s?k=over-the-door+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Under-bed storage bag",
+      "benefit": "Soft fabric fits flat under bed",
+      "amazon_search": "under bed storage bag",
+      "link": "https://www.amazon.com/s?k=under+bed+storage+bag&tag=monjur09-20"
+    },
+    {
+      "name": "Modular cube shelves",
+      "benefit": "Easy to reconfigure as needs",
+      "amazon_search": "modular cube storage shelves",
+      "link": "https://www.amazon.com/s?k=modular+cube+storage+shelves&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "TTRu2sM2Xg0",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch03-home-organization/"
+}

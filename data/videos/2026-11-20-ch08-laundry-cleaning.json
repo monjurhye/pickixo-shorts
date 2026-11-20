@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch08-laundry-cleaning",
+  "date": "2026-11-20",
+  "channel_id": "ch08",
+  "channel_name": "SolarPet Trail",
+  "niche": "Laundry & cleaning",
+  "title": "4 Practical Laundry Aids for Easy Wash",
+  "hook": "Make laundry day a breeze",
+  "description": "Four practical laundry aids to simplify washing and protect fabrics. Simple on-screen prompts guide viewers to Amazon searches.",
+  "items": [
+    {
+      "name": "Stain remover pen",
+      "benefit": "Punches out stains without scrubbing",
+      "amazon_search": "stain remover pen",
+      "link": "https://www.amazon.com/s?k=stain+remover+pen&tag=monjur09-20"
+    },
+    {
+      "name": "Mesh laundry bag",
+      "benefit": "Protects delicates in the wash",
+      "amazon_search": "mesh laundry bag",
+      "link": "https://www.amazon.com/s?k=mesh+laundry+bag&tag=monjur09-20"
+    },
+    {
+      "name": "Lint roller refill",
+      "benefit": "Keeps fabrics lint-free quickly",
+      "amazon_search": "lint roller refill",
+      "link": "https://www.amazon.com/s?k=lint+roller+refill&tag=monjur09-20"
+    },
+    {
+      "name": "Wool dryer balls",
+      "benefit": "Softens laundry, reduces dry time",
+      "amazon_search": "wool dryer balls",
+      "link": "https://www.amazon.com/s?k=wool+dryer+balls&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "8G7q1sSS5fc",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch08-laundry-cleaning/"
+}

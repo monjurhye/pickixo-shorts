@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch20-bedroom-sleep",
+  "date": "2026-11-20",
+  "channel_id": "ch20",
+  "channel_name": "Tech Drop Daily",
+  "niche": "Bedroom & sleep",
+  "title": "Four Sleep Essentials for Better Bedroom Comfort",
+  "hook": "Transform your sleep with simple upgrades",
+  "description": "A quick slideshow of four bedroom essentials to help you sleep better. Each item links to an Amazon search.",
+  "items": [
+    {
+      "name": "Memory foam pillow",
+      "benefit": "Supports neck and head for comfort",
+      "amazon_search": "memory foam pillow",
+      "link": "https://www.amazon.com/s?k=memory+foam+pillow&tag=monjur09-20"
+    },
+    {
+      "name": "Blackout curtains",
+      "benefit": "Block light for deeper sleep",
+      "amazon_search": "blackout curtains",
+      "link": "https://www.amazon.com/s?k=blackout+curtains&tag=monjur09-20"
+    },
+    {
+      "name": "Duvet cover set",
+      "benefit": "Soft, breathable bedding upgrade",
+      "amazon_search": "duvet cover set",
+      "link": "https://www.amazon.com/s?k=duvet+cover+set&tag=monjur09-20"
+    },
+    {
+      "name": "Essential oil diffuser",
+      "benefit": "Creates calm, quiet room ambiance",
+      "amazon_search": "essential oil diffuser",
+      "link": "https://www.amazon.com/s?k=essential+oil+diffuser&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "hHRLo5kyfJw",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch20-bedroom-sleep/"
+}

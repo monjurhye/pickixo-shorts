@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch13-camping-outdoors",
+  "date": "2026-11-20",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "4 Must-Have Camping Gear Essentials",
+  "hook": "Must-have gear for camping trips",
+  "description": "A quick slideshow of four essential camping gear types. Each item links to an Amazon search to help you find easy, practical options.",
+  "items": [
+    {
+      "name": "Portable camping stove",
+      "benefit": "Efficient heat, lightweight and compact",
+      "amazon_search": "portable camping stove",
+      "link": "https://www.amazon.com/s?k=portable+camping+stove&tag=monjur09-20"
+    },
+    {
+      "name": "LED camping lantern",
+      "benefit": "Bright, battery-powered, long-lasting light",
+      "amazon_search": "LED camping lantern",
+      "link": "https://www.amazon.com/s?k=LED+camping+lantern&tag=monjur09-20"
+    },
+    {
+      "name": "Collapsible camping chair",
+      "benefit": "Compact, comfy, quick setup",
+      "amazon_search": "collapsible camping chair",
+      "link": "https://www.amazon.com/s?k=collapsible+camping+chair&tag=monjur09-20"
+    },
+    {
+      "name": "Thermal insulated mug",
+      "benefit": "Keeps drinks hot or cold",
+      "amazon_search": "thermal insulated mug",
+      "link": "https://www.amazon.com/s?k=thermal+insulated+mug&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "p9QnsRhTcfs",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch13-camping-outdoors/"
+}

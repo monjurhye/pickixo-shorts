@@ -1,0 +1,38 @@
+{
+  "key": "2026-11-20-ch15-gaming-accessories",
+  "date": "2026-11-20",
+  "channel_id": "ch15",
+  "channel_name": "LuxeSolar Pets",
+  "niche": "Gaming accessories",
+  "title": "4 Essential Gaming Accessories for PC & Console",
+  "hook": "Upgrade your game setup fast",
+  "description": "Four practical gaming accessories to level up your setup. Tap the links to search each item on Amazon.",
+  "items": [
+    {
+      "name": "Gaming mouse pad",
+      "benefit": "Smooth glide for precise aiming",
+      "amazon_search": "gaming mouse pad large",
+      "link": "https://www.amazon.com/s?k=gaming+mouse+pad+large&tag=monjur09-20"
+    },
+    {
+      "name": "Mechanical keyboard",
+      "benefit": "Tactile feedback for faster typing",
+      "amazon_search": "mechanical keyboard",
+      "link": "https://www.amazon.com/s?k=mechanical+keyboard&tag=monjur09-20"
+    },
+    {
+      "name": "Gaming headset",
+      "benefit": "Immersive sound with clear chat",
+      "amazon_search": "gaming headset",
+      "link": "https://www.amazon.com/s?k=gaming+headset&tag=monjur09-20"
+    },
+    {
+      "name": "Controller grip",
+      "benefit": "Better grip and comfort",
+      "amazon_search": "controller grip",
+      "link": "https://www.amazon.com/s?k=controller+grip&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "f5jow2Sl2qM",
+  "page_url": "https://shop.pickixo.com/v/2026-11-20-ch15-gaming-accessories/"
+}
