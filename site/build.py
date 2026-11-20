@@ -22,6 +22,7 @@ from pipeline import common  # noqa: E402
 OUT = os.path.join(ROOT, "public")
 STATIC = os.path.join(ROOT, "site", "static")
 e = html.escape
+CSS_VERSION = __import__("hashlib").md5(open(os.path.join(ROOT, "site", "static", "style.css"), "rb").read()).hexdigest()[:8]
 
 
 def page(title, body, desc="", canonical="", head_extra="", foot=""):
@@ -33,7 +34,7 @@ def page(title, body, desc="", canonical="", head_extra="", foot=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 {canon}
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v={cssv}">
 {head_extra}
 </head><body>
 <header class="top"><a class="brand" href="/">{brand}</a>
@@ -42,7 +43,7 @@ def page(title, body, desc="", canonical="", head_extra="", foot=""):
 <footer><p>{disc}</p><p>&copy; {brand} · {foot}</p></footer>
 </body></html>""".format(title=e(title), desc=e(desc), brand=e(cfg.get("brand", "Pickixo Picks")),
                          canon='<link rel="canonical" href="{0}">'.format(e(canonical)) if canonical else "",
-                         body=body, head_extra=head_extra,
+                         body=body, head_extra=head_extra, cssv=CSS_VERSION,
                          foot=e(foot or "Product links go to Amazon.com search results."),
                          disc=e(cfg.get("disclosure", "")))
 
