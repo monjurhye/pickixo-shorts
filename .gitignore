@@ -7,3 +7,4 @@ __pycache__/
 *.csv
 client_secret*.json
 .env
+tools/magnific/.venv/
