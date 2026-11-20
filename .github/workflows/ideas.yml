@@ -6,6 +6,9 @@ on:
     - cron: "*/10 * * * *"   # image ideas ONLY if the dashboard button was pressed
   workflow_dispatch:
     inputs:
+      mode:
+        description: "both = prompts + Facebook, ideas = prompts only (dashboard button), fb = Facebook only"
+        default: "both"
       pack:
         description: "Extra batches of 10 for the prompt pack (0 = normal day)"
         default: "0"
@@ -29,7 +32,11 @@ jobs:
         env:
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          MODE="${{ inputs.mode || 'both' }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "$MODE" = "fb" ]; then
+            echo "ideas=false" >> "$GITHUB_OUTPUT"; echo "fb=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "$MODE" = "both" ]; then
             echo "ideas=true" >> "$GITHUB_OUTPUT"; echo "fb=true" >> "$GITHUB_OUTPUT"; exit 0
           fi
           if [ "${{ github.event.schedule }}" = "0 2 * * *" ]; then
