@@ -95,3 +95,13 @@ def ideas_report(payload):
             common.log("dashboard ideas report failed ({0}): {1}".format(code, data))
     except Exception as e:
         common.log("dashboard ideas report failed: {0}".format(e))
+
+
+def fb_report(payload):
+    """Send today's Facebook post ideas to the dashboard."""
+    try:
+        code, data = _call("/api/pipeline/fb", payload)
+        if code != 200:
+            common.log("dashboard fb report failed ({0}): {1}".format(code, data))
+    except Exception as e:
+        common.log("dashboard fb report failed: {0}".format(e))

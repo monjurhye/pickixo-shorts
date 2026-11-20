@@ -339,6 +339,10 @@ def main():
         write(os.path.join(OUT, "free", "ai-prompts", "full", "index.html"), prompt_pack_page(full=True))
     with open(os.path.join(OUT, "channels.json"), "w", encoding="utf-8") as f:
         json.dump({"channels": [{"id": c["id"], "niche": c["niche"]} for c in common.channels()]}, f)
+    fb = common.load_json(os.path.join(common.CONFIG_DIR, "facebook.json"), None)
+    if fb:   # plan only, no secrets; read by /admin
+        with open(os.path.join(OUT, "facebook-plan.json"), "w", encoding="utf-8") as f:
+            json.dump(fb, f)
     for name in os.listdir(STATIC):
         shutil.copy(os.path.join(STATIC, name), os.path.join(OUT, name))
     print("built {0} video pages into {1}".format(len(videos), OUT))

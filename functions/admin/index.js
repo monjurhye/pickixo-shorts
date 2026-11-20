@@ -52,6 +52,10 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
   }
 
   const [chans, st, pins, drafts, ideas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env)]);
+  const fbRaw = await context.env.CHANNELS_KV.get("fb");
+  const fb = fbRaw ? JSON.parse(fbRaw) : { posts: [] };
+  const planRes = await context.env.ASSETS.fetch(new URL("/facebook-plan.json", context.request.url));
+  const fbPlan = planRes.ok ? await planRes.json() : null;
   let connected = 0, active = 0, errors = 0;
   const rows = chans.map((c) => {
     const info = st.channels[c.id];
@@ -93,7 +97,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p>`
 <table class="ch"><thead><tr><th>ID</th><th>Niche</th><th>YouTube channel</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
+${fbSection(fb, fbPlan)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas)}${magnificToolSection()}`));
 }
 
 function bdTime(iso) {
@@ -233,4 +237,31 @@ only small previews go to the AI.</p>
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
 <script src="/magnific-tool.js?v=3"></script>`;
+}
+
+function fbSection(d, plan) {
+  const planHtml = plan ? `<div class="card"><h3>Niche: ${esc(plan.niche)}</h3>
+<p class="muted"><b>Audience:</b> ${esc(plan.audience)}</p><p class="muted"><b>Why:</b> ${esc(plan.why)}</p>
+<p class="muted"><b>Pillars:</b> ${esc((plan.pillars || []).join(" · "))}</p>
+<p class="muted"><b>Post times (US Eastern):</b> ${esc((plan.schedule_us_et || []).join(", "))} · <b>Name ideas:</b> ${esc((plan.page_name_ideas || []).join(", "))}</p>
+<p class="muted"><b>Rules:</b> ${esc((plan.rules || []).join(" "))}</p></div>` : "";
+  const posts = (d.posts || []).map((p, n) => `<div class="card">
+<span class="pill ${String(p.status).startsWith("scheduled") ? "on" : String(p.status).startsWith("error") ? "err" : "off"}">${esc(p.status || p.type)}</span>
+<span class="muted">${esc(p.type)} · ${esc(p.time_et)} ET</span>
+<h3>${esc(p.title)}</h3><p class="muted">${esc(p.pillar)}</p>
+<p><b>Hook:</b> ${esc(p.hook)}</p>
+<div class="prompt" id="fbs-${n}">${esc(p.script)}</div>
+<div class="row"><button type="button" onclick="copyText('fbs-${n}')">📋 Copy script</button>
+<button type="button" onclick="copyText('fbc-${n}')">📋 Copy caption</button></div>
+<p class="muted"><b>Visuals:</b> ${esc(p.visuals)}</p>
+<p id="fbc-${n}">${esc(p.caption)} ${esc((p.hashtags || []).map((h) => "#" + h).join(" "))}</p></div>`).join("")
+    || `<p class="muted">No posts yet. New ideas arrive every morning at 8am (Bangladesh).</p>`;
+  const auto = d.autopost ? `<span class="pill on">Auto-posting ON</span> photo and question posts are scheduled on your Page automatically.`
+    : `<span class="pill off">Auto-posting OFF</span> add the Facebook secrets on GitHub to switch it on (see the setup guide).`;
+  return `<h2 id="facebook">Facebook page · USA</h2>
+<p class="muted">Daily posts for your monetized Page, written for US viewers and timed for US Eastern. ${auto}
+Reels are not auto-posted: make the video from the script and post it yourself (original video earns most). ${d.date ? "Updated " + bdTime(d.created) + "." : ""}</p>
+${planHtml}<div class="grid">${posts}</div>
+<p><a class="btn" href="https://business.facebook.com/latest/content_calendar" target="_blank" rel="noopener">Meta Business Suite planner ↗</a>
+<a class="btn" href="https://www.facebook.com/professional_dashboard/monetization" target="_blank" rel="noopener">Monetization ↗</a></p>`;
 }

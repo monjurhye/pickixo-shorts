@@ -8,6 +8,10 @@ on:
       pack:
         description: "Extra batches of 10 for the prompt pack (0 = normal day)"
         default: "0"
+      fb_check:
+        description: "Only check the Facebook token (posts nothing)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,6 +32,18 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
+      - name: Facebook posts (ideas + auto-schedule)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          FB_PAUSED: ${{ vars.FB_PAUSED }}
+        run: |
+          if [ "${{ inputs.fb_check }}" = "true" ]; then python -m pipeline.fb_ideas --check; exit 0; fi
+          if [ "$FB_PAUSED" = "true" ]; then echo "Facebook paused"; exit 0; fi
+          python -m pipeline.fb_ideas
       - name: Commit prompt pack (updates /free/ai-prompts/)
         run: |
           git config user.name "pickixo-bot"

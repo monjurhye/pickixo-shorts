@@ -1,0 +1,21 @@
+{
+  "niche": "Frugal Home Hacks: save money at home (US families)",
+  "audience": "US adults 30-64, mostly women and parents, who run a household on a budget",
+  "why": "Biggest US Facebook audience (women 35-64), family/cooking/DIY content is earning again, and money-saving brings finance-type advertisers (higher CPM) without the expertise and risk of pure finance. It also fits the existing home & kitchen Shorts, Pinterest and shop, so content can be reused.",
+  "pillars": [
+    "Grocery & kitchen savings (meal prep, food storage, stretching groceries)",
+    "Cleaning & organization hacks with cheap household items",
+    "Lower your bills (energy, water, subscriptions) with simple home changes",
+    "Budget home & holiday decor / DIY",
+    "Useful budget finds under $30 (affiliate, with disclosure)"
+  ],
+  "schedule_us_et": ["8:00 AM", "12:30 PM", "7:30 PM"],
+  "per_day": {"reels": 2, "photo_or_carousel": 1, "engagement": 1},
+  "page_name_ideas": ["Smart Saving Home", "Frugal Home Hacks", "The Thrifty Nest"],
+  "rules": [
+    "Original only: your own script, voice, footage or AI visuals you made. No reposting other creators (Meta demonetizes duplicative content since March 2026).",
+    "No clickbait, no fake 'before/after', no medical or guaranteed-savings claims.",
+    "Affiliate links only with '#ad' / 'affiliate link' and never in paid ads.",
+    "Post at US Eastern times; Bangladesh is 10-11 hours ahead."
+  ]
+}
