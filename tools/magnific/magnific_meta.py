@@ -138,9 +138,15 @@ def main():
     args = ap.parse_args()
 
     folder = os.path.expanduser(args.folder)
+    if not os.path.isdir(folder):
+        os.makedirs(folder)
+        subprocess.run(["open", folder])
+        sys.exit("Created the folder " + folder + " (opened in Finder).\n"
+                 "Put your images (.jpg/.png) in it, then run the same command again.")
     files = sorted(f for f in os.listdir(folder) if f.lower().endswith(EXTS))
     if not files:
-        sys.exit("No .jpg/.png files in " + folder)
+        subprocess.run(["open", folder])
+        sys.exit("No .jpg/.png files in " + folder + " (opened in Finder). Add images and run again.")
     key = "" if args.check_only else api_key()
     if not args.check_only and not key:
         sys.exit("No OpenAI key. Save it once with:\n  security add-generic-password -s pickixo-openai -a openai -w\n"
