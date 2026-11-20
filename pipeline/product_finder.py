@@ -40,7 +40,7 @@ def _amazon_asins(urls):
     """ASINs from amazon.com product URLs only (other shops and short links ignored)."""
     out = set()
     for u in urls:
-        if not re.match(r"^https?://(?:www\.|smile\.)?amazon\.com/", u or "", re.I):
+        if not re.match(r"^https?://(?:www\.|smile\.|us\.)?amazon\.com/", u or "", re.I):
             continue
         a = common.parse_asin(u)
         if a:
