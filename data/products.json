@@ -1,3 +1,13 @@
 {
-  "products": []
+  "products": [
+    {
+      "asin": "B0764HS4SL",
+      "name": "Spiral vegetable slicer",
+      "channels": [
+        "ch01"
+      ],
+      "found": "2026-11-20",
+      "source": "web_search"
+    }
+  ]
 }
