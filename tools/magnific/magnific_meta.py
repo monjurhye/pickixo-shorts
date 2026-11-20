@@ -216,7 +216,8 @@ def main():
     ap.add_argument("folder")
     ap.add_argument("--model-name", default="", help="generator you used, e.g. Midjourney (for the Model column)")
     ap.add_argument("--check-only", action="store_true", help="only size/duplicate checks, no AI calls")
-    ap.add_argument("--no-upscale", action="store_true", help="do not upscale small images")
+    ap.add_argument("--no-upscale", action="store_true", help=argparse.SUPPRESS)  # old flag, now the default
+    ap.add_argument("--upscale", action="store_true", help="AI-upscale small images with Upscayl (slow on this Mac)")
     args = ap.parse_args()
 
     folder = os.path.expanduser(args.folder)
@@ -226,7 +227,7 @@ def main():
         sys.exit("Created the folder " + folder + " (opened in Finder).\n"
                  "Put your images (.jpg/.png) in it, then run the same command again.")
     files = sorted(f for f in os.listdir(folder)
-                   if f.lower().endswith(EXTS) and not f.lower().endswith("_up.jpg"))
+                   if f.lower().endswith(EXTS) and not f.lower().endswith(("_up.jpg", "_2048.jpg")))
     if not files:
         subprocess.run(["open", folder])
         sys.exit("No .jpg/.png files in " + folder + " (opened in Finder). Add images and run again.")
@@ -235,8 +236,8 @@ def main():
         sys.exit("No OpenAI key. Save it once with:\n  security add-generic-password -s pickixo-openai -a openai -w\n"
                  "(it asks for the key; paste it there, not in chat)")
 
-    ups = None if args.no_upscale else upscayl()
-    if not args.no_upscale and not ups:
+    ups = upscayl() if args.upscale else None
+    if args.upscale and not ups:
         print("Upscayl not found in Applications: small images will be skipped, not upscaled.\n"
               "Install it from https://upscayl.org to upscale automatically.\n")
     rows, report, hashes = [], [], []
@@ -249,7 +250,19 @@ def main():
             report.append((name, "cannot open: {0}".format(e)))
             continue
         w, h = img.size
-        if (w * h < MIN_PIXELS or min(w, h) < MIN_SHORT) and ups and min(w, h) >= 512:
+        small = w * h < MIN_PIXELS or min(w, h) < MIN_SHORT
+        if small and not ups and TARGET_SHORT / float(min(w, h)) <= 1.3:
+            # small gap (e.g. 1792 -> 2048): a quick high-quality resize, no AI upscaler
+            k = TARGET_SHORT / float(min(w, h))
+            out_path = os.path.splitext(path)[0] + "_2048.jpg"
+            img.convert("RGB").resize((round(w * k), round(h * k)), Image.LANCZOS).save(
+                out_path, "JPEG", quality=95, subsampling=0)
+            path, name = out_path, os.path.basename(out_path)
+            img = Image.open(path)
+            img.load()
+            w, h = img.size
+            report.append((name, "resized from the original; upload THIS file"))
+        elif small and ups and min(w, h) >= 512:
             try:
                 print("[{0}/{1}] {2} is {3}x{4}, upscaling (4x then down to 2048)...".format(i, len(files), name, w, h))
                 path = supersample(path, ups)

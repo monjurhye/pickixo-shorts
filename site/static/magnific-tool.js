@@ -72,6 +72,10 @@
     let source = bmp;
     if (short < MIN_SHORT || w * h < MIN_PIXELS) {
       scale = TARGET_SHORT / short;
+      if (scale > 1.3 && !$("mag-ai").checked) {
+        row.innerHTML = cardHtml({ name: file.name, err: `Too small (${w}×${h}): needs ${scale.toFixed(1)}× enlargement. Make it bigger at the source (Firefly ~2048px), or tick "AI upscale" (slow).` });
+        return null;
+      }
       if (scale > 4) {
         row.innerHTML = cardHtml({ name: file.name, err: `Too small (${w}×${h}): more than 4× enlargement is needed. Make it bigger at the source.` });
         return null;

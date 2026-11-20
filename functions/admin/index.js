@@ -222,7 +222,7 @@ Magnific's CSV. Weak images (below 7/10 or with problems such as fake text) are 
 only small previews go to the AI.</p>
 <div class="card"><div class="row">
 <input type="file" id="mag-files" accept="image/jpeg,image/png,image/webp" multiple>
-<label><input type="checkbox" id="mag-ai" checked> AI upscale when needed</label>
+<label title="Slow on older laptops"><input type="checkbox" id="mag-ai"> AI upscale (slow, off by default)</label>
 <input type="text" id="mag-model" placeholder="Model (as in Magnific's dropdown), optional" style="min-width:260px">
 <button class="primary" id="mag-run" onclick="window.__mag.run()">Check & make metadata</button></div>
 <div class="row" id="mag-out" style="display:none">
@@ -232,5 +232,5 @@ only small previews go to the AI.</p>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs → Import metadata → choose the CSV → check AI label and model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
-<script src="/magnific-tool.js?v=2"></script>`;
+<script src="/magnific-tool.js?v=3"></script>`;
 }
