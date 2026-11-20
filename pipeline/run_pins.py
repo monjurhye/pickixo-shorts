@@ -166,7 +166,26 @@ def main():
             common.log("  catalog {0} | {1} | {2} | items {3}".format(
                 c.get("Id"), c.get("CampaignName") or c.get("AdvertiserName"), c.get("Name"),
                 c.get("NumberOfItems") or c.get("ItemCount") or "?"))
-        if cats:
+        for cid in (7188, 7187):
+            items = impact.catalog_items(cid, 5)
+            for it in items:
+                common.log("  item7188 keys: " + ",".join(sorted(it.keys())))
+                common.log("  item | {0} | cat {1} | price {2} {3} | img {4} | link {5}".format(
+                    str(it.get("Name"))[:60], it.get("Category") or it.get("Labels"),
+                    it.get("CurrentPrice"), it.get("Currency"), bool(it.get("ImageUrl")), str(it.get("Url"))[:60]))
+                break
+            for it in items[1:]:
+                common.log("  item | {0} | cat {1} | price {2}".format(
+                    str(it.get("Name"))[:60], it.get("Category"), it.get("CurrentPrice")))
+        try:
+            r = impact.get("/Catalogs/ItemSearch", Query="kitchen", PageSize=5)
+            common.log("  search keys: " + ",".join(r.keys()))
+            for it in r.get("Items", [])[:5]:
+                common.log("  search | {0} | {1} | catalog {2}".format(str(it.get("Name"))[:60],
+                           it.get("CurrentPrice"), it.get("CatalogId")))
+        except impact.ImpactError as e:
+            common.log("  search error: {0}".format(e))
+        if False:
             items = impact.catalog_items(cats[0]["Id"], 3)
             for it in items:
                 common.log("  sample item | {0} | img {1} | link {2}".format(
