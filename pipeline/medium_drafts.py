@@ -256,7 +256,7 @@ def main():
     common.save_json(STATE, st)
     # publish on the shop blog (the site rebuilds on push)
     slug = "{0}-{1}".format(datetime.now(timezone.utc).strftime("%Y-%m-%d"), common.slugify(art["title"], 60))
-    body = re.sub(r"^<h1>.*?</h1>\s*", "", page_html, count=1)
+    body = re.sub(r"^<h1>.*?</h1>\s*(<h3>.*?</h3>\s*)?", "", page_html, count=1)  # title/subtitle shown by the page
     blog_url = cfg["site_url"].rstrip("/") + "/blog/" + slug + "/"
     common.save_json(os.path.join(BLOG_DIR, slug + ".json"), {
         "slug": slug, "date": draft["created"][:10], "title": art["title"], "subtitle": art["subtitle"],
