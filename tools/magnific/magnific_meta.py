@@ -296,13 +296,25 @@ def main():
         print("[{0}/{1}] {2} -> {3} ({4}, quality {5}/10)".format(i, len(files), name, meta["title"],
                                                                meta["category"], q))
 
+    # Magnific's photo upload takes JPG only: write JPG copies + a CSV that names them.
     if rows:
-        out = os.path.join(folder, "magnific_metadata.csv")
+        jdir = os.path.join(folder, "upload_jpg")
+        os.makedirs(jdir, exist_ok=True)
+        for r in rows:
+            src = os.path.join(folder, r[0])
+            jname = os.path.splitext(r[0])[0] + ".jpg"
+            if src.lower().endswith((".jpg", ".jpeg")):
+                import shutil
+                shutil.copy2(src, os.path.join(jdir, jname))
+            else:
+                Image.open(src).convert("RGB").save(os.path.join(jdir, jname), "JPEG", quality=95, subsampling=0)
+            r[0] = jname
+        out = os.path.join(jdir, "magnific_metadata.csv")
         with open(out, "w", newline="", encoding="utf-8") as f:
             wr = csv.writer(f, delimiter=";")
             wr.writerow(HEADER)
             wr.writerows(rows)
-        print("\nCSV: " + out)
+        print("\nUpload these JPGs + this CSV: " + jdir)
     rep = os.path.join(folder, "magnific_report.txt")
     with open(rep, "w", encoding="utf-8") as f:
         for n, why in report:

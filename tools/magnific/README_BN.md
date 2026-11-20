@@ -16,7 +16,7 @@ security add-generic-password -s pickixo-openai -a openai -w
 cd ~/Desktop/Amazon && tools/magnific/run.sh ~/Desktop/magnific_batch --model-name "Midjourney"
 ```
    (যেটা দিয়ে বানিয়েছেন সেটার নাম দিন। শুধু size/duplicate দেখতে: `--check-only`)
-3. ফোল্ডারে দুটো ফাইল হবে:
+3. ফোল্ডারে `upload_jpg/` তৈরি হবে (Magnific photo শুধু JPG নেয়) — **এই ফোল্ডারের JPG আর তার ভেতরের CSV-ই upload করবেন**। আর:
    - `magnific_metadata.csv` — upload-এর জন্য
    - `magnific_report.txt` — কোন ছবি ছোট / প্রায় একই / সমস্যা আছে (এগুলো বাদ দিন বা ঠিক করুন)
 4. contributor.magnific.com → **Upload** → ছবিগুলো drag & drop → **CSV upload** → কয়েকটা title দেখে নিন → **AI-generated চিহ্ন** আছে কিনা দেখুন → **Submit**।
