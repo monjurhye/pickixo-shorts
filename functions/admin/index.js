@@ -4,6 +4,7 @@ import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, postbackToken } from "../../lib/earnings.js";
+import { getAppIdeas } from "../../lib/app_ideas.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -62,6 +63,8 @@ button:hover,.btn:hover{border-color:var(--accent);box-shadow:0 4px 14px color-m
 form{display:inline}
 details.draft{background:var(--card);border:1px solid var(--line);border-left:5px solid #10b981;border-radius:14px;padding:12px 15px;margin:10px 0;box-shadow:var(--shadow)}
 details.draft summary{cursor:pointer;font-weight:700}
+details.idea{border:1px solid var(--line);border-left:5px solid #01875f;border-radius:12px;padding:10px 14px;margin:10px 0;background:var(--soft)}
+details.idea summary{cursor:pointer}
 .preview{border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
 .preview h1{font-size:22px}.preview h2{font-size:18px;margin:16px 0 4px}.preview h2:before{display:none}.preview h3{font-size:15px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:14px 0}
@@ -143,7 +146,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq, earn] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn, appIdeas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getAppIdeas(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -204,7 +207,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas)}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -431,11 +434,12 @@ The Mac tool now scores every image and leaves weak ones out of the CSV (see mag
 }
 
 // Quick links to the app stores (no API: they open in a new tab, already signed in).
-function appsSection() {
+function appsSection(appIdeas) {
   const links = (items) => items.map(([n, u, t]) =>
     `<a class="card applink" href="${u}" target="_blank" rel="noopener"><h3>${esc(n)} ↗</h3><p class="muted">${esc(t)}</p></a>`).join("");
   return `<h2 id="play">Google Play Console</h2>
 <p class="muted">Android apps: releases, reviews, statistics and earnings.</p>
+${appIdeaCard(appIdeas)}
 <div class="apps">${links([
     ["All apps", "https://play.google.com/console/developers", "Every app, its status and quick actions"],
     ["Releases & testing", "https://play.google.com/console/developers/app-list", "Pick an app → Test and release → Production"],
@@ -454,6 +458,28 @@ function appsSection() {
     ["Ratings & reviews", "https://appstoreconnect.apple.com/apps", "Pick an app → Ratings and Reviews"],
     ["Developer account", "https://developer.apple.com/account", "Certificates, identifiers, membership"],
   ])}</div>`;
+}
+
+// "What should I build next?" — one Claude (web search) suggestion per button press.
+function appIdeaCard(d) {
+  const it = (x, open) => `<details class="idea"${open ? " open" : ""}><summary><b>${esc(x.name)}</b>
+<span class="muted">· ${esc(x.type)} · ${esc(x.category)} · ~${esc(String(x.build_days || "?"))} days · ${bdTime(x.at)}</span></summary>
+<p><b>কেন rank করতে পারে:</b> ${esc(x.why)}</p><p><b>প্রতিযোগিতা:</b> ${esc(x.competition)}</p>
+<p><b>Keywords:</b> ${x.keywords.map((k) => `<code>${esc(k)}</code>`).join(" ")}</p>
+<p><b>প্রথম ভার্সনে যা লাগবে:</b></p><ul>${x.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+<p><b>আয়:</b> ${esc(x.monetize)}</p>
+${x.sources.length ? `<p class="muted">Sources: ${x.sources.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title.slice(0, 60))}</a>`).join(" · ")}</p>` : ""}</details>`;
+  const list = d.items.map((x, i) => it(x, i === 0)).join("");
+  return `<div class="card"><h3>💡 What should I build next?</h3>
+<p class="muted">Press the button: Claude searches the web and Google Play, then suggests ONE app, game or tool with a real chance to rank.
+Takes about 1 minute. Each press costs a little API money (roughly $0.10–0.40); nothing runs unless you press it.</p>
+<button class="primary" id="appIdeaBtn" type="button">✨ Suggest today's app idea</button> <span id="appIdeaMsg" class="muted"></span>
+${list || '<p class="muted">No ideas yet.</p>'}</div>
+<script>document.getElementById('appIdeaBtn').addEventListener('click',async function(){var b=this,m=document.getElementById('appIdeaMsg');
+b.disabled=true;m.textContent='Claude is researching… (about 1 minute)';
+try{var r=await fetch('/admin/app-idea',{method:'POST'});var j=await r.json();
+if(!r.ok)throw new Error(j.error||('error '+r.status));location.hash='play';location.reload();}
+catch(e){m.textContent='Could not make an idea: '+e.message;b.disabled=false;}});</script>`;
 }
 
 function magnificToolSection() {
