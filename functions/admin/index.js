@@ -4,7 +4,6 @@ import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, postbackToken } from "../../lib/earnings.js";
-import { getAppIdeas } from "../../lib/app_ideas.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -146,7 +145,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq, earn, appIdeas] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getAppIdeas(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -207,7 +206,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas)}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -434,12 +433,12 @@ The Mac tool now scores every image and leaves weak ones out of the CSV (see mag
 }
 
 // Quick links to the app stores (no API: they open in a new tab, already signed in).
-function appsSection(appIdeas) {
+function appsSection() {
   const links = (items) => items.map(([n, u, t]) =>
     `<a class="card applink" href="${u}" target="_blank" rel="noopener"><h3>${esc(n)} ↗</h3><p class="muted">${esc(t)}</p></a>`).join("");
   return `<h2 id="play">Google Play Console</h2>
 <p class="muted">Android apps: releases, reviews, statistics and earnings.</p>
-${appIdeaCard(appIdeas)}
+${appIdeaCard()}
 <div class="apps">${links([
     ["All apps", "https://play.google.com/console/developers", "Every app, its status and quick actions"],
     ["Releases & testing", "https://play.google.com/console/developers/app-list", "Pick an app → Test and release → Production"],
@@ -460,26 +459,35 @@ ${appIdeaCard(appIdeas)}
   ])}</div>`;
 }
 
-// "What should I build next?" — one Claude (web search) suggestion per button press.
-function appIdeaCard(d) {
-  const it = (x, open) => `<details class="idea"${open ? " open" : ""}><summary><b>${esc(x.name)}</b>
-<span class="muted">· ${esc(x.type)} · ${esc(x.category)} · ~${esc(String(x.build_days || "?"))} days · ${bdTime(x.at)}</span></summary>
-<p><b>কেন rank করতে পারে:</b> ${esc(x.why)}</p><p><b>প্রতিযোগিতা:</b> ${esc(x.competition)}</p>
-<p><b>Keywords:</b> ${x.keywords.map((k) => `<code>${esc(k)}</code>`).join(" ")}</p>
-<p><b>প্রথম ভার্সনে যা লাগবে:</b></p><ul>${x.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-<p><b>আয়:</b> ${esc(x.monetize)}</p>
-${x.sources.length ? `<p class="muted">Sources: ${x.sources.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title.slice(0, 60))}</a>`).join(" · ")}</p>` : ""}</details>`;
-  const list = d.items.map((x, i) => it(x, i === 0)).join("");
+// "What should I build next?" — opens claude.ai with a ready prompt (no API key, no API cost).
+const APP_IDEA_PROMPT = `Today is {DATE}. I am a solo developer in Bangladesh who publishes on Google Play (US/UK/CA audience preferred).
+Suggest exactly ONE new app, game or tool that I could build and publish, chosen because it has a realistic chance to RANK
+in Google Play search, not just because it is a nice idea.
+
+Please use web search first to check:
+- what people are searching for right now (rising topics, seasonal needs for the coming weeks, new rules or devices),
+- how crowded that search is on Google Play (search play.google.com for the main keyword: how many strong apps,
+  their ratings, installs and last-update dates). Prefer keywords where the top results are old, low-rated or few.
+Do not suggest anything that needs medical, financial or legal claims, gambling, copyrighted characters/brands,
+or a big backend. It must be buildable by one person in about 1-3 weeks.
+
+Answer in Bangla (keep the app name and keywords in English):
+1. App name (max 30 characters, includes the main keyword), type (app/game/tool) and Google Play category
+2. Why it can rank now (what you found), and how strong the current top results are
+3. 3-6 keywords to target
+4. The minimum features for version 1
+5. How it makes money, and roughly how many days of work
+6. The sources you checked
+Be honest: if the evidence is thin, say so.`;
+
+function appIdeaCard() {
   return `<div class="card"><h3>💡 What should I build next?</h3>
-<p class="muted">Press the button: Claude searches the web and Google Play, then suggests ONE app, game or tool with a real chance to rank.
-Takes about 1 minute. Each press costs a little API money (roughly $0.10–0.40); nothing runs unless you press it.</p>
-<button class="primary" id="appIdeaBtn" type="button">✨ Suggest today's app idea</button> <span id="appIdeaMsg" class="muted"></span>
-${list || '<p class="muted">No ideas yet.</p>'}</div>
-<script>document.getElementById('appIdeaBtn').addEventListener('click',async function(){var b=this,m=document.getElementById('appIdeaMsg');
-b.disabled=true;m.textContent='Claude is researching… (about 1 minute)';
-try{var r=await fetch('/admin/app-idea',{method:'POST'});var j=await r.json();
-if(!r.ok)throw new Error(j.error||('error '+r.status));location.hash='play';location.reload();}
-catch(e){m.textContent='Could not make an idea: '+e.message;b.disabled=false;}});</script>`;
+<p class="muted">Opens claude.ai in a new tab with a ready question: Claude checks the web and Google Play and suggests ONE app, game or tool
+with a real chance to rank. Free (your Claude account, no API key). Turn on web search in Claude if it asks.</p>
+<a class="btn primary" id="appIdeaBtn" href="https://claude.ai/new" target="_blank" rel="noopener">✨ Suggest today's app idea</a></div>
+<script>(function(){var b=document.getElementById('appIdeaBtn'),p=${JSON.stringify(APP_IDEA_PROMPT).replace(/</g, "\\u003c")};
+function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d));}
+u();b.addEventListener('click',u);})();</script>`;
 }
 
 function magnificToolSection() {
