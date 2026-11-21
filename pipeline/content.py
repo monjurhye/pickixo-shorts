@@ -73,7 +73,11 @@ otherwise "". Never invent an ASIN.
 (scenes, not products), e.g. "tidy kitchen counter".
 - description: 1-2 sentences, no links (links are added automatically).
 - hashtags: 3-5, without spaces, each starting with #, including #shorts.
-- Pick a topic different from the recent topics listed."""
+- Pick a topic different from the recent topics listed, but stay inside the channel's \
+niche: vary the angle or sub-type (e.g. a different room, season or use), never drift to \
+an unrelated category.
+- Make the title specific and varied: name the actual product category and avoid the \
+generic endings "Essentials" and "Finds" unless nothing more specific is honest."""
 
 REVIEWER_SYSTEM = """You are the compliance and quality reviewer for an automated Amazon \
 affiliate Shorts channel. Approve only if ALL are true:
