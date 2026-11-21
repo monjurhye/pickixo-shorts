@@ -539,7 +539,7 @@ ${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}${p.fb ? `<
 <a class="btn" href="/auth/fb-connect?for=mtl">Reconnect</a>
 <form method="post" action="/admin/action"><input type="hidden" name="do" value="mtl_disconnect"><button>Disconnect</button></form></div></div>`
     : `<div class="card"><h3>🤖 Direct posting: not connected</h3>
-<p>Click the button, log in with the Facebook account that manages <b>Modern Tech Life</b>, and tick only that page.</p>
+<p>Click the button. If Facebook asks "continue with your previous settings?", choose <b>Edit settings</b>, then tick <b>Modern Tech Life</b> and keep the pages that are already ticked (unticking them stops their posts).</p>
 <p><a class="btn primary" href="/auth/fb-connect?for=mtl">f Connect Modern Tech Life page</a></p></div>`;
   return `<h2 id="mtl">Modern Tech Life · daily Bangla posts</h2>
 <p class="muted">Every morning AI researches ONE real, current way to earn with AI from Bangladesh (web search, sources below) and writes 3 honest

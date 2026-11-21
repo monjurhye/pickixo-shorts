@@ -30,7 +30,7 @@ export async function onRequestGet(context) {
     // Modern Tech Life only: keep just that page's token; the other Facebook connections stay as they are
     const toMtl = (m) => redirect("/admin?msg=" + encodeURIComponent(m) + "#mtl", clear);
     const pg = pages.find((p) => /modern\s*tech\s*life/i.test(p.name)) || (pages.length === 1 ? pages[0] : null);
-    if (!pg) return toMtl("Modern Tech Life page did not come back. Click Connect again and tick only Modern Tech Life.");
+    if (!pg) return toMtl("Modern Tech Life page did not come back. Click Connect again, choose Edit settings and tick Modern Tech Life (keep the other ticks).");
     const c = await getMtlCfg(env);
     c.page = { id: pg.id, name: pg.name, token: pg.token, connected_at: new Date().toISOString() };
     await putMtlCfg(env, c);
