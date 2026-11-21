@@ -176,6 +176,27 @@
       const text = rows.map((r) => r.map((c) => String(c).replace(/[;\r\n]/g, " ")).join(";")).join("\r\n");
       download(new Blob([text], { type: "text/csv" }), "magnific_metadata.csv");
     },
+    // Plain PNG/WEBP -> JPG converter (no AI, no resize). Transparent areas become white.
+    async convert() {
+      const files = [...$("mag-files").files].filter((f) => /^image\/(jpeg|png|webp)$/.test(f.type));
+      if (!files.length) { alert("Choose PNG/WEBP/JPG images first."); return; }
+      const btn = $("mag-convert"), msg = $("mag-convert-msg");
+      btn.disabled = true;
+      let n = 0;
+      for (const f of files) {
+        msg.textContent = `Converting ${n + 1} of ${files.length}…`;
+        const bmp = await createImageBitmap(f);
+        const c = canvasOf(bmp.width, bmp.height), ctx = c.getContext("2d");
+        ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(bmp, 0, 0);
+        const blob = await toBlob(c, 0.95);
+        download(blob, f.name.replace(/\.[^.]+$/, "") + ".jpg");
+        n++;
+        await new Promise((r) => setTimeout(r, 400));
+      }
+      msg.textContent = `Done: ${n} JPG file(s) downloaded (same size, quality 95%).`;
+      btn.disabled = false;
+    },
     async jpgs() {
       const list = results.filter((x) => x.include);
       if (!list.length) { alert("No image is ticked."); return; }

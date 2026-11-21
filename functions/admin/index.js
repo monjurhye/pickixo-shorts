@@ -533,7 +533,9 @@ only small previews go to the AI.</p>
 <input type="file" id="mag-files" accept="image/jpeg,image/png,image/webp" multiple>
 <label title="Slow on older laptops"><input type="checkbox" id="mag-ai"> AI upscale (slow, off by default)</label>
 <input type="text" id="mag-model" placeholder="Model (as in Magnific's dropdown), optional" style="min-width:260px">
-<button class="primary" id="mag-run" onclick="window.__mag.run()">Check & make metadata</button></div>
+<button class="primary" id="mag-run" onclick="window.__mag.run()">Check & make metadata</button>
+<button id="mag-convert" type="button" onclick="window.__mag.convert()" title="No AI needed">🔄 PNG → JPG only</button>
+<span id="mag-convert-msg" class="muted"></span></div>
 <div class="row" id="mag-out" style="display:none">
 <button onclick="window.__mag.jpgs()">⬇ Download JPGs (ticked)</button>
 <button onclick="window.__mag.csv()">⬇ Download CSV (ticked)</button>
@@ -541,7 +543,7 @@ only small previews go to the AI.</p>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs → Import metadata → choose the CSV → check AI label and model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
-<script src="/magnific-tool.js?v=3"></script>`;
+<script src="/magnific-tool.js?v=4"></script>`;
 }
 
 function fbConnectHtml(fp) {
