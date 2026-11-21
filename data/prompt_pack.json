@@ -1,6 +1,48 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "prompts": [
+    {
+      "theme": "Cozy Christmas living room with holiday glow",
+      "prompt": "A warm, softly lit living room scene with a decorated Christmas tree, wrapped gifts, a tray of cookies, and a crackling fireplace in the background; natural textures like wool throws and wood grain visible; diffuse golden light from a window; copy space on the left; shallow depth of field.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-21"
+    },
+    {
+      "theme": "Winter holiday table setting still life",
+      "prompt": "Minimalist winter table spread with ceramic plates, silverware, pine cones, a candle, and a sprig of evergreen; cool ambient light, subtle shadow play; matte surface textures and a bit of frost on glass; copy space on the right; no people.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-21"
+    },
+    {
+      "theme": "New Year’s glow with celebration goods",
+      "prompt": "Flat lay of New Year celebration props—confetti, decorative balloons, a sleek noisemaker, a glass of bubbly (non-detailed), stationery and a small clock; warm tungsten glow, cool blue accents, negative space on top; shallow depth, muted colors.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "1:1",
+      "date": "2026-11-21"
+    },
+    {
+      "theme": "Snowy outdoor path with evergreen accents",
+      "prompt": "Snow-dusted park path lined with evergreens and wooden benches, soft morning light, long shadows, footprints in fresh snow, subtle bokeh of distant trees; muted palette of whites, greens, and browns; copy space on left for text.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-21"
+    },
+    {
+      "theme": "Hanukkah menorah on a wooden table",
+      "prompt": "Close to medium shot of a simple menorah on a wooden table with a soft cloth, warm candlelight, and shallow depth of field; natural wood grain visible, gentle reflections on the table, plenty of negative space for copy on the left.",
+      "tool": "Ideogram",
+      "aspect": "3:2",
+      "date": "2026-11-21"
+    },
+    {
+      "theme": "Winter sale storefront no people",
+      "prompt": "Exterior storefront covered in soft seasonal frost with window displays of gift boxes and ribbons; cloudy winter sky, subtle reflections on glass, clean lines, minimal clutter; copy space along the lower third for text; no faces in reflection.",
+      "tool": "FLUX.1 schnell",
+      "aspect": "16:9",
+      "date": "2026-11-21"
+    },
     {
       "theme": "Cozy winter home office in soft glow",
       "prompt": "A medium-distance scene of a cozy winter home office at golden-hour light, warm desk lamp glow, wooden desk with a steaming mug, a window showing light snow outside, subtle textures like wool, linen, and ceramic glaze; minimal clutter, copy space on the left for text, natural colors, shallow depth of field.",
