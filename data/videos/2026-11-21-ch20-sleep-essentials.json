@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch20-sleep-essentials",
+  "date": "2026-11-21",
+  "channel_id": "ch20",
+  "channel_name": "Tech Drop Daily",
+  "niche": "Bedroom & sleep",
+  "title": "Sleep Essentials: Bedroom Basics",
+  "hook": "Sleep Essentials for Better Nights",
+  "description": "A simple set of sleep essentials to improve nightly comfort. Each item helps create a calmer, darker, cozier bedroom.",
+  "items": [
+    {
+      "name": "Bed sheet set",
+      "benefit": "Soft, breathable sheets for comfy nights",
+      "amazon_search": "bed sheet set",
+      "asin": "B0F1ZWXZ1B",
+      "link": "https://www.amazon.com/dp/B0F1ZWXZ1B?tag=monjur09-20"
+    },
+    {
+      "name": "Comforter",
+      "benefit": "Warmth and softness for cozy evenings",
+      "amazon_search": "comforter",
+      "asin": "B0HFRHGGBB",
+      "link": "https://www.amazon.com/dp/B0HFRHGGBB?tag=monjur09-20"
+    },
+    {
+      "name": "Blackout curtain panels",
+      "benefit": "Blocks light for deeper, calmer sleep",
+      "amazon_search": "blackout curtain panels",
+      "asin": "B01LXG6GVL",
+      "link": "https://www.amazon.com/dp/B01LXG6GVL?tag=monjur09-20"
+    },
+    {
+      "name": "Bedside lamp",
+      "benefit": "Gentle lighting for reading before bed",
+      "amazon_search": "bedside lamp",
+      "asin": "B0F4RF3ZDY",
+      "link": "https://www.amazon.com/dp/B0F4RF3ZDY?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "QUIRylgsGwQ",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch20-sleep-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch20-sleep-essentials.mp4",
+  "seconds": 33,
+  "image": "https://images.pexels.com/videos/7494873/adult-affection-art-baby-7494873.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/siblings-splitting-a-pile-of-books-7494873/"
+}

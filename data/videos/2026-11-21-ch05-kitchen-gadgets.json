@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch05-kitchen-gadgets",
+  "date": "2026-11-21",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "Kitchen Essentials Finds",
+  "hook": "Simple tools for great meals",
+  "description": "A quick set of practical kitchen gadgets to make cooking smoother. Ideal for organizing your prep workflow and keeping timing on track.",
+  "items": [
+    {
+      "name": "Stainless Garlic Press",
+      "benefit": "Effortless mincing for meals",
+      "amazon_search": "stainless garlic press",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stainless+garlic+press&tag=monjur09-20"
+    },
+    {
+      "name": "Digital Kitchen Timer",
+      "benefit": "Keeps meals on perfect timing",
+      "amazon_search": "digital kitchen timer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=digital+kitchen+timer&tag=monjur09-20"
+    },
+    {
+      "name": "Microplane Zester",
+      "benefit": "Zests citrus with ease",
+      "amazon_search": "microplane zester",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=microplane+zester&tag=monjur09-20"
+    },
+    {
+      "name": "Glass Spice Jars",
+      "benefit": "Airtight, organized spices",
+      "amazon_search": "glass spice jars with lids",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=glass+spice+jars+with+lids&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "C6twvdKZoOA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch05-kitchen-gadgets/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch05-kitchen-gadgets.mp4",
+  "seconds": 31,
+  "image": "https://images.pexels.com/videos/10573364/adult-bath-bathroom-beer-10573364.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-person-grabbing-a-dish-soap-dispenser-and-a-cleaning-brush-10573364/"
+}

@@ -2,12 +2,16 @@
   "channels": {
     "ch01": {
       "recent_topics": [
-        "Kitchen gadgets under $30"
+        "Kitchen gadgets under $30",
+        "Kitchen essentials under $30? This video uses a broader niche: clever kitchen essentials"
       ],
       "used_clips": [
         "5823682",
         "7597169",
-        "4008525"
+        "4008525",
+        "37856645",
+        "6929486",
+        "6975697"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -16,17 +20,25 @@
     },
     "ch02": {
       "recent_topics": [
-        "Gifts under $25"
+        "Gifts under $25",
+        "Cozy home essentials"
       ],
       "used_clips": [
         "7316029",
         "6343809",
-        "6446146"
+        "6446146",
+        "34771083",
+        "30912265",
+        "7494791"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
       "used_asins": [
+        "B000S5VEG6",
+        "B0158EQJSY",
+        "B0D9M2D3HY",
+        "B0GH2F3QLG",
         "B000S5VEG6",
         "B0158EQJSY",
         "B0D9M2D3HY",
@@ -36,7 +48,8 @@
     "ch03": {
       "recent_topics": [
         "Home organization",
-        "Garage storage finds"
+        "Garage storage finds",
+        "Organizers"
       ],
       "used_clips": [
         "6264889",
@@ -44,17 +57,26 @@
         "12908870",
         "34205839",
         "39811491",
-        "35099110"
+        "35099110",
+        "10573364",
+        "33845167",
+        "3626979"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
-      "used_asins": []
+      "used_asins": [
+        "B084KQZ49Z",
+        "B0D9M2D3HY",
+        "B0HKSC8Q88",
+        "B0HF3H4W82"
+      ]
     },
     "ch04": {
       "recent_topics": [
         "Pet gadgets",
-        "Pet travel essentials"
+        "Pet travel essentials",
+        "Smart Pet Essentials"
       ],
       "used_clips": [
         "39936356",
@@ -62,7 +84,10 @@
         "6263194",
         "35655240",
         "34758169",
-        "34846093"
+        "34846093",
+        "35845378",
+        "37836407",
+        "31664018"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -72,7 +97,8 @@
     "ch05": {
       "recent_topics": [
         "Coffee & tea gear",
-        "Desk organization essentials"
+        "Desk organization essentials",
+        "Kitchen gadgets"
       ],
       "used_clips": [
         "8286870",
@@ -80,7 +106,10 @@
         "7579697",
         "6391717",
         "31155752",
-        "8347239"
+        "8347239",
+        "10573364",
+        "4008525",
+        "7964568"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -89,12 +118,16 @@
     },
     "ch06": {
       "recent_topics": [
-        "Bathroom finds"
+        "Bathroom finds",
+        "Kitchen finds"
       ],
       "used_clips": [
         "6845752",
         "34786211",
-        "10574090"
+        "10574090",
+        "12909753",
+        "10568255",
+        "9462938"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -104,7 +137,8 @@
     "ch07": {
       "recent_topics": [
         "Plant & garden",
-        "Home organization"
+        "Home organization",
+        "Garden Finds"
       ],
       "used_clips": [
         "36623154",
@@ -112,7 +146,10 @@
         "33731946",
         "10567222",
         "7756985",
-        "10567473"
+        "10567473",
+        "38609959",
+        "28830472",
+        "38054991"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -122,7 +159,8 @@
     "ch08": {
       "recent_topics": [
         "Laundry & cleaning",
-        "Kitchen organization"
+        "Kitchen organization",
+        "Cleaning essentials"
       ],
       "used_clips": [
         "29454150",
@@ -130,7 +168,10 @@
         "10565830",
         "5823682",
         "37856645",
-        "7964568"
+        "7964568",
+        "39432615",
+        "7876839",
+        "6196268"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -140,7 +181,8 @@
     "ch09": {
       "recent_topics": [
         "Beauty tools",
-        "Home Spa Essentials"
+        "Home Spa Essentials",
+        "Grooming gadgets"
       ],
       "used_clips": [
         "8479086",
@@ -148,7 +190,10 @@
         "6000652",
         "34317467",
         "40807352",
-        "31052540"
+        "31052540",
+        "7316385",
+        "7311588",
+        "6933234"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -158,7 +203,8 @@
     "ch10": {
       "recent_topics": [
         "Home fitness",
-        "Home Organization"
+        "Home Organization",
+        "Fitness Essentials for Small Spaces"
       ],
       "used_clips": [
         "8027444",
@@ -166,7 +212,10 @@
         "34920989",
         "7217939",
         "15749909",
-        "6288845"
+        "6288845",
+        "29569361",
+        "6297120",
+        "37642247"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -176,7 +225,8 @@
     "ch11": {
       "recent_topics": [
         "Baby & toddler",
-        "Nursery Organizers"
+        "Nursery Organizers",
+        "On-the-go Baby Gear"
       ],
       "used_clips": [
         "7508453",
@@ -184,7 +234,10 @@
         "7508628",
         "6953440",
         "3676949",
-        "8045030"
+        "8045030",
+        "7884189",
+        "6953438",
+        "6953360"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -193,12 +246,16 @@
     },
     "ch12": {
       "recent_topics": [
-        "Car accessories"
+        "Car accessories",
+        "Home office organization"
       ],
       "used_clips": [
         "10385810",
         "34218584",
-        "31588827"
+        "31588827",
+        "7600541",
+        "13795423",
+        "30836228"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -208,7 +265,8 @@
     "ch13": {
       "recent_topics": [
         "Camping & outdoors",
-        "Outdoor gear finds"
+        "Outdoor gear finds",
+        "Camping organizers"
       ],
       "used_clips": [
         "40425618",
@@ -216,7 +274,10 @@
         "12491757",
         "35639469",
         "35732926",
-        "7010002"
+        "7010002",
+        "35747849",
+        "35849669",
+        "40168250"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -226,7 +287,8 @@
     "ch14": {
       "recent_topics": [
         "Desk & study setup",
-        "Living Room Storage Essentials"
+        "Living Room Storage Essentials",
+        "Home office tech finds"
       ],
       "used_clips": [
         "10567473",
@@ -234,7 +296,10 @@
         "10567222",
         "10822607",
         "39982041",
-        "6963726"
+        "6963726",
+        "39425781",
+        "39425782",
+        "39475784"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -244,7 +309,8 @@
     "ch15": {
       "recent_topics": [
         "Gaming accessories",
-        "Desk organizers for gamers"
+        "Desk organizers for gamers",
+        "Streaming gear"
       ],
       "used_clips": [
         "8128344",
@@ -252,17 +318,26 @@
         "7914773",
         "8480682",
         "8128502",
-        "9071009"
+        "9071009",
+        "4434137",
+        "34433115",
+        "34716705"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
-      "used_asins": []
+      "used_asins": [
+        "B0D14CNN7M",
+        "B0CC6WSMKB",
+        "B09X7C2GBC",
+        "B0DHLH13R5"
+      ]
     },
     "ch16": {
       "recent_topics": [
         "Smart home",
-        "Home automation essentials"
+        "Home automation essentials",
+        "Gadget finds for modern homes"
       ],
       "used_clips": [
         "37522021",
@@ -270,12 +345,20 @@
         "35426476",
         "6375332",
         "36030665",
-        "34153818"
+        "34153818",
+        "7226918",
+        "7217939",
+        "10568459"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
-      "used_asins": []
+      "used_asins": [
+        "B0DKWXLR85",
+        "B09B94RL1R",
+        "B0C5DPSW5Y",
+        "B0H2F7THWZ"
+      ]
     },
     "ch17": {
       "recent_topics": [
@@ -298,7 +381,8 @@
     "ch18": {
       "recent_topics": [
         "Kids toys",
-        "Desk Organization Finds"
+        "Desk Organization Finds",
+        "Playtime Essentials"
       ],
       "used_clips": [
         "3682357",
@@ -306,21 +390,33 @@
         "3676949",
         "37450986",
         "6176547",
-        "8472306"
+        "8472306",
+        "3682207",
+        "3682204",
+        "3678272"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
-      "used_asins": []
+      "used_asins": [
+        "B0DK7YYSKQ",
+        "B00005BXLC",
+        "B0D89GX4NP",
+        "B0H9KGLNN7"
+      ]
     },
     "ch19": {
       "recent_topics": [
-        "Baking tools"
+        "Baking tools",
+        "Kitchen organizers"
       ],
       "used_clips": [
         "34771925",
         "6353447",
-        "4008525"
+        "4008525",
+        "37856650",
+        "5823682",
+        "9615774"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
@@ -330,7 +426,8 @@
     "ch20": {
       "recent_topics": [
         "Bedroom & sleep",
-        "Home Office Organization"
+        "Home Office Organization",
+        "Sleep Essentials"
       ],
       "used_clips": [
         "3713695",
@@ -338,12 +435,20 @@
         "6944076",
         "6176547",
         "37450986",
-        "19798263"
+        "19798263",
+        "7494873",
+        "7505920",
+        "7495071"
       ],
       "upload_errors": 0,
       "auto_disabled": false,
       "last_error": "",
-      "used_asins": []
+      "used_asins": [
+        "B0F1ZWXZ1B",
+        "B0HFRHGGBB",
+        "B01LXG6GVL",
+        "B0F4RF3ZDY"
+      ]
     }
   }
 }

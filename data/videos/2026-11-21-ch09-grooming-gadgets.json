@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch09-grooming-gadgets",
+  "date": "2026-11-21",
+  "channel_id": "ch09",
+  "channel_name": "EcoSolar Pets",
+  "niche": "Beauty tools",
+  "title": "Grooming Gadgets Essentials",
+  "hook": "Grooming gadgets you’ll want now",
+  "description": "Four popular grooming gadgets to elevate your daily routine. Explore easy-to-find options that pair well with any skincare setup.",
+  "items": [
+    {
+      "name": "Electric facial brush",
+      "benefit": "Deep cleanses pores for glow",
+      "amazon_search": "electric facial cleansing brush",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=electric+facial+cleansing+brush&tag=monjur09-20"
+    },
+    {
+      "name": "Pore vacuum cleanser",
+      "benefit": "Snaps out dirt and oil",
+      "amazon_search": "pore vacuum cleaner",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=pore+vacuum+cleaner&tag=monjur09-20"
+    },
+    {
+      "name": "Metal eyelash curler",
+      "benefit": "Precise curling with gentle pressure",
+      "amazon_search": "eyelash curler",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=eyelash+curler&tag=monjur09-20"
+    },
+    {
+      "name": "Jade facial roller",
+      "benefit": "Soothes skin and reduces puffiness",
+      "amazon_search": "jade facial roller",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=jade+facial+roller&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "gX4yMHOgVQA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch09-grooming-gadgets/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch09-grooming-gadgets.mp4",
+  "seconds": 33,
+  "image": "https://images.pexels.com/videos/7316385/pexels-photo-7316385.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/different-blank-grooming-products-7316385/"
+}

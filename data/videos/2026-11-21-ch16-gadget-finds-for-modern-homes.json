@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch16-gadget-finds-for-modern-homes",
+  "date": "2026-11-21",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Gadget Finds: Practical Smart Devices",
+  "hook": "Top four smart picks you’ll want",
+  "description": "Four practical smart devices to streamline daily routines. Find each type on Amazon with the search phrases provided.",
+  "items": [
+    {
+      "name": "Smart door lock",
+      "benefit": "Keyless entry for secure, easy access",
+      "amazon_search": "smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "Voice control for hands-free convenience",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "Center hub coordinates other devices",
+      "amazon_search": "smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Detects movement for automation",
+      "amazon_search": "smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "Z87zr7d6IYk",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch16-gadget-finds-for-modern-homes/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch16-gadget-finds-for-modern-homes.mp4",
+  "seconds": 38,
+  "image": "https://images.pexels.com/videos/7226918/adult-african-african-american-apartment-7226918.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-man-unpacking-a-brown-paper-bag-at-home-7226918/"
+}

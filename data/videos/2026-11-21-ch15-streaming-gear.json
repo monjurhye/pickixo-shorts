@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch15-streaming-gear",
+  "date": "2026-11-21",
+  "channel_id": "ch15",
+  "channel_name": "LuxeSolar Pets",
+  "niche": "Gaming accessories",
+  "title": "Streaming Gear Essentials",
+  "hook": "Upgrade your streaming setup fast",
+  "description": "Four must-have streaming gear essentials for gamers to boost your setup.",
+  "items": [
+    {
+      "name": "USB microphone",
+      "benefit": "Clear voice for streams",
+      "amazon_search": "USB microphone for gaming",
+      "asin": "B0D14CNN7M",
+      "link": "https://www.amazon.com/dp/B0D14CNN7M?tag=monjur09-20"
+    },
+    {
+      "name": "Gaming headset",
+      "benefit": "Immersive audio for gameplay",
+      "amazon_search": "Gaming headset",
+      "asin": "B0CC6WSMKB",
+      "link": "https://www.amazon.com/dp/B0CC6WSMKB?tag=monjur09-20"
+    },
+    {
+      "name": "External capture card",
+      "benefit": "Capture high-quality gameplay video",
+      "amazon_search": "External capture card",
+      "asin": "B09X7C2GBC",
+      "link": "https://www.amazon.com/dp/B09X7C2GBC?tag=monjur09-20"
+    },
+    {
+      "name": "Wireless controller",
+      "benefit": "Precise wireless play freedom",
+      "amazon_search": "Wireless gaming controller",
+      "asin": "B0DHLH13R5",
+      "link": "https://www.amazon.com/dp/B0DHLH13R5?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "G0C-7fc-pBU",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch15-streaming-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch15-streaming-gear.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/4434137/adventure-aerial-footage-couple-walking-freedom-4434137.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-work-from-home-table-set-up-4434137/"
+}

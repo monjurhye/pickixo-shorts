@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch04-smart-pet-essentials",
+  "date": "2026-11-21",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "Smart Pet Essentials Finds",
+  "hook": "Smart pet essentials you’ll love",
+  "description": "A quick look at four smart pet essentials that can help with daily routines. Each item supports feeding, hydration, enrichment, and play.",
+  "items": [
+    {
+      "name": "Automatic pet feeder",
+      "benefit": "Dishes out meals on schedule",
+      "amazon_search": "automatic pet feeder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=automatic+pet+feeder&tag=monjur09-20"
+    },
+    {
+      "name": "Smart pet water fountain",
+      "benefit": "Encourages steady hydration",
+      "amazon_search": "smart pet water fountain",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+pet+water+fountain&tag=monjur09-20"
+    },
+    {
+      "name": "Treat-dispensing puzzle",
+      "benefit": "Mental challenge with rewards",
+      "amazon_search": "treat-dispensing puzzle toy",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=treat-dispensing+puzzle+toy&tag=monjur09-20"
+    },
+    {
+      "name": "Automatic ball launcher",
+      "benefit": "Interactive fetch, hands-free",
+      "amazon_search": "automatic ball launcher for dogs",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=automatic+ball+launcher+for+dogs&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "CHbpkrUF_SA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch04-smart-pet-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch04-smart-pet-essentials.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/35845378/pexels-photo-35845378.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cozy-living-room-with-vinyl-record-player-35845378/"
+}
