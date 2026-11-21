@@ -4,6 +4,7 @@ import { getPins, putPins } from "../../lib/pins.js";
 import { setIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, putManual } from "../../lib/earnings.js";
 import { getXp, putXp } from "../../lib/xpost.js";
+import { getMtlCfg, putMtlCfg } from "../../lib/mtl.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -57,6 +58,12 @@ export async function onRequestPost(context) {
     manual.income = manual.income.slice(0, 1000); manual.costs = manual.costs.slice(0, 1000); manual.monthly = manual.monthly.slice(0, 30);
     await putManual(env, manual);
     return redirect("/admin?msg=" + encodeURIComponent(m) + "#earnings");
+  }
+  if (action === "mtl_page" || action === "mtl_auto") {
+    const c = await getMtlCfg(env);
+    if (action === "mtl_page") c.page_id = String(form.get("page") || "").slice(0, 40); else c.off = !c.off;
+    await putMtlCfg(env, c);
+    return redirect("/admin?msg=" + encodeURIComponent(action === "mtl_page" ? "Page saved." : (c.off ? "Auto-post off." : "Auto-post on.")) + "#mtl");
   }
   if (action.startsWith("xp_")) {
     const xp = await getXp(env);

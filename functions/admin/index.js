@@ -5,6 +5,7 @@ import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, postbackToken } from "../../lib/earnings.js";
 import { getXp, getXpReport } from "../../lib/xpost.js";
+import { mtlPage } from "../../lib/mtl.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -146,7 +147,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl")]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw, mtlP] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl"), mtlPage(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -207,7 +208,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -524,18 +525,24 @@ In development mode that Facebook account and the Threads account must be added 
 }
 
 // Today's 3 honest Bangla posts for the "Modern Tech Life" page (pipeline/mtl_posts.py).
-function mtlSection(d) {
+function mtlSection(d, mp) {
   const label = { morning: "সকাল · শেখানো", afternoon: "দুপুর · আমার আসল ফল", evening: "রাত · সতর্কতা / প্রশ্ন" };
   const cards = d ? d.posts.map((p, n) => `<div class="card"><span class="pill on">${esc(label[p.slot] || p.slot)}</span>
-${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}
+${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}${p.fb ? `<span class="pill ${p.fb.startsWith("scheduled") ? "on" : "err"}">Facebook: ${esc(p.fb)}</span>` : ""}
 <div class="prompt" id="mtl-${n}" style="white-space:pre-wrap">${esc(p.text)}\n\n${esc(p.hashtags.map((h) => "#" + h).join(" "))}</div>
 <div class="row"><button type="button" onclick="copyText('mtl-${n}')">📋 Copy post</button></div></div>`).join("") : "";
   const src = d && d.sources.length ? `<p class="muted">Sources checked: ${d.sources.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, "").slice(0, 40))}</a>`).join(" · ")}</p>` : "";
+  const opts = mp.pages.map((x) => `<option value="${esc(x.id)}"${mp.page && mp.page.id === x.id ? " selected" : ""}>${esc(x.name)}</option>`).join("");
+  const auto = `<div class="card"><h3>🤖 Auto-post: ${mp.cfg.off ? "OFF" : mp.page ? "ON → " + esc(mp.page.name) : "waiting for the page"}</h3>
+${mp.page ? "" : `<p><span class="pill err">Modern Tech Life page not connected</span> Go to 🔁 Cross-post → reconnect Facebook and tick <b>Modern Tech Life</b> in the Facebook dialog (keep the other pages ticked).</p>`}
+<p class="muted">Posts are scheduled on the page at 9am, 2pm and 8pm (Bangladesh). A post with a warning is not posted: it waits here.</p>
+<form method="post" action="/admin/action" class="row"><input type="hidden" name="do" value="mtl_page"><select name="page">${opts || "<option value=''>(no pages)</option>"}</select><button>Save page</button></form>
+<form method="post" action="/admin/action"><input type="hidden" name="do" value="mtl_auto"><button>${mp.cfg.off ? "Turn auto-post on" : "Turn auto-post off"}</button></form></div>`;
   return `<h2 id="mtl">Modern Tech Life · daily Bangla posts</h2>
 <p class="muted">Every morning AI researches ONE real, current way to earn with AI from Bangladesh (web search, sources below) and writes 3 honest
 posts: a how-to, your real result (only from config/mtl_facts.json) and a warning or question. No income promises. Read each post, then copy it to
-<a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a>.${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>
-${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts yet. They arrive with the 8am (Bangladesh) run.</p>'}${src}`;
+<a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a> (or let auto-post do it).${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>
+${auto}${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts yet. They arrive with the 8am (Bangladesh) run.</p>'}${src}`;
 }
 
 function magnificToolSection() {

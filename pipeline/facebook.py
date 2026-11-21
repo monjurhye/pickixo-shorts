@@ -21,8 +21,8 @@ def enabled():
     return bool(common.secret("FB_PAGE_ID") and common.secret("FB_PAGE_TOKEN"))
 
 
-def _post(path, fields):
-    fields = dict(fields, access_token=common.secret("FB_PAGE_TOKEN"))
+def _post(path, fields, token=None):
+    fields = dict(fields, access_token=token or common.secret("FB_PAGE_TOKEN"))
     req = urllib.request.Request(GRAPH + path, data=urllib.parse.urlencode(fields).encode(), method="POST")
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
@@ -86,6 +86,12 @@ def schedule_photo(message, image_url, when):
 def schedule_text(message, when):
     return _post("/{0}/feed".format(common.secret("FB_PAGE_ID")), {
         "message": message, "published": "false", "scheduled_publish_time": int(when.timestamp())})
+
+
+def schedule_text_on(page_id, token, message, when):
+    """Scheduled text post on any Page whose token we have (e.g. Modern Tech Life)."""
+    return _post("/{0}/feed".format(page_id), {
+        "message": message, "published": "false", "scheduled_publish_time": int(when.timestamp())}, token)
 
 
 def upload_reel(page_id, token, video_path, description, when=None):

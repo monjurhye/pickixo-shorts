@@ -15,9 +15,9 @@ Posts go to the dashboard (/admin -> Modern Tech Life) with copy buttons; the ow
 import argparse
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-from . import common, content, dashboard
+from . import common, content, dashboard, facebook
 
 STATE = os.path.join(common.DATA_DIR, "mtl_posts.json")
 FACTS = os.path.join(common.CONFIG_DIR, "mtl_facts.json")
@@ -110,6 +110,40 @@ def research(topics_done, cfg):
     return (getattr(resp, "output_text", "") or "").strip(), urls
 
 
+# Bangladesh time (UTC+6) each slot goes live on the page
+SLOT_BD = {"morning": (9, 0), "afternoon": (14, 0), "evening": (20, 0)}
+
+
+def auto_post(posts, today):
+    """Schedule today's posts on the Modern Tech Life page (if picked + auto on in /admin).
+    A post with a warning is NOT posted: it waits in /admin for a human."""
+    try:
+        code, cfg = dashboard._call("/api/pipeline/mtl")
+    except Exception as e:
+        common.log("mtl: page config failed: {0}".format(e))
+        return
+    page = (cfg or {}).get("page") if code == 200 else None
+    if not (cfg or {}).get("auto") or not page:
+        common.log("mtl: auto-post off or no page picked (/admin -> Modern Tech Life)")
+        return
+    now = datetime.now(timezone.utc)
+    for n, p in enumerate(posts):
+        if p.get("warning"):
+            p["fb"] = "not posted: " + p["warning"]
+            continue
+        h, m = SLOT_BD.get(p.get("slot"), (20, 0))
+        when = datetime.strptime(today, "%Y-%m-%d").replace(hour=h, minute=m, tzinfo=timezone.utc) - timedelta(hours=6)
+        if when < now + timedelta(minutes=15):          # late run: post soon instead, 30 min apart
+            when = now + timedelta(minutes=20 + 30 * n)
+        msg = p["text"].strip() + "\n\n" + " ".join("#" + t.lstrip("#") for t in p.get("hashtags", []))
+        try:
+            r = facebook.schedule_text_on(page["id"], page["token"], msg, when)
+            p["fb"] = "scheduled {0} BD".format((when + timedelta(hours=6)).strftime("%H:%M")) if r.get("id") else "error: no id"
+        except Exception as e:
+            p["fb"] = "error: {0}".format(str(e)[:150])
+        common.log("mtl: {0} -> {1}".format(p.get("slot"), p["fb"]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -136,6 +170,8 @@ def main():
     st["recent_topics"] = (st["recent_topics"] + [res.get("topic", "")])[-40:]
     st["last"] = today
     common.save_json(STATE, st)
+    if dashboard.enabled():
+        auto_post(posts, today)
     payload = {"date": today, "created": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                "topic": res.get("topic", ""), "sources": urls, "posts": posts}
     common.log("mtl: {0} ({1} posts, {2} sources)".format(payload["topic"], len(posts), len(urls)))
