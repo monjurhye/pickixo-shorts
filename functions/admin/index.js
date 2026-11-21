@@ -198,13 +198,13 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#earnings">💰 Earnings</a><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a></nav>
-${note}${earningsSection(earn)}<h2 id="channels">YouTube channels</h2>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
+${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn)}`));
 }
 
 function bdTime(iso) {
