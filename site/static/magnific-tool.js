@@ -59,10 +59,56 @@
     const seen = new Set(), out = [];
     for (let k of list || []) {
       k = String(k).toLowerCase().replace(/[;,]/g, " ").replace(/\s+/g, " ").trim();
-      if (k && k !== AI_TAG && !seen.has(k)) { seen.add(k); out.push(k); }
+      k = k.replace(/[^\p{L}\p{N} '\-]/gu, "").trim();   // Magnific rejects odd characters such as "_"
+      if (k && k !== AI_TAG.replace(/_/g, "") && !seen.has(k)) { seen.add(k); out.push(k); }
     }
-    return out.slice(0, 44).concat([AI_TAG]);
+    // AI is marked with Magnific's own "Created with AI" switch, not with a keyword.
+    return out.slice(0, 45);
   }
+
+  // ---- write title + keywords INTO the JPG (IPTC IIM + XMP), so Magnific fills them on upload ----
+  const enc = new TextEncoder();
+  function u16(n) { return [(n >> 8) & 255, n & 255]; }
+  function u32(n) { return [(n >>> 24) & 255, (n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  function cut(s, maxBytes) {
+    let b = enc.encode(s);
+    while (b.length > maxBytes) { s = s.slice(0, -1); b = enc.encode(s); }
+    return b;
+  }
+  function iptcSegment(title, keywords) {
+    const ds = [];
+    const add = (rec, id, bytes) => ds.push(0x1C, rec, id, ...u16(bytes.length), ...bytes);
+    add(1, 90, [0x1B, 0x25, 0x47]);                      // coded character set = UTF-8
+    add(2, 0, [0, 4]);                                    // record version
+    add(2, 5, cut(title, 64));                            // Object Name (title)
+    add(2, 105, cut(title, 256));                         // Headline
+    add(2, 120, cut(title, 2000));                        // Caption / description
+    for (const k of keywords) add(2, 25, cut(k, 64));     // Keywords (one per dataset)
+    const res = [...enc.encode("8BIM"), 0x04, 0x04, 0, 0, ...u32(ds.length), ...ds];
+    if (ds.length % 2) res.push(0);                       // resource data is padded to an even length
+    const payload = [...enc.encode("Photoshop 3.0"), 0, ...res];
+    return [0xFF, 0xED, ...u16(payload.length + 2), ...payload];
+  }
+  function xmlEsc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+  function xmpSegment(title, keywords) {
+    const li = keywords.map((k) => `<rdf:li>${xmlEsc(k)}</rdf:li>`).join("");
+    const xml = `<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">` +
+      `<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">` +
+      `<dc:title><rdf:Alt><rdf:li xml:lang="x-default">${xmlEsc(title)}</rdf:li></rdf:Alt></dc:title>` +
+      `<dc:description><rdf:Alt><rdf:li xml:lang="x-default">${xmlEsc(title)}</rdf:li></rdf:Alt></dc:description>` +
+      `<photoshop:Headline>${xmlEsc(title)}</photoshop:Headline>` +
+      `<dc:subject><rdf:Bag>${li}</rdf:Bag></dc:subject></rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>`;
+    const payload = [...enc.encode("http://ns.adobe.com/xap/1.0/"), 0, ...enc.encode(xml)];
+    return [0xFF, 0xE1, ...u16(payload.length + 2), ...payload];
+  }
+  async function withMeta(jpg, title, keywords) {
+    const b = new Uint8Array(await jpg.arrayBuffer());
+    let at = 2;                                           // after SOI
+    if (b[2] === 0xFF && b[3] === 0xE0) at = 4 + ((b[4] << 8) | b[5]);   // keep JFIF (APP0) first
+    const meta = new Uint8Array([...xmpSegment(title, keywords), ...iptcSegment(title, keywords)]);
+    return new Blob([b.slice(0, at), meta, b.slice(at)], { type: "image/jpeg" });
+  }
+  window.__magMeta = { withMeta };
 
   async function processFile(file, row) {
     const bmp = await createImageBitmap(file);
@@ -200,7 +246,10 @@
     async jpgs() {
       const list = results.filter((x) => x.include);
       if (!list.length) { alert("No image is ticked."); return; }
-      for (const x of list) { download(x.jpg, x.out); await new Promise((r) => setTimeout(r, 400)); }
+      for (const x of list) {
+        download(await withMeta(x.jpg, x.title, x.keywords), x.out);   // title + keywords inside the file
+        await new Promise((r) => setTimeout(r, 400));
+      }
     },
   };
 })();
