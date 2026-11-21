@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch03-kitchen-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch03",
+  "channel_name": "Pet Gadget Lab",
+  "niche": "Home organization",
+  "title": "Kitchen Finds: Simple Organizing Aids",
+  "hook": "Refresh your drawers fast",
+  "description": "A quick round-up of kitchen finds to help tidy shelves, cords, and lids. Great for everyday organization.",
+  "items": [
+    {
+      "name": "Stackable storage bins",
+      "benefit": "Clear view, quick access",
+      "amazon_search": "Stackable storage bins",
+      "asin": "B084KQZ49Z",
+      "link": "https://www.amazon.com/dp/B084KQZ49Z?tag=monjur09-20"
+    },
+    {
+      "name": "Kitchen cabinet organizer",
+      "benefit": "Keeps shelves neat and roomy",
+      "amazon_search": "Kitchen cabinet organizer",
+      "asin": "B0D9M2D3HY",
+      "link": "https://www.amazon.com/dp/B0D9M2D3HY?tag=monjur09-20"
+    },
+    {
+      "name": "Cable management clips",
+      "benefit": "Hide cords, tidy workspace",
+      "amazon_search": "Cable management clips",
+      "asin": "B0HF3H4W82",
+      "link": "https://www.amazon.com/dp/B0HF3H4W82?tag=monjur09-20"
+    },
+    {
+      "name": "Adjustable pot lid rack",
+      "benefit": "Stows lids without crowding",
+      "amazon_search": "Adjustable pot lid rack",
+      "asin": "B0CJCDYSVJ",
+      "link": "https://www.amazon.com/dp/B0CJCDYSVJ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "78WaRm47xeE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch03-kitchen-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch03-kitchen-finds.mp4",
+  "seconds": 37,
+  "image": "https://images.pexels.com/videos/6353447/pexels-photo-6353447.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-bowl-of-strawberries-and-some-green-apple-on-a-pantry-6353447/"
+}

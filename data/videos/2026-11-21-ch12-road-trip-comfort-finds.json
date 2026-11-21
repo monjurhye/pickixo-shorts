@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch12-road-trip-comfort-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch12",
+  "channel_name": "SimpleSolar Pets",
+  "niche": "Car accessories",
+  "title": "Road Trip Comfort Finds",
+  "hook": "Road Trip Comfort Finds",
+  "description": "Four practical car comfort items for long drives. Easy, everyday finds you can add to your cart.",
+  "items": [
+    {
+      "name": "Car Seat Cushion",
+      "benefit": "Adds comfort on long trips",
+      "amazon_search": "car seat cushion",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+seat+cushion&tag=monjur09-20"
+    },
+    {
+      "name": "Sun Shade",
+      "benefit": "Blocks glare, keeps cabin cool",
+      "amazon_search": "car window sun shade",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+window+sun+shade&tag=monjur09-20"
+    },
+    {
+      "name": "Phone Car Mount",
+      "benefit": "Keeps phone reachable, hands-free",
+      "amazon_search": "phone car mount",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=phone+car+mount&tag=monjur09-20"
+    },
+    {
+      "name": "USB-C Car Charger",
+      "benefit": "Fast charging on the go",
+      "amazon_search": "car usb-c charger",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+usb-c+charger&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "n90QRaSUJAI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch12-road-trip-comfort-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch12-road-trip-comfort-finds.mp4",
+  "seconds": 31,
+  "image": "https://images.pexels.com/videos/15365451/pexels-photo-15365451.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/drone-footage-of-vehicles-driving-on-a-road-across-a-lake-15365451/"
+}

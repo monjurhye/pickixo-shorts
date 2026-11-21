@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch15-gaming-peripherals",
+  "date": "2026-11-21",
+  "channel_id": "ch15",
+  "channel_name": "LuxeSolar Pets",
+  "niche": "Gaming accessories",
+  "title": "Gaming peripherals essentials",
+  "hook": "Upgrade your setup fast",
+  "description": "Four essential gaming peripherals to boost your play and chat. Find each item on Amazon with the provided searches.",
+  "items": [
+    {
+      "name": "Mechanical keyboard",
+      "benefit": "Responsive keys for quick gaming",
+      "amazon_search": "mechanical keyboard gaming",
+      "asin": "B0F8HVVBYK",
+      "link": "https://www.amazon.com/dp/B0F8HVVBYK?tag=monjur09-20"
+    },
+    {
+      "name": "Wireless gaming controller",
+      "benefit": "Comfortable control, flexible play",
+      "amazon_search": "wireless gaming controller",
+      "asin": "B0DHLH13R5",
+      "link": "https://www.amazon.com/dp/B0DHLH13R5?tag=monjur09-20"
+    },
+    {
+      "name": "Gaming headset",
+      "benefit": "Immersive sound for rivals",
+      "amazon_search": "gaming headset",
+      "asin": "B0CC6WSMKB",
+      "link": "https://www.amazon.com/dp/B0CC6WSMKB?tag=monjur09-20"
+    },
+    {
+      "name": "USB microphone for gaming",
+      "benefit": "Clear in-game chat",
+      "amazon_search": "usb microphone for gaming",
+      "asin": "B0D14CNN7M",
+      "link": "https://www.amazon.com/dp/B0D14CNN7M?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "H0I0bLPAfDA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch15-gaming-peripherals/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch15-gaming-peripherals.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/40189651/pexels-photo-40189651.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cozy-workspace-with-tea-and-laptop-40189651/"
+}

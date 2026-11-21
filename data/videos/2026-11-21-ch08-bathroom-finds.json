@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch08-bathroom-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch08",
+  "channel_name": "SolarPet Trail",
+  "niche": "Laundry & cleaning",
+  "title": "Bathroom Finds: Easy Organizing & Cleaning",
+  "hook": "Simple bathroom upgrades",
+  "description": "A quick slide of practical bathroom finds for smarter cleaning and organization. Tap to search each item on Amazon.",
+  "items": [
+    {
+      "name": "Bathroom Organizer Shelf",
+      "benefit": "Adds extra bath storage above sink",
+      "amazon_search": "bathroom organizer shelf",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=bathroom+organizer+shelf&tag=monjur09-20"
+    },
+    {
+      "name": "Toilet Paper Holder",
+      "benefit": "Sturdy dispenser, keeps counters clear",
+      "amazon_search": "toilet paper holder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=toilet+paper+holder&tag=monjur09-20"
+    },
+    {
+      "name": "Silicone Drain Strainer",
+      "benefit": "Prevents clogs with reusable mesh",
+      "amazon_search": "silicone drain strainers",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=silicone+drain+strainers&tag=monjur09-20"
+    },
+    {
+      "name": "Microfiber Cleaning Cloths",
+      "benefit": "Soft, lint-free cleaning for surfaces",
+      "amazon_search": "microfiber cleaning cloths",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=microfiber+cleaning+cloths&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "r5NBVr6Q-Ek",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch08-bathroom-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch08-bathroom-finds.mp4",
+  "seconds": 40,
+  "image": "https://images.pexels.com/videos/4670524/pexels-photo-4670524.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/woman-in-the-bathtub-4670524/"
+}

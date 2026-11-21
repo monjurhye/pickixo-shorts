@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch09-car-care-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch09",
+  "channel_name": "EcoSolar Pets",
+  "niche": "Beauty tools",
+  "title": "Car Care Finds",
+  "hook": "Keep your car tidy fast",
+  "description": "Four car care finds to keep your vehicle organized. Each item helps simplify driving with easy-to-find essentials.",
+  "items": [
+    {
+      "name": "Car Seat Organizer",
+      "benefit": "Keeps essentials within reach",
+      "amazon_search": "car seat organizer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+seat+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Trunk Storage Net",
+      "benefit": "Adds cargo space easily",
+      "amazon_search": "car trunk storage net",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+trunk+storage+net&tag=monjur09-20"
+    },
+    {
+      "name": "Phone Mount",
+      "benefit": "Hands-free drive, secure view",
+      "amazon_search": "car phone mount",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+phone+mount&tag=monjur09-20"
+    },
+    {
+      "name": "Cord Management Clips",
+      "benefit": "Keeps cables neat and secure",
+      "amazon_search": "car cord management clips",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=car+cord+management+clips&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "R5KWogeV3eE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch09-car-care-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch09-car-care-finds.mp4",
+  "seconds": 35,
+  "image": "https://images.pexels.com/videos/31588827/car-enthusiasts-car-hood-car-lover-cool-car-31588827.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/elegant-luxury-car-interior-with-advanced-console-31588827/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch18-toys-for-curious-kids",
+  "date": "2026-11-21",
+  "channel_id": "ch18",
+  "channel_name": "Top Pick Zone",
+  "niche": "Kids toys",
+  "title": "Toys Finds for Curious Kids",
+  "hook": "Top toy finds for curious kids",
+  "description": "Four kid-friendly toy types that spark imagination and play. Perfect for screen-free fun.",
+  "items": [
+    {
+      "name": "Plush stuffed animals",
+      "benefit": "Soft companions for cuddle time",
+      "amazon_search": "plush stuffed animals",
+      "asin": "B0DK7YYSKQ",
+      "link": "https://www.amazon.com/dp/B0DK7YYSKQ?tag=monjur09-20"
+    },
+    {
+      "name": "Pretend play kitchen set",
+      "benefit": "Encourages imaginative kitchen play",
+      "amazon_search": "pretend play kitchen set",
+      "asin": "B00005BXLC",
+      "link": "https://www.amazon.com/dp/B00005BXLC?tag=monjur09-20"
+    },
+    {
+      "name": "Sensory ball collection",
+      "benefit": "Tactile exploration for young kids",
+      "amazon_search": "sensory ball collection",
+      "asin": "B0D89GX4NP",
+      "link": "https://www.amazon.com/dp/B0D89GX4NP?tag=monjur09-20"
+    },
+    {
+      "name": "Art and craft kit",
+      "benefit": "Spurs creativity with easy projects",
+      "amazon_search": "art and craft kit",
+      "asin": "B0H9KGLNN7",
+      "link": "https://www.amazon.com/dp/B0H9KGLNN7?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "lm7cWbkscN4",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch18-toys-for-curious-kids/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch18-toys-for-curious-kids.mp4",
+  "seconds": 33,
+  "image": "https://images.pexels.com/videos/3676818/pexels-photo-3676818.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/footage-of-someone-throwing-stuffed-toy-3676818/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch04-pet-toy-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "Pet Toy Finds for Playful Moments",
+  "hook": "Fun toys for playful pets",
+  "description": "Four pet toy finds to keep playtime engaging. Easy to search by item phrases.",
+  "items": [
+    {
+      "name": "Interactive ball launcher",
+      "benefit": "Automatic toss for solo play",
+      "amazon_search": "interactive ball launcher dog",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=interactive+ball+launcher+dog&tag=monjur09-20"
+    },
+    {
+      "name": "Robotic cat toy",
+      "benefit": "Moves on its own for chasing fun",
+      "amazon_search": "robotic cat toy",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=robotic+cat+toy&tag=monjur09-20"
+    },
+    {
+      "name": "Smart feather wand",
+      "benefit": "Encourages active bursts of play",
+      "amazon_search": "smart feather wand cat toy",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+feather+wand+cat+toy&tag=monjur09-20"
+    },
+    {
+      "name": "Treat-dispensing ball",
+      "benefit": "Puzzle play with rewards",
+      "amazon_search": "treat-dispensing ball",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=treat-dispensing+ball&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "elB3aSjsgsE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch04-pet-toy-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch04-pet-toy-finds.mp4",
+  "seconds": 31,
+  "image": "https://images.pexels.com/videos/11083216/pexels-photo-11083216.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/dog-on-couch-11083216/"
+}

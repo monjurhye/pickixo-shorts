@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch16-connected-home-basics",
+  "date": "2026-11-21",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "4 Essentials for a Connected Home",
+  "hook": "Upgrade your space with smart basics",
+  "description": "A quick slideshow of four essential smart devices for a connected home. Tap the links to explore each item on Amazon.",
+  "items": [
+    {
+      "name": "Smart door lock",
+      "benefit": "Keyless access for peace of mind",
+      "amazon_search": "smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "Voice control for hands-free help",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "Central control for devices",
+      "amazon_search": "smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Detect movement to automate lighting",
+      "amazon_search": "smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "ruTKdbv_9Dk",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch16-connected-home-basics/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch16-connected-home-basics.mp4",
+  "seconds": 36,
+  "image": "https://images.pexels.com/videos/14054600/candle-light-date-night-fireplace-home-decor-14054600.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/fireplace-in-room-14054600/"
+}

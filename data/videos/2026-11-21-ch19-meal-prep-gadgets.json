@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch19-meal-prep-gadgets",
+  "date": "2026-11-21",
+  "channel_id": "ch19",
+  "channel_name": "Sai Ma",
+  "niche": "Baking tools",
+  "title": "Meal Prep Gadgets for Busy Kitchens",
+  "hook": "Boost your meal prep today",
+  "description": "Quick picks for practical meal prep gadgets that streamline routines. Each item links to its Amazon search.",
+  "items": [
+    {
+      "name": "Herb scissors",
+      "benefit": "Chop herbs quickly",
+      "amazon_search": "herb scissors",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=herb+scissors&tag=monjur09-20"
+    },
+    {
+      "name": "Adjustable vegetable peeler",
+      "benefit": "Peels produce smoothly",
+      "amazon_search": "adjustable vegetable peeler",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=adjustable+vegetable+peeler&tag=monjur09-20"
+    },
+    {
+      "name": "Mango slicer",
+      "benefit": "Slice mango mess-free",
+      "amazon_search": "mango slicer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=mango+slicer&tag=monjur09-20"
+    },
+    {
+      "name": "Stackable lunch containers",
+      "benefit": "Portion control on the go",
+      "amazon_search": "stackable lunch containers",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stackable+lunch+containers&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "GQfXWLXir_0",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch19-meal-prep-gadgets/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch19-meal-prep-gadgets.mp4",
+  "seconds": 34,
+  "image": "https://images.pexels.com/videos/6929486/at-home-beverages-cinnamon-sticks-cosy-6929486.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/woman-making-coffee-with-turkish-coffee-pot-6929486/"
+}
