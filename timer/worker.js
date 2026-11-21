@@ -14,7 +14,7 @@ const REPO = "monjurhye/pickixo-shorts";
 
 // UTC "HH:MM" -> workflows to start (the cron fires every 10 minutes, so minutes are 00/10/20/...)
 const PLAN = {
-  "02:00": [["ideas.yml", { mode: "fb" }]],        // 8am Bangladesh: Facebook posts
+  "02:00": [["ideas.yml", { mode: "fb" }]],        // 8am Bangladesh: Facebook posts + Modern Tech Life posts
   "09:00": [["medium.yml", {}]],                    // AppSumo draft
   "11:30": [["pins.yml", {}]],                      // Pinterest pins for the day
   "12:00": [["products.yml", {}]],                  // product finder (only channels that need it)

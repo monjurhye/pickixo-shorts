@@ -146,7 +146,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl")]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -201,13 +201,13 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#xpost">🔁 Cross-post</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#xpost">🔁 Cross-post</a><a href="#mtl">🇧🇩 Modern Tech Life</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
 ${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -387,7 +387,7 @@ async function copyDraft(id){
   try{ await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([h],{type:'text/html'}),'text/plain':new Blob([t],{type:'text/plain'})})]); alert('Article copied. Paste it into the Medium editor.'); }
   catch(e){ try{ await navigator.clipboard.writeText(t); alert('Copied as plain text.'); }catch(e2){ alert('Copy failed: select the preview and press Cmd+C.'); } }
 }
-async function copyText(id){ try{ await navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Tags copied.'); }catch(e){ alert('Copy failed.'); } }
+async function copyText(id){ try{ await navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Copied.'); }catch(e){ alert('Copy failed.'); } }
 </script>`;
 }
 
@@ -521,6 +521,21 @@ ${pill("threads", !!xp.threads, "Threads" + (xp.threads && xp.threads.username ?
 In development mode that Facebook account and the Threads account must be added as testers of the Meta app.</p></div>
 <div class="card"><h3>Recent${rep.queue && rep.queue.date ? " · today's queue: " + rep.queue.keys.length : ""}</h3>
 <table class="keep"><thead><tr><th>When</th><th>Video</th><th>YT views</th><th>FB</th><th>IG</th><th>Threads</th><th>Bluesky</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// Today's 3 honest Bangla posts for the "Modern Tech Life" page (pipeline/mtl_posts.py).
+function mtlSection(d) {
+  const label = { morning: "সকাল · শেখানো", afternoon: "দুপুর · আমার আসল ফল", evening: "রাত · সতর্কতা / প্রশ্ন" };
+  const cards = d ? d.posts.map((p, n) => `<div class="card"><span class="pill on">${esc(label[p.slot] || p.slot)}</span>
+${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}
+<div class="prompt" id="mtl-${n}" style="white-space:pre-wrap">${esc(p.text)}\n\n${esc(p.hashtags.map((h) => "#" + h).join(" "))}</div>
+<div class="row"><button type="button" onclick="copyText('mtl-${n}')">📋 Copy post</button></div></div>`).join("") : "";
+  const src = d && d.sources.length ? `<p class="muted">Sources checked: ${d.sources.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, "").slice(0, 40))}</a>`).join(" · ")}</p>` : "";
+  return `<h2 id="mtl">Modern Tech Life · daily Bangla posts</h2>
+<p class="muted">Every morning AI researches ONE real, current way to earn with AI from Bangladesh (web search, sources below) and writes 3 honest
+posts: a how-to, your real result (only from config/mtl_facts.json) and a warning or question. No income promises. Read each post, then copy it to
+<a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a>.${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>
+${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts yet. They arrive with the 8am (Bangladesh) run.</p>'}${src}`;
 }
 
 function magnificToolSection() {
