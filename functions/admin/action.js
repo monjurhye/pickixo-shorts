@@ -59,11 +59,11 @@ export async function onRequestPost(context) {
     await putManual(env, manual);
     return redirect("/admin?msg=" + encodeURIComponent(m) + "#earnings");
   }
-  if (action === "mtl_page" || action === "mtl_auto") {
+  if (action === "mtl_auto" || action === "mtl_disconnect") {
     const c = await getMtlCfg(env);
-    if (action === "mtl_page") c.page_id = String(form.get("page") || "").slice(0, 40); else c.off = !c.off;
+    if (action === "mtl_disconnect") delete c.page; else c.off = !c.off;
     await putMtlCfg(env, c);
-    return redirect("/admin?msg=" + encodeURIComponent(action === "mtl_page" ? "Page saved." : (c.off ? "Auto-post off." : "Auto-post on.")) + "#mtl");
+    return redirect("/admin?msg=" + encodeURIComponent(action === "mtl_disconnect" ? "Modern Tech Life disconnected." : (c.off ? "Auto-post off." : "Auto-post on.")) + "#mtl");
   }
   if (action.startsWith("xp_")) {
     const xp = await getXp(env);

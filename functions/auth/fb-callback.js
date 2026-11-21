@@ -1,6 +1,7 @@
 // GET /auth/fb-callback -> code -> long-lived user token -> Page tokens (stored in KV, never shown)
 import { cookie, getCookie, redirect, session, verify } from "../../lib/dashboard.js";
 import { GRAPH, fbCallbackUrl, getFb, putFb } from "../../lib/fb.js";
+import { getMtlCfg, putMtlCfg } from "../../lib/mtl.js";
 
 const back = (msg, h) => redirect("/admin?msg=" + encodeURIComponent(msg) + "#facebook", h);
 
@@ -11,7 +12,7 @@ export async function onRequestGet(context) {
   const u = new URL(request.url);
   if (u.searchParams.get("error")) return back("Facebook: " + (u.searchParams.get("error_description") || "cancelled"), clear);
   const st = await verify(env, getCookie(request, "pk_fboauth"));
-  if (!st || st.mode !== "fb" || st.nonce !== u.searchParams.get("state")) return back("Login expired, try again.", clear);
+  if (!st || (st.mode !== "fb" && st.mode !== "mtl") || st.nonce !== u.searchParams.get("state")) return back("Login expired, try again.", clear);
   const q = (o) => new URLSearchParams(o).toString();
   let r = await fetch(GRAPH + "/oauth/access_token?" + q({ client_id: env.FB_APP_ID, client_secret: env.FB_APP_SECRET,
     redirect_uri: fbCallbackUrl(request), code: u.searchParams.get("code") || "" }));
@@ -25,6 +26,16 @@ export async function onRequestGet(context) {
   d = await r.json();
   const pages = (d.data || []).filter((p) => p.access_token).map((p) => ({ id: p.id, name: p.name, token: p.access_token,
     can_post: (p.tasks || []).includes("CREATE_CONTENT") || (p.tasks || []).includes("MANAGE") }));
+  if (st.mode === "mtl") {
+    // Modern Tech Life only: keep just that page's token; the other Facebook connections stay as they are
+    const toMtl = (m) => redirect("/admin?msg=" + encodeURIComponent(m) + "#mtl", clear);
+    const pg = pages.find((p) => /modern\s*tech\s*life/i.test(p.name)) || (pages.length === 1 ? pages[0] : null);
+    if (!pg) return toMtl("Modern Tech Life page did not come back. Click Connect again and tick only Modern Tech Life.");
+    const c = await getMtlCfg(env);
+    c.page = { id: pg.id, name: pg.name, token: pg.token, connected_at: new Date().toISOString() };
+    await putMtlCfg(env, c);
+    return toMtl("Connected: " + pg.name + ". Daily posts will go there automatically.");
+  }
   if (!pages.length) return back("No Pages came back. Make sure you ticked your Page in the Facebook dialog.", clear);
   const cur = await getFb(env);
   const active = pages.some((p) => p.id === cur.active) ? cur.active : pages[0].id;

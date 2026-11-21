@@ -532,16 +532,19 @@ ${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}${p.fb ? `<
 <div class="prompt" id="mtl-${n}" style="white-space:pre-wrap">${esc(p.text)}\n\n${esc(p.hashtags.map((h) => "#" + h).join(" "))}</div>
 <div class="row"><button type="button" onclick="copyText('mtl-${n}')">📋 Copy post</button></div></div>`).join("") : "";
   const src = d && d.sources.length ? `<p class="muted">Sources checked: ${d.sources.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, "").slice(0, 40))}</a>`).join(" · ")}</p>` : "";
-  const opts = mp.pages.map((x) => `<option value="${esc(x.id)}"${mp.page && mp.page.id === x.id ? " selected" : ""}>${esc(x.name)}</option>`).join("");
-  const auto = `<div class="card"><h3>🤖 Auto-post: ${mp.cfg.off ? "OFF" : mp.page ? "ON → " + esc(mp.page.name) : "waiting for the page"}</h3>
-${mp.page ? "" : `<p><span class="pill err">Modern Tech Life page not connected</span> Go to 🔁 Cross-post → reconnect Facebook and tick <b>Modern Tech Life</b> in the Facebook dialog (keep the other pages ticked).</p>`}
-<p class="muted">Posts are scheduled on the page at 9am, 2pm and 8pm (Bangladesh). A post with a warning is not posted: it waits here.</p>
-<form method="post" action="/admin/action" class="row"><input type="hidden" name="do" value="mtl_page"><select name="page">${opts || "<option value=''>(no pages)</option>"}</select><button>Save page</button></form>
-<form method="post" action="/admin/action"><input type="hidden" name="do" value="mtl_auto"><button>${mp.cfg.off ? "Turn auto-post on" : "Turn auto-post off"}</button></form></div>`;
+  const auto = mp.page
+    ? `<div class="card"><h3>🤖 Direct posting: ${mp.cfg.off ? "OFF" : "ON"} → ${esc(mp.page.name)}</h3>
+<p class="muted">Each day's 3 posts go straight to this page at 9am, 2pm and 8pm (Bangladesh). A post with a warning is not posted: it waits here.</p>
+<div class="row"><form method="post" action="/admin/action"><input type="hidden" name="do" value="mtl_auto"><button>${mp.cfg.off ? "Turn posting on" : "Turn posting off"}</button></form>
+<a class="btn" href="/auth/fb-connect?for=mtl">Reconnect</a>
+<form method="post" action="/admin/action"><input type="hidden" name="do" value="mtl_disconnect"><button>Disconnect</button></form></div></div>`
+    : `<div class="card"><h3>🤖 Direct posting: not connected</h3>
+<p>Click the button, log in with the Facebook account that manages <b>Modern Tech Life</b>, and tick only that page.</p>
+<p><a class="btn primary" href="/auth/fb-connect?for=mtl">f Connect Modern Tech Life page</a></p></div>`;
   return `<h2 id="mtl">Modern Tech Life · daily Bangla posts</h2>
 <p class="muted">Every morning AI researches ONE real, current way to earn with AI from Bangladesh (web search, sources below) and writes 3 honest
-posts: a how-to, your real result (only from config/mtl_facts.json) and a warning or question. No income promises. Read each post, then copy it to
-<a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a> (or let auto-post do it).${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>
+posts: a how-to, your real result (only from config/mtl_facts.json) and a warning or question. No income promises. They are posted directly on
+<a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a>; copy buttons are here too.${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>
 ${auto}${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts yet. They arrive with the 8am (Bangladesh) run.</p>'}${src}`;
 }
 
