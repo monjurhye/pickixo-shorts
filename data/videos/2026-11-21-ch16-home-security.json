@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch16-home-security",
+  "date": "2026-11-21",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Home Security Essentials",
+  "hook": "Security basics you can install fast",
+  "description": "A quick slide on four security-focused devices you can add to a smart home setup.",
+  "items": [
+    {
+      "name": "Door lock",
+      "benefit": "Keyless entry for easy access",
+      "amazon_search": "door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "Voice control for smart routines",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "Central control for devices",
+      "amazon_search": "smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Motion sensor",
+      "benefit": "Detect motion to trigger actions",
+      "amazon_search": "motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "pjKvjLig3LM",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch16-home-security/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch16-home-security.mp4",
+  "seconds": 34,
+  "image": "https://images.pexels.com/videos/37672645/pexels-photo-37672645.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cozy-sunlit-living-room-with-elegant-chandelier-37672645/"
+}

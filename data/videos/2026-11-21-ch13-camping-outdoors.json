@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch13-camping-outdoors",
+  "date": "2026-11-21",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Camping Essentials Finds",
+  "hook": "Camping essentials you’ll actually use",
+  "description": "Quick list of practical camping essentials you can add to your kit. Each item helps with simple, everyday outdoor tasks.",
+  "items": [
+    {
+      "name": "Portable camping stove",
+      "benefit": "Fast, clean meals on trail",
+      "amazon_search": "portable camping stove",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+camping+stove&tag=monjur09-20"
+    },
+    {
+      "name": "Collapsible camping mug",
+      "benefit": "Lightweight, packable drinkware",
+      "amazon_search": "collapsible camping mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=collapsible+camping+mug&tag=monjur09-20"
+    },
+    {
+      "name": "LED camp lantern",
+      "benefit": "Bright, long-lasting illumination",
+      "amazon_search": "LED camp lantern",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=LED+camp+lantern&tag=monjur09-20"
+    },
+    {
+      "name": "Compact travel towel",
+      "benefit": "Quick-dry, space-saving",
+      "amazon_search": "compact travel towel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+travel+towel&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "XRgx9Po85Js",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch13-camping-outdoors/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch13-camping-outdoors.mp4",
+  "seconds": 33,
+  "image": "https://images.pexels.com/videos/39657533/pexels-photo-39657533.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/misty-mountain-forest-with-sunrise-glow-39657533/"
+}

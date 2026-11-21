@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch15-home-tech",
+  "date": "2026-11-21",
+  "channel_id": "ch15",
+  "channel_name": "LuxeSolar Pets",
+  "niche": "Gaming accessories",
+  "title": "Home Tech Setup Essentials",
+  "hook": "Upgrade your setup fast",
+  "description": "Four essential tech items that fit a clean, modern setup. Perfect for shoppers looking for practical upgrade ideas.",
+  "items": [
+    {
+      "name": "Mechanical keyboard",
+      "benefit": "responsive keys for quick gaming",
+      "amazon_search": "mechanical keyboard",
+      "asin": "B0F8HVVBYK",
+      "link": "https://www.amazon.com/dp/B0F8HVVBYK?tag=monjur09-20"
+    },
+    {
+      "name": "Gaming monitor",
+      "benefit": "sharp visuals with smooth action",
+      "amazon_search": "gaming monitor",
+      "asin": "B0D685SYKN",
+      "link": "https://www.amazon.com/dp/B0D685SYKN?tag=monjur09-20"
+    },
+    {
+      "name": "Controller charging station",
+      "benefit": "keeps controllers ready to use",
+      "amazon_search": "controller charging station",
+      "asin": "B0HD6KVGTV",
+      "link": "https://www.amazon.com/dp/B0HD6KVGTV?tag=monjur09-20"
+    },
+    {
+      "name": "VR headset",
+      "benefit": "immersive play experiences",
+      "amazon_search": "VR headset",
+      "asin": "B0CD1JTBSC",
+      "link": "https://www.amazon.com/dp/B0CD1JTBSC?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "bnWPRv2qQfY",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch15-home-tech/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch15-home-tech.mp4",
+  "seconds": 33,
+  "image": "https://images.pexels.com/videos/28400000/laptop-setup-28400000.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/laptop-setup-28400000/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch02-desk-finds",
+  "date": "2026-11-21",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Desk Finds",
+  "hook": "Desk finds for tidy desks",
+  "description": "Four desk-friendly gifts you can find on Amazon. Great for office setups or travel days.",
+  "items": [
+    {
+      "name": "Desk organizer tray",
+      "benefit": "Keeps loose items neatly tucked away",
+      "amazon_search": "desk organizer tray",
+      "asin": "B0D9M2D3HY",
+      "link": "https://www.amazon.com/dp/B0D9M2D3HY?tag=monjur09-20"
+    },
+    {
+      "name": "Compact Bluetooth speaker",
+      "benefit": "Great sound for small spaces",
+      "amazon_search": "compact Bluetooth speaker",
+      "asin": "B07CVPZJTV",
+      "link": "https://www.amazon.com/dp/B07CVPZJTV?tag=monjur09-20"
+    },
+    {
+      "name": "Stainless steel tumbler",
+      "benefit": "Keeps drinks hot or cold",
+      "amazon_search": "stainless steel tumbler",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    },
+    {
+      "name": "Travel card game set",
+      "benefit": "Fun on road trips or breaks",
+      "amazon_search": "travel card game set",
+      "asin": "B0D51F42SW",
+      "link": "https://www.amazon.com/dp/B0D51F42SW?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "OeZ1DHoXcQo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch02-desk-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch02-desk-finds.mp4",
+  "seconds": 31,
+  "image": "https://images.pexels.com/videos/28400000/laptop-setup-28400000.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/laptop-setup-28400000/"
+}

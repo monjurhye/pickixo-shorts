@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch06-bathroom-essentials",
+  "date": "2026-11-21",
+  "channel_id": "ch06",
+  "channel_name": "PetSolar Tracker",
+  "niche": "Bathroom finds",
+  "title": "Bathroom Essentials: Quick Finds",
+  "hook": "Must-have bath basics",
+  "description": "Four bathroom essentials to streamline daily routines. Find practical, common items for any bathroom setup.",
+  "items": [
+    {
+      "name": "Self-draining soap dish",
+      "benefit": "Keeps countertop dry",
+      "amazon_search": "self-draining soap dish bathroom",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=self-draining+soap+dish+bathroom&tag=monjur09-20"
+    },
+    {
+      "name": "Shower squeegee",
+      "benefit": "Streak-free glass daily",
+      "amazon_search": "shower squeegee",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=shower+squeegee&tag=monjur09-20"
+    },
+    {
+      "name": "Non-slip bath mat",
+      "benefit": "Safe, comfy feet",
+      "amazon_search": "non-slip bath mat",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=non-slip+bath+mat&tag=monjur09-20"
+    },
+    {
+      "name": "Over-the-door towel rack",
+      "benefit": "Easy extra towel storage",
+      "amazon_search": "over the door towel rack",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=over+the+door+towel+rack&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "6lY3U4mzTVo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch06-bathroom-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch06-bathroom-essentials.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/6716288/after-bath-bath-bathrobe-bathroom-6716288.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-man-reading-a-book-while-a-woman-sitting-in-a-bathtub-6716288/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch01-kitchen-organizers",
+  "date": "2026-11-21",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Kitchen organizers finds",
+  "hook": "Declutter your kitchen now",
+  "description": "Four practical kitchen organizers you can find on Amazon. Great for decluttering and easy reach.",
+  "items": [
+    {
+      "name": "Magnetic spice rack",
+      "benefit": "Keeps spices within easy reach",
+      "amazon_search": "magnetic spice rack organizer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=magnetic+spice+rack+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Under-sink organizer",
+      "benefit": "Declutters cabinet space",
+      "amazon_search": "under sink organizer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=under+sink+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Stackable pantry shelf",
+      "benefit": "Maximizes vertical storage",
+      "amazon_search": "stackable pantry shelf",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stackable+pantry+shelf&tag=monjur09-20"
+    },
+    {
+      "name": "Sink organizer tray",
+      "benefit": "Stays tidy and accessible",
+      "amazon_search": "sink organizer tray",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=sink+organizer+tray&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "EMsqMSfUrvY",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch01-kitchen-organizers/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch01-kitchen-organizers.mp4",
+  "seconds": 34,
+  "image": "https://images.pexels.com/videos/34822125/beautifull-kitchen-sink-and-faucet-with-water-running-while-a-coffee-maker-brews-nearby-34822125.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-kitchen-counter-with-appliances-and-faucet-34822125/"
+}

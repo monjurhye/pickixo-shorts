@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-21-ch05-sip-serve-essentials",
+  "date": "2026-11-21",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "4 Essential Coffee Accessories",
+  "hook": "Must-have coffee essentials",
+  "description": "Discover four essential coffee accessories to level up your brew. Simple, reliable tools to help you brew better at home.",
+  "items": [
+    {
+      "name": "Manual coffee grinder",
+      "benefit": "Grinds fresh beans evenly",
+      "amazon_search": "manual coffee grinder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=manual+coffee+grinder&tag=monjur09-20"
+    },
+    {
+      "name": "Stainless milk pitcher",
+      "benefit": "Smooth, glossy pours every time",
+      "amazon_search": "stainless milk pitcher",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stainless+milk+pitcher&tag=monjur09-20"
+    },
+    {
+      "name": "Double-walled glass mug",
+      "benefit": "Keeps drinks hot or cold",
+      "amazon_search": "double-walled glass coffee mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=double-walled+glass+coffee+mug&tag=monjur09-20"
+    },
+    {
+      "name": "Coffee scale",
+      "benefit": "Precise measurements for recipes",
+      "amazon_search": "coffee scale",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=coffee+scale&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "knthLdUQUhI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-21-ch05-sip-serve-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-21/2026-11-21-ch05-sip-serve-essentials.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/37522003/pexels-photo-37522003.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/pour-over-coffee-in-modern-kitchen-setting-37522003/"
+}
