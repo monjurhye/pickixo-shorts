@@ -23,7 +23,15 @@ Look at the image and return:
   centre of the full-size file: judge real detail there. 7+ only if textures look natural (no
   plastic/waxy surfaces, no smeared details, no over-sharpened halos, no upscaling artifacts),
   light and composition are professional and nothing looks AI-broken. Any fake text = 5 or less.
-- quality_notes: one short sentence on the main weakness (or "clean").`;
+- quality_notes: one short sentence on the main weakness (or "clean").
+- checks (answer each honestly, these decide acceptance):
+  - text_or_numbers: true if ANY letters, digits, tick marks or scale markings are visible anywhere
+    (measuring tapes, rulers, clocks, books, labels, packaging, screens, signs, receipts).
+  - subject_sharp: true only if the main subject is crisp at 100% (the crop), not soft or smeared.
+  - hazy_or_noisy: true if the image is foggy/dreamy, mostly out of focus, dark with grain/noise,
+    or heavy glow/bloom hides detail.
+  - fiddly_objects_broken: true if scissors, cutlery, string/twine/ribbon, jewelry, plants or hands
+    look tangled, melted, merged or physically impossible.`;
 
 const SCHEMA = {
   type: "object",
@@ -34,10 +42,36 @@ const SCHEMA = {
     problems: { type: "array", items: { type: "string" } },
     quality: { type: "integer" },
     quality_notes: { type: "string" },
+    checks: {
+      type: "object",
+      properties: {
+        text_or_numbers: { type: "boolean" },
+        subject_sharp: { type: "boolean" },
+        hazy_or_noisy: { type: "boolean" },
+        fiddly_objects_broken: { type: "boolean" },
+      },
+      required: ["text_or_numbers", "subject_sharp", "hazy_or_noisy", "fiddly_objects_broken"],
+      additionalProperties: false,
+    },
   },
-  required: ["title", "keywords", "category", "problems", "quality", "quality_notes"],
+  required: ["title", "keywords", "category", "problems", "quality", "quality_notes", "checks"],
   additionalProperties: false,
 };
+
+// Turn the yes/no checks into hard rules (Magnific rejected images for exactly these reasons).
+function applyChecks(d) {
+  const c = d.checks || {};
+  const problems = d.problems || [];
+  let cap = 10;
+  const flag = (msg, max) => { if (!problems.some((p) => p.toLowerCase().includes(msg.split(" ")[0]))) problems.push(msg); cap = Math.min(cap, max); };
+  if (c.text_or_numbers) flag("text or numbers visible (AI usually garbles them)", 5);
+  if (c.fiddly_objects_broken) flag("small objects look tangled or broken", 5);
+  if (c.subject_sharp === false) flag("main subject is not sharp at 100%", 6);
+  if (c.hazy_or_noisy) flag("hazy, out of focus or noisy", 6);
+  d.problems = problems;
+  d.quality = Math.min(Number(d.quality) || 0, cap);
+  return d;
+}
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -49,7 +83,7 @@ export async function onRequestPost(context) {
   const body = {
     model: "gpt-5-nano",
     instructions: INSTRUCTIONS,
-    reasoning: { effort: "low" },
+    reasoning: { effort: "medium" },
     max_output_tokens: 8000,
     text: { format: { type: "json_schema", name: "meta", strict: true, schema: SCHEMA } },
     input: [{ role: "user", content: [
@@ -69,7 +103,9 @@ export async function onRequestPost(context) {
     let text = d.output_text || "";
     if (!text) for (const o of d.output || []) for (const c of o.content || []) if (c.type === "output_text") text += c.text;
     if (text.trim()) {
-      try { return json(JSON.parse(text)); } catch (e) { /* retry */ }
+      let d2;
+      try { d2 = JSON.parse(text); } catch (e) { continue; }
+      return json(applyChecks(d2));
     }
   }
   return json({ error: "AI gave no answer, try again" }, 502);

@@ -55,6 +55,22 @@
     return btoa(s);
   }
 
+  // Same edge-energy measure as the Mac tool (PIL FIND_EDGES mean on the 100% crop); very low = soft.
+  const MIN_SHARPNESS = 2.5;
+  function sharpness(canvas) {
+    const { width: w, height: h } = canvas;
+    const px = canvas.getContext("2d").getImageData(0, 0, w, h).data;
+    const g = new Float32Array(w * h);
+    for (let i = 0; i < w * h; i++) g[i] = 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2];
+    let sum = 0, n = 0;
+    for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+      const i = y * w + x;
+      let v = 8 * g[i] - g[i - 1] - g[i + 1] - g[i - w] - g[i + w] - g[i - w - 1] - g[i - w + 1] - g[i + w - 1] - g[i + w + 1];
+      sum += v < 0 ? 0 : v > 255 ? 255 : v; n++;
+    }
+    return n ? sum / n : 0;
+  }
+
   function cleanKeywords(list) {
     const seen = new Set(), out = [];
     for (let k of list || []) {
@@ -170,6 +186,12 @@
       keywords: cleanKeywords(d.keywords), category: d.category, quality: d.quality,
       notes: d.quality_notes, problems: d.problems || [],
     };
+    item.sharpness = Math.round(sharpness(crop) * 10) / 10;
+    if (item.sharpness < MIN_SHARPNESS) {
+      item.problems.push(`soft at 100% (sharpness ${item.sharpness}, needs ${MIN_SHARPNESS}+)`);
+      item.quality = Math.min(item.quality, 6);
+    }
+    item.notes = (item.notes || "") + ` · sharpness ${item.sharpness}`;
     item.include = item.quality >= MIN_QUALITY && item.problems.length === 0;
     results.push(item);
     row.innerHTML = cardHtml(item, results.length - 1);
