@@ -59,6 +59,16 @@ Rules so images get APPROVED (Magnific rejects these):
   scenes, flat lays, backgrounds, people at medium distance.
 - Useful for designers: clean composition, copy space where it fits, good light.
 - Each prompt must be clearly different from the others (no near-duplicates).
+- NO objects that carry marks AI garbles: measuring tapes, rulers, clocks/watches, calendars,
+  books/notebooks with pages showing, newspapers, labels, price tags, packaging print, keyboards,
+  screens, maps, signs, receipts, game boards with numbers. Closed plain notebooks are fine.
+- NO fiddly small objects AI tangles or melts: scissors, twine/string/ribbon/yarn piles,
+  jewelry chains, cutlery bundles, cables, wire, lace, eyeglasses, hands holding small things.
+- NO mood that hides detail: fog, mist, haze, steam clouds, rain on windows, dim candle-light,
+  heavy glow/bloom, dreamy soft focus, very dark scenes. The main subject must be in SHARP focus
+  with bright, even daylight; only a gentle background blur is allowed.
+- One clear hero subject (2 to 4 simple objects at most) on a clean background; leave space
+  around it. Simple shapes (ceramics, fruit, plants, wood, linen, paper) work best.
 
 Quality (Magnific rejects "Low quality" a lot): ask for real, detailed textures (wood grain,
 linen weave, knit wool, ceramic glaze, skin pores at medium distance), natural light with
@@ -75,6 +85,14 @@ best_tool: prefer Adobe Firefly (large output, no upscaling needed) for photos a
 lifestyle; Ideogram for graphic/illustration/poster looks; FLUX.1 schnell only for simple
 photoreal objects or backgrounds. keywords: 10 lowercase buyer search terms.
 season_note: one sentence on what buyers are preparing for right now."""
+
+
+# Words that got (or usually get) AI stock images rejected: garbled marks, tangled small
+# objects, hazy/dim moods. Flagged on the idea card if the model still uses them.
+RISKY = ("measuring tape", "tape measure", "ruler", "clock", "watch", "calendar", "newspaper",
+         "open book", "label", "price tag", "scissors", "twine", "string", "ribbon", "yarn",
+         "lace", "chain", "fog", "mist", "haze", "steam", "rain on", "candlelight", "candle light",
+         "dim light", "dreamy", "glow")
 
 
 def main():
@@ -98,6 +116,9 @@ def main():
     for i in ideas:
         if any(b in i["prompt"].lower() for b in bad):
             i["avoid"] = ("Prompt mentions a brand/style word; edit before using. " + i["avoid"]).strip()
+        risky = [w for w in RISKY if w in i["prompt"].lower()]
+        if risky:
+            i["avoid"] = ("Risky for approval ({0}): remove before using. ".format(", ".join(risky)) + i["avoid"]).strip()
     payload = {"date": today.strftime("%Y-%m-%d"), "created": today.strftime("%Y-%m-%dT%H:%M:%SZ"),
                "season_note": res.get("season_note", ""), "ideas": ideas}
     if dashboard.enabled():

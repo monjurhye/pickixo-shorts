@@ -24,6 +24,9 @@ Look at the image and return:
   plastic/waxy surfaces, no smeared details, no over-sharpened halos, no upscaling artifacts),
   light and composition are professional and nothing looks AI-broken. Any fake text = 5 or less.
 - quality_notes: one short sentence on the main weakness (or "clean").
+- Images 3 and 4 (when present) are 100% crops of the most detailed areas: inspect every small
+  object there (ribbons, tape, string, scissors, labels, leaves) at full size before answering.
+  If markings MIGHT be text or numbers (e.g. a measuring-tape pattern), treat them as text.
 - checks (answer each honestly, these decide acceptance):
   - text_or_numbers: true if ANY letters, digits, tick marks or scale markings are visible anywhere
     (measuring tapes, rulers, clocks, books, labels, packaging, screens, signs, receipts).
@@ -80,16 +83,18 @@ export async function onRequestPost(context) {
   const b = await request.json();
   const ok = (s) => typeof s === "string" && s.length > 100 && s.length < 3_000_000;
   if (!ok(b.preview) || !ok(b.crop)) return json({ error: "bad image data" }, 400);
+  const extra = (Array.isArray(b.extra) ? b.extra : []).filter(ok).slice(0, 2);
   const body = {
     model: "gpt-5-nano",
     instructions: INSTRUCTIONS,
-    reasoning: { effort: "medium" },
+    reasoning: { effort: "high" },
     max_output_tokens: 8000,
     text: { format: { type: "json_schema", name: "meta", strict: true, schema: SCHEMA } },
     input: [{ role: "user", content: [
-      { type: "input_text", text: "Write the metadata. First image: whole picture (reduced). Second: 100% centre crop." },
+      { type: "input_text", text: "Write the metadata. First image: whole picture (reduced). Second: 100% centre crop. Any further images: 100% crops of the most detailed areas." },
       { type: "input_image", image_url: "data:image/jpeg;base64," + b.preview },
       { type: "input_image", image_url: "data:image/jpeg;base64," + b.crop },
+      ...extra.map((e) => ({ type: "input_image", image_url: "data:image/jpeg;base64," + e })),
     ] }],
   };
   for (let attempt = 0; attempt < 2; attempt++) {

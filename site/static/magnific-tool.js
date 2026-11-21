@@ -71,6 +71,31 @@
     return n ? sum / n : 0;
   }
 
+  // 100% crops of the two most detailed areas outside the centre (small objects, text, ribbons
+  // often sit at the sides, where a single centre crop never looks).
+  function busiestCrops(full, prev, W, H, cx, cy, cs) {
+    const t = Math.min(768, W, H), step = Math.round(t / 2), k = prev.width / W;
+    const cand = [];
+    const pos = (L) => { const a = []; for (let v = 0; v + t <= L; v += step) a.push(v); if (a[a.length - 1] !== L - t) a.push(L - t); return a; };
+    for (const y of pos(H)) for (const x of pos(W)) {
+      const ox = Math.max(0, Math.min(x + t, cx + cs) - Math.max(x, cx)), oy = Math.max(0, Math.min(y + t, cy + cs) - Math.max(y, cy));
+      if (ox * oy > 0.5 * t * t) continue;                       // mostly the centre crop already
+      const sw = Math.max(8, Math.round(t * k));
+      const small = canvasOf(sw, sw);
+      small.getContext("2d").drawImage(prev, x * k, y * k, t * k, t * k, 0, 0, sw, sw);
+      cand.push({ x, y, e: sharpness(small) });
+    }
+    cand.sort((a, b) => b.e - a.e);
+    const pick = [];
+    for (const c of cand) {
+      if (c.e < 1) break;                                         // flat area: nothing to inspect
+      if (pick.some((p) => Math.abs(p.x - c.x) < t * 0.7 && Math.abs(p.y - c.y) < t * 0.7)) continue;
+      pick.push(c);
+      if (pick.length === 2) break;
+    }
+    return pick.map((p) => { const c = canvasOf(t, t); c.getContext("2d").drawImage(full, p.x, p.y, t, t, 0, 0, t, t); return c; });
+  }
+
   function cleanKeywords(list) {
     const seen = new Set(), out = [];
     for (let k of list || []) {
@@ -168,11 +193,13 @@
     const s = Math.min(1024, W, H);
     const crop = canvasOf(s, s);
     crop.getContext("2d").drawImage(full, (W - s) / 2, (H - s) / 2, s, s, 0, 0, s, s);
+    const extra = busiestCrops(full, prev, W, H, (W - s) / 2, (H - s) / 2, s);
 
     row.innerHTML = cardHtml({ name: file.name, size: note, busy: true, thumb: prev.toDataURL("image/jpeg", 0.7) });
     const r = await fetch("/api/magnific/meta", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ preview: await b64(prev, 0.85), crop: await b64(crop, 0.9) }),
+      body: JSON.stringify({ preview: await b64(prev, 0.85), crop: await b64(crop, 0.9),
+        extra: await Promise.all(extra.map((c) => b64(c, 0.88))) }),
     });
     const d = await r.json().catch(() => ({ error: "bad reply" }));
     if (!r.ok || d.error) {
