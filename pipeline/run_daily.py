@@ -10,7 +10,7 @@ import argparse
 import os
 import shutil
 
-from . import common, content, dashboard, pexels, render, report, state, tts, youtube
+from . import clips, common, content, dashboard, pexels, render, report, state, tts, youtube
 
 
 def build_description(script, page_url, links, cfg):
@@ -104,6 +104,14 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
             chstate["upload_errors"] = 0
             row.update(status="uploaded", video_id=video_id, note=script["title"])
 
+        # 4b. keep the file for cross-posting (Instagram / Facebook / Threads / Bluesky); never fatal
+        clip = ""
+        if video_id:
+            try:
+                clip = clips.save(out_mp4, date, key)
+            except Exception as e:
+                common.log("[{0}] clip not kept: {1}".format(ch["id"], e))
+
         # 5. record for the website (skipped on dry runs and no-upload tests)
         if not dry and not no_upload:
             state.remember_topic(chstate, script["topic"])
@@ -113,7 +121,7 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
                 "channel_name": ch.get("name", ""), "niche": ch["niche"],
                 "title": script["title"], "hook": script["hook"],
                 "description": script["description"], "items": links,
-                "youtube_id": video_id, "page_url": page_url, **cover,
+                "youtube_id": video_id, "page_url": page_url, "clip": clip, "seconds": round(seconds), **cover,
             })
         if dry or no_upload:
             row["note"] += " | title: " + script["title"] + " | clips: " + str(len(clip_paths))

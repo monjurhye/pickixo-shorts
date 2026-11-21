@@ -14,6 +14,8 @@
   "youtube_privacy": "public",
   "youtube_category_id": "26",
   "music_volume": 1.0,
+  "xpost_per_day": 5,
+  "xpost_per_run": 2,
   "disclosure": "As an Amazon Associate I earn from qualifying purchases. #ad",
   "auto_disable_on_upload_errors": 2,
   "videos_per_channel_per_run": 1,

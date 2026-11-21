@@ -3,6 +3,7 @@ import { getState, putState, redirect, session } from "../../lib/dashboard.js";
 import { getPins, putPins } from "../../lib/pins.js";
 import { setIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, putManual } from "../../lib/earnings.js";
+import { getXp, putXp } from "../../lib/xpost.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -56,6 +57,26 @@ export async function onRequestPost(context) {
     manual.income = manual.income.slice(0, 1000); manual.costs = manual.costs.slice(0, 1000); manual.monthly = manual.monthly.slice(0, 30);
     await putManual(env, manual);
     return redirect("/admin?msg=" + encodeURIComponent(m) + "#earnings");
+  }
+  if (action.startsWith("xp_")) {
+    const xp = await getXp(env);
+    const f = (k, n) => String(form.get(k) || "").trim().slice(0, n);
+    let m = "Saved.";
+    if (action === "xp_page") xp.meta.active = f("page", 40);
+    else if (action === "xp_toggle") { const k = f("platform", 20); xp.off[k] = !xp.off[k]; m = k + (xp.off[k] ? " off." : " on."); }
+    else if (action === "xp_pause") { xp.paused = !xp.paused; m = xp.paused ? "Cross-posting paused." : "Cross-posting resumed."; }
+    else if (action === "xp_bsky") {
+      const handle = f("handle", 100).replace(/^@/, ""), pw = f("app_password", 40);
+      if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(handle) || !/^[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}$/i.test(pw))
+        return redirect("/admin?msg=" + encodeURIComponent("Use your handle (name.bsky.social) and an App Password like xxxx-xxxx-xxxx-xxxx (Bluesky → Settings → App passwords), not your login password.") + "#xpost");
+      xp.bluesky = { handle, app_password: pw }; m = "Bluesky saved: @" + handle;
+    } else if (action === "xp_disconnect") {
+      const k = f("kind", 10);
+      if (k === "meta") xp.meta = { pages: [], active: "" }; else if (k === "threads") delete xp.threads; else if (k === "bluesky") delete xp.bluesky;
+      m = "Disconnected.";
+    }
+    await putXp(env, xp);
+    return redirect("/admin?msg=" + encodeURIComponent(m) + "#xpost");
   }
   if (action === "ideas_request" || action === "ideas_cancel") {
     await setIdeasRequest(env, action === "ideas_request" ? { at: new Date().toISOString() } : null);

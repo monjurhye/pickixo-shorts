@@ -83,6 +83,17 @@ jobs:
           if [ -n "${{ inputs.channel }}" ]; then ARGS="$ARGS --channel ${{ inputs.channel }}"; fi
           python -m pipeline.run_daily $ARGS
 
+      - name: Cross-post the best Shorts (Facebook, Instagram, Threads, Bluesky)
+        if: ${{ !inputs.dry_run && !inputs.test_no_upload && !inputs.channel }}
+        continue-on-error: true
+        env:
+          PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          PAUSED: ${{ vars.PAUSED }}
+        run: |
+          if [ "$PAUSED" = "true" ]; then echo "paused"; exit 0; fi
+          python -m pipeline.xpost
+
       - name: Keep test videos for 2 days
         if: ${{ inputs.dry_run || inputs.test_no_upload }}
         uses: actions/upload-artifact@v4

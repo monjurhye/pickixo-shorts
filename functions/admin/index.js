@@ -4,6 +4,7 @@ import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, postbackToken } from "../../lib/earnings.js";
+import { getXp, getXpReport } from "../../lib/xpost.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -145,7 +146,7 @@ export async function onRequestGet(context) {
 ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p></div>`));
   }
 
-  const [chans, st, pins, drafts, ideas, ideasReq, earn] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env)]);
+  const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env)]);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -200,13 +201,13 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#xpost">🔁 Cross-post</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
 ${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -488,6 +489,38 @@ with a real chance to rank. Free (your Claude account, no API key). Turn on web 
 <script>(function(){var b=document.getElementById('appIdeaBtn'),p=${JSON.stringify(APP_IDEA_PROMPT).replace(/</g, "\\u003c")};
 function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d));}
 u();b.addEventListener('click',u);})();</script>`;
+}
+
+// Cross-posting the best Shorts to a separate Facebook Page + Instagram, Threads and Bluesky.
+function xpostSection(xp, rep) {
+  const page = xp.meta.pages.find((p) => p.id === xp.meta.active);
+  const pill = (k, ok, label) => `<form method="post" action="/admin/action" style="display:inline"><input type="hidden" name="platform" value="${k}">
+<button class="ico" name="do" value="xp_toggle" title="Switch on/off"><span class="pill ${ok && !xp.off[k] ? "on" : "off"}">${label}${ok ? (xp.off[k] ? " · off" : " · on") : " · not connected"}</span></button></form>`;
+  const disc = (k) => `<form method="post" action="/admin/action" style="display:inline"><input type="hidden" name="kind" value="${k}">
+<button class="danger ico" name="do" value="xp_disconnect" title="Disconnect">✕</button></form>`;
+  const pageSel = xp.meta.pages.length > 1 ? `<form method="post" action="/admin/action" class="ef"><select name="page">${xp.meta.pages.map((p) =>
+    `<option value="${esc(p.id)}"${p.id === xp.meta.active ? " selected" : ""}>${esc(p.name)}${p.ig_username ? " + @" + esc(p.ig_username) : ""}</option>`).join("")}</select>
+<button name="do" value="xp_page">Use this Page</button></form>` : "";
+  const res = (v) => !v ? "" : v.startsWith("ok") ? "✅" : `<span title="${esc(v)}">⚠️</span>`;
+  const rows = (rep.recent || []).map((r) => `<tr><td>${bdTime(r.at)}</td><td>${esc(r.title)}${r.error ? ` <span class="muted">${esc(r.error)}</span>` : ""}</td>
+<td>${r.views >= 0 ? r.views : "—"}</td><td>${res(r.facebook)}</td><td>${res(r.instagram)}</td><td>${res(r.threads)}</td><td>${res(r.bluesky)}</td></tr>`).join("")
+    || `<tr><td colspan="7" class="muted">Nothing cross-posted yet.</td></tr>`;
+  return `<h2 id="xpost">Cross-post · best Shorts</h2>
+<p class="muted">Every day the 5 Shorts with the most YouTube views (from the last 3 days, max 2 per channel) are posted to the accounts below,
+spread over the 3 daily runs. Each post carries the Amazon affiliate links and the #ad + AI-voice disclosure (Instagram can't make caption links
+clickable, so put shop.pickixo.com in its bio). Click a platform to switch it on/off.</p>
+<div class="card"><h3>Accounts ${xp.paused ? '<span class="pill off">paused</span>' : ""}</h3>
+<p>${pill("facebook", !!page, "Facebook" + (page ? ": " + esc(page.name) : ""))} ${pill("instagram", !!(page && page.ig_id), "Instagram" + (page && page.ig_username ? ": @" + esc(page.ig_username) : ""))}
+${pill("threads", !!xp.threads, "Threads" + (xp.threads && xp.threads.username ? ": @" + esc(xp.threads.username) : ""))} ${pill("bluesky", !!xp.bluesky, "Bluesky" + (xp.bluesky ? ": @" + esc(xp.bluesky.handle) : ""))}</p>
+<p><a class="btn primary" href="/auth/xp-connect?kind=meta">Connect new Facebook Page + Instagram</a> ${page ? disc("meta") : ""}
+<a class="btn" href="/auth/xp-connect?kind=threads">Connect Threads</a> ${xp.threads ? disc("threads") : ""}</p>${pageSel}
+<form method="post" action="/admin/action" class="ef"><input type="text" name="handle" placeholder="Bluesky handle (name.bsky.social)" value="${esc((xp.bluesky || {}).handle || "")}">
+<input type="password" name="app_password" placeholder="App password xxxx-xxxx-xxxx-xxxx" autocomplete="off"><button name="do" value="xp_bsky">Save Bluesky</button>${xp.bluesky ? disc("bluesky") : ""}</form>
+<form method="post" action="/admin/action"><button name="do" value="xp_pause">${xp.paused ? "▶ Resume cross-posting" : "■ Pause cross-posting"}</button></form>
+<p class="muted">The Facebook login opens for the account that owns the NEW Page (log out of the old one in that dialog if needed).
+In development mode that Facebook account and the Threads account must be added as testers of the Meta app.</p></div>
+<div class="card"><h3>Recent${rep.queue && rep.queue.date ? " · today's queue: " + rep.queue.keys.length : ""}</h3>
+<table class="keep"><thead><tr><th>When</th><th>Video</th><th>YT views</th><th>FB</th><th>IG</th><th>Threads</th><th>Bluesky</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function magnificToolSection() {

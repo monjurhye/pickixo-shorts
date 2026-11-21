@@ -128,3 +128,18 @@ def fb_token():
     if code != 200:
         raise RuntimeError(data.get("error", "http_" + str(code)))
     return data
+
+
+def xpost_config():
+    """Cross-post accounts connected in /admin: {paused, facebook, instagram, threads, bluesky} (tokens)."""
+    code, data = _call("/api/pipeline/xpost")
+    if code != 200:
+        raise RuntimeError(data.get("error", "http_" + str(code)))
+    return data
+
+
+def xpost_report(payload):
+    try:
+        _call("/api/pipeline/xpost", payload)
+    except Exception as e:
+        common.log("dashboard xpost report failed: {0}".format(e))
