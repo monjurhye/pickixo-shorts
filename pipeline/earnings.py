@@ -1,16 +1,21 @@
 """Daily earnings collector for the dashboard (/admin -> Earnings).
 
-Automatic sources (read-only APIs we already have keys for):
+Automatic income (read-only APIs):
   - AppSumo and other impact.com programs: commission (Payout) per action date
   - AliExpress affiliate: estimated commission per order date
-Everything else (Amazon, AdBlueMedia, Magnific, Facebook, app stores, costs) is typed in the
-dashboard, because those sites have no API we can use.
+  (AdBlueMedia arrives by itself through its postback URL -> /api/postback/adbluemedia)
+Automatic costs (free admin keys, optional):
+  - OpenAI: OPENAI_ADMIN_KEY (Organization Costs API)
+  - Anthropic: ANTHROPIC_ADMIN_KEY (Admin API cost_report)
+Amazon, Magnific and Facebook have no API; those are typed in the dashboard.
 
   python -m pipeline.earnings          # last 35 days -> dashboard
   python -m pipeline.earnings --print  # just print
 """
 
 import argparse
+import json
+import urllib.request
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
@@ -67,25 +72,68 @@ def aliexpress_by_day(start, end):
     return out
 
 
+def _get_json(url, headers):
+    req = urllib.request.Request(url, headers=dict(headers, **{"User-Agent": "pickixo-earnings"}))
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode())
+
+
+def openai_cost_by_day(start, end):
+    """OpenAI Organization Costs API (needs an admin key, sk-admin-...). Amounts are USD."""
+    out, page = defaultdict(float), None
+    for _ in range(5):
+        url = "https://api.openai.com/v1/organization/costs?bucket_width=1d&limit=31&start_time={0}&end_time={1}".format(
+            int(start.timestamp()), int(end.timestamp())) + ("&page=" + page if page else "")
+        d = _get_json(url, {"Authorization": "Bearer " + common.secret("OPENAI_ADMIN_KEY").strip()})
+        for b in d.get("data", []):
+            day = datetime.fromtimestamp(b["start_time"], timezone.utc).strftime("%Y-%m-%d")
+            for r in b.get("results", []):
+                out[day] += float((r.get("amount") or {}).get("value") or 0)
+        page = d.get("next_page")
+        if not d.get("has_more") or not page:
+            break
+    return out
+
+
+def anthropic_cost_by_day(start, end):
+    """Anthropic Admin API cost_report (needs an admin key, sk-ant-admin...). Amounts are cents."""
+    out, page = defaultdict(float), None
+    for _ in range(5):
+        url = "https://api.anthropic.com/v1/organizations/cost_report?bucket_width=1d&limit=31&starting_at={0}&ending_at={1}".format(
+            start.strftime("%Y-%m-%dT00:00:00Z"), end.strftime("%Y-%m-%dT%H:%M:%SZ")) + ("&page=" + page if page else "")
+        d = _get_json(url, {"x-api-key": common.secret("ANTHROPIC_ADMIN_KEY").strip(), "anthropic-version": "2023-06-01"})
+        for b in d.get("data", []):
+            day = str(b.get("starting_at", ""))[:10]
+            for r in b.get("results", []):
+                out[day] += float(r.get("amount") or 0) / 100
+        page = d.get("next_page")
+        if not d.get("has_more") or not page:
+            break
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--print", action="store_true")
     args = ap.parse_args()
     end = datetime.now(timezone.utc)
     start = end - timedelta(days=35)
-    days, notes = defaultdict(dict), []
-    for name, fn, ok in (("AppSumo (Impact)", impact_by_day, impact.enabled()),
-                         ("AliExpress", aliexpress_by_day, aliexpress.enabled())):
+    days, costs, notes = defaultdict(dict), defaultdict(dict), []
+    jobs = (("AppSumo (Impact)", impact_by_day, impact.enabled(), days),
+            ("AliExpress", aliexpress_by_day, aliexpress.enabled(), days),
+            ("OpenAI API", openai_cost_by_day, bool(common.secret("OPENAI_ADMIN_KEY")), costs),
+            ("Anthropic API", anthropic_cost_by_day, bool(common.secret("ANTHROPIC_ADMIN_KEY")), costs))
+    for name, fn, ok, target in jobs:
         if not ok:
-            notes.append(name + ": no API keys")
+            notes.append(name + ": no admin key" if target is costs else name + ": no API keys")
             continue
         try:
             for day, amt in fn(start, end).items():
-                days[day][name] = round(amt, 2)
+                target[day][name] = round(amt, 2)
             notes.append(name + ": ok")
         except Exception as e:
             notes.append("{0}: {1}".format(name, str(e)[:120]))
-    payload = {"updated": end.strftime("%Y-%m-%dT%H:%M:%SZ"), "days": days, "notes": notes}
+    payload = {"updated": end.strftime("%Y-%m-%dT%H:%M:%SZ"), "days": days, "costs": costs, "notes": notes}
     common.log("earnings: " + "; ".join(notes))
     if args.print or not dashboard.enabled():
         print(payload)

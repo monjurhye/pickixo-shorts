@@ -79,7 +79,7 @@ jobs:
           if [ "${{ inputs.earnings_only }}" = "true" ]; then exit 0; fi
           if [ -n "$DELETE_POSTS" ]; then python -m pipeline.run_pins --delete-posts "$DELETE_POSTS"; exit 0; fi
           python -m pipeline.run_pins $ARGS
-      - name: Earnings (AppSumo/Impact + AliExpress -> dashboard)
+      - name: Earnings (Impact, AliExpress, OpenAI/Anthropic cost -> dashboard)
         if: ${{ !inputs.dry_run }}
         continue-on-error: true
         env:
@@ -87,6 +87,8 @@ jobs:
           ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
           IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
           IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+          ANTHROPIC_ADMIN_KEY: ${{ secrets.ANTHROPIC_ADMIN_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.earnings
       - name: Commit pin records

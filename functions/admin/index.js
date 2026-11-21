@@ -3,7 +3,7 @@ import { channelList, esc, getState, html, session } from "../../lib/dashboard.j
 import { getPins } from "../../lib/pins.js";
 import { getDrafts } from "../../lib/drafts.js";
 import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
-import { getEarnings } from "../../lib/earnings.js";
+import { getEarnings, postbackToken } from "../../lib/earnings.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -204,7 +204,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn)}`));
+${fbSection(fb, fbPlan, fbPages)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -266,13 +266,15 @@ const REPORTS = [
 ];
 
 // Revenue (automatic + typed), costs (typed + monthly fixed spread over the days) and profit.
-function earningsSection(e) {
+function earningsSection(e, abmUrl) {
   const bd = (d) => new Date(d.getTime() + 6 * 3600e3).toISOString().slice(0, 10);   // Bangladesh date
   const today = bd(new Date());
   const dayAdd = (s, n) => bd(new Date(Date.parse(s + "T00:00:00Z") - 6 * 3600e3 + n * 864e5));
   const inc = {}, cost = {};
   const add = (map, day, key, v) => { (map[day] = map[day] || {})[key] = ((map[day] || {})[key] || 0) + v; };
   for (const [day, srcs] of Object.entries(e.auto.days || {})) for (const [k, v] of Object.entries(srcs)) add(inc, day, k, v);
+  for (const [day, srcs] of Object.entries(e.postback.days || {})) for (const [k, v] of Object.entries(srcs)) add(inc, day, k, v);
+  for (const [day, items] of Object.entries(e.auto.costs || {})) for (const [k, v] of Object.entries(items)) add(cost, day, k, v);
   for (const x of e.manual.income) add(inc, x.date, x.source, x.amount);
   for (const x of e.manual.costs) add(cost, x.date, x.item, x.amount);
   const monthlyTotal = e.manual.monthly.reduce((a, x) => a + x.amount, 0);
@@ -308,8 +310,9 @@ function earningsSection(e) {
   const monthly = e.manual.monthly.map((x) => `<div>${del("monthly", x, `${esc(x.item)} · <b>${$(x.amount)}</b>/month`)}</div>`).join("");
   const links = REPORTS.map(([n, u]) => `<a class="btn ico" href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a>`).join(" ");
   return `<h2 id="earnings">Earnings · cost · profit</h2>
-<p class="muted">Bangladesh dates, US dollars. AppSumo (Impact) and AliExpress are filled in automatically every day${e.auto.updated ? " (last update " + bdTime(e.auto.updated) + ")" : ""};
-the other sites have no API, so type their totals below from their report pages. Monthly fixed costs are spread over the days.</p>
+<p class="muted">Bangladesh dates, US dollars. Automatic: AppSumo (Impact), AliExpress, OpenAI/Anthropic cost${e.auto.updated ? " (last update " + bdTime(e.auto.updated) + ")" : ""}
+and AdBlueMedia (instantly, by postback${e.postback.last.AdBlueMedia ? ", last lead " + bdTime(e.postback.last.AdBlueMedia) : ""}).
+Amazon, Magnific and Facebook have no API, so type those below. Monthly fixed costs are spread over the days.</p>
 <div class="money">${tiles}</div>
 <div class="card"><h3>Add income</h3><form method="post" action="/admin/action" class="ef">
 <input type="date" name="date" value="${today}"><select name="source">${opt(INCOME_SOURCES)}</select>
@@ -325,6 +328,10 @@ the other sites have no API, so type their totals below from their report pages.
 <div class="card"><h3>This month by source</h3><table class="keep"><tbody>${srcRows}</tbody></table>
 <h3>Last 14 days</h3><table class="keep"><thead><tr><th>Date</th><th>Income</th><th>Cost</th><th>Profit</th></tr></thead><tbody>${days}</tbody></table></div>
 <p class="muted">${(e.auto.notes || []).map(esc).join(" · ")}</p>
+<div class="card"><h3>AdBlueMedia postback (one-time setup)</h3>
+<p class="muted">AdBlueMedia → Tools / Postback → paste this URL. Keep it private (it contains a secret key).
+If their payout or lead-id macro has a different name, change only the part in { }.</p>
+<input type="text" readonly onclick="this.select()" style="width:100%" value="${esc(abmUrl + "&payout={payout}&id={lead_id}")}"></div>
 <div class="row">${links}</div>`;
 }
 
