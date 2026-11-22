@@ -3,7 +3,7 @@
 Buyers download seasonal images 3-8 weeks ahead, so ideas mix upcoming US seasons/events
 with evergreen high-demand themes. Each idea has a ready prompt for Adobe Firefly
 (firefly.adobe.com), aspect ratio, starter keywords and approval tips.
-Sent to the dashboard (/admin -> Magnific image ideas).
+Written by Google Gemini (free tier, GEMINI_API_KEY). Sent to the dashboard (/admin -> Magnific image ideas).
 
   python -m pipeline.image_ideas            # make today's ideas
   python -m pipeline.image_ideas --dry-run  # print the request only
@@ -13,7 +13,7 @@ import argparse
 import os
 from datetime import datetime, timezone
 
-from . import common, content, dashboard
+from . import common, dashboard, gemini
 
 SCHEMA = {
     "type": "object",
@@ -109,7 +109,9 @@ def main():
     if args.dry_run:
         print(user)
         return
-    res = content._call_json(SYSTEM, user, SCHEMA, common.settings(), 6000)
+    if not gemini.enabled():
+        raise SystemExit("GEMINI_API_KEY is not set (free key: https://aistudio.google.com/apikey)")
+    res = gemini.call_json(SYSTEM, user, SCHEMA, common.settings(), 6000)
     ideas = res.get("ideas", [])[:4]
     for i in ideas:
         i["best_tool"] = "Adobe Firefly"
@@ -127,7 +129,7 @@ def main():
     common.log("ideas ready: {0}".format(len(ideas)))
     extra = []
     for _ in range(args.pack):
-        more = content._call_json(SYSTEM, user + " Make them different from these themes: " +
+        more = gemini.call_json(SYSTEM, user + " Make them different from these themes: " +
                                   "; ".join(i["theme"] for i in ideas + extra), SCHEMA, common.settings(), 6000)
         extra += more.get("ideas", [])
     add_to_pack(ideas + extra, today.strftime("%Y-%m-%d"))

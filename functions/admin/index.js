@@ -371,7 +371,7 @@ Both are sent to Google/Bing. For Medium (no API): press
 <b>Import to Medium</b>, paste the copied link (Cmd+V), Import, add the tags, publish, then <b>Mark published</b>.</p>
 <div class="card"><h3>🔓 AI prompt pack (AdBlueMedia locker)</h3>
 <p><a href="/free/ai-prompts/" target="_blank" rel="noopener">shop.pickixo.com/free/ai-prompts/</a> · up to 100 stock-image prompts,
-10 more each time you press <b>Make new prompts</b>. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
+4 more each time you press <b>Make new prompts</b>. 5 are open; the full pack (/free/ai-prompts/full/) opens after the visitor completes one AdBlueMedia sponsor offer.</p>
 <p class="muted"><b>Who wants it:</b> people making AI images for stock sites, Etsy, social media. <b>Where to share:</b> a Medium article
 like "How I pick AI image ideas that sell on stock sites" with the pack linked at the end; LinkedIn/X posts; Quora answers about AI stock photos;
 Pinterest pins of example images. <b>Rules:</b> say clearly that unlocking needs one sponsor offer; never promise money or prizes;
@@ -475,8 +475,8 @@ function ideasSection(d, req) {
   const button = req
     ? `<div class="msg">⏳ Requested ${bdTime(req.at)}. New prompts arrive in about 10-15 minutes; refresh this page.
 <form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
-    : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? This uses the OpenAI API (small cost).')">
-<button name="do" value="ideas_request">✨ Make new prompts (uses API)</button></form>`;
+    : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? Free (Google Gemini).')">
+<button name="do" value="ideas_request">✨ Make new prompts (free)</button></form>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
   const cards = (d.ideas || []).map((i, n) => `<div class="card">
@@ -489,7 +489,7 @@ function ideasSection(d, req) {
 <p class="muted"><b>Keywords:</b> ${esc((i.keywords || []).join(", "))}</p></div>`).join("")
     || `<p class="muted">No ideas yet. Press the button to make some.</p>`;
   return `<h2 id="ideas">Magnific · Image ideas</h2>
-<p class="muted">Made only when you press the button: no button, no API cost. Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
+<p class="muted">Made only when you press the button, by Google Gemini (free tier). Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
 ${button}
 <div class="msg"><b>Fastest free routine:</b> 1) press <b>🎨 Copy + open Firefly</b>, paste (Cmd+V), pick the aspect ratio shown on the card and the largest size, generate, download the good ones;

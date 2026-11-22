@@ -2,12 +2,13 @@
 
 Magnific-এ contributor upload-এর কোনো API নেই। তাই এই tool upload করে না; সময় বাঁচায় সবচেয়ে কষ্টের অংশে: **title, keyword, category, CSV**।
 
-## প্রথমবার একবারই (OpenAI key Mac-এর Keychain-এ রাখা)
-Terminal-এ এটা চালান, key চাইলে paste করুন (chat-এ নয়):
+## প্রথমবার একবারই (ফ্রি Gemini key Mac-এর Keychain-এ রাখা)
+1. https://aistudio.google.com/apikey থেকে ফ্রি API key বানান (Google অ্যাকাউন্ট লাগে, কার্ড লাগে না)।
+2. Terminal-এ এটা চালান, key চাইলে paste করুন (chat-এ নয়):
 ```
-security add-generic-password -s pickixo-openai -a openai -w
+security add-generic-password -s pickixo-gemini -a gemini -w
 ```
-খরচ: প্রতি ছবিতে প্রায় $0.001 (১০০০ ছবিতে ~$1)।
+খরচ: $0 (Gemini ফ্রি টিয়ার)। মিনিটে ~১০টা ছবি, দিনে কয়েকশো পর্যন্ত; tool নিজেই গতি সামলায়।
 
 ## প্রতিবার
 1. ভালো ছবিগুলো একটা ফোল্ডারে রাখুন, যেমন `~/Desktop/magnific_batch` (খারাপ হাত/মুখ/লেখা থাকা ছবি নিজে বাদ দিন)।

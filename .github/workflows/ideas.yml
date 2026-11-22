@@ -70,7 +70,7 @@ jobs:
       - name: Make ideas
         if: steps.mode.outputs.ideas == 'true'
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini key (no OpenAI cost)
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
       # 8am Bangladesh: 3 honest Bangla posts for the "Modern Tech Life" page -> /admin (copy + post by hand).

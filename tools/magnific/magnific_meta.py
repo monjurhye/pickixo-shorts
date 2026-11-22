@@ -13,8 +13,9 @@ For every image it:
 Then upload the images on contributor.magnific.com -> Upload, upload the CSV there,
 check a few titles, and click Submit yourself. Nothing is uploaded by this tool.
 
-The OpenAI key is read from the OPENAI_API_KEY environment variable or the macOS
-Keychain item "pickixo-openai" (never printed). Cost is about $0.001 per image.
+Uses Google's free Gemini API (no OpenAI). The key is read from the GEMINI_API_KEY
+environment variable or the macOS Keychain item "pickixo-gemini" (never printed).
+Free tier: a few hundred images a day, about 10 a minute (the tool paces itself).
 """
 
 import argparse
@@ -25,6 +26,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -36,7 +38,8 @@ MIN_SHARPNESS = 2.5             # edge energy below this looks soft at 100% (rou
 MIN_SHORT = 2000                # Magnific rejects "Min dimensions not reached" below this
 MIN_PIXELS = 4_000_000          # ~2000x2000; smaller files are usually rejected
 DUP_DISTANCE = 6                # dHash bits; lower = more similar
-MODEL = os.environ.get("MAGNIFIC_MODEL", "gpt-5-nano")
+MODEL = os.environ.get("MAGNIFIC_MODEL", "gemini-flash-lite-latest")
+GAP = 6.5                       # seconds between AI calls: stays under the free tier's ~10 a minute
 AI_TAG = "_ai_generated"
 # Column names: compare with the CSV template on Magnific's Upload page and edit if different.
 HEADER = ["filename", "title", "keywords", "prompt", "model"]   # names the Magnific panel checks for
@@ -79,11 +82,11 @@ Look at the image and return:
 
 
 def api_key():
-    k = os.environ.get("OPENAI_API_KEY", "").strip()
+    k = os.environ.get("GEMINI_API_KEY", "").strip()
     if k:
         return k
     try:
-        return subprocess.run(["security", "find-generic-password", "-s", "pickixo-openai", "-w"],
+        return subprocess.run(["security", "find-generic-password", "-s", "pickixo-gemini", "-w"],
                               capture_output=True, text=True, check=True).stdout.strip()
     except Exception:
         return ""
@@ -171,32 +174,52 @@ def sharpness(img):
     return ImageStat.Stat(c.filter(ImageFilter.FIND_EDGES)).mean[0]
 
 
+def _gemini_schema(x):
+    """JSON Schema -> the schema form Gemini accepts (no additionalProperties)."""
+    if isinstance(x, dict):
+        return {k: _gemini_schema(v) for k, v in x.items() if k != "additionalProperties"}
+    if isinstance(x, list):
+        return [_gemini_schema(v) for v in x]
+    return x
+
+
+_LAST = [0.0]
+
+
 def describe(key, b64, crop_b64):
     body = {
-        "model": MODEL,
-        "instructions": INSTRUCTIONS,
-        "input": [{"role": "user", "content": [
-            {"type": "input_text", "text": "Write the metadata for this image. First image: whole "
-                                            "picture (reduced). Second image: 100% centre crop."},
-            {"type": "input_image", "image_url": "data:image/jpeg;base64," + b64},
-            {"type": "input_image", "image_url": "data:image/jpeg;base64," + crop_b64}]}],
-        "text": {"format": {"type": "json_schema", "name": "meta", "strict": True, "schema": SCHEMA}},
-        "max_output_tokens": 8000,
-        "reasoning": {"effort": "low"},
+        "systemInstruction": {"parts": [{"text": INSTRUCTIONS}]},
+        "contents": [{"role": "user", "parts": [
+            {"text": "Write the metadata for this image. First image: whole picture (reduced). "
+                     "Second image: 100% centre crop."},
+            {"inline_data": {"mime_type": "image/jpeg", "data": b64}},
+            {"inline_data": {"mime_type": "image/jpeg", "data": crop_b64}}]}],
+        "generationConfig": {"responseMimeType": "application/json",
+                             "responseSchema": _gemini_schema(SCHEMA), "maxOutputTokens": 4000},
     }
-    req = urllib.request.Request("https://api.openai.com/v1/responses", data=json.dumps(body).encode(),
-                                 headers={"Authorization": "Bearer " + key,
-                                          "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            data = json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        raise RuntimeError("OpenAI HTTP {0}: {1}".format(e.code, e.read().decode("utf-8", "ignore")[:200]))
-    text = data.get("output_text") or "".join(
-        c.get("text", "") for o in (data.get("output") or []) for c in (o.get("content") or [])
-        if c.get("type") == "output_text")
+    url = "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent".format(MODEL)
+    for attempt in range(4):
+        wait = GAP - (time.time() - _LAST[0])
+        if wait > 0:
+            time.sleep(wait)
+        _LAST[0] = time.time()
+        req = urllib.request.Request(url, data=json.dumps(body).encode(),
+                                     headers={"x-goog-api-key": key, "Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = json.loads(r.read().decode())
+            break
+        except urllib.error.HTTPError as e:
+            msg = e.read().decode("utf-8", "ignore")[:200]
+            if e.code in (429, 503) and attempt < 3:   # free-tier minute limit / busy: wait and retry
+                time.sleep(30 * (attempt + 1))
+                continue
+            raise RuntimeError("Gemini HTTP {0}: {1}".format(e.code, msg))
+    text = "".join(p.get("text", "") for c in (data.get("candidates") or [])[:1]
+                   for p in (c.get("content") or {}).get("parts") or [])
     if not text.strip():
-        raise RuntimeError("empty AI reply ({0})".format(data.get("status") or "no text"))
+        raise RuntimeError("empty AI reply ({0})".format(
+            ((data.get("candidates") or [{}])[0]).get("finishReason") or data.get("promptFeedback") or "no text"))
     return json.loads(text)
 
 
@@ -233,7 +256,8 @@ def main():
         sys.exit("No .jpg/.png files in " + folder + " (opened in Finder). Add images and run again.")
     key = "" if args.check_only else api_key()
     if not args.check_only and not key:
-        sys.exit("No OpenAI key. Save it once with:\n  security add-generic-password -s pickixo-openai -a openai -w\n"
+        sys.exit("No Gemini key. Get a free one at https://aistudio.google.com/apikey, then save it once with:\n"
+                 "  security add-generic-password -s pickixo-gemini -a gemini -w\n"
                  "(it asks for the key; paste it there, not in chat)")
 
     ups = upscayl() if args.upscale else None
