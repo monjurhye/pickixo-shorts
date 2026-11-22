@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year celebration decor",
+      "prompt": "A minimalist flat lay on a warm wooden tabletop featuring two simple champagne flutes, a single glossy gold ornament, and scattered confetti dots, illuminated by soft natural daylight from a side window, realistic glass reflections, fine wood grain texture, overhead perspective, generous blank copy space on the right.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Valentine's Day minimalist gift",
+      "prompt": "A close-up studio photograph of a single matte ceramic pink coffee mug resting on a neutral linen placemat next to a small fresh red tulip, clean minimalist composition, soft morning daylight, gentle shadows, sharp focus on the mug surface texture, top-down angle, wide empty background for graphic overlay.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Remote work notebook and coffee",
+      "prompt": "A clean desk setup featuring a closed solid-colored light gray notebook with visible linen cover texture, a simple white ceramic mug with dark coffee, and a single green succulent in a terracotta pot, bright natural daylight casting soft shadows, top-down perspective, generous white copy space surrounding the objects.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Wabi-sabi ceramic pottery style",
+      "prompt": "A vertical studio photograph of a single handcrafted beige ceramic vase with a subtle speckled glaze, placed on a rough concrete pedestal against a plain warm off-white wall, illuminated by soft diffused side light, highly detailed clay texture, clean minimalist aesthetic, ample negative space at the top.",
+      "tool": "Adobe Firefly",
+      "aspect": "9:16",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year Celebration Flat Lay",
       "prompt": "A minimalist flat lay photograph of silver and gold confetti scattered on a clean white textured paper background, accompanied by two champagne flutes filled with sparkling cider, bright natural daylight from the side casting soft shadows, crisp focus on the main objects with a gentle blur on the background, generous copy space in the center, commercial stock photography style.",
       "tool": "Adobe Firefly",
