@@ -5,7 +5,7 @@ import { setIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, putManual } from "../../lib/earnings.js";
 import { getXp, putXp } from "../../lib/xpost.js";
 import { getMtlCfg, putMtlCfg } from "../../lib/mtl.js";
-import { getAdminProducts, parseAsin, putAdminProducts } from "../../lib/products.js";
+import { asinFromLink, getAdminProducts, putAdminProducts } from "../../lib/products.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -94,10 +94,10 @@ export async function onRequestPost(context) {
       d.products = d.products.filter((p) => p.asin !== asin);
       m = "Product removed.";
     } else {
-      const asin = parseAsin(form.get("link"));
+      const asin = await asinFromLink(form.get("link"));
       const name = String(form.get("name") || "").replace(/\s+/g, " ").trim().slice(0, 80);
       const chans = form.getAll("channels").map(String).filter((c) => /^ch\d{2}$/.test(c));
-      if (!asin) m = "No product found in that link. Use SiteStripe → Get link → Full link (it has /dp/ in it), or the 10-letter ASIN. Short amzn.to links do not work.";
+      if (!asin) m = "No product found in that link. Paste the SiteStripe link of one product page (Short or Full link).";
       else if (!name) m = "Add a short product name.";
       else if (!chans.length) m = "Tick at least one channel.";
       else {

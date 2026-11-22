@@ -395,6 +395,31 @@ async function copyText(id){ try{ await navigator.clipboard.writeText(document.g
 </script>`;
 }
 
+// 4 Amazon search ideas per channel niche (owner opens them, picks products, pastes the SiteStripe link).
+const PRODUCT_KEYWORDS = {
+  ch01: ["pot boil over stopper", "silicone stretch lids", "vegetable chopper", "oil sprayer for cooking"],
+  ch02: ["sunset lamp", "mini waffle maker", "desk organizer gift", "cozy socks gift set"],
+  ch03: ["under sink organizer", "stackable drawer organizer", "over door organizer", "clear storage bins with lids"],
+  ch04: ["pet hair remover roller", "cat water fountain", "lick mat for dogs", "dog paw cleaner cup"],
+  ch05: ["milk frother handheld", "cold brew maker", "electric gooseneck kettle", "loose leaf tea infuser"],
+  ch06: ["drain hair catcher", "shower caddy adhesive", "toothbrush holder wall mount", "bath mat quick dry"],
+  ch07: ["self watering planter", "plant grow light", "garden kneeler seat", "plant stand indoor"],
+  ch08: ["electric spin scrubber", "lint remover", "collapsible laundry basket", "microfiber cleaning cloths"],
+  ch09: ["heatless curling rod", "makeup organizer", "lighted makeup mirror", "makeup brush cleaner"],
+  ch10: ["resistance bands set", "yoga mat thick", "ab roller wheel", "adjustable jump rope"],
+  ch11: ["silicone bib", "toddler tower", "baby bath seat", "suction plates for toddlers"],
+  ch12: ["car seat gap filler", "car trash can", "magnetic phone mount car", "car seat organizer"],
+  ch13: ["rechargeable camping lantern", "camping hammock", "collapsible water container", "camping headlamp"],
+  ch14: ["monitor stand riser", "laptop stand", "desk cable management", "desk pad large"],
+  ch15: ["controller charging station", "headset stand", "gaming mouse pad xl", "led light strip gaming"],
+  ch16: ["smart plug", "motion sensor light indoor", "smart led strip lights", "smart light bulb"],
+  ch17: ["packing cubes", "travel adapter universal", "neck pillow memory foam", "toiletry bag hanging"],
+  ch18: ["magnetic tiles", "kids drawing tablet", "building blocks set", "bubble machine"],
+  ch19: ["silicone baking mat", "cookie scoop set", "cake decorating kit", "silicone spatula set"],
+  ch20: ["bed sheet holder straps", "sunrise alarm clock", "silk pillowcase", "bedside caddy"],
+};
+const amzSearch = (k) => "https://www.amazon.com/s?k=" + encodeURIComponent(k).replace(/%20/g, "+") + "&low-price=10&high-price=40";
+
 // Amazon products the owner pastes (SiteStripe "Full link" or ASIN) -> KV "admin_products" -> videos.
 function productsSection(d, chans) {
   const name = (id) => { const c = chans.find((x) => x.id === id); return c ? c.niche || c.title || id : id; };
@@ -406,14 +431,17 @@ ${esc(c.id)} · ${esc(c.niche || c.title || "")} <span class="muted">(${count[c.
 <td>${esc(p.name)}</td><td>${p.channels.map((c) => `<span class="pill off" title="${esc(name(c))}">${esc(c)}</span>`).join(" ")}</td><td class="muted">${esc(p.added || "")}</td>
 <td><form method="post" action="/admin/action" onsubmit="return confirm('Remove this product?')"><input type="hidden" name="asin" value="${esc(p.asin)}">
 <button class="danger ico" name="do" value="prod_del" title="Remove">✕</button></form></td></tr>`).join("");
+  const ideas = chans.map((c) => `<tr><td><b>${esc(c.id)}</b> <span class="muted">${esc(c.niche || "")} (${count[c.id] || 0})</span></td><td>${(PRODUCT_KEYWORDS[c.id] || [])
+    .map((k) => `<a href="${amzSearch(k)}" target="_blank" rel="noopener">${esc(k)} ↗</a>`).join(" · ")}</td></tr>`).join("");
   return `<h2 id="products">Amazon products for videos</h2>
 <p class="muted">Products you pick yourself. Videos use them first, so a channel with 4 or more links straight to product pages;
 otherwise its videos link to an Amazon search with your tag (you still earn on anything bought). The automatic product finder is off (it cost about $4 a day).</p>
-<div class="msg"><b>How:</b> on Amazon (signed in to Associates) open a product → SiteStripe bar at the top → <b>Get link</b> → <b>Full link</b> → copy.
-Paste it below, write a short generic name (no brand needed, e.g. "Collapsible silicone colander"), tick the channels, Save.
-Short <code>amzn.to</code> links do not work: use the Full link or the 10-letter ASIN.</div>
+<div class="msg"><b>How:</b> 1) open a search below (already $10-40) → tick <b>4 Stars &amp; Up</b> → open a product that is not "Sponsored", rated 4.3+, 1,000+ reviews, Prime if possible, no health/medical claims;
+2) SiteStripe bar at the top → <b>Get link</b> → copy the affiliate link (Short or Full, both work);
+3) paste it below, write a short name (e.g. "Collapsible silicone colander"), tick the channel(s), Save. Aim for 4 per channel: one per search.</div>
+<div class="card"><h3>🔍 What to search (4 per channel)</h3><table class="keep"><tbody>${ideas}</tbody></table></div>
 <form method="post" action="/admin/action" class="card">
-<p><input name="link" required placeholder="https://www.amazon.com/.../dp/B0XXXXXXXX/... or ASIN" style="width:100%"></p>
+<p><input name="link" required placeholder="Affiliate link from SiteStripe (https://amzn.to/... or https://www.amazon.com/...)" style="width:100%"></p>
 <p><input name="name" required maxlength="80" placeholder="Short product name" style="width:100%"></p>
 <p class="muted">Channels (number = products you added):</p><div>${boxes}</div>
 <p><button class="primary" name="do" value="prod_add">Save product</button></p></form>
