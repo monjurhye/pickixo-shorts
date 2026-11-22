@@ -650,25 +650,26 @@ ${auto}${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts
 
 function magnificToolSection() {
   return `<h2 id="magnific-tool">Magnific · Upscale + metadata tool</h2>
-<p class="muted">Choose your finished images. For each one it: makes sure the short side is 2000px+ (AI upscale 4× with ESRGAN, then down to 2048,
-or a plain resize for small changes), checks quality at 100% like a reviewer, writes the title and keywords (45 incl. the AI tag), and builds
-Magnific's CSV. Weak images (below 7/10 or with problems such as fake text) are left out; you can tick them back in. Images stay in your browser;
-only small previews go to the AI.</p>
+<p class="muted">Choose your finished images. For each one it makes sure the short side is 2000px+ (AI upscale 4× with ESRGAN, then down to 2048,
+or a plain resize for small changes) and writes the title and keywords. The strict AI quality check is a separate, optional button: press it only
+when you want a second opinion (it unticks weak images: below 7/10 or with problems such as fake text). Images stay in your browser; only small
+previews go to the AI.</p>
 <div class="card"><div class="row">
 <input type="file" id="mag-files" accept="image/jpeg,image/png,image/webp" multiple>
 <label title="Slow on older laptops"><input type="checkbox" id="mag-ai"> AI upscale (slow, off by default)</label>
 <input type="text" id="mag-model" placeholder="Model (as in Magnific's dropdown), optional" style="min-width:260px">
-<button class="primary" id="mag-run" onclick="window.__mag.run()">Check & make metadata</button>
+<button class="primary" id="mag-run" onclick="window.__mag.run()">Make title + keywords</button>
 <button id="mag-convert" type="button" onclick="window.__mag.convert()" title="No AI needed">🔄 PNG → JPG only</button>
 <span id="mag-convert-msg" class="muted"></span></div>
 <div class="row" id="mag-out" style="display:none">
 <button class="primary" onclick="window.__mag.jpgs()">⬇ Download JPGs with title + keywords inside (ticked)</button>
 <button onclick="window.__mag.csv()">⬇ CSV (optional)</button>
+<button id="mag-check" type="button" onclick="window.__mag.check()">🔍 AI quality check (optional)</button>
 <a class="btn" href="https://contributor.magnific.com/" target="_blank" rel="noopener">Open Magnific ↗</a></div>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
-<script src="/magnific-tool.js?v=7"></script>`;
+<script src="/magnific-tool.js?v=8"></script>`;
 }
 
 function fbConnectHtml(fp) {

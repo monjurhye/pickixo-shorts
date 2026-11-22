@@ -1,6 +1,6 @@
 // Magnific metadata tool for /admin. Runs in the browser: checks size, makes a JPG that
-// meets Magnific's minimum (short side 2000+), asks /api/magnific/meta (OpenAI, server side)
-// for title, keywords and a strict quality score, then builds Magnific's CSV.
+// meets Magnific's minimum (short side 2000+), asks /api/magnific/meta (server side) for title and
+// keywords, then builds Magnific's CSV. The strict AI quality check is a separate button (only when needed).
 (function () {
   const MIN_SHORT = 2000, TARGET_SHORT = 2048, MIN_PIXELS = 4000000, MIN_QUALITY = 7, AI_TAG = "_ai_generated";
   const $ = (id) => document.getElementById(id);
@@ -198,8 +198,7 @@
     row.innerHTML = cardHtml({ name: file.name, size: note, busy: true, thumb: prev.toDataURL("image/jpeg", 0.7) });
     const r = await fetch("/api/magnific/meta", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ preview: await b64(prev, 0.85), crop: await b64(crop, 0.9),
-        extra: await Promise.all(extra.map((c) => b64(c, 0.88))) }),
+      body: JSON.stringify({ mode: "meta", preview: await b64(prev, 0.85) }),
     });
     const d = await r.json().catch(() => ({ error: "bad reply" }));
     if (!r.ok || d.error) {
@@ -210,30 +209,54 @@
     const item = {
       file: file.name, out: base + (scale > 1 ? "_2048" : "") + ".jpg", jpg, size: note,
       thumb: prev.toDataURL("image/jpeg", 0.7), title: String(d.title || "").replace(/\.$/, ""),
-      keywords: cleanKeywords(d.keywords), category: d.category, quality: d.quality,
-      notes: d.quality_notes, problems: d.problems || [],
+      keywords: cleanKeywords(d.keywords), category: d.category, quality: null,
+      notes: "", problems: [], include: true, row, prev, crop, extra,
     };
-    item.sharpness = Math.round(sharpness(crop) * 10) / 10;
-    if (item.sharpness < MIN_SHARPNESS) {
-      item.problems.push(`soft at 100% (sharpness ${item.sharpness}, needs ${MIN_SHARPNESS}+)`);
-      item.quality = Math.min(item.quality, 6);
-    }
-    item.notes = (item.notes || "") + ` · sharpness ${item.sharpness}`;
-    item.include = item.quality >= MIN_QUALITY && item.problems.length === 0;
+    item.sharpness = Math.round(sharpness(crop) * 10) / 10;   // free, local: shown as a hint only
     results.push(item);
     row.innerHTML = cardHtml(item, results.length - 1);
     return item;
   }
 
+  // Optional strict AI quality check of one processed image (separate button).
+  async function checkItem(item, idx) {
+    item.checking = true;
+    item.row.innerHTML = cardHtml(item, idx);
+    const r = await fetch("/api/magnific/meta", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mode: "check", preview: await b64(item.prev, 0.85), crop: await b64(item.crop, 0.9),
+        extra: await Promise.all(item.extra.map((c) => b64(c, 0.88))) }),
+    });
+    const d = await r.json().catch(() => ({ error: "bad reply" }));
+    item.checking = false;
+    if (!r.ok || d.error) {
+      item.notes = "check failed: " + (d.error || "HTTP " + r.status);
+    } else {
+      item.quality = d.quality;
+      item.problems = d.problems || [];
+      item.notes = d.quality_notes || "";
+      if (item.sharpness < MIN_SHARPNESS) {
+        item.problems.push(`soft at 100% (sharpness ${item.sharpness}, needs ${MIN_SHARPNESS}+)`);
+        item.quality = Math.min(item.quality, 6);
+      }
+      item.include = item.quality >= MIN_QUALITY && item.problems.length === 0;
+    }
+    item.row.innerHTML = cardHtml(item, idx);
+  }
+
   function cardHtml(x, idx) {
     const thumb = x.thumb ? `<img src="${x.thumb}" style="width:100%;border-radius:8px;margin-bottom:6px">` : "";
     if (x.err) return `<div class="card">${thumb}<b>${esc(x.name)}</b><p class="muted">${esc(x.size || "")}</p><div class="msg">${esc(x.err)}</div></div>`;
-    if (x.busy) return `<div class="card">${thumb}<b>${esc(x.name)}</b><p class="muted">${esc(x.size)} · checking with AI…</p></div>`;
+    if (x.busy) return `<div class="card">${thumb}<b>${esc(x.name)}</b><p class="muted">${esc(x.size)} · writing title and keywords…</p></div>`;
     const good = x.include;
     const probs = x.problems.length ? `<p style="color:var(--bad)"><b>Check:</b> ${esc(x.problems.join("; "))}</p>` : "";
+    const pill = x.checking ? `<span class="pill off">checking quality…</span>`
+      : x.quality == null ? `<span class="pill off">not checked</span>`
+      : `<span class="pill ${good ? "on" : "err"}">quality ${esc(x.quality)}/10</span>`;
+    const sharp = x.quality == null && x.sharpness < MIN_SHARPNESS ? ` · <span style="color:var(--bad)">looks soft at 100% (sharpness ${esc(x.sharpness)})</span>` : ` · sharpness ${esc(x.sharpness)}`;
     return `<div class="card">${thumb}
-<span class="pill ${good ? "on" : "err"}">quality ${esc(x.quality)}/10</span> <span class="muted">${esc(x.size)} · ${esc(x.category)}</span>
-<h3 style="margin:6px 0">${esc(x.title)}</h3><p class="muted">${esc(x.notes)}</p>${probs}
+${pill} <span class="muted">${esc(x.size)} · ${esc(x.category)}${sharp}</span>
+<h3 style="margin:6px 0">${esc(x.title)}</h3>${x.notes ? `<p class="muted">${esc(x.notes)}</p>` : ""}${probs}
 <p class="muted" style="font-size:12px">${esc(x.keywords.join(", "))}</p>
 <label><input type="checkbox" ${good ? "checked" : ""} onchange="window.__mag.toggle(${idx}, this.checked)"> include in CSV</label>
 <p class="muted" style="font-size:12px">Upload file: <b>${esc(x.out)}</b></p></div>`;
@@ -248,6 +271,17 @@
 
   window.__mag = {
     toggle(i, on) { results[i].include = on; },
+    async check() {
+      if (!results.length) { alert("Make the metadata first."); return; }
+      const btn = $("mag-check");
+      btn.disabled = true;
+      for (let i = 0; i < results.length; i++) {
+        btn.textContent = `Checking ${i + 1} of ${results.length}…`;
+        try { await checkItem(results[i], i); } catch (e) { results[i].checking = false; results[i].notes = String(e); results[i].row.innerHTML = cardHtml(results[i], i); }
+      }
+      btn.textContent = "🔍 AI quality check (optional)";
+      btn.disabled = false;
+    },
     async run(given) {
       const files = [...(given || $("mag-files").files)].filter((f) => /^image\/(jpeg|png|webp)$/.test(f.type));
       if (!files.length) { alert("Choose JPG/PNG images first."); return; }
