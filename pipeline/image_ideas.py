@@ -47,12 +47,30 @@ selling AI-generated photos/illustrations to mostly US buyers (designers, market
 
 Make exactly 4 image ideas for today's date, all for Adobe Firefly (firefly.adobe.com).
 EVERY idea is a TOP-DOWN FLAT-LAY real photograph, aspect ratio 1:1 (this style gets approved;
-others were rejected). Only the subject changes between ideas:
-- 2 seasonal: US holidays, seasons and events 3 to 8 weeks AFTER today (buyers prepare early).
-- 1 evergreen with steady demand: business/teamwork, home office, healthy food, wellness,
-  technology and AI concepts, finance, education, abstract backgrounds with copy space,
-  diverse everyday lifestyle.
-- 1 trend: visual styles or topics rising now (be realistic, no made-up statistics).
+others were rejected). Only the subject changes between ideas.
+
+Pick what designers and marketers DOWNLOAD most on Freepik/Magnific, not just pretty still lifes.
+Each of the 4 ideas from a DIFFERENT group below (never two mug or fruit scenes in one batch):
+- 2 seasonal: US holidays and events 3 to 8 weeks AFTER today (buyers prepare early), shown with
+  their typical objects: wrapped gift boxes with plain paper, Christmas baubles in matte finish,
+  heart-shaped cookies, Easter eggs, wedding place settings, back-to-school supplies, autumn
+  leaves, pumpkins, Ramadan dates and lanterns, beach towel and sunglasses for summer.
+- 1 evergreen best-seller, one of these groups:
+  * BLANK MOCKUPS (very high downloads): blank white greeting card with envelope, blank business
+    card stack, blank A4 paper sheet, blank kraft paper bag, blank cotton tote bag, folded blank
+    t-shirt, blank square poster, blank gift box. Say "blank, no print, no text".
+  * BUSINESS / OFFICE / FINANCE: closed laptop, plain notebook and pen, coins in a small jar,
+    plain coffee cup, desk plant, minimal tidy workspace.
+  * HEALTHY FOOD / BREAKFAST: bowls of salad, oatmeal with berries, smoothie bowl, avocado toast,
+    whole vegetables, bread loaf on a board.
+  * BEAUTY / SPA / SKINCARE: plain unlabeled cosmetic jars and bottles, rolled towels, soap bars,
+    jade roller, smooth stones.
+  * EDUCATION / KIDS: wooden toy blocks without letters, crayons in a cup, plain exercise books.
+  * TRAVEL: folded clothes, straw hat, plain canvas bag, plain notebook, a small succulent.
+  * BACKGROUNDS / TEXTURES: empty linen, wood, marble or paper texture with one small object in a
+    corner and the rest empty for text.
+- 1 trend: a current colour or style (e.g. pastel, earthy neutral, minimal Japandi) applied to one
+  of the groups above.
 
 Rules so images get APPROVED (Magnific rejects these):
 - No visible text, letters, logos, brands, trademarks, famous places' signage, real people
@@ -86,8 +104,8 @@ soft shadows, realistic depth of field, muted true-to-life colours, simple unclu
 composition with few objects (fewer objects = fewer AI errors). Avoid "8k, ultra HD,
 hyperrealistic" fluff, glossy plastic looks, heavy bokeh orbs, neon overload.
 
-Prompt style: one paragraph, 45-75 words, written like this example (keep its structure,
-change the subject):
+Prompt style: one paragraph, 45-75 words, written like this example (keep its STRUCTURE only;
+the subject must come from the groups above, not oranges or mugs every time):
 "Top-down real photograph of three whole oranges and one halved orange on a light beige linen
 tablecloth, with a small ceramic bowl of cloves. Natural textured orange peel with pores and tiny
 imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp
@@ -125,6 +143,9 @@ def main():
             "do NOT suggest anything that happens before {2} (too late for buyers). "
             "Write today's 4 ideas.").format(today.strftime("%Y-%m-%d"), today.strftime("%A"),
                                             a.strftime("%B %d"), b.strftime("%B %d"))
+    recent = [x["theme"] for x in common.load_json(PACK, {"prompts": []}).get("prompts", [])[:24]]
+    if recent:   # don't repeat the last few batches
+        user += " Do NOT repeat these recent themes or their main objects: " + "; ".join(recent) + "."
     if args.dry_run:
         print(user)
         return
