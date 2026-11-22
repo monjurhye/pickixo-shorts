@@ -1,8 +1,8 @@
 """Daily stock-image ideas for Magnific: what to make so it gets approved AND downloaded.
 
 Buyers download seasonal images 3-8 weeks ahead, so ideas mix upcoming US seasons/events
-with evergreen high-demand themes. Each idea has a ready prompt for free generators
-(FLUX.1 schnell, Ideogram, Adobe Firefly), aspect ratio, starter keywords and approval tips.
+with evergreen high-demand themes. Each idea has a ready prompt for Adobe Firefly
+(firefly.adobe.com), aspect ratio, starter keywords and approval tips.
 Sent to the dashboard (/admin -> Magnific image ideas).
 
   python -m pipeline.image_ideas            # make today's ideas
@@ -30,7 +30,7 @@ SCHEMA = {
                     "prompt": {"type": "string"},
                     "avoid": {"type": "string"},
                     "aspect": {"type": "string", "enum": ["16:9", "3:2", "1:1", "2:3", "9:16"]},
-                    "best_tool": {"type": "string", "enum": ["FLUX.1 schnell", "Ideogram", "Adobe Firefly"]},
+                    "best_tool": {"type": "string", "enum": ["Adobe Firefly"]},
                     "keywords": {"type": "array", "items": {"type": "string"}},
                 },
                 "required": ["theme", "why", "kind", "prompt", "avoid", "aspect", "best_tool", "keywords"],
@@ -45,12 +45,12 @@ SCHEMA = {
 SYSTEM = """You are a stock-content strategist for a contributor on Magnific (formerly Freepik),
 selling AI-generated photos/illustrations to mostly US buyers (designers, marketers, bloggers).
 
-Make 10 image ideas for today's date:
-- 4 seasonal: US holidays, seasons and events 3 to 8 weeks AFTER today (buyers prepare early).
-- 4 evergreen with steady demand: business/teamwork, home office, healthy food, wellness,
+Make exactly 4 image ideas for today's date, all for Adobe Firefly (firefly.adobe.com):
+- 2 seasonal: US holidays, seasons and events 3 to 8 weeks AFTER today (buyers prepare early).
+- 1 evergreen with steady demand: business/teamwork, home office, healthy food, wellness,
   technology and AI concepts, finance, education, abstract backgrounds with copy space,
   diverse everyday lifestyle.
-- 2 trend: visual styles or topics rising now (be realistic, no made-up statistics).
+- 1 trend: visual styles or topics rising now (be realistic, no made-up statistics).
 
 Rules so images get APPROVED (Magnific rejects these):
 - No visible text, letters, logos, brands, trademarks, famous places' signage, real people
@@ -81,9 +81,8 @@ setting, light, camera/lens or art style, colors, mood, composition, "copy space
 left" when useful). English only.
 
 why: one short sentence on who buys it and when. avoid: what to check/reject before upload.
-best_tool: prefer Adobe Firefly (large output, no upscaling needed) for photos and
-lifestyle; Ideogram for graphic/illustration/poster looks; FLUX.1 schnell only for simple
-photoreal objects or backgrounds. keywords: 10 lowercase buyer search terms.
+Write every prompt for Adobe Firefly Image (it understands plain descriptive English;
+no weights, no negative-prompt syntax, no "--ar" flags). best_tool: always "Adobe Firefly". keywords: 10 lowercase buyer search terms.
 season_note: one sentence on what buyers are preparing for right now."""
 
 
@@ -105,13 +104,15 @@ def main():
     a, b = today + timedelta(weeks=3), today + timedelta(weeks=8)
     user = ("Today is {0} ({1}). Seasonal ideas must be for events/seasons between {2} and {3}; "
             "do NOT suggest anything that happens before {2} (too late for buyers). "
-            "Write today's 10 ideas.").format(today.strftime("%Y-%m-%d"), today.strftime("%A"),
+            "Write today's 4 ideas.").format(today.strftime("%Y-%m-%d"), today.strftime("%A"),
                                             a.strftime("%B %d"), b.strftime("%B %d"))
     if args.dry_run:
         print(user)
         return
     res = content._call_json(SYSTEM, user, SCHEMA, common.settings(), 6000)
-    ideas = res.get("ideas", [])[:12]
+    ideas = res.get("ideas", [])[:4]
+    for i in ideas:
+        i["best_tool"] = "Adobe Firefly"
     bad = ("logo", "brand", "celebrity", "in the style of")
     for i in ideas:
         if any(b in i["prompt"].lower() for b in bad):

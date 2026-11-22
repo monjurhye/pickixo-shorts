@@ -393,17 +393,14 @@ async function copyText(id){ try{ await navigator.clipboard.writeText(document.g
 }
 
 const FREE_TOOLS = [
-  ["Adobe Firefly ★ first choice", "https://firefly.adobe.com", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
-  ["Ideogram", "https://ideogram.ai", "Free daily credits. Illustrations and posters (turn text off). Output is smaller, needs 2x upscale. Check their terms before selling."],
-  ["FLUX.1 schnell", "https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell", "Apache 2.0, free commercial use, realistic. Only ~1024px: needs 2x upscale, so use it less."],
-  ["Upscayl (only if needed)", "https://upscayl.org", "Free Mac app. Use 2x only (never 4x) with a realistic/high-fidelity model, then check at 100% zoom. Plastic or over-sharp images get rejected."],
+  ["Adobe Firefly", "https://firefly.adobe.com/generate/images", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
 ];
 
 function ideasSection(d, req) {
   const button = req
     ? `<div class="msg">⏳ Requested ${bdTime(req.at)}. New prompts arrive in about 10-15 minutes; refresh this page.
 <form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
-    : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 10 new prompts now? This uses the OpenAI API (small cost).')">
+    : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? This uses the OpenAI API (small cost).')">
 <button name="do" value="ideas_request">✨ Make new prompts (uses API)</button></form>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
@@ -423,8 +420,7 @@ ${button}
 <div class="msg"><b>Fastest free routine:</b> 1) press <b>🎨 Copy + open Firefly</b>, paste (Cmd+V), pick the aspect ratio shown on the card and the largest size, generate, download the good ones;
 2) double-click <b>Magnific Batch</b> on your Mac Desktop: it takes the Firefly downloads, checks quality, writes titles, 45 keywords and the CSV, and opens the upload folder + Magnific;
 3) drag the JPGs and the CSV into Magnific, mark AI, Submit. (After 500 published files Magnific opens SFTP; then upload can be automatic too.)</div>
-<p><b>Free workflow:</b> copy a prompt → make 4-8 images (Adobe Firefly first: big enough without upscaling) → keep only clean ones (hands, faces, no text) →
-if smaller than ~2000px, upscale 2x only and check at 100% zoom → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
+<p><b>Free workflow:</b> copy a prompt → make 4-8 images in Adobe Firefly (big enough without upscaling) → keep only clean ones (hands, faces, no text) → run <code>tools/magnific/run.sh</code> for titles/keywords/CSV → upload on Magnific and mark as AI.</p>
 <div class="msg"><b>Avoid "Low quality" rejections:</b> zoom to 100% before uploading. Reject images with plastic or waxy surfaces,
 smeared small details, over-sharp edges, odd hands or fake text. Fewer objects in a scene = fewer AI mistakes.
 The Mac tool now scores every image and leaves weak ones out of the CSV (see magnific_report.txt).</div>

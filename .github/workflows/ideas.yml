@@ -9,7 +9,7 @@ on:
         description: "both = prompts + Facebook, ideas = prompts only (dashboard button), fb = Facebook only"
         default: "both"
       pack:
-        description: "Extra batches of 10 for the prompt pack (0 = normal day)"
+        description: "Extra batches of 4 for the prompt pack (0 = normal day)"
         default: "0"
       fb_test_reel:
         description: "Make ONE Facebook reel and schedule it (test)"
