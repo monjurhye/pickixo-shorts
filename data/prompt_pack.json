@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year Celebration Flat Lay",
+      "prompt": "A minimalist flat lay photograph of silver and gold confetti scattered on a clean white textured paper background, accompanied by two champagne flutes filled with sparkling cider, bright natural daylight from the side casting soft shadows, crisp focus on the main objects with a gentle blur on the background, generous copy space in the center, commercial stock photography style.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Winter Citrus and Pine Still Life",
+      "prompt": "A clean studio photograph of a single whole orange with a fresh green leaf and a small sprig of pine needles placed on a light oak wood tabletop, bright even daylight illuminating the realistic textures of the fruit peel and wood grain, minimalist composition with ample copy space on the right, natural color palette.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Modern Home Office Desk Setup",
+      "prompt": "A top-down photographic view of a clean light wooden desk holding a closed plain pastel ceramic coffee mug and a small potted succulent plant in a white pot, bright natural daylight flooding the scene from a nearby window, sharp focus on the objects, uncluttered workspace with wide empty surface areas for copy space, professional commercial interior style.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Biophilic Pastel Interior Background",
+      "prompt": "An interior architectural background featuring a smooth curved wall painted in soft sage green, with a single large monstera leaf casting a soft natural shadow across the surface from bright daylight off-camera, minimalist composition, clean architectural lines, smooth matte textures, generous copy space in the center.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year Goal Setting",
       "prompt": "A minimalist flat lay on a warm oak wooden tabletop featuring a single closed light gray linen-bound notebook, a smooth ceramic white mug of black coffee, and a single fresh eucalyptus sprig. Bright natural daylight streaming from the side creates soft, realistic shadows. Clean composition with plenty of negative space on the right side for editorial text, professional editorial photography style with sharp focus.",
       "tool": "Adobe Firefly",
