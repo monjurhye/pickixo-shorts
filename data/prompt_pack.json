@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "Christmas gift wrapping preparation",
+      "prompt": "Top-down real photograph of three plain brown paper wrapped gift boxes and two matte green ceramic baubles on a light oak wooden table. Natural textured kraft paper with subtle fiber details, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Blank kraft paper shopping bag mockup",
+      "prompt": "Top-down real photograph of one blank kraft paper shopping bag and one plain wooden token on a neutral light grey stone tile. Natural textured recycled paper with visible fibers, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Healthy avocado toast breakfast",
+      "prompt": "Top-down real photograph of one slice of whole grain bread with sliced avocado on a light ceramic plate, placed on a white marble surface. Natural textured bread crust and ripe fruit, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Earthy neutral Japandi wellness trend",
+      "prompt": "Top-down real photograph of one plain beige ceramic oil bottle and one smooth round river stone on a pale beige linen tablecloth. Natural textured ceramic glaze and woven linen fabric, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year party preparation with matte baubles and star confetti",
       "prompt": "Top-down real photograph of three matte finish silver baubles and a small scattering of paper star shapes on a light grey ceramic tile surface, with one whole peeled mandarin orange. Natural textured surfaces with small imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
       "tool": "Adobe Firefly",
@@ -671,34 +699,6 @@
       "prompt": "Minimalist still life featuring a glass oil lamp or olive oil bottle, woolen cloths, and slate tabletop; soft glow, cool blue-gray palette with warm amber accents, gentle shadows, composition focused left with ample negative space.",
       "tool": "Ideogram",
       "aspect": "1:1",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Epiphany gift-wrapping textures mood",
-      "prompt": "Flat-lay of kraft paper, twine, dried orange slices, pine needles, and textured wrapping materials on a linen cloth; muted warm colors, soft natural light, shallow depth, negative space on the right for copy.",
-      "tool": "FLUX.1 schnell",
-      "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter Solstice calm desk with evergreen accents",
-      "prompt": "Calm desk setup at early-morning light: wooden desk, a single ceramic mug, a small potted evergreen, a notebook, and a soft fabric runner; soft shadows, natural textures, copy space on the left for headlines.",
-      "tool": "Adobe Firefly",
-      "aspect": "2:3",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter gift guide minimalist set",
-      "prompt": "Minimalist arrangement of wrapped boxes with neutral paper, ribbon, a single ornament, and a linen backdrop; soft directional light, deep shadows to create depth, wide negative space on top for copy.",
-      "tool": "Ideogram",
-      "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Cozy winter home spa moment",
-      "prompt": "Calm bathroom or bedroom scene with a wooden tray, bath salts, a rolled towel, a small plant, and softly glowing candlelight; natural light through a sheer curtain, gentle steam, plenty of copy space left.",
-      "tool": "Adobe Firefly",
-      "aspect": "2:3",
       "date": "2026-11-20"
     }
   ]
