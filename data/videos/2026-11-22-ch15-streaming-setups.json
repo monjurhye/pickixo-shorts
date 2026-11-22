@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-22-ch15-streaming-setups",
+  "date": "2026-11-22",
+  "channel_id": "ch15",
+  "channel_name": "LuxeSolar Pets",
+  "niche": "Gaming accessories",
+  "title": "Essential gear for streaming",
+  "hook": "Upgrade your stream right now",
+  "description": "Discover helpful gear to improve your streaming setup. Tap the links below to find them on Amazon.",
+  "items": [
+    {
+      "name": "USB microphone for gaming",
+      "benefit": "Capture crystal clear voice audio",
+      "amazon_search": "USB microphone for gaming",
+      "asin": "B0D14CNN7M",
+      "link": "https://www.amazon.com/dp/B0D14CNN7M?tag=monjur09-20"
+    },
+    {
+      "name": "Gaming headset",
+      "benefit": "Hear every single in-game detail",
+      "amazon_search": "Gaming headset",
+      "asin": "B0CC6WSMKB",
+      "link": "https://www.amazon.com/dp/B0CC6WSMKB?tag=monjur09-20"
+    },
+    {
+      "name": "External capture card",
+      "benefit": "Record smooth gameplay footage easily",
+      "amazon_search": "External capture card",
+      "asin": "B09X7C2GBC",
+      "link": "https://www.amazon.com/dp/B09X7C2GBC?tag=monjur09-20"
+    },
+    {
+      "name": "Mechanical keyboard",
+      "benefit": "Enjoy fast responsive key presses",
+      "amazon_search": "Mechanical keyboard",
+      "asin": "B0F8HVVBYK",
+      "link": "https://www.amazon.com/dp/B0F8HVVBYK?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "jZFDU_I78qY",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch15-streaming-setups/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-22/2026-11-22-ch15-streaming-setups.mp4",
+  "seconds": 28,
+  "image": "https://images.pexels.com/videos/7668160/pexels-photo-7668160.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/man-playing-video-game-7668160/"
+}

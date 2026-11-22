@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-22-ch13-backpacking-essentials",
+  "date": "2026-11-22",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Useful backpacking gear finds",
+  "hook": "Upgrade your next backpacking trip",
+  "description": "Discover these useful gear finds to make your next backpacking trip easier and more comfortable. Check out the links below to learn more.",
+  "items": [
+    {
+      "name": "Ultralight camping stove",
+      "benefit": "Boils water fast at camp",
+      "amazon_search": "ultralight backpacking stove",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=ultralight+backpacking+stove&tag=monjur09-20"
+    },
+    {
+      "name": "Compact water filter",
+      "benefit": "Provides clean drinking water anywhere",
+      "amazon_search": "compact backpacking water filter",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+backpacking+water+filter&tag=monjur09-20"
+    },
+    {
+      "name": "Inflatable sleeping pad",
+      "benefit": "Ensures comfortable sleep outdoors",
+      "amazon_search": "inflatable camping sleeping pad",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=inflatable+camping+sleeping+pad&tag=monjur09-20"
+    },
+    {
+      "name": "Solar power bank",
+      "benefit": "Keeps your devices charged on trails",
+      "amazon_search": "portable solar power bank",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+solar+power+bank&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "dffOknhYBXI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch13-backpacking-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-22/2026-11-22-ch13-backpacking-essentials.mp4",
+  "seconds": 37,
+  "image": "https://images.pexels.com/videos/18761161/pexels-photo-18761161.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-person-is-walking-through-the-woods-18761161/"
+}

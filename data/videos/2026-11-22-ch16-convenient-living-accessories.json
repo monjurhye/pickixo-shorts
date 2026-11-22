@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-22-ch16-convenient-living-accessories",
+  "date": "2026-11-22",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Convenient living accessories for your house",
+  "hook": "Upgrade your house with these useful accessories",
+  "description": "Discover simple accessories to make daily living more convenient. Tap the link to view them on Amazon.",
+  "items": [
+    {
+      "name": "Smart door lock",
+      "benefit": "Keyless entry for your front door",
+      "amazon_search": "Smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "Voice control for your favorite music",
+      "amazon_search": "Smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "Connect all your devices in one place",
+      "amazon_search": "Smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Detects movement around your home instantly",
+      "amazon_search": "Smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "LcU94lUXZXA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch16-convenient-living-accessories/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-22/2026-11-22-ch16-convenient-living-accessories.mp4",
+  "seconds": 28,
+  "image": "https://images.pexels.com/videos/34236993/pexels-photo-34236993.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-cozy-living-room-with-black-leather-sofa-34236993/"
+}
