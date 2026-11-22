@@ -3,7 +3,28 @@
   "prompts": [
     {
       "theme": "New Year celebration preparation",
-      "prompt": "Top-down real photograph of three whole round glass ornaments and one folded linen napkin on a white marble surface, with a small ceramic saucer of star anise. Natural smooth glass texture with subtle reflections, matte ceramic not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "prompt": "Top-down real photograph of three whole golden stars and one silver ball ornament on a white marble surface, with a folded dark green linen napkin. Natural metallic textures with small imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Winter wellness and tea ritual",
+      "prompt": "Top-down real photograph of one ceramic mug and a whole dried citrus slice on a light oak wooden table, with three broad bay leaves. Natural wood grain and ceramic glaze with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Home office organization and focus",
+      "prompt": "Top-down real photograph of one closed plain notebook and a ceramic coffee cup on a light linen tablecloth, with a small smooth river stone. Natural fabric weave and matte ceramic textures with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Minimalist organic skincare ingredients",
+      "prompt": "Top-down real photograph of three whole round soap bars and one smooth sea sponge on a plain ceramic tile, with two broad olive leaves. Natural porous soap and rough sponge textures with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
       "tool": "Adobe Firefly",
       "aspect": "1:1",
       "date": "2026-11-22"
@@ -678,27 +699,6 @@
       "prompt": "Neutral-toned desk scene with a notebook, pen, calculator, and a small plant; natural light, gentle shadows, clean composition with generous copy space on the left.",
       "tool": "Ideogram",
       "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Back-to-work weeks mood board (after holidays)",
-      "prompt": "Flat lay of a corkboard or fabric board with neutral-toned sticky notes, a pen, and a coffee cup; subdued lighting, cool-to-warm gradient, ample left-side copy space.",
-      "tool": "FLUX.1 schnell",
-      "aspect": "9:16",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Blue-hour tech desk (after holidays)",
-      "prompt": "Desk setup with a laptop, a sleek mouse, and a small glass orb, ambient blue-hour light casting soft reflections; muted colors, medium depth of field, copy space on the left.",
-      "tool": "Adobe Firefly",
-      "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter wellness drink backdrop",
-      "prompt": "Flat lay of a mug with herbal tea, a honey dipper, citrus slices on a wooden board; warm light, textured linen backdrop, space on the right for copy.",
-      "tool": "Ideogram",
-      "aspect": "1:1",
       "date": "2026-11-20"
     }
   ]
