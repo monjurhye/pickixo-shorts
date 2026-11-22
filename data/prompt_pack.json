@@ -1,6 +1,34 @@
 {
-  "updated": "2026-11-21",
+  "updated": "2026-11-22",
   "prompts": [
+    {
+      "theme": "Holiday winter still life with ornaments and warm light",
+      "prompt": "A clean winter still life featuring a few matte ceramic ornaments, pine sprigs, and a softly textured linen cloth on a wooden table, warm daylight from a window casting gentle shadows; large copy space on the left for text, minimal clutter, high detail textures on wood and fabric, and a calm, festive mood.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Christmas/Holiday home decor in a cozy living space",
+      "prompt": "A cozy living room corner with a soft throw blanket, a small Christmas tree or decorative branches, a warm lamp glow, and a clean floor with gentle shadows; uncluttered composition, ample negative space on one side for text, realistic textures in fabric and wood, bright but soft overall tone.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Healthy winter work-from-home setup",
+      "prompt": "A tidy home office scene with a clean desk, a slim laptop, a plant, and a cup of tea; natural daylight from a window, soft shadows, neutral palette with a pop of green, generous copy space on the left, crisp textures on desk surface and plant leaves, no people.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Soft 3D minimal trend with tactile textures",
+      "prompt": "A minimal scene with a few rounded geometric shapes (ceramic vase, soft block, and a textured fabric panel) arranged on a flat surface; soft shadows, muted pastel color palette, slight depth with a subtle background blur, plenty of copy space on one side, sharp focus on the main shapes.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
     {
       "theme": "Cozy Christmas living room with holiday glow",
       "prompt": "A warm, softly lit living room scene with a decorated Christmas tree, wrapped gifts, a tray of cookies, and a crackling fireplace in the background; natural textures like wool throws and wood grain visible; diffuse golden light from a window; copy space on the left; shallow depth of field.",
