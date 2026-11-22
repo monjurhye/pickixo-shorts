@@ -135,6 +135,9 @@ def main():
     for i in ideas:
         i["best_tool"] = "Adobe Firefly"
         i["aspect"] = "1:1"   # flat lays only (approved style)
+        if "cut off" not in i["prompt"].lower():   # the model sometimes drops this; it decides approval
+            i["prompt"] = i["prompt"].rstrip(". ") + (". All objects small and fully inside the frame with wide "
+                                                      "empty margins on every side, nothing cut off at the edges.")
     bad = ("logo", "brand", "celebrity", "in the style of")
     for i in ideas:
         if any(b in i["prompt"].lower() for b in bad):
