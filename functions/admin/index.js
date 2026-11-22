@@ -473,25 +473,25 @@ const FREE_TOOLS = [
 
 // "Write prompts with Claude": opens claude.ai with a ready request (your Claude account, no API cost).
 const CLAUDE_PROMPT_REQUEST = `Today is {DATE}. I sell AI stock photos on Magnific (Freepik) to US designers and marketers.
-Write exactly 4 Adobe Firefly prompts for images that get APPROVED and DOWNLOADED.
+Write exactly ONE Adobe Firefly prompt for an image that gets APPROVED and DOWNLOADED.
 
-Style that gets approved (keep it for all 4): a TOP-DOWN FLAT-LAY real photograph, aspect ratio 1:1.
+Style that gets approved: a TOP-DOWN FLAT-LAY real photograph, aspect ratio 1:1.
 3 to 5 simple objects on ONE plain surface (light linen, light oak, white marble, kraft paper, plain tile),
 small in the frame (about one third of the picture), ALL fully inside the frame with wide empty margins,
 nothing cut off at the edges, plenty of empty space for text.
 
-Each prompt from a DIFFERENT group:
-- 2 seasonal: US holidays/events 3 to 8 weeks after today (buyers prepare early).
-- 1 evergreen best-seller: blank mockups (blank greeting card + envelope, business cards, tote bag,
+Pick the subject from ONE of these groups (the one with the best download chance right now):
+- seasonal: US holidays/events 3 to 8 weeks after today (buyers prepare early).
+- evergreen best-seller: blank mockups (blank greeting card + envelope, business cards, tote bag,
   folded t-shirt, gift box: "blank, no print, no text"), business/office, healthy food, beauty/spa,
   education, travel, or an empty texture background with one small object in a corner.
-- 1 trend: a current colour or style (pastel, earthy neutral, Japandi) on one of those groups.
+- trend: a current colour or style (pastel, earthy neutral, Japandi) on one of those groups.
 
 Never: text, letters, numbers, logos, brands, people, hands, glass or shiny reflective things, glossy
 plastic, 3D/CGI look, tiny fiddly things (spice grains, small flowers, string, ribbon, scissors, jewelry),
 needle herbs (rosemary, pine, thyme, dill), fog, steam, dim light. Use broad leaves (eucalyptus, olive).
 
-Each prompt: one paragraph, 45-75 words, in this structure:
+The prompt: one paragraph, 45-75 words, in this structure:
 "Top-down real photograph of [objects] on [surface], with [one small extra]. Natural [texture] with tiny
 imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All
 objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the
@@ -499,10 +499,11 @@ edges. Clean minimal composition with plenty of empty space for text. Muted natu
 
 Do NOT repeat these recent themes or their main objects: {AVOID}
 
-Answer in Bangla, but keep each prompt in English inside its own code block so I can copy it.
-For each: the theme, why buyers download it (one line), aspect ratio 1:1, the prompt, and what to check
-at 100% zoom before uploading. Finally suggest a Magnific title (include "mockup" for mockups) and
-10 keywords for each.`;
+Answer in Bangla, but put the prompt in English inside one code block so I can copy it.
+Give: the theme, why buyers download it (one line), aspect ratio 1:1, the prompt, what to check at 100%
+zoom before uploading, a Magnific title (include "mockup" for mockups) and 10 keywords.
+When I write "next", give ONE new prompt the same way, from a different group and subject than every
+prompt in this chat.`;
 
 function claudePromptButton(d, id = "claudePrompt") {
   const avoid = (d && d.ideas || []).map((i) => i.theme).join("; ") || "(none)";
@@ -519,7 +520,7 @@ function ideasSection(d, req) {
 <form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
     : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? Free (Google Gemini).')">
 <button name="do" value="ideas_request">✨ Make new prompts (free)</button></form>`;
-  const claude = `<div class="row">${claudePromptButton(d)}<span class="muted">Copies a ready request and opens claude.ai: press Cmd+V and send. Claude writes 4 flat-lay 1:1 prompts. Free with your Claude account; the prompts appear in Claude, not here.</span></div>`;
+  const claude = `<div class="row">${claudePromptButton(d)}<span class="muted">Copies a ready request and opens claude.ai: press Cmd+V and send. Claude writes 1 flat-lay 1:1 prompt; write "next" for another. Free with your Claude account; the prompts appear in Claude, not here.</span></div>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
   const cards = (d.ideas || []).map((i, n) => `<div class="card">
@@ -713,8 +714,8 @@ previews go to the AI.</p>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="card"><h3>🤖 Image prompts with Claude (claude.ai, free)</h3>
-<p class="muted">Press the button: the request is copied and claude.ai opens. Press <b>Cmd+V</b> and send. Claude writes 4 Firefly prompts
-(top-down flat lay, 1:1, best-selling subjects). Copy a prompt into Firefly, make the images, then come back here for title + keywords.</p>
+<p class="muted">Press the button: the request is copied and claude.ai opens. Press <b>Cmd+V</b> and send. Claude writes ONE Firefly prompt
+(top-down flat lay, 1:1, best-selling subject); write <b>next</b> in Claude for another. Copy a prompt into Firefly, make the images, then come back here for title + keywords.</p>
 ${claudePromptButton(magIdeas, "claudePromptTool")}</div>
 <div class="grid" id="mag-results"></div>
 <script src="/magnific-tool.js?v=10"></script>`;
