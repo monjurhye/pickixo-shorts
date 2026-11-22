@@ -669,7 +669,7 @@ previews go to the AI.</p>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
-<script src="/magnific-tool.js?v=9"></script>`;
+<script src="/magnific-tool.js?v=10"></script>`;
 }
 
 function fbConnectHtml(fp) {

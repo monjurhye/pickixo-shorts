@@ -201,7 +201,8 @@
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mode: "meta", preview: await b64(prev, 0.85) }),
     });
-    const d = await r.json().catch(() => ({ error: "bad reply" }));
+    const raw = await r.text();
+    let d; try { d = JSON.parse(raw); } catch (e) { d = { error: "Server reply was not JSON (HTTP " + r.status + "): " + raw.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160) }; }
     if (!r.ok || d.error) {
       row.innerHTML = cardHtml({ name: file.name, size: note, thumb: prev.toDataURL("image/jpeg", 0.7), err: d.error || ("HTTP " + r.status) });
       return null;
@@ -228,7 +229,8 @@
       body: JSON.stringify({ mode: "check", preview: await b64(item.prev, 0.85), crop: await b64(item.crop, 0.9),
         extra: await Promise.all(item.extra.map((c) => b64(c, 0.88))) }),
     });
-    const d = await r.json().catch(() => ({ error: "bad reply" }));
+    const raw = await r.text();
+    let d; try { d = JSON.parse(raw); } catch (e) { d = { error: "Server reply was not JSON (HTTP " + r.status + "): " + raw.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160) }; }
     item.checking = false;
     if (!r.ok || d.error) {
       item.notes = "check failed: " + (d.error || "HTTP " + r.status);

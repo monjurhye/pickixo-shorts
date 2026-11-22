@@ -113,6 +113,14 @@ async function askGemini(env, instructions, schema, text, images) {
 }
 
 export async function onRequestPost(context) {
+  try {
+    return await handle(context);
+  } catch (e) {   // always answer in JSON, so the page shows the real reason
+    return json({ error: "Server error: " + String((e && e.message) || e).slice(0, 200) }, 500);
+  }
+}
+
+async function handle(context) {
   const { env, request } = context;
   if (!(await session(context))) return json({ error: "Sign in to the dashboard first." }, 401);
   if (!env.GEMINI_API_KEY) return json({ error: "Set GEMINI_API_KEY (free) in Cloudflare Pages → Settings → Variables and secrets." }, 500);
