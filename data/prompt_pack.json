@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year Winter Wellness",
+      "prompt": "Top-down real photograph of a white ceramic mug of green tea and one whole lemon on a light oak wooden table, with two sprigs of fresh rosemary. Natural textured ceramic glaze with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Winter Holiday Citrus Baking",
+      "prompt": "Top-down real photograph of three whole star anise and one wooden rolling pin on a white marble countertop, with a small ceramic bowl of flour. Natural textured wooden grain with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Remote Work Productivity",
+      "prompt": "Top-down real photograph of a closed plain grey notebook and one black ceramic pen on a light linen tablecloth, with a small smooth river stone. Natural textured linen weave with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Aesthetic Neutral Botanicals",
+      "prompt": "Top-down real photograph of one dried palm leaf and a plain ceramic vase on a light beige concrete surface, with a smooth round stone. Natural textured matte ceramic with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year celebration decor",
       "prompt": "A minimalist flat lay on a warm wooden tabletop featuring two simple champagne flutes, a single glossy gold ornament, and scattered confetti dots, illuminated by soft natural daylight from a side window, realistic glass reflections, fine wood grain texture, overhead perspective, generous blank copy space on the right.",
       "tool": "Adobe Firefly",
