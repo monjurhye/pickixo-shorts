@@ -1,7 +1,7 @@
 // POST /api/magnific/meta  (admin session)
 //   {"mode":"meta",  "preview": "<b64 jpeg>"}                          -> title, keywords, category
 //   {"mode":"check", "preview": "<b64>", "crop": "<b64>", "extra":[..]} -> strict quality check
-// Google Gemini (free) when the Pages secret GEMINI_API_KEY is set, otherwise OpenAI (OPENAI_API_KEY).
+// Google Gemini only (free tier, Pages secret GEMINI_API_KEY). No OpenAI.
 import { json, session } from "../../../lib/dashboard.js";
 
 const CATEGORIES = ["Backgrounds", "Business", "Food and drink", "Animals", "Nature", "Holidays",
@@ -112,28 +112,10 @@ async function askGemini(env, instructions, schema, text, images) {
   return parts.map((p) => p.text || "").join("");
 }
 
-async function askOpenAI(env, instructions, schema, text, images, effort) {
-  const r = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: { "Authorization": "Bearer " + env.OPENAI_API_KEY, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "gpt-5-nano", instructions, reasoning: { effort }, max_output_tokens: 8000,
-      text: { format: { type: "json_schema", name: "meta", strict: true, schema } },
-      input: [{ role: "user", content: [{ type: "input_text", text },
-        ...images.map((b) => ({ type: "input_image", image_url: "data:image/jpeg;base64," + b }))] }],
-    }),
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error("OpenAI " + r.status + ": " + ((d.error && d.error.message) || "").slice(0, 200));
-  let out = d.output_text || "";
-  if (!out) for (const o of d.output || []) for (const c of o.content || []) if (c.type === "output_text") out += c.text;
-  return out;
-}
-
 export async function onRequestPost(context) {
   const { env, request } = context;
   if (!(await session(context))) return json({ error: "Sign in to the dashboard first." }, 401);
-  if (!env.GEMINI_API_KEY && !env.OPENAI_API_KEY) return json({ error: "Set GEMINI_API_KEY (free) in Cloudflare Pages → Settings → Variables and secrets." }, 500);
+  if (!env.GEMINI_API_KEY) return json({ error: "Set GEMINI_API_KEY (free) in Cloudflare Pages → Settings → Variables and secrets." }, 500);
   const b = await request.json();
   const ok = (s) => typeof s === "string" && s.length > 100 && s.length < 3_000_000;
   const check = b.mode === "check";
@@ -146,8 +128,7 @@ export async function onRequestPost(context) {
   for (let attempt = 0; attempt < 2; attempt++) {
     let out;
     try {
-      out = env.GEMINI_API_KEY ? await askGemini(env, instr, schema, text, images)
-        : await askOpenAI(env, instr, schema, text, images, check ? "high" : "low");
+      out = await askGemini(env, instr, schema, text, images);
     } catch (e) {
       return json({ error: String(e.message || e) }, 502);
     }

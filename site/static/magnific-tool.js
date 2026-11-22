@@ -1,5 +1,5 @@
 // Magnific metadata tool for /admin. Runs in the browser: checks size, makes a JPG that
-// meets Magnific's minimum (short side 2000+), asks /api/magnific/meta (server side) for title and
+// meets Magnific's minimum (short side 2000+), asks /api/magnific/meta (Gemini, free, server side) for title and
 // keywords, then builds Magnific's CSV. The strict AI quality check is a separate button (only when needed).
 (function () {
   const MIN_SHORT = 2000, TARGET_SHORT = 2048, MIN_PIXELS = 4000000, MIN_QUALITY = 7, AI_TAG = "_ai_generated";
