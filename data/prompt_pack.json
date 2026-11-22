@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year Wellness and Fitness Preparation",
+      "prompt": "Top-down real photograph of one whole green apple and a small white ceramic bowl of raw almonds on a light oak wooden table, with a folded grey linen napkin. Natural textured fruit skin with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Winter Cozy Warmth and Comfort",
+      "prompt": "Top-down real photograph of one matte white ceramic mug of hot tea and a folded cream knit wool blanket on a pale birch wood surface, with two whole dried pinecones. Natural woven wool texture with visible yarn fibers, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the items for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Remote Work and Financial Planning",
+      "prompt": "Top-down real photograph of a closed plain grey notebook and a matte black metal pen on a white marble countertop, with a small succulent in a simple grey pot. Natural stone texture with subtle veining, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the desk items for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Organic Botanical Serenity Trend",
+      "prompt": "Top-down real photograph of three smooth river stones and two eucalyptus leaves on a light beige linen tablecloth, with a small clear glass dish of water. Natural stone surface texture with tiny pores, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the natural elements for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year Winter Wellness",
       "prompt": "Top-down real photograph of a white ceramic mug of green tea and one whole lemon on a light oak wooden table, with two sprigs of fresh rosemary. Natural textured ceramic glaze with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. Clean minimal composition with plenty of empty space around the objects for text. Muted natural colors.",
       "tool": "Adobe Firefly",
@@ -671,13 +699,6 @@
       "prompt": "Abstract graphic with circuit-like lines, soft glowing nodes, and a subtle grid, muted blues and grays with a warm highlight; plenty of negative space on the right for overlays.",
       "tool": "Ideogram",
       "aspect": "2:3",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Sustainable office tech concept",
-      "prompt": "Mid-distance shot of a corkboard layout with recycled-material notebook, bamboo desk accessories, and a solar-powered desk lamp; soft daylight, natural textures, copy space on the left.",
-      "tool": "Adobe Firefly",
-      "aspect": "16:9",
       "date": "2026-11-20"
     }
   ]
