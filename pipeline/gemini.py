@@ -26,8 +26,12 @@ def _schema(x):
     return x
 
 
+_LAST = [0.0]
+
+
 def call_json(system, user, schema, cfg, max_tokens=4000):
     model = cfg.get("gemini_model", DEFAULT_MODEL)
+    gap = float(cfg.get("gemini_min_gap_seconds", 4.5))   # free tier: 15 requests a minute
     body = {
         "systemInstruction": {"parts": [{"text": system}]},
         "contents": [{"role": "user", "parts": [{"text": user}]}],
@@ -36,6 +40,10 @@ def call_json(system, user, schema, cfg, max_tokens=4000):
     }
     url = "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent".format(model)
     for attempt in range(4):
+        wait = gap - (time.time() - _LAST[0])
+        if wait > 0:
+            time.sleep(wait)
+        _LAST[0] = time.time()
         req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
             "x-goog-api-key": common.secret("GEMINI_API_KEY"), "Content-Type": "application/json"})
         try:
@@ -43,7 +51,9 @@ def call_json(system, user, schema, cfg, max_tokens=4000):
                 data = json.loads(r.read().decode())
             break
         except urllib.error.HTTPError as e:
-            msg = e.read().decode("utf-8", "ignore")[:300]
+            msg = e.read().decode("utf-8", "ignore")[:600]
+            if e.code == 429 and "PerDay" in msg:
+                raise RuntimeError("Gemini free daily limit reached (500 a day); the rest waits for tomorrow")
             if e.code in (429, 500, 503) and attempt < 3:
                 common.log("gemini {0}, retrying".format(e.code))
                 time.sleep(30 * (attempt + 1))

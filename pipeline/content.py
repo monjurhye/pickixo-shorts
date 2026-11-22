@@ -1,4 +1,4 @@
-"""Claude writes each video's script, then a second Claude call reviews it
+"""The AI (provider in config/settings.json: now free Google Gemini) writes each video's script, then a second call reviews it
 (the automated quality gate that replaces manual approval)."""
 
 import json
@@ -95,7 +95,10 @@ def _client():
 
 
 def _call_json(system, user, schema, cfg, max_tokens=4000):
-    """Dispatch to the configured provider ("openai" or "anthropic")."""
+    """Dispatch to the configured provider ("gemini", "openai" or "anthropic")."""
+    if cfg.get("provider", "anthropic") == "gemini":
+        from . import gemini
+        return gemini.call_json(system, user, schema, cfg, max_tokens)
     if cfg.get("provider", "anthropic") == "openai":
         return _call_json_openai(system, user, schema, cfg, max_tokens)
     return _call_json_anthropic(system, user, schema, cfg, max_tokens)

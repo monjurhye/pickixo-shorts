@@ -40,7 +40,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Find products
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # needs OpenAI web search: no key is passed any more (off; would have to be rebuilt on a free API)
         run: |
           ARGS=""
           if [ -n "${{ inputs.channel }}" ]; then ARGS="--channel ${{ inputs.channel }}"; fi

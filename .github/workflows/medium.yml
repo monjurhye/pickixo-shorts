@@ -40,7 +40,7 @@ jobs:
         env:
           IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
           IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: |
           ARGS=""

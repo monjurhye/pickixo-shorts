@@ -55,7 +55,7 @@ jobs:
           # Each secret by name (passing all secrets as one blob gets the workflow
           # flagged by GitHub). Add a line here if you add a channel past ch20.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}

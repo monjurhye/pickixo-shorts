@@ -81,7 +81,7 @@ jobs:
         if: vars.MTL_ON == 'true' && steps.mode.outputs.fb == 'true' && inputs.fb_check != true && inputs.fb_test_reel != true
         continue-on-error: true
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.mtl_posts
       - name: Install ffmpeg and fonts (Facebook reels)
@@ -90,7 +90,7 @@ jobs:
       - name: Facebook posts (ideas + auto-schedule)
         if: steps.mode.outputs.fb == 'true'
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
