@@ -49,7 +49,8 @@ jobs:
                 -H "X-Pipeline-Key: $PIPELINE_KEY" -H "Content-Type: application/json" \
                 -H "User-Agent: pickixo-pipeline/1.0" -d '{"take":true}' || true)
           echo "dashboard: $R"
-          if echo "$R" | grep -q '"requested":true'; then echo "ideas=true" >> "$GITHUB_OUTPUT"
+          # a manual "ideas" run (Actions tab) always makes prompts; the take above still clears a button press
+          if echo "$R" | grep -q '"requested":true' || { [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "$MODE" = "ideas" ] && [ "${{ github.actor }}" != "pickixo-bot" ]; }; then echo "ideas=true" >> "$GITHUB_OUTPUT"
           else echo "ideas=false" >> "$GITHUB_OUTPUT"; fi
           echo "fb=false" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
