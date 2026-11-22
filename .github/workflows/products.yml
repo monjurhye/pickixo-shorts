@@ -25,6 +25,10 @@ concurrency:
 
 jobs:
   run:
+    # OFF since 2026-11-22: ~400 web searches a day (~$4/day OpenAI) for 2-3 products per channel.
+    # Products now come from /admin -> Products (owner pastes Amazon links) and config/products.json.
+    # To turn it back on: repo Settings -> Variables -> PRODUCT_FINDER_ON = true.
+    if: vars.PRODUCT_FINDER_ON == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

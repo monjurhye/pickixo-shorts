@@ -69,8 +69,20 @@ def amazon_product_link(asin, tracking_id):
     return "https://www.amazon.com/dp/{0}?tag={1}".format(asin, tracking_id)
 
 
+_ADMIN_PRODUCTS = None
+
+
+def _admin_products():
+    """Owner-picked products from /admin -> Products (fetched once per run)."""
+    global _ADMIN_PRODUCTS
+    if _ADMIN_PRODUCTS is None:
+        from . import dashboard  # lazy: dashboard imports common
+        _ADMIN_PRODUCTS = dashboard.admin_products()
+    return _ADMIN_PRODUCTS
+
+
 def products(channel_id):
-    """Real products for a channel. Owner-picked ones (config/products.json) come first,
+    """Real products for a channel. Owner-picked ones (/admin -> Products, then config/products.json) come first,
     then the ones the product finder agent verified (data/products.json, younger than
     product_finder_max_age_days). Never guessed. Returns [{"asin","name"}]."""
     manual = load_json(os.path.join(CONFIG_DIR, "products.json"), {"products": []}).get("products", [])
@@ -79,7 +91,7 @@ def products(channel_id):
     auto = [p for p in (load_json(os.path.join(DATA_DIR, "products.json"), None) or {}).get("products", [])
             if p.get("found", "") >= cutoff]
     out, seen = [], set()
-    for p in manual + auto:
+    for p in _admin_products() + manual + auto:
         asin = parse_asin(p.get("asin") or p.get("link") or "")
         if not asin or asin in seen or not p.get("name"):
             continue

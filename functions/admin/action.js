@@ -5,6 +5,7 @@ import { setIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, putManual } from "../../lib/earnings.js";
 import { getXp, putXp } from "../../lib/xpost.js";
 import { getMtlCfg, putMtlCfg } from "../../lib/mtl.js";
+import { getAdminProducts, parseAsin, putAdminProducts } from "../../lib/products.js";
 
 export async function onRequestPost(context) {
   const { env, request } = context;
@@ -84,6 +85,30 @@ export async function onRequestPost(context) {
     }
     await putXp(env, xp);
     return redirect("/admin?msg=" + encodeURIComponent(m) + "#xpost");
+  }
+  if (action === "prod_add" || action === "prod_del") {
+    const d = await getAdminProducts(env);
+    let m;
+    if (action === "prod_del") {
+      const asin = String(form.get("asin") || "");
+      d.products = d.products.filter((p) => p.asin !== asin);
+      m = "Product removed.";
+    } else {
+      const asin = parseAsin(form.get("link"));
+      const name = String(form.get("name") || "").replace(/\s+/g, " ").trim().slice(0, 80);
+      const chans = form.getAll("channels").map(String).filter((c) => /^ch\d{2}$/.test(c));
+      if (!asin) m = "No product found in that link. Use SiteStripe → Get link → Full link (it has /dp/ in it), or the 10-letter ASIN. Short amzn.to links do not work.";
+      else if (!name) m = "Add a short product name.";
+      else if (!chans.length) m = "Tick at least one channel.";
+      else {
+        const old = d.products.find((p) => p.asin === asin);
+        if (old) { old.name = name; old.channels = [...new Set([...old.channels, ...chans])]; m = "Updated " + asin + "."; }
+        else { d.products.unshift({ asin, name, channels: chans, added: new Date().toISOString().slice(0, 10) }); m = "Added " + asin + "."; }
+        d.products = d.products.slice(0, 500);
+      }
+    }
+    await putAdminProducts(env, d);
+    return redirect("/admin?msg=" + encodeURIComponent(m) + "#products");
   }
   if (action === "appidea_save" || action === "appidea_del") {
     // names of app ideas Claude already suggested; sent with the next question so none repeats

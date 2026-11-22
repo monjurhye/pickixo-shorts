@@ -6,6 +6,7 @@ import { getIdeas, getIdeasRequest } from "../../lib/ideas.js";
 import { getEarnings, postbackToken } from "../../lib/earnings.js";
 import { getXp, getXpReport } from "../../lib/xpost.js";
 import { mtlPage } from "../../lib/mtl.js";
+import { getAdminProducts } from "../../lib/products.js";
 
 const CSS = `
 :root{--bg:#f4f5fb;--ink:#151827;--muted:#646b82;--line:#e3e6f0;--card:#fff;--soft:#f8f9fd;
@@ -149,6 +150,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 
   const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw, mtlP] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl"), mtlPage(context.env)]);
   const appIdeas = await context.env.CHANNELS_KV.get("app_ideas");
+  const adminProducts = await getAdminProducts(context.env);
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -203,13 +205,13 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
 <div class="stat"><span class="muted">Need attention</span><b>${errors}</b></div>
 <div class="stat"><span class="muted">All uploads</span><b>${st.paused ? "Paused" : "On"}</b></div></div>
 <form method="post" action="/admin/action">${pauseBtn}</form></div></header>
-<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#xpost">🔁 Cross-post</a><a href="#mtl">🇧🇩 Modern Tech Life</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
+<nav class="nav"><a href="#channels">▶ YouTube</a><a href="#facebook">f Facebook</a><a href="#xpost">🔁 Cross-post</a><a href="#mtl">🇧🇩 Modern Tech Life</a><a href="#pins">📌 Pinterest</a><a href="#drafts">✍ Medium</a><a href="#products">🛒 Products</a><a href="#ideas">✨ Image ideas</a><a href="#magnific-tool">🛠 Magnific tool</a><a href="#play">▶ Play Console</a><a href="#ios"> iOS</a><a href="#earnings">💰 Earnings</a></nav>
 ${note}<h2 id="channels">YouTube channels</h2>
 <p>🤖 <a href="https://claude.ai/code/routines/trig_01671Hhho11hhREEtgihzqsA" target="_blank" rel="noopener">Claude daily review</a> <span class="muted">· checks the report every day at 9pm (Bangladesh) and opens a PR if something needs fixing</span></p>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${productsSection(adminProducts, chans)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -391,6 +393,32 @@ async function copyDraft(id){
 }
 async function copyText(id){ try{ await navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Copied.'); }catch(e){ alert('Copy failed.'); } }
 </script>`;
+}
+
+// Amazon products the owner pastes (SiteStripe "Full link" or ASIN) -> KV "admin_products" -> videos.
+function productsSection(d, chans) {
+  const name = (id) => { const c = chans.find((x) => x.id === id); return c ? c.niche || c.title || id : id; };
+  const count = {};
+  d.products.forEach((p) => p.channels.forEach((c) => { count[c] = (count[c] || 0) + 1; }));
+  const boxes = chans.map((c) => `<label style="display:inline-block;margin:3px 10px 3px 0;white-space:nowrap"><input type="checkbox" name="channels" value="${esc(c.id)}">
+${esc(c.id)} · ${esc(c.niche || c.title || "")} <span class="muted">(${count[c.id] || 0})</span></label>`).join("");
+  const rows = d.products.map((p) => `<tr><td><a href="https://www.amazon.com/dp/${esc(p.asin)}" target="_blank" rel="noopener">${esc(p.asin)}</a></td>
+<td>${esc(p.name)}</td><td>${p.channels.map((c) => `<span class="pill off" title="${esc(name(c))}">${esc(c)}</span>`).join(" ")}</td><td class="muted">${esc(p.added || "")}</td>
+<td><form method="post" action="/admin/action" onsubmit="return confirm('Remove this product?')"><input type="hidden" name="asin" value="${esc(p.asin)}">
+<button class="danger ico" name="do" value="prod_del" title="Remove">✕</button></form></td></tr>`).join("");
+  return `<h2 id="products">Amazon products for videos</h2>
+<p class="muted">Products you pick yourself. Videos use them first, so a channel with 4 or more links straight to product pages;
+otherwise its videos link to an Amazon search with your tag (you still earn on anything bought). The automatic product finder is off (it cost about $4 a day).</p>
+<div class="msg"><b>How:</b> on Amazon (signed in to Associates) open a product → SiteStripe bar at the top → <b>Get link</b> → <b>Full link</b> → copy.
+Paste it below, write a short generic name (no brand needed, e.g. "Collapsible silicone colander"), tick the channels, Save.
+Short <code>amzn.to</code> links do not work: use the Full link or the 10-letter ASIN.</div>
+<form method="post" action="/admin/action" class="card">
+<p><input name="link" required placeholder="https://www.amazon.com/.../dp/B0XXXXXXXX/... or ASIN" style="width:100%"></p>
+<p><input name="name" required maxlength="80" placeholder="Short product name" style="width:100%"></p>
+<p class="muted">Channels (number = products you added):</p><div>${boxes}</div>
+<p><button class="primary" name="do" value="prod_add">Save product</button></p></form>
+${rows ? `<div class="card"><h3>Your products (${d.products.length})</h3><table class="keep"><thead><tr><th>ASIN</th><th>Name</th><th>Channels</th><th>Added</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
+    : `<p class="muted">No products added yet.</p>`}`;
 }
 
 const FREE_TOOLS = [

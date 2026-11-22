@@ -42,6 +42,18 @@ def state():
     return data
 
 
+def admin_products():
+    """Products the owner added in /admin -> Products. [] if the dashboard is unreachable."""
+    if not enabled():
+        return []
+    try:
+        code, data = _call("/api/pipeline/products")
+        return data.get("products", []) if code == 200 else []
+    except Exception as e:
+        common.log("dashboard products failed: {0}".format(e))
+        return []
+
+
 def access_token(channel_id):
     """Returns (token, error_code)."""
     code, data = _call("/api/pipeline/token", {"ch": channel_id})
