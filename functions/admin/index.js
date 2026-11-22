@@ -213,7 +213,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${productsSection(adminProducts, chans, videoIndex)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${productsSection(adminProducts, chans, videoIndex)}${ideasSection(ideas, ideasReq)}${magnificToolSection(ideas)}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -504,12 +504,13 @@ For each: the theme, why buyers download it (one line), aspect ratio 1:1, the pr
 at 100% zoom before uploading. Finally suggest a Magnific title (include "mockup" for mockups) and
 10 keywords for each.`;
 
-function claudePromptButton(d) {
-  const avoid = (d.ideas || []).map((i) => i.theme).join("; ") || "(none)";
-  return `<a class="btn" id="claudePromptBtn" href="https://claude.ai/new" target="_blank" rel="noopener">🤖 Write prompts with Claude (claude.ai)</a>
-<script>(function(){var b=document.getElementById('claudePromptBtn'),p=${JSON.stringify(CLAUDE_PROMPT_REQUEST).replace(/</g, "\\u003c")},a=${JSON.stringify(avoid).replace(/</g, "\\u003c")};
-function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d).replace('{AVOID}',a));}
-u();b.addEventListener('click',u);})();</script>`;
+function claudePromptButton(d, id = "claudePrompt") {
+  const avoid = (d && d.ideas || []).map((i) => i.theme).join("; ") || "(none)";
+  // copy + open a blank claude.ai chat (no prefilled link, so no warning): paste with Cmd+V and send
+  return `<a class="btn primary" href="https://claude.ai/new" target="_blank" rel="noopener" onclick="copyText('${id}')">🤖 Copy prompt request + open Claude</a>
+<pre id="${id}" style="display:none"></pre>
+<script>(function(){var p=${JSON.stringify(CLAUDE_PROMPT_REQUEST).replace(/</g, "\\u003c")},a=${JSON.stringify(avoid).replace(/</g, "\\u003c")};
+var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);document.getElementById('${id}').textContent=p.replace('{DATE}',d).replace('{AVOID}',a);})();</script>`;
 }
 
 function ideasSection(d, req) {
@@ -518,7 +519,7 @@ function ideasSection(d, req) {
 <form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
     : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? Free (Google Gemini).')">
 <button name="do" value="ideas_request">✨ Make new prompts (free)</button></form>`;
-  const claude = `<div class="row">${claudePromptButton(d)}<span class="muted">Opens claude.ai with a ready request: Claude writes 4 flat-lay prompts (often better than Gemini). Free with your Claude account; prompts appear there, not here.</span></div>`;
+  const claude = `<div class="row">${claudePromptButton(d)}<span class="muted">Copies a ready request and opens claude.ai: press Cmd+V and send. Claude writes 4 flat-lay 1:1 prompts. Free with your Claude account; the prompts appear in Claude, not here.</span></div>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
   const cards = (d.ideas || []).map((i, n) => `<div class="card">
@@ -691,7 +692,7 @@ posts: a how-to, your real result (only from config/mtl_facts.json) and a warnin
 ${auto}${cards ? `<div class="grid">${cards}</div>` : '<p class="muted">No posts yet. They arrive with the 8am (Bangladesh) run.</p>'}${src}`;
 }
 
-function magnificToolSection() {
+function magnificToolSection(magIdeas) {
   return `<h2 id="magnific-tool">Magnific · Upscale + metadata tool</h2>
 <p class="muted">Choose your finished images. For each one it makes sure the short side is 2000px+ (AI upscale 4× with ESRGAN, then down to 2048,
 or a plain resize for small changes) and writes the title and keywords. The strict AI quality check is a separate, optional button: press it only
@@ -711,41 +712,15 @@ previews go to the AI.</p>
 <a class="btn" href="https://contributor.magnific.com/" target="_blank" rel="noopener">Open Magnific ↗</a></div>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
-<div class="card"><h3>🤖 Or with Claude (claude.ai, free with your Claude account)</h3>
-<p class="muted">1) Press the button: the request is copied and claude.ai opens (no warning, nothing is sent from here).
-2) In Claude: press <b>Cmd+V</b>, then attach your JPGs (drag them in, up to about 20) and send.
-3) Claude checks each image like a strict reviewer, writes the title and keywords, and gives a ready CSV.
-4) Copy the CSV block into a text file named <b>magnific_metadata.csv</b>, and upload it with the JPGs on Magnific.</p>
-<a class="btn primary" href="https://claude.ai/new" target="_blank" rel="noopener" onclick="copyText('mag-claude-req')">🤖 Copy request + open Claude</a>
-<pre id="mag-claude-req" style="display:none">${esc(CLAUDE_META_REQUEST)}</pre></div>
+<div class="card"><h3>🤖 Image prompts with Claude (claude.ai, free)</h3>
+<p class="muted">Press the button: the request is copied and claude.ai opens. Press <b>Cmd+V</b> and send. Claude writes 4 Firefly prompts
+(top-down flat lay, 1:1, best-selling subjects). Copy a prompt into Firefly, make the images, then come back here for title + keywords.</p>
+${claudePromptButton(magIdeas, "claudePromptTool")}</div>
 <div class="grid" id="mag-results"></div>
 <script src="/magnific-tool.js?v=10"></script>`;
 }
 
-// Request for claude.ai: the owner attaches the images there; Claude returns checks + Magnific CSV.
-const CLAUDE_META_REQUEST = `I am attaching AI-generated stock photos (made with Adobe Firefly) that I will upload to Magnific (Freepik).
-For EACH attached image, using its exact file name:
 
-1. Strict quality check, like a Magnific reviewer looking at 100% zoom. Report any of these:
-   - any letters, numbers, logos or fake text anywhere
-   - malformed hands, faces or objects; tangled, melted or merged small details
-   - plastic, waxy or 3D-render look instead of a real photo
-   - an object cut off at the edge of the frame
-   - soft, blurry, hazy or noisy main subject
-   Give a score 1-10 and say clearly: UPLOAD or DO NOT UPLOAD (7+ and no problems = UPLOAD).
-2. Title: 5 to 12 plain English words describing exactly what is shown. Include the word "mockup"
-   if it is a blank card, bag, box, shirt or other blank item. No brands, no "AI", no "stock photo".
-3. Keywords: 44 lowercase single words or short phrases buyers would search, most important first
-   (subject, objects, surface, colors, mood, concepts, uses such as "copy space" or "flat lay" only
-   if true). No brands, no duplicates.
-4. Category: one of Backgrounds, Business, Food and drink, Animals, Nature, Holidays, Technology,
-   People, Lifestyle, Interiors, Education, Health, Travel, Sports, Objects, Abstract, Industry,
-   Beauty and fashion.
-
-Answer in Bangla for the checks. At the end give ONE code block with a CSV for Magnific, only the
-images marked UPLOAD, exactly in this format (semicolon between columns, commas between keywords):
-filename;title;keywords;prompt;model
-<file name>.jpg;<title>;<keyword1,keyword2,...>;;Adobe Firefly`;
 
 function fbConnectHtml(fp) {
   if (!fp.pages || !fp.pages.length)
