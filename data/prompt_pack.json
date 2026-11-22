@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year Goal Setting",
+      "prompt": "A minimalist flat lay on a warm oak wooden tabletop featuring a single closed light gray linen-bound notebook, a smooth ceramic white mug of black coffee, and a single fresh eucalyptus sprig. Bright natural daylight streaming from the side creates soft, realistic shadows. Clean composition with plenty of negative space on the right side for editorial text, professional editorial photography style with sharp focus.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Winter Wellness and Tea",
+      "prompt": "A close-up photograph of a simple handmade ceramic teal cup filled with warm amber herbal tea, resting on a coarse beige linen placemat. Beside the cup lies a single fresh lemon slice and a small wooden honey dipper. Soft morning window light illuminates the fine details of the ceramic glaze and linen texture, with a gentle, natural background blur. Generous copy space above.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Modern Home Office Setup",
+      "prompt": "A medium shot of a clean, uncluttered wooden desk against a neutral off-white wall. On the desk sits a sleek minimalist wireless mouse, a simple potted succulent in a matte terracotta pot, and a warm desk lamp casting soft light. Bright daylight fills the room, creating an inspiring and productive atmosphere with plenty of negative space surrounding the objects.",
+      "tool": "Adobe Firefly",
+      "aspect": "16:9",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Sustainable Architecture and Biophilic Design",
+      "prompt": "An architectural interior detail showcasing a smooth exposed concrete wall meeting a warm light-oak wood floor. A tall green leafy indoor plant stands in the corner, casting soft, natural leaf shadows across the wall under bright, even daylight. Clean geometric composition with sharp focus on the textures of wood grain and concrete.",
+      "tool": "Adobe Firefly",
+      "aspect": "3:2",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "Holiday winter still life with ornaments and warm light",
       "prompt": "A clean winter still life featuring a few matte ceramic ornaments, pine sprigs, and a softly textured linen cloth on a wooden table, warm daylight from a window casting gentle shadows; large copy space on the left for text, minimal clutter, high detail textures on wood and fabric, and a calm, festive mood.",
       "tool": "Adobe Firefly",
