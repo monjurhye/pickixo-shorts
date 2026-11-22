@@ -82,9 +82,9 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
                 except Exception as e:
                     common.log("[{0}] clip download failed: {1}".format(ch["id"], e))
 
-        # 3. voiceover (OpenAI TTS) + render
+        # 3. voiceover (Kokoro, free) + render
         voice_files = None
-        if cfg.get("tts_enabled") and not dry and common.secret("OPENAI_API_KEY"):
+        if cfg.get("tts_enabled"):
             voice_files = tts.voice_scenes(script, tts.voice_for(idx, cfg), work, cfg)
         out_mp4 = os.path.join(work, key + ".mp4")
         _, seconds = render.build(script, idx, clip_paths, out_mp4, cfg,

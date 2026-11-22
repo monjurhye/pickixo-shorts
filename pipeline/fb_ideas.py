@@ -92,7 +92,7 @@ def make_and_schedule_reel(p, idx, when, target):
                 except Exception as e:
                     common.log("reel clip download failed: " + str(e)[:100])
         voices = None
-        if common.secret("OPENAI_API_KEY") and cfg.get("tts_enabled", True):
+        if cfg.get("tts_enabled", True):
             voices = tts.voice_scenes(script, tts.voice_for(idx, cfg), work, cfg)
         out = os.path.join(work, "reel.mp4")
         render.build(script, idx + 3, clips, out, cfg, "Frugal Home Hacks", voice_files=voices)

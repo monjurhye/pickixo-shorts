@@ -61,6 +61,12 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
         if: steps.mode.outputs.ideas == 'true' || steps.mode.outputs.fb == 'true'
+      - name: Cache Kokoro voice model (free TTS, ~350 MB, downloaded once)
+        if: steps.mode.outputs.fb == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/kokoro
+          key: kokoro-v1.0
       - name: Make ideas
         if: steps.mode.outputs.ideas == 'true'
         env:

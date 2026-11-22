@@ -1,3 +1,4 @@
 anthropic
 openai
 Pillow
+kokoro-onnx==0.6.1
