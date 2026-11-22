@@ -2,6 +2,34 @@
   "updated": "2026-11-22",
   "prompts": [
     {
+      "theme": "New Year party preparation with matte baubles and star confetti",
+      "prompt": "Top-down real photograph of three matte finish silver baubles and a small scattering of paper star shapes on a light grey ceramic tile surface, with one whole peeled mandarin orange. Natural textured surfaces with small imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Blank greeting card mockup with envelope",
+      "prompt": "Top-down real photograph of a blank white greeting card with a matching closed envelope and one eucalyptus leaf on a light oak wooden table. Natural wood grain with subtle texture, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Healthy breakfast bowl with oatmeal and berries",
+      "prompt": "Top-down real photograph of one ceramic bowl filled with oatmeal and a small handful of fresh blueberries on a white marble countertop, with a simple wooden spoon. Natural ceramic glaze and marble texture with small imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
+      "theme": "Japandi neutral interior background with linen texture",
+      "prompt": "Top-down real photograph of an empty beige linen fabric background with one smooth rounded river stone placed in the bottom right corner, leaving the rest of the surface open. Natural woven linen texture with visible thread details, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-22"
+    },
+    {
       "theme": "New Year celebration preparation",
       "prompt": "Top-down real photograph of three whole golden stars and one silver ball ornament on a white marble surface, with a folded dark green linen napkin. Natural metallic textures with small imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
       "tool": "Adobe Firefly",
@@ -671,34 +699,6 @@
       "prompt": "Calm bathroom or bedroom scene with a wooden tray, bath salts, a rolled towel, a small plant, and softly glowing candlelight; natural light through a sheer curtain, gentle steam, plenty of copy space left.",
       "tool": "Adobe Firefly",
       "aspect": "2:3",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Warm kitchen cozy morning",
-      "prompt": "Warm-toned kitchen scene with a ceramic mug, a loaf of bread on a wooden board, a spoon with honey, and a linen napkin; sunlight from a side window, shallow depth, left-side copy space.",
-      "tool": "FLUX.1 schnell",
-      "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter textures macro textures library (no people)",
-      "prompt": "Close-up macro of fabric weave, wood grain, and ceramic glaze, stacked textures with subtle color grading; soft front light, shallow depth, ample negative space for overlays.",
-      "tool": "Ideogram",
-      "aspect": "1:1",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Festive table vignette with warm light",
-      "prompt": "A single wooden dining table with a simple centerpiece, candles, and warm-toned glassware; bokeh in the background, soft fall-off light, composition with space on the right for text.",
-      "tool": "Adobe Firefly",
-      "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "New Year calm budget planning backdrop",
-      "prompt": "Neutral-toned desk scene with a notebook, pen, calculator, and a small plant; natural light, gentle shadows, clean composition with generous copy space on the left.",
-      "tool": "Ideogram",
-      "aspect": "16:9",
       "date": "2026-11-20"
     }
   ]
