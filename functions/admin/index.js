@@ -468,7 +468,7 @@ ${videoBlock}`;
 }
 
 const FREE_TOOLS = [
-  ["Adobe Firefly", "https://firefly.adobe.com/generate/images", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
+  ["Adobe Firefly", "https://firefly.adobe.com/image-generate", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
 ];
 
 function ideasSection(d, req) {
@@ -483,7 +483,7 @@ function ideasSection(d, req) {
 <span class="pill ${i.kind === "seasonal" ? "on" : "off"}">${esc(i.kind)}</span> <span class="muted">${esc(i.aspect)} · ${esc(i.best_tool)}</span>
 <h3>${esc(i.theme)}</h3><p class="muted">${esc(i.why)}</p>
 <div class="prompt" id="idea-${n}">${esc(i.prompt)}</div>
-<div class="row"><a class="btn primary" href="https://firefly.adobe.com/generate/images" target="_blank" rel="noopener" onclick="copyText('idea-${n}')">🎨 Copy + open Firefly</a>
+<div class="row"><a class="btn primary" href="https://firefly.adobe.com/image-generate" target="_blank" rel="noopener" onclick="copyText('idea-${n}')">🎨 Copy + open Firefly</a>
 <button type="button" onclick="copyText('idea-${n}')">📋 Copy prompt</button></div>
 <p class="muted"><b>Check:</b> ${esc(i.avoid)}</p>
 <p class="muted"><b>Keywords:</b> ${esc((i.keywords || []).join(", "))}</p></div>`).join("")
