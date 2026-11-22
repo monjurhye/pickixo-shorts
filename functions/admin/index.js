@@ -471,12 +471,54 @@ const FREE_TOOLS = [
   ["Adobe Firefly", "https://firefly.adobe.com/image-generate", "Free monthly credits, commercial use. Gives about 2048×2048 directly (≈4MP), so no upscaling: best approval chance. Download the largest size."],
 ];
 
+// "Write prompts with Claude": opens claude.ai with a ready request (your Claude account, no API cost).
+const CLAUDE_PROMPT_REQUEST = `Today is {DATE}. I sell AI stock photos on Magnific (Freepik) to US designers and marketers.
+Write exactly 4 Adobe Firefly prompts for images that get APPROVED and DOWNLOADED.
+
+Style that gets approved (keep it for all 4): a TOP-DOWN FLAT-LAY real photograph, aspect ratio 1:1.
+3 to 5 simple objects on ONE plain surface (light linen, light oak, white marble, kraft paper, plain tile),
+small in the frame (about one third of the picture), ALL fully inside the frame with wide empty margins,
+nothing cut off at the edges, plenty of empty space for text.
+
+Each prompt from a DIFFERENT group:
+- 2 seasonal: US holidays/events 3 to 8 weeks after today (buyers prepare early).
+- 1 evergreen best-seller: blank mockups (blank greeting card + envelope, business cards, tote bag,
+  folded t-shirt, gift box: "blank, no print, no text"), business/office, healthy food, beauty/spa,
+  education, travel, or an empty texture background with one small object in a corner.
+- 1 trend: a current colour or style (pastel, earthy neutral, Japandi) on one of those groups.
+
+Never: text, letters, numbers, logos, brands, people, hands, glass or shiny reflective things, glossy
+plastic, 3D/CGI look, tiny fiddly things (spice grains, small flowers, string, ribbon, scissors, jewelry),
+needle herbs (rosemary, pine, thyme, dill), fog, steam, dim light. Use broad leaves (eucalyptus, olive).
+
+Each prompt: one paragraph, 45-75 words, in this structure:
+"Top-down real photograph of [objects] on [surface], with [one small extra]. Natural [texture] with tiny
+imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All
+objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the
+edges. Clean minimal composition with plenty of empty space for text. Muted natural colors."
+
+Do NOT repeat these recent themes or their main objects: {AVOID}
+
+Answer in Bangla, but keep each prompt in English inside its own code block so I can copy it.
+For each: the theme, why buyers download it (one line), aspect ratio 1:1, the prompt, and what to check
+at 100% zoom before uploading. Finally suggest a Magnific title (include "mockup" for mockups) and
+10 keywords for each.`;
+
+function claudePromptButton(d) {
+  const avoid = (d.ideas || []).map((i) => i.theme).join("; ") || "(none)";
+  return `<a class="btn" id="claudePromptBtn" href="https://claude.ai/new" target="_blank" rel="noopener">🤖 Write prompts with Claude (claude.ai)</a>
+<script>(function(){var b=document.getElementById('claudePromptBtn'),p=${JSON.stringify(CLAUDE_PROMPT_REQUEST).replace(/</g, "\\u003c")},a=${JSON.stringify(avoid).replace(/</g, "\\u003c")};
+function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d).replace('{AVOID}',a));}
+u();b.addEventListener('click',u);})();</script>`;
+}
+
 function ideasSection(d, req) {
   const button = req
     ? `<div class="msg">⏳ Requested ${bdTime(req.at)}. New prompts arrive in about 10-15 minutes; refresh this page.
 <form method="post" action="/admin/action" style="display:inline"><button name="do" value="ideas_cancel">Cancel</button></form></div>`
     : `<form method="post" action="/admin/action" onsubmit="return confirm('Make 4 new Firefly prompts now? Free (Google Gemini).')">
 <button name="do" value="ideas_request">✨ Make new prompts (free)</button></form>`;
+  const claude = `<div class="row">${claudePromptButton(d)}<span class="muted">Opens claude.ai with a ready request: Claude writes 4 flat-lay prompts (often better than Gemini). Free with your Claude account; prompts appear there, not here.</span></div>`;
   const tools = FREE_TOOLS.map(([n, u, t]) =>
     `<div class="card"><h3><a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a></h3><p class="muted">${esc(t)}</p></div>`).join("");
   const cards = (d.ideas || []).map((i, n) => `<div class="card">
@@ -492,6 +534,7 @@ function ideasSection(d, req) {
 <p class="muted">Made only when you press the button, by Google Gemini (free tier). Seasonal ideas are for events 3-8 weeks ahead, because buyers download early.
 ${d.date ? "Updated " + bdTime(d.created) + "." : ""} ${esc(d.season_note || "")}</p>
 ${button}
+${claude}
 <div class="msg"><b>Fastest free routine:</b> 1) press <b>🎨 Copy + open Firefly</b>, paste (Cmd+V), pick the aspect ratio shown on the card and the largest size, generate, download the good ones;
 2) double-click <b>Magnific Batch</b> on your Mac Desktop: it takes the Firefly downloads, checks quality, writes titles, 45 keywords and the CSV, and opens the upload folder + Magnific;
 3) drag the JPGs and the CSV into Magnific, mark AI, Submit. (After 500 published files Magnific opens SFTP; then upload can be automatic too.)</div>
