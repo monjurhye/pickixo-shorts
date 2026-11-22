@@ -85,6 +85,17 @@ export async function onRequestPost(context) {
     await putXp(env, xp);
     return redirect("/admin?msg=" + encodeURIComponent(m) + "#xpost");
   }
+  if (action === "appidea_save" || action === "appidea_del") {
+    // names of app ideas Claude already suggested; sent with the next question so none repeats
+    const name = String(form.get("name") || "").replace(/^\s*APP:\s*/i, "").replace(/\s+/g, " ").trim().slice(0, 60);
+    const raw = await env.CHANNELS_KV.get("app_ideas");
+    let list = raw ? JSON.parse(raw) : [];
+    const k = name.toLowerCase();
+    if (action === "appidea_del") list = list.filter((x) => x.name.toLowerCase() !== k);
+    else if (name && !list.some((x) => x.name.toLowerCase() === k)) list.unshift({ name, at: new Date().toISOString().slice(0, 10) });
+    await env.CHANNELS_KV.put("app_ideas", JSON.stringify(list.slice(0, 100)));
+    return redirect("/admin?msg=" + encodeURIComponent(action === "appidea_del" ? "Removed." : "Saved: it will not be suggested again.") + "#play");
+  }
   if (action === "ideas_request" || action === "ideas_cancel") {
     await setIdeasRequest(env, action === "ideas_request" ? { at: new Date().toISOString() } : null);
     return redirect("/admin?msg=" + encodeURIComponent(action === "ideas_request"

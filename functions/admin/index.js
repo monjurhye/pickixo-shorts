@@ -148,6 +148,7 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
   }
 
   const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw, mtlP] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl"), mtlPage(context.env)]);
+  const appIdeas = await context.env.CHANNELS_KV.get("app_ideas");
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -208,7 +209,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection()}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -431,12 +432,12 @@ The Mac tool now scores every image and leaves weak ones out of the CSV (see mag
 }
 
 // Quick links to the app stores (no API: they open in a new tab, already signed in).
-function appsSection() {
+function appsSection(used) {
   const links = (items) => items.map(([n, u, t]) =>
     `<a class="card applink" href="${u}" target="_blank" rel="noopener"><h3>${esc(n)} ↗</h3><p class="muted">${esc(t)}</p></a>`).join("");
   return `<h2 id="play">Google Play Console</h2>
 <p class="muted">Android apps: releases, reviews, statistics and earnings.</p>
-${appIdeaCard()}
+${appIdeaCard(used)}
 <div class="apps">${links([
     ["All apps", "https://play.google.com/console/developers", "Every app, its status and quick actions"],
     ["Releases & testing", "https://play.google.com/console/developers/app-list", "Pick an app → Test and release → Production"],
@@ -458,33 +459,61 @@ ${appIdeaCard()}
 }
 
 // "What should I build next?" — opens claude.ai with a ready prompt (no API key, no API cost).
-const APP_IDEA_PROMPT = `Today is {DATE}. I am a solo developer in Bangladesh who publishes on Google Play (US/UK/CA audience preferred).
-Suggest exactly ONE new app, game or tool that I could build and publish, chosen because it has a realistic chance to RANK
-in Google Play search, not just because it is a nice idea.
+// One Kotlin Multiplatform (KMP) project -> Android + iOS + web app. Names saved under the button
+// (KV "app_ideas") go into the prompt as "do not suggest again", so an idea never comes twice.
+const APP_IDEA_PROMPT = `Today is {DATE}. I am a solo developer in Bangladesh. I build with Kotlin Multiplatform (KMP)
+and Compose Multiplatform: ONE shared Kotlin codebase that I ship as 3 products:
+  1. Android app on Google Play
+  2. iOS app on the Apple App Store
+  3. Web app (Compose for Web / Kotlin Wasm), found through Google search
+US/UK/CA audience preferred.
+
+Suggest exactly ONE new app, game or tool that works well on all three and has a realistic chance to RANK
+(Google Play search, App Store search and Google web search), not just because it is a nice idea.
 
 Please use web search first to check:
 - what people are searching for right now (rising topics, seasonal needs for the coming weeks, new rules or devices),
-- how crowded that search is on Google Play (search play.google.com for the main keyword: how many strong apps,
-  their ratings, installs and last-update dates). Prefer keywords where the top results are old, low-rated or few.
-Do not suggest anything that needs medical, financial or legal claims, gambling, copyrighted characters/brands,
-or a big backend. It must be buildable by one person in about 1-3 weeks.
+- how crowded it is: search play.google.com and apps.apple.com for the main keyword (how many strong apps, ratings,
+  installs/reviews, last-update dates) and Google for web tools doing the same. Prefer keywords where the top results
+  are old, low-rated or few.
+It must be buildable by one person in about 1-3 weeks with KMP libraries that support Android, iOS AND web
+(Compose Multiplatform, Ktor, kotlinx.serialization, kotlinx-datetime, multiplatform-settings, SQLDelight or Room KMP).
+Avoid features that only work on one platform (widgets, background services, NFC, health data, heavy camera/AR) unless
+they are optional. Do not suggest anything that needs medical, financial or legal claims, gambling,
+copyrighted characters/brands, or a big backend.
 
-Answer in Bangla (keep the app name and keywords in English):
-1. App name (max 30 characters, includes the main keyword), type (app/game/tool) and Google Play category
-2. Why it can rank now (what you found), and how strong the current top results are
-3. 3-6 keywords to target
-4. The minimum features for version 1
-5. How it makes money, and roughly how many days of work
-6. The sources you checked
+ALREADY SUGGESTED (do NOT suggest any of these again, and nothing that is basically the same idea under another name):
+{AVOID}
+
+Answer in Bangla (keep the app name, keywords and code names in English).
+The very first line must be exactly: APP: <app name>
+1. App name (max 30 characters, includes the main keyword), type (app/game/tool), Google Play category and App Store category
+2. Why it can rank now (what you found), and how strong the current top results are on Play, App Store and web
+3. 3-6 keywords to target (store keywords + web search keywords)
+4. Minimum features for version 1, marking what is shared KMP code and what (if anything) is platform-specific
+5. KMP setup: modules (shared / androidApp / iosApp / webApp), the libraries above you would use, and anything that
+   does not work on web or iOS and how to handle it
+6. How it makes money on each platform (Android, iOS, web), and roughly how many days of work
+7. The sources you checked
 Be honest: if the evidence is thin, say so.`;
 
-function appIdeaCard() {
-  return `<div class="card"><h3>💡 What should I build next?</h3>
-<p class="muted">Opens claude.ai in a new tab with a ready question: Claude checks the web and Google Play and suggests ONE app, game or tool
-with a real chance to rank. Free (your Claude account, no API key). Turn on web search in Claude if it asks.</p>
-<a class="btn primary" id="appIdeaBtn" href="https://claude.ai/new" target="_blank" rel="noopener">✨ Suggest today's app idea</a></div>
-<script>(function(){var b=document.getElementById('appIdeaBtn'),p=${JSON.stringify(APP_IDEA_PROMPT).replace(/</g, "\\u003c")};
-function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d));}
+function appIdeaCard(used) {
+  const list = (used || []).map((x) => x.name);
+  const chips = (used || []).map((x) => `<form method="post" action="/admin/action" style="display:inline"><input type="hidden" name="name" value="${esc(x.name)}">
+<span class="pill off">${esc(x.name)} <button class="ico" name="do" value="appidea_del" title="Remove">✕</button></span></form>`).join(" ");
+  return `<div class="card"><h3>💡 What should I build next? (KMP: Android + iOS + web)</h3>
+<p class="muted">Opens claude.ai in a new tab with a ready question: Claude checks the web, Google Play and the App Store and suggests ONE idea
+you build once in Kotlin Multiplatform and ship as an Android app, an iOS app and a web app. Free (your Claude account, no API key).
+Turn on web search in Claude if it asks.</p>
+<a class="btn primary" id="appIdeaBtn" href="https://claude.ai/new" target="_blank" rel="noopener">✨ Suggest today's app idea</a>
+<p class="muted"><b>So it never comes twice:</b> copy the name from Claude's first line (<code>APP: …</code>) and save it here.
+Every saved name is sent with the next question as "do not suggest again".</p>
+<form method="post" action="/admin/action" class="ef"><input name="name" maxlength="60" placeholder="App name from Claude" required>
+<button name="do" value="appidea_save">Save as suggested</button></form>
+${chips ? `<p class="muted">Already suggested (${list.length}):</p><p>${chips}</p>` : ""}</div>
+<script>(function(){var b=document.getElementById('appIdeaBtn'),p=${JSON.stringify(APP_IDEA_PROMPT).replace(/</g, "\\u003c")},
+a=${JSON.stringify(list.length ? list.map((n) => "- " + n).join("\n") : "(none yet)").replace(/</g, "\\u003c")};
+function u(){var d=new Date(Date.now()+6*3600e3).toISOString().slice(0,10);b.href='https://claude.ai/new?q='+encodeURIComponent(p.replace('{DATE}',d).replace('{AVOID}',a));}
 u();b.addEventListener('click',u);})();</script>`;
 }
 
