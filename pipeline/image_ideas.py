@@ -71,8 +71,12 @@ Rules so images get APPROVED (Magnific rejects these):
   with bright, even daylight; only a gentle background blur is allowed.
 - Flat lay seen straight from above: 3 to 5 simple objects lying on ONE plain surface (light linen
   tablecloth, light oak table, white marble, kraft paper, plain ceramic tile), arranged loosely
-  with plenty of empty space around them for text. Simple shapes (whole fruit, ceramics, bowls,
-  leaves, wooden spoons, plain mugs, closed plain notebooks, folded linen) work best.
+  with plenty of empty space around them for text. The objects must be SMALL in the frame
+  (together about one third of the picture), ALL fully inside the frame with wide margins:
+  nothing touching or cut off at any edge (a cut-off lemon and mug handle got an image rejected).
+  Simple shapes (whole fruit, ceramics, bowls, broad leaves, wooden spoons, plain mugs, closed
+  plain notebooks, folded linen) work best. NO herbs or plants with many thin needles or tiny
+  leaves (rosemary, pine, thyme, dill): use broad leaves (bay, eucalyptus, olive) instead.
 - NO people, NO hands, NO glossy plastic products, NO single "hero product" on a blank backdrop,
   NO 3D-render or CGI look.
 
@@ -87,11 +91,13 @@ change the subject):
 "Top-down real photograph of three whole oranges and one halved orange on a light beige linen
 tablecloth, with a small ceramic bowl of cloves. Natural textured orange peel with pores and tiny
 imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp
-focus. Clean minimal composition with plenty of empty space around the fruit for text. Muted
+focus. All objects small and fully inside the frame with wide empty margins on every side,
+nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted
 natural colors."
 Always say: "Top-down real photograph", the surface, natural texture with small imperfections,
 "matte not glossy" for shiny things, bright even daylight with soft shadows, everything in sharp
-focus, plenty of empty space for text, muted natural colors. English only.
+focus, "all objects small and fully inside the frame with wide empty margins on every side,
+nothing cut off at the edges", plenty of empty space for text, muted natural colors. English only.
 
 why: one short sentence on who buys it and when. avoid: what to check/reject before upload.
 Write every prompt for Adobe Firefly Image (it understands plain descriptive English;
@@ -101,7 +107,7 @@ season_note: one sentence on what buyers are preparing for right now."""
 
 # Words that got (or usually get) AI stock images rejected: garbled marks, tangled small
 # objects, hazy/dim moods. Flagged on the idea card if the model still uses them.
-RISKY = ("hand ", "hands", "person", "woman", "man ", "3d", "render", "glossy", "measuring tape", "tape measure", "ruler", "clock", "watch", "calendar", "newspaper",
+RISKY = ("rosemary", "pine", "thyme", "dill", "hand ", "hands", "person", "woman", "man ", "3d", "render", "glossy", "measuring tape", "tape measure", "ruler", "clock", "watch", "calendar", "newspaper",
          "open book", "label", "price tag", "scissors", "twine", "string", "ribbon", "yarn",
          "lace", "chain", "fog", "mist", "haze", "steam", "rain on", "candlelight", "candle light",
          "dim light", "dreamy", "glow")
