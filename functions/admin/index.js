@@ -151,6 +151,8 @@ ${note}<p><a class="btn primary" href="/auth/login">Sign in with Google</a></p><
   const [chans, st, pins, drafts, ideas, ideasReq, earn, xp, xpRep, mtlRaw, mtlP] = await Promise.all([channelList(context), getState(context.env), getPins(context.env), getDrafts(context.env), getIdeas(context.env), getIdeasRequest(context.env), getEarnings(context.env), getXp(context.env), getXpReport(context.env), context.env.CHANNELS_KV.get("mtl"), mtlPage(context.env)]);
   const appIdeas = await context.env.CHANNELS_KV.get("app_ideas");
   const adminProducts = await getAdminProducts(context.env);
+  const vr = await context.env.ASSETS.fetch(new URL("/videos-index.json", context.request.url));
+  const videoIndex = vr.ok ? await vr.json().catch(() => []) : [];
   const fbPagesRaw = await context.env.CHANNELS_KV.get("fbpages");
   const fbPages = fbPagesRaw ? JSON.parse(fbPagesRaw) : { pages: [] };
   const fbRaw = await context.env.CHANNELS_KV.get("fb");
@@ -211,7 +213,7 @@ ${note}<h2 id="channels">YouTube channels</h2>
 <div class="chans">${rows}</div>
 <p class="muted">Connect: pick the Google account, then the exact YouTube channel for that niche, and allow.
 If Google shows “hasn't verified this app”, choose Advanced → Go to Pickixo Shorts Uploader.</p>
-${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${productsSection(adminProducts, chans)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
+${fbSection(fb, fbPlan, fbPages)}${xpostSection(xp, xpRep)}${mtlSection(mtlRaw ? JSON.parse(mtlRaw) : null, mtlP)}${pinsSection(pins)}${draftsSection(drafts)}${productsSection(adminProducts, chans, videoIndex)}${ideasSection(ideas, ideasReq)}${magnificToolSection()}${appsSection(appIdeas ? JSON.parse(appIdeas) : [])}${earningsSection(earn, new URL(context.request.url).origin + "/api/postback/adbluemedia?k=" + (context.env.PIPELINE_KEY ? await postbackToken(context.env, "adbluemedia") : ""))}`));
 }
 
 function bdTime(iso) {
@@ -421,7 +423,7 @@ const PRODUCT_KEYWORDS = {
 const amzSearch = (k) => "https://www.amazon.com/s?k=" + encodeURIComponent(k).replace(/%20/g, "+") + "&low-price=10&high-price=40";
 
 // Amazon products the owner pastes (SiteStripe "Full link" or ASIN) -> KV "admin_products" -> videos.
-function productsSection(d, chans) {
+function productsSection(d, chans, videos) {
   const name = (id) => { const c = chans.find((x) => x.id === id); return c ? c.niche || c.title || id : id; };
   const count = {};
   d.products.forEach((p) => p.channels.forEach((c) => { count[c] = (count[c] || 0) + 1; }));
@@ -433,6 +435,21 @@ ${esc(c.id)} · ${esc(c.niche || c.title || "")} <span class="muted">(${count[c.
 <button class="danger ico" name="do" value="prod_del" title="Remove">✕</button></form></td></tr>`).join("");
   const ideas = chans.map((c) => `<tr><td><b>${esc(c.id)}</b> <span class="muted">${esc(c.niche || "")} (${count[c.id] || 0})</span></td><td>${(PRODUCT_KEYWORDS[c.id] || [])
     .map((k) => `<a href="${amzSearch(k)}" target="_blank" rel="noopener">${esc(k)} ↗</a>`).join(" · ")}</td></tr>`).join("");
+  const vids = videos || [];
+  const isProduct = (i) => !!i.asin;
+  const vidCards = chans.map((c) => {
+    const list = vids.filter((v) => v.channel_id === c.id);
+    if (!list.length) return "";
+    const withP = list.filter((v) => v.items.some(isProduct)).length;
+    const rows = list.map((v) => `<tr><td class="muted">${esc(v.date)}</td>
+<td>${v.youtube_id ? `<a href="https://youtube.com/shorts/${esc(v.youtube_id)}" target="_blank" rel="noopener">${esc(v.title)} ↗</a>` : esc(v.title)}</td>
+<td>${v.items.map((i) => `<a href="${esc(i.link)}" target="_blank" rel="noopener" title="${isProduct(i) ? "Product page" : "Amazon search"}">${isProduct(i) ? "🛒" : "🔍"} ${esc(i.name)}</a>`).join("<br>")}</td></tr>`).join("");
+    return `<details class="card"><summary><b>${esc(c.id)}</b> ${esc(c.niche || "")} · <b>${list.length}</b> videos · ${withP} with product links</summary>
+<table class="keep"><thead><tr><th>Date</th><th>Video</th><th>Links in the description</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+  }).join("");
+  const totalP = vids.filter((v) => v.items.some(isProduct)).length;
+  const videoBlock = `<div class="card"><h3>🎬 Videos: ${vids.length} in all · ${totalP} with product links · ${vids.length - totalP} with search links only</h3>
+<p class="muted">🛒 = link to one product page · 🔍 = link to an Amazon search. Click a channel to see its videos.</p></div>${vidCards}`;
   return `<h2 id="products">Amazon products for videos</h2>
 <p class="muted">Products you pick yourself. Videos use them first, so a channel with 4 or more links straight to product pages;
 otherwise its videos link to an Amazon search with your tag (you still earn on anything bought). The automatic product finder is off (it cost about $4 a day).</p>
@@ -446,7 +463,8 @@ otherwise its videos link to an Amazon search with your tag (you still earn on a
 <p class="muted">Channels (number = products you added):</p><div>${boxes}</div>
 <p><button class="primary" name="do" value="prod_add">Save product</button></p></form>
 ${rows ? `<div class="card"><h3>Your products (${d.products.length})</h3><table class="keep"><thead><tr><th>ASIN</th><th>Name</th><th>Channels</th><th>Added</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
-    : `<p class="muted">No products added yet.</p>`}`;
+    : `<p class="muted">No products added yet.</p>`}
+${videoBlock}`;
 }
 
 const FREE_TOOLS = [

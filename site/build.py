@@ -406,6 +406,12 @@ def main():
     for v in videos:
         write(os.path.join(OUT, "v", v["key"], "index.html"), video_page(v))
     write(os.path.join(OUT, "index.html"), index_page(videos))
+    # read by /admin -> Products: every video with its product links (no secrets)
+    write(os.path.join(OUT, "videos-index.json"), json.dumps([{
+        "key": v["key"], "date": v["date"], "channel_id": v["channel_id"], "title": v["title"],
+        "youtube_id": v.get("youtube_id", ""), "page_url": v.get("page_url", ""),
+        "items": [{"name": i.get("name", ""), "asin": i.get("asin", ""), "link": i.get("link", "")}
+                  for i in v.get("items", [])]} for v in videos]))
     blog = load_blog()
     write(os.path.join(OUT, "blog", "index.html"), blog_index_page(blog))
     # read by /admin to link drafts to their blog post
