@@ -567,6 +567,7 @@ ${p.warning ? `<span class="pill err">${esc(p.warning)}</span>` : ""}${p.fb ? `<
 <p>Click the button. If Facebook asks "continue with your previous settings?", choose <b>Edit settings</b>, then tick <b>Modern Tech Life</b> and keep the pages that are already ticked (unticking them stops their posts).</p>
 <p><a class="btn primary" href="/auth/fb-connect?for=mtl">f Connect Modern Tech Life page</a></p></div>`;
   return `<h2 id="mtl">Modern Tech Life · daily Bangla posts</h2>
+<div class="msg">⏸ <b>Stopped (to save OpenAI cost):</b> no new posts are written or posted. To turn it back on: GitHub repo → Settings → Secrets and variables → Actions → Variables → add <code>MTL_ON</code> = <code>true</code>.</div>
 <p class="muted">Every morning AI researches ONE real, current way to earn with AI from Bangladesh (web search, sources below) and writes 3 honest
 posts: a how-to, your real result (only from config/mtl_facts.json) and a warning or question. No income promises. They are posted directly on
 <a href="https://www.facebook.com/ModernTechLife" target="_blank" rel="noopener">the page ↗</a>; copy buttons are here too.${d ? " Today's topic: <b>" + esc(d.topic) + "</b> (" + esc(d.date) + ")." : ""}</p>

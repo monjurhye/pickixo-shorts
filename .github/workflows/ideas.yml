@@ -69,8 +69,9 @@ jobs:
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
       # 8am Bangladesh: 3 honest Bangla posts for the "Modern Tech Life" page -> /admin (copy + post by hand).
       # A failure here never stops the Facebook posts below.
+      # OFF since 2026-11-22 (OpenAI cost). To turn it back on: repo Settings -> Variables -> MTL_ON = true.
       - name: Modern Tech Life posts
-        if: steps.mode.outputs.fb == 'true' && inputs.fb_check != true && inputs.fb_test_reel != true
+        if: vars.MTL_ON == 'true' && steps.mode.outputs.fb == 'true' && inputs.fb_check != true && inputs.fb_test_reel != true
         continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
