@@ -2,6 +2,7 @@
 // meets Magnific's minimum (short side 2000+), asks /api/magnific/meta (Gemini, free, server side) for title and
 // keywords, then builds Magnific's CSV. The strict AI quality check is a separate button (only when needed).
 (function () {
+  const PLAIN_MAX = 1.5;   // up to 1.5x a high-quality plain resize is enough (AI upscaling freezes the page)
   const MIN_SHORT = 2000, TARGET_SHORT = 2048, MIN_PIXELS = 4000000, MIN_QUALITY = 7, AI_TAG = "_ai_generated";
   const $ = (id) => document.getElementById(id);
   const results = [];
@@ -159,7 +160,7 @@
     let source = bmp;
     if (short < MIN_SHORT || w * h < MIN_PIXELS) {
       scale = TARGET_SHORT / short;
-      if (scale > 1.3 && !$("mag-ai").checked) {
+      if (scale > PLAIN_MAX && !$("mag-ai").checked) {
         row.innerHTML = cardHtml({ name: file.name, err: `Too small (${w}×${h}): needs ${scale.toFixed(1)}× enlargement. Make it bigger at the source (Firefly ~2048px), or tick "AI upscale" (slow).` });
         return null;
       }
@@ -168,7 +169,7 @@
         return null;
       }
       note = `${w}×${h} → `;
-      if (scale > 1.3 && $("mag-ai").checked) {
+      if (scale > PLAIN_MAX && $("mag-ai").checked) {
         row.innerHTML = cardHtml({ name: file.name, size: note + "AI upscaling (first time loads the model, can take a few minutes)…", busy: true });
         try {
           source = await aiUpscale(bmp, (p) => {

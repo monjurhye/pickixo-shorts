@@ -656,7 +656,7 @@ when you want a second opinion (it unticks weak images: below 7/10 or with probl
 previews go to the AI.</p>
 <div class="card"><div class="row">
 <input type="file" id="mag-files" accept="image/jpeg,image/png,image/webp" multiple>
-<label title="Slow on older laptops"><input type="checkbox" id="mag-ai"> AI upscale (slow, off by default)</label>
+<label title="Only for images that need more than 1.5x; can freeze the page for minutes"><input type="checkbox" id="mag-ai"> AI upscale (only very small images; very slow)</label>
 <input type="text" id="mag-model" placeholder="Model (as in Magnific's dropdown), optional" style="min-width:260px">
 <button class="primary" id="mag-run" onclick="window.__mag.run()">Make title + keywords</button>
 <button id="mag-convert" type="button" onclick="window.__mag.convert()" title="No AI needed">🔄 PNG → JPG only</button>
@@ -669,7 +669,7 @@ previews go to the AI.</p>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
 <div class="grid" id="mag-results"></div>
-<script src="/magnific-tool.js?v=8"></script>`;
+<script src="/magnific-tool.js?v=9"></script>`;
 }
 
 function fbConnectHtml(fp) {
