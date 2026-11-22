@@ -711,9 +711,41 @@ previews go to the AI.</p>
 <a class="btn" href="https://contributor.magnific.com/" target="_blank" rel="noopener">Open Magnific ↗</a></div>
 <p class="muted">Then on Magnific: Uploads → drop the downloaded JPGs (title and keywords are written inside each file, no CSV needed) → set "Created with AI: Yes" and the model → Submit.
 AI upscaling runs on your computer; the first image loads the model (~10&nbsp;MB) and can take a few minutes on an older Mac.</p></div>
+<div class="card"><h3>🤖 Or with Claude (claude.ai, free with your Claude account)</h3>
+<p class="muted">1) Press the button: the request is copied and claude.ai opens (no warning, nothing is sent from here).
+2) In Claude: press <b>Cmd+V</b>, then attach your JPGs (drag them in, up to about 20) and send.
+3) Claude checks each image like a strict reviewer, writes the title and keywords, and gives a ready CSV.
+4) Copy the CSV block into a text file named <b>magnific_metadata.csv</b>, and upload it with the JPGs on Magnific.</p>
+<a class="btn primary" href="https://claude.ai/new" target="_blank" rel="noopener" onclick="copyText('mag-claude-req')">🤖 Copy request + open Claude</a>
+<pre id="mag-claude-req" style="display:none">${esc(CLAUDE_META_REQUEST)}</pre></div>
 <div class="grid" id="mag-results"></div>
 <script src="/magnific-tool.js?v=10"></script>`;
 }
+
+// Request for claude.ai: the owner attaches the images there; Claude returns checks + Magnific CSV.
+const CLAUDE_META_REQUEST = `I am attaching AI-generated stock photos (made with Adobe Firefly) that I will upload to Magnific (Freepik).
+For EACH attached image, using its exact file name:
+
+1. Strict quality check, like a Magnific reviewer looking at 100% zoom. Report any of these:
+   - any letters, numbers, logos or fake text anywhere
+   - malformed hands, faces or objects; tangled, melted or merged small details
+   - plastic, waxy or 3D-render look instead of a real photo
+   - an object cut off at the edge of the frame
+   - soft, blurry, hazy or noisy main subject
+   Give a score 1-10 and say clearly: UPLOAD or DO NOT UPLOAD (7+ and no problems = UPLOAD).
+2. Title: 5 to 12 plain English words describing exactly what is shown. Include the word "mockup"
+   if it is a blank card, bag, box, shirt or other blank item. No brands, no "AI", no "stock photo".
+3. Keywords: 44 lowercase single words or short phrases buyers would search, most important first
+   (subject, objects, surface, colors, mood, concepts, uses such as "copy space" or "flat lay" only
+   if true). No brands, no duplicates.
+4. Category: one of Backgrounds, Business, Food and drink, Animals, Nature, Holidays, Technology,
+   People, Lifestyle, Interiors, Education, Health, Travel, Sports, Objects, Abstract, Industry,
+   Beauty and fashion.
+
+Answer in Bangla for the checks. At the end give ONE code block with a CSV for Magnific, only the
+images marked UPLOAD, exactly in this format (semicolon between columns, commas between keywords):
+filename;title;keywords;prompt;model
+<file name>.jpg;<title>;<keyword1,keyword2,...>;;Adobe Firefly`;
 
 function fbConnectHtml(fp) {
   if (!fp.pages || !fp.pages.length)
