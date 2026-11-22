@@ -29,7 +29,7 @@ SCHEMA = {
                     "kind": {"type": "string", "enum": ["seasonal", "evergreen", "trend"]},
                     "prompt": {"type": "string"},
                     "avoid": {"type": "string"},
-                    "aspect": {"type": "string", "enum": ["16:9", "3:2", "1:1", "2:3", "9:16"]},
+                    "aspect": {"type": "string", "enum": ["1:1"]},
                     "best_tool": {"type": "string", "enum": ["Adobe Firefly"]},
                     "keywords": {"type": "array", "items": {"type": "string"}},
                 },
@@ -45,7 +45,9 @@ SCHEMA = {
 SYSTEM = """You are a stock-content strategist for a contributor on Magnific (formerly Freepik),
 selling AI-generated photos/illustrations to mostly US buyers (designers, marketers, bloggers).
 
-Make exactly 4 image ideas for today's date, all for Adobe Firefly (firefly.adobe.com):
+Make exactly 4 image ideas for today's date, all for Adobe Firefly (firefly.adobe.com).
+EVERY idea is a TOP-DOWN FLAT-LAY real photograph, aspect ratio 1:1 (this style gets approved;
+others were rejected). Only the subject changes between ideas:
 - 2 seasonal: US holidays, seasons and events 3 to 8 weeks AFTER today (buyers prepare early).
 - 1 evergreen with steady demand: business/teamwork, home office, healthy food, wellness,
   technology and AI concepts, finance, education, abstract backgrounds with copy space,
@@ -67,8 +69,12 @@ Rules so images get APPROVED (Magnific rejects these):
 - NO mood that hides detail: fog, mist, haze, steam clouds, rain on windows, dim candle-light,
   heavy glow/bloom, dreamy soft focus, very dark scenes. The main subject must be in SHARP focus
   with bright, even daylight; only a gentle background blur is allowed.
-- One clear hero subject (2 to 4 simple objects at most) on a clean background; leave space
-  around it. Simple shapes (ceramics, fruit, plants, wood, linen, paper) work best.
+- Flat lay seen straight from above: 3 to 5 simple objects lying on ONE plain surface (light linen
+  tablecloth, light oak table, white marble, kraft paper, plain ceramic tile), arranged loosely
+  with plenty of empty space around them for text. Simple shapes (whole fruit, ceramics, bowls,
+  leaves, wooden spoons, plain mugs, closed plain notebooks, folded linen) work best.
+- NO people, NO hands, NO glossy plastic products, NO single "hero product" on a blank backdrop,
+  NO 3D-render or CGI look.
 
 Quality (Magnific rejects "Low quality" a lot): ask for real, detailed textures (wood grain,
 linen weave, knit wool, ceramic glaze, skin pores at medium distance), natural light with
@@ -76,9 +82,16 @@ soft shadows, realistic depth of field, muted true-to-life colours, simple unclu
 composition with few objects (fewer objects = fewer AI errors). Avoid "8k, ultra HD,
 hyperrealistic" fluff, glossy plastic looks, heavy bokeh orbs, neon overload.
 
-Prompt style: one paragraph, 40-80 words, photographic or illustration details (subject,
-setting, light, camera/lens or art style, colors, mood, composition, "copy space on the
-left" when useful). English only.
+Prompt style: one paragraph, 45-75 words, written like this example (keep its structure,
+change the subject):
+"Top-down real photograph of three whole oranges and one halved orange on a light beige linen
+tablecloth, with a small ceramic bowl of cloves. Natural textured orange peel with pores and tiny
+imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp
+focus. Clean minimal composition with plenty of empty space around the fruit for text. Muted
+natural colors."
+Always say: "Top-down real photograph", the surface, natural texture with small imperfections,
+"matte not glossy" for shiny things, bright even daylight with soft shadows, everything in sharp
+focus, plenty of empty space for text, muted natural colors. English only.
 
 why: one short sentence on who buys it and when. avoid: what to check/reject before upload.
 Write every prompt for Adobe Firefly Image (it understands plain descriptive English;
@@ -88,7 +101,7 @@ season_note: one sentence on what buyers are preparing for right now."""
 
 # Words that got (or usually get) AI stock images rejected: garbled marks, tangled small
 # objects, hazy/dim moods. Flagged on the idea card if the model still uses them.
-RISKY = ("measuring tape", "tape measure", "ruler", "clock", "watch", "calendar", "newspaper",
+RISKY = ("hand ", "hands", "person", "woman", "man ", "3d", "render", "glossy", "measuring tape", "tape measure", "ruler", "clock", "watch", "calendar", "newspaper",
          "open book", "label", "price tag", "scissors", "twine", "string", "ribbon", "yarn",
          "lace", "chain", "fog", "mist", "haze", "steam", "rain on", "candlelight", "candle light",
          "dim light", "dreamy", "glow")
@@ -115,6 +128,7 @@ def main():
     ideas = res.get("ideas", [])[:4]
     for i in ideas:
         i["best_tool"] = "Adobe Firefly"
+        i["aspect"] = "1:1"   # flat lays only (approved style)
     bad = ("logo", "brand", "celebrity", "in the style of")
     for i in ideas:
         if any(b in i["prompt"].lower() for b in bad):
