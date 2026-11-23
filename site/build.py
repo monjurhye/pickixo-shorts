@@ -235,6 +235,16 @@ cost to you. Content is provided "as is" without warranties.</p>"""
     return page("Terms · Pickixo Picks", body)
 
 
+def not_found_page():
+    """public/404.html: with it Cloudflare Pages answers unknown paths with a real 404
+    (without it, every unknown path got the homepage with 200 = "soft 404" for Google)."""
+    body = """<h1>Page not found</h1>
+<p class="lead">This page doesn't exist or was moved.</p>
+<p><a href="/">See the latest finds</a> · <a href="/blog/">Read the blog</a></p>"""
+    return page("Page not found · Pickixo Picks", body,
+                head_extra='<meta name="robots" content="noindex">')
+
+
 # AdBlueMedia content locker (public snippet from the AdBlueMedia dashboard; no secret in it).
 LOCKER_HEAD = """<script type="text/javascript">var gJXKc_sbq_gLMDqc={"it":4383972,"key":"ae49a"};</script>
 <script src="https://d1chbu4sfo2xhu.cloudfront.net/71fd049.js"></script>"""
@@ -422,6 +432,7 @@ def main():
     write(os.path.join(OUT, "disclosure", "index.html"), disclosure_page())
     write(os.path.join(OUT, "privacy", "index.html"), privacy_page())
     write(os.path.join(OUT, "terms", "index.html"), terms_page())
+    write(os.path.join(OUT, "404.html"), not_found_page())
     if os.path.exists(os.path.join(common.DATA_DIR, "free_deals.json")):
         write(os.path.join(OUT, "free", "lifetime-deals", "index.html"), free_deals_page())
     if os.path.exists(EBOOK):
