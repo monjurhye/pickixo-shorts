@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-23-ch16-voice-controlled-living-devices",
+  "date": "2026-11-23",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Voice controlled living devices for your house",
+  "hook": "Upgrade your house with voice controls",
+  "description": "Discover these helpful voice controlled living devices to make your daily routine easier at home.",
+  "items": [
+    {
+      "name": "Smart speaker",
+      "benefit": "Play music and control your lights easily",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart door lock",
+      "benefit": "Keyless entry for your front door",
+      "amazon_search": "smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "Connect all your devices in one place",
+      "amazon_search": "smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Detect movement and automate daily routines",
+      "amazon_search": "smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "60ZzDt0oKxA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-23-ch16-voice-controlled-living-devices/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-23/2026-11-23-ch16-voice-controlled-living-devices.mp4",
+  "seconds": 28,
+  "image": "https://images.pexels.com/videos/37252343/pexels-photo-37252343.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-hotel-room-with-stylish-interior-design-37252343/"
+}
