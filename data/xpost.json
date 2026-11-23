@@ -35,23 +35,41 @@
       "facebook": "ok 1017337538088965",
       "threads": "ok 18391651609236599",
       "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n2wnpzlgap2m"
+    },
+    "2026-11-22-ch04-cozy-pet-comfort-finds": {
+      "key": "2026-11-22-ch04-cozy-pet-comfort-finds",
+      "title": "Cozy Pet Comfort Finds For Your Home",
+      "at": "2026-11-23T13:46:02Z",
+      "views": 209,
+      "facebook": "ok 1116556917652410",
+      "threads": "ok 18107588327198955",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n2ybembyxd27"
+    },
+    "2026-11-22-ch18-toddler-activity-items": {
+      "key": "2026-11-22-ch18-toddler-activity-items",
+      "title": "Toddler activity items for indoor play",
+      "at": "2026-11-23T13:47:20Z",
+      "views": 189,
+      "facebook": "ok 1401042698767777",
+      "threads": "ok 18120125852017643",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n2ybgduizk2m"
     }
   },
   "queue": {
-    "date": "2026-11-22",
+    "date": "2026-11-23",
     "keys": [
-      "2026-11-21-ch04-pet-toy-finds",
-      "2026-11-21-ch12-road-trip-comfort-finds",
-      "2026-11-21-ch18-toys-for-curious-kids",
-      "2026-11-21-ch17-compact-travel-gear",
-      "2026-11-21-ch01-tiny-apartment-kitchen-tools"
+      "2026-11-22-ch04-cozy-pet-comfort-finds",
+      "2026-11-22-ch18-toddler-activity-items",
+      "2026-11-21-ch01-tiny-apartment-kitchen-tools",
+      "2026-11-21-ch11-on-the-go-baby-gear",
+      "2026-11-22-ch17-lightweight-airport-carry-ons"
     ],
     "views": {
-      "2026-11-21-ch04-pet-toy-finds": 233,
-      "2026-11-21-ch12-road-trip-comfort-finds": 202,
-      "2026-11-21-ch18-toys-for-curious-kids": 173,
-      "2026-11-21-ch17-compact-travel-gear": 168,
-      "2026-11-21-ch01-tiny-apartment-kitchen-tools": 156
+      "2026-11-22-ch04-cozy-pet-comfort-finds": 209,
+      "2026-11-22-ch18-toddler-activity-items": 189,
+      "2026-11-21-ch01-tiny-apartment-kitchen-tools": 156,
+      "2026-11-21-ch11-on-the-go-baby-gear": 134,
+      "2026-11-22-ch17-lightweight-airport-carry-ons": 112
     }
   }
 }
