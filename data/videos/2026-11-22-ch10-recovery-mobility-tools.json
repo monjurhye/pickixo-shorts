@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch10-recovery-mobility-tools",
+  "date": "2026-11-22",
+  "channel_id": "ch10",
+  "channel_name": "(set channel name)",
+  "niche": "Home fitness",
+  "title": "Mobility Finds for Recovery",
+  "hook": "Mobility Finds for Recovery",
+  "description": "A quick look at mobility and recovery aids you can add to any home routine. Short, text-graphics slides for easy shopping.",
+  "items": [
+    {
+      "name": "Foam Roller",
+      "benefit": "",
+      "amazon_search": "foam roller",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=foam+roller&tag=monjur09-20"
+    },
+    {
+      "name": "Stretch Resistance Bands",
+      "benefit": "",
+      "amazon_search": "stretch resistance bands",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stretch+resistance+bands&tag=monjur09-20"
+    },
+    {
+      "name": "Trigger Point Ball",
+      "benefit": "",
+      "amazon_search": "trigger point massage ball",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=trigger+point+massage+ball&tag=monjur09-20"
+    },
+    {
+      "name": "Yoga Wheel",
+      "benefit": "",
+      "amazon_search": "yoga wheel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=yoga+wheel&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "FVej6xNihPc",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch10-recovery-mobility-tools/",
+  "clip": "",
+  "seconds": 27,
+  "recovered": true
+}

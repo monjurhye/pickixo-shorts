@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch08-laundry-finds-you-need",
+  "date": "2026-11-22",
+  "channel_id": "ch08",
+  "channel_name": "(set channel name)",
+  "niche": "Laundry & cleaning",
+  "title": "Laundry Finds You Need",
+  "hook": "Laundry Finds You Need",
+  "description": "Four practical laundry helpers to keep fabrics looking fresh. Find the ones that fit your routine.",
+  "items": [
+    {
+      "name": "Stain remover pen",
+      "benefit": "",
+      "amazon_search": "stain remover pen",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stain+remover+pen&tag=monjur09-20"
+    },
+    {
+      "name": "Fabric shaver",
+      "benefit": "",
+      "amazon_search": "fabric shaver",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=fabric+shaver&tag=monjur09-20"
+    },
+    {
+      "name": "Lint roller",
+      "benefit": "",
+      "amazon_search": "lint roller",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=lint+roller&tag=monjur09-20"
+    },
+    {
+      "name": "Color catcher sheets",
+      "benefit": "",
+      "amazon_search": "color catcher sheets",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=color+catcher+sheets&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "R5LtUB6w4ZA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch08-laundry-finds-you-need/",
+  "clip": "",
+  "seconds": 26,
+  "recovered": true
+}

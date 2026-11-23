@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch16-smart-home-devices",
+  "date": "2026-11-22",
+  "channel_id": "ch16",
+  "channel_name": "(set channel name)",
+  "niche": "Smart home",
+  "title": "Smart home gadgets you can buy now",
+  "hook": "Smart home gadgets you can buy now",
+  "description": "A quick look at four essential smart gadgets for a connected home. Each item is a practical addition to everyday routines.",
+  "items": [
+    {
+      "name": "Smart door lock",
+      "benefit": "",
+      "amazon_search": "Smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "",
+      "amazon_search": "Smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart hub",
+      "benefit": "",
+      "amazon_search": "Smart hub",
+      "asin": "B0C5DPSW5Y",
+      "link": "https://www.amazon.com/dp/B0C5DPSW5Y?tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "",
+      "amazon_search": "Smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "-p-WNMbLJYs",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch16-smart-home-devices/",
+  "clip": "",
+  "seconds": 26,
+  "recovered": true
+}

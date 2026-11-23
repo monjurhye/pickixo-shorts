@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch05-brewercareessentials",
+  "date": "2026-11-22",
+  "channel_id": "ch05",
+  "channel_name": "(set channel name)",
+  "niche": "Coffee & tea gear",
+  "title": "Coffee Brewer Care Essentials",
+  "hook": "Coffee Brewer Care Essentials",
+  "description": "Essentials to keep your coffee brewer clean and performing well. Simple items to add to your routine.",
+  "items": [
+    {
+      "name": "Brewer descaling solution",
+      "benefit": "",
+      "amazon_search": "coffee machine descaler",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=coffee+machine+descaler&tag=monjur09-20"
+    },
+    {
+      "name": "Brewer cleaning tablets",
+      "benefit": "",
+      "amazon_search": "coffee machine cleaning tablets",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=coffee+machine+cleaning+tablets&tag=monjur09-20"
+    },
+    {
+      "name": "Carafe cleaning brush",
+      "benefit": "",
+      "amazon_search": "coffee carafe cleaning brush",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=coffee+carafe+cleaning+brush&tag=monjur09-20"
+    },
+    {
+      "name": "Microfiber coffee cloth",
+      "benefit": "",
+      "amazon_search": "microfiber cleaning cloth coffee maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=microfiber+cleaning+cloth+coffee+maker&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "3LZKuz3qqZ0",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch05-brewercareessentials/",
+  "clip": "",
+  "seconds": 38,
+  "recovered": true
+}

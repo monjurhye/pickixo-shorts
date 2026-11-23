@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch07-outdoor-living",
+  "date": "2026-11-22",
+  "channel_id": "ch07",
+  "channel_name": "(set channel name)",
+  "niche": "Plant & garden",
+  "title": "Outdoor Living Essentials",
+  "hook": "Outdoor Living Essentials",
+  "description": "Four practical outdoor living essentials to upgrade your space. Browse these simple finds for a calmer, greener setup.",
+  "items": [
+    {
+      "name": "Solar Garden Lanterns",
+      "benefit": "",
+      "amazon_search": "solar garden lanterns",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=solar+garden+lanterns&tag=monjur09-20"
+    },
+    {
+      "name": "Drip Irrigation Kit",
+      "benefit": "",
+      "amazon_search": "drip irrigation kit garden",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=drip+irrigation+kit+garden&tag=monjur09-20"
+    },
+    {
+      "name": "Grow Bags for Veggies",
+      "benefit": "",
+      "amazon_search": "grow bags for vegetables",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=grow+bags+for+vegetables&tag=monjur09-20"
+    },
+    {
+      "name": "Hanging Plant Hooks",
+      "benefit": "",
+      "amazon_search": "hanging plant hooks",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=hanging+plant+hooks&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "1wNBuyfmChg",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch07-outdoor-living/",
+  "clip": "",
+  "seconds": 26,
+  "recovered": true
+}

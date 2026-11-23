@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch04-home-pet-gadget-finds",
+  "date": "2026-11-22",
+  "channel_id": "ch04",
+  "channel_name": "(set channel name)",
+  "niche": "Pet gadgets",
+  "title": "4 Pet Gadget Finds for Home",
+  "hook": "4 Pet Gadget Finds for Home",
+  "description": "Four practical pet gadget finds you can shop for today. Simple, reliable tools to streamline daily pet care.",
+  "items": [
+    {
+      "name": "Automatic pet feeder",
+      "benefit": "",
+      "amazon_search": "automatic pet feeder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=automatic+pet+feeder&tag=monjur09-20"
+    },
+    {
+      "name": "Pet water fountain",
+      "benefit": "",
+      "amazon_search": "pet water fountain",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=pet+water+fountain&tag=monjur09-20"
+    },
+    {
+      "name": "Smart pet door",
+      "benefit": "",
+      "amazon_search": "smart pet door",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+pet+door&tag=monjur09-20"
+    },
+    {
+      "name": "Treat-dispensing ball",
+      "benefit": "",
+      "amazon_search": "treat dispensing toy",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=treat+dispensing+toy&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "st0gMZZ3FgI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch04-home-pet-gadget-finds/",
+  "clip": "",
+  "seconds": 24,
+  "recovered": true
+}

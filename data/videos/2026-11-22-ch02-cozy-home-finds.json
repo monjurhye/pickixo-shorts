@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch02-cozy-home-finds",
+  "date": "2026-11-22",
+  "channel_id": "ch02",
+  "channel_name": "(set channel name)",
+  "niche": "Gifts under $25",
+  "title": "Cozy Home Finds",
+  "hook": "Cozy Home Finds",
+  "description": "Four cozy, useful gifts that fit a casual, home-friendly vibe. Find them easily on Amazon.",
+  "items": [
+    {
+      "name": "Scented candle set",
+      "benefit": "",
+      "amazon_search": "Scented candle set",
+      "asin": "B000S5VEG6",
+      "link": "https://www.amazon.com/dp/B000S5VEG6?tag=monjur09-20"
+    },
+    {
+      "name": "Cozy throw blanket",
+      "benefit": "",
+      "amazon_search": "Cozy throw blanket",
+      "asin": "B0158EQJSY",
+      "link": "https://www.amazon.com/dp/B0158EQJSY?tag=monjur09-20"
+    },
+    {
+      "name": "Desk organizer tray",
+      "benefit": "",
+      "amazon_search": "Desk organizer tray",
+      "asin": "B0D9M2D3HY",
+      "link": "https://www.amazon.com/dp/B0D9M2D3HY?tag=monjur09-20"
+    },
+    {
+      "name": "Stainless steel tumbler",
+      "benefit": "",
+      "amazon_search": "Stainless steel tumbler",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "8-czsny1TOw",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch02-cozy-home-finds/",
+  "clip": "",
+  "seconds": 29,
+  "recovered": true
+}

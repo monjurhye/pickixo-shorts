@@ -1,0 +1,45 @@
+{
+  "key": "2026-11-22-ch20-room-refresh-essentials",
+  "date": "2026-11-22",
+  "channel_id": "ch20",
+  "channel_name": "(set channel name)",
+  "niche": "Bedroom & sleep",
+  "title": "Room Refresh Essentials: Bedding & Lighting",
+  "hook": "Room Refresh Essentials: Bedding & Lighting",
+  "description": "A simple four-item set for a calmer sleep space, from bedding to lighting.",
+  "items": [
+    {
+      "name": "Duvet cover",
+      "benefit": "",
+      "amazon_search": "Duvet cover",
+      "asin": "B07PCQKTCN",
+      "link": "https://www.amazon.com/dp/B07PCQKTCN?tag=monjur09-20"
+    },
+    {
+      "name": "Blackout curtains",
+      "benefit": "",
+      "amazon_search": "Blackout curtains",
+      "asin": "B01LXG6GVL",
+      "link": "https://www.amazon.com/dp/B01LXG6GVL?tag=monjur09-20"
+    },
+    {
+      "name": "Sleep mask",
+      "benefit": "",
+      "amazon_search": "Sleep mask",
+      "asin": "B089N77JWM",
+      "link": "https://www.amazon.com/dp/B089N77JWM?tag=monjur09-20"
+    },
+    {
+      "name": "Bedside lamp",
+      "benefit": "",
+      "amazon_search": "Bedside lamp",
+      "asin": "B0F4RF3ZDY",
+      "link": "https://www.amazon.com/dp/B0F4RF3ZDY?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "FKxdqR4Y2lM",
+  "page_url": "https://shop.pickixo.com/v/2026-11-22-ch20-room-refresh-essentials/",
+  "clip": "",
+  "seconds": 24,
+  "recovered": true
+}
