@@ -1,6 +1,34 @@
 {
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "prompts": [
+    {
+      "theme": "New Year champagne flute preparation",
+      "prompt": "Top-down real photograph of three plain champagne glasses and one small round ceramic dish of dried star anise on a white marble tabletop. Natural transparent glass texture with tiny reflections, matte not glossy ceramics. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-23"
+    },
+    {
+      "theme": "Blank white greeting card mockup",
+      "prompt": "Top-down real photograph of one blank white folded greeting card and one plain matching envelope on a light oak wooden table. Natural heavy paper texture with subtle fibers, matte not glossy paper. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-23"
+    },
+    {
+      "theme": "Pastel aesthetic Japandi home office desk",
+      "prompt": "Top-down real photograph of one closed plain pastel sage-green notebook and one smooth ceramic coffee mug on a light linen tablecloth. Natural fine fabric weave texture, matte not glossy ceramic glaze. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-23"
+    },
+    {
+      "theme": "Winter solstice orange and cinnamon baking ingredients",
+      "prompt": "Top-down real photograph of two whole dried orange slices and three cinnamon sticks on a light cream ceramic tile surface. Natural textured citrus peel with pores and rough bark texture, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-23"
+    },
     {
       "theme": "Christmas gift wrapping preparation",
       "prompt": "Top-down real photograph of three plain brown paper wrapped gift boxes and two matte green ceramic baubles on a light oak wooden table. Natural textured kraft paper with subtle fiber details, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
@@ -671,34 +699,6 @@
       "prompt": "Flat lay or mid-distance shot of a rustic kitchen counter with a wooden cutting board, rolling pin, cinnamon sticks, star anise, a tray of cookies, natural morning light, subtle shadows, negative space on the right for copy, realistic textures like floured wood and ceramic bowls.",
       "tool": "Ideogram",
       "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "New Year gift guide in a minimalist setup",
-      "prompt": "Minimalist desk or shelf setup with neatly wrapped gifts, a single plant, soft industry-gray and warm white color palette, gentle backlight, clean composition, ample copy space on left, textures of linen and matte surfaces, medium distance shot.",
-      "tool": "FLUX.1 schnell",
-      "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Kwanzaa-inspired natural textures and geometric arrangement",
-      "prompt": "Medium shot of a simple trio of natural textures (burlap, woven mat, wood grain) arranged geometrically with a single ceramic bowl, muted earthy tones, soft side light, shallow depth, plenty of copy space on the left for messaging.",
-      "tool": "Adobe Firefly",
-      "aspect": "1:1",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter holiday baking studio still life",
-      "prompt": "A calm, sunlit kitchen corner with a wooden table, baked cookies and a bowl of cinnamon sticks, subtle flour dust, ceramic jars, and a rolling pin; natural wood textures, soft shadows, and copy space on the left for text. Shot with a 50mm lens, warm neutral tones, shallow depth of field.",
-      "tool": "Adobe Firefly",
-      "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Hanukkah-inspired light textures still life",
-      "prompt": "Minimalist still life featuring a glass oil lamp or olive oil bottle, woolen cloths, and slate tabletop; soft glow, cool blue-gray palette with warm amber accents, gentle shadows, composition focused left with ample negative space.",
-      "tool": "Ideogram",
-      "aspect": "1:1",
       "date": "2026-11-20"
     }
   ]
