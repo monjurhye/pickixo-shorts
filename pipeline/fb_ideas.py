@@ -3,7 +3,11 @@ automatic: photo and question posts are scheduled on the connected Page, and ree
 rendered (Pexels clips + AI voice + on-screen steps, same engine as the Shorts) and
 scheduled through the Reels API. Everything is also shown in the dashboard."""
 
+import json
 import os
+import urllib.error
+import urllib.parse
+import urllib.request
 import shutil
 
 from datetime import datetime, timedelta, timezone
@@ -200,6 +204,23 @@ if __name__ == "__main__":
         if facebook.enabled():
             print(facebook.check())
         print("dashboard facebook:", dashboard.fb_state() if dashboard.enabled() else "no PIPELINE_KEY")
+        if dashboard.enabled():  # read-only: what Facebook really holds for the active Page
+            t = dashboard.fb_token()
+            for edge, fields in (("published_posts", "created_time,message,is_published"),
+                                 ("scheduled_posts", "scheduled_publish_time,message"),
+                                 ("video_reels", "created_time,description,status")):
+                url = "{0}/{1}/{2}?fields={3}&limit=12&access_token={4}".format(
+                    facebook.GRAPH, t["page_id"], edge, fields, urllib.parse.quote(t["token"]))
+                try:
+                    with urllib.request.urlopen(url, timeout=30) as r:
+                        rows = json.loads(r.read().decode()).get("data", [])
+                except urllib.error.HTTPError as e:
+                    print(edge, "ERROR", e.code, e.read().decode("utf-8", "ignore")[:300])
+                    continue
+                print("==", edge, len(rows))
+                for x in rows:
+                    print("  ", x.get("created_time") or x.get("scheduled_publish_time"), "|",
+                          json.dumps(x.get("status", "")), "|", (x.get("message") or x.get("description") or "")[:60].replace("\n", " "))
         print("buffer facebook channel:", buffer.find_channel("facebook") if buffer.enabled() else "no BUFFER_API_KEY")
     else:
         main(test_reel="--test-reel" in sys.argv)
