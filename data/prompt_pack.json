@@ -1,6 +1,34 @@
 {
-  "updated": "2026-11-23",
+  "updated": "2026-11-24",
   "prompts": [
+    {
+      "theme": "winter holiday baking",
+      "prompt": "Top-down real photograph of four heart-shaped cookies and a small ceramic bowl of flour on a light oak wooden table. Natural textured cookie surfaces with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-24"
+    },
+    {
+      "theme": "blank cotton tote bag",
+      "prompt": "Top-down real photograph of one blank cotton tote bag and one smooth round river stone on a light beige linen tablecloth, with a small eucalyptus leaf. Natural textured cotton weave with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-24"
+    },
+    {
+      "theme": "earthy neutral spa wellness",
+      "prompt": "Top-down real photograph of two plain unlabeled ceramic cosmetic jars and one round soap bar on a white marble surface, with a single broad olive leaf. Natural smooth ceramic and stone textures with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-24"
+    },
+    {
+      "theme": "minimal tidy workspace",
+      "prompt": "Top-down real photograph of one closed plain notebook and a plain ceramic coffee cup on a light oak wooden desk, with a small ceramic bowl of smooth pebbles. Natural wood grain with tiny imperfections, matte not glossy. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
+      "tool": "Adobe Firefly",
+      "aspect": "1:1",
+      "date": "2026-11-24"
+    },
     {
       "theme": "New Year champagne flute preparation",
       "prompt": "Top-down real photograph of three plain champagne glasses and one small round ceramic dish of dried star anise on a white marble tabletop. Natural transparent glass texture with tiny reflections, matte not glossy ceramics. Bright even daylight with soft shadows, everything in sharp focus. All objects small and fully inside the frame with wide empty margins on every side, nothing cut off at the edges. Clean minimal composition with plenty of empty space for text. Muted natural colors.",
@@ -671,34 +699,6 @@
       "prompt": "Medium-distance shot of a diverse group (two adults, one child) in a cozy kitchen preparing breakfast; natural light from a window, warm tones, clear foreground with a shelf and plant, ample space on the right for copy.",
       "tool": "Adobe Firefly",
       "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Finance and budgeting workspace with calm color",
-      "prompt": "A tidy desk with a notepad, calculator, and a pie-chart diagram silhouette projected on a wall; soft daylight, shallow depth of field, neutral desk tones, negative space on the left for copy.",
-      "tool": "FLUX.1 schnell",
-      "aspect": "16:9",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Education concept: study setup with notebook and globe",
-      "prompt": "A calm study nook with a wooden desk, an open notebook, a small globe, a plant, and soft ambient light; medium shot, natural textures, minimal clutter, copy space on the right for title or copy.",
-      "tool": "Ideogram",
-      "aspect": "2:3",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Christmas gift shopping mood in a cozy retail window",
-      "prompt": "Photographic still life of a storefront window display with wrapped gifts, pine branches, and subtle bokeh lights, soft natural daylight, shallow depth of field, copy space on the left for headlines, muted warm colors, textures like kraft paper and velvet ribbons visible, composition focused on a few objects.",
-      "tool": "Adobe Firefly",
-      "aspect": "3:2",
-      "date": "2026-11-20"
-    },
-    {
-      "theme": "Winter warmth kitchen scene with holiday baking",
-      "prompt": "Flat lay or mid-distance shot of a rustic kitchen counter with a wooden cutting board, rolling pin, cinnamon sticks, star anise, a tray of cookies, natural morning light, subtle shadows, negative space on the right for copy, realistic textures like floured wood and ceramic bowls.",
-      "tool": "Ideogram",
-      "aspect": "16:9",
       "date": "2026-11-20"
     }
   ]
