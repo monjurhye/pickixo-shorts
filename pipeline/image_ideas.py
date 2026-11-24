@@ -13,7 +13,7 @@ import argparse
 import os
 from datetime import datetime, timezone
 
-from . import common, dashboard, gemini
+from . import common, content, dashboard, gemini
 
 SCHEMA = {
     "type": "object",
@@ -151,7 +151,7 @@ def main():
         return
     if not gemini.enabled():
         raise SystemExit("GEMINI_API_KEY is not set (free key: https://aistudio.google.com/apikey)")
-    res = gemini.call_json(SYSTEM, user, SCHEMA, common.settings(), 6000)
+    res = content._call_json(SYSTEM, user, SCHEMA, common.settings(), 6000)
     ideas = res.get("ideas", [])[:4]
     for i in ideas:
         i["best_tool"] = "Adobe Firefly"
@@ -173,7 +173,7 @@ def main():
     common.log("ideas ready: {0}".format(len(ideas)))
     extra = []
     for _ in range(args.pack):
-        more = gemini.call_json(SYSTEM, user + " Make them different from these themes: " +
+        more = content._call_json(SYSTEM, user + " Make them different from these themes: " +
                                   "; ".join(i["theme"] for i in ideas + extra), SCHEMA, common.settings(), 6000)
         extra += more.get("ideas", [])
     add_to_pack(ideas + extra, today.strftime("%Y-%m-%d"))

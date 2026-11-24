@@ -98,7 +98,14 @@ def _call_json(system, user, schema, cfg, max_tokens=4000):
     """Dispatch to the configured provider ("gemini", "openai" or "anthropic")."""
     if cfg.get("provider", "anthropic") == "gemini":
         from . import gemini
-        return gemini.call_json(system, user, schema, cfg, max_tokens)
+        try:
+            return gemini.call_json(system, user, schema, cfg, max_tokens)
+        except Exception as e:
+            # paid backup only when the owner set OPENAI_API_KEY (gpt-5-nano, a fraction of a cent a call)
+            if not common.secret("OPENAI_API_KEY") or not cfg.get("openai_fallback", True):
+                raise
+            common.log("gemini failed ({0}); using OpenAI backup".format(str(e)[:80]))
+            return _call_json_openai(system, user, schema, cfg, max_tokens)
     if cfg.get("provider", "anthropic") == "openai":
         return _call_json_openai(system, user, schema, cfg, max_tokens)
     return _call_json_anthropic(system, user, schema, cfg, max_tokens)
@@ -191,11 +198,19 @@ def write_script(channel, recent_topics, cfg, fix_issues=None, recent_asins=()):
     unused = [p for p in catalog if p["asin"] not in set(recent_asins)]
     if len(unused) >= n:
         catalog = unused  # rotate: products from recent videos wait their turn
-    if len(catalog) >= n:
+    if len(catalog) >= 3 * n:
         # real products the owner picked on Amazon: the video must use them
         user += ("\n\nUse ONLY products from this list (pick {0} that fit one topic together; "
                  "set each item's asin to that product's ASIN, name it as the generic type in "
                  "<= 5 words, never the brand):\n").format(n) + "\n".join(
+            "- {0}: {1}".format(p["asin"], p["name"]) for p in catalog[:60])
+    elif catalog:
+        # a small list can't fill fresh topics every day (same few items -> near-duplicate
+        # videos the reviewer rejects): pick a NEW topic first, use listed products only where
+        # they truly fit it, the rest as generic items (asin "", Amazon search link)
+        user += ("\n\nOptional real products (use those that truly fit your NEW topic, each with its "
+                 "ASIN as asin and a generic <= 5 word name, never the brand; every other item gets "
+                 "asin \"\"). Do not build the topic around this list:\n") + "\n".join(
             "- {0}: {1}".format(p["asin"], p["name"]) for p in catalog[:60])
     if fix_issues:
         # a rewrite after the review gate rejected the previous draft

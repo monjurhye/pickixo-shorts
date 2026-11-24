@@ -76,6 +76,7 @@ jobs:
         if: steps.mode.outputs.ideas == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini key (no OpenAI cost)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # paid backup, used only when Gemini fails
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.image_ideas --pack "${{ inputs.pack || '0' }}"
       # 8am Bangladesh: 3 honest Bangla posts for the "Modern Tech Life" page -> /admin (copy + post by hand).
@@ -86,6 +87,7 @@ jobs:
         continue-on-error: true
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # paid backup, used only when Gemini fails
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
         run: python -m pipeline.mtl_posts
       - name: Install ffmpeg and fonts (Facebook reels)
@@ -95,6 +97,7 @@ jobs:
         if: steps.mode.outputs.fb == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini (no OpenAI)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # paid backup, used only when Gemini fails
           PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
