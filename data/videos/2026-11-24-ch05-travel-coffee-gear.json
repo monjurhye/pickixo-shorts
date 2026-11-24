@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch05-travel-coffee-gear",
+  "date": "2026-11-24",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "Useful Travel Coffee Gear You Can Find on Amazon",
+  "hook": "Enjoy great coffee on the go.",
+  "description": "Upgrade your morning commute and road trips with these handy travel coffee essentials available on Amazon.",
+  "items": [
+    {
+      "name": "Travel mug",
+      "benefit": "Keeps your brew hot for hours.",
+      "amazon_search": "travel coffee mug",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    },
+    {
+      "name": "Manual coffee grinder",
+      "benefit": "Grind fresh beans anywhere you travel.",
+      "amazon_search": "manual coffee grinder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=manual+coffee+grinder&tag=monjur09-20"
+    },
+    {
+      "name": "Portable espresso maker",
+      "benefit": "Brew rich espresso without electricity.",
+      "amazon_search": "portable espresso maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+espresso+maker&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated pour over set",
+      "benefit": "Enjoy craft coffee on road trips.",
+      "amazon_search": "insulated pour over coffee maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+pour+over+coffee+maker&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "0Xrf6ih8ETU",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch05-travel-coffee-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch05-travel-coffee-gear.mp4",
+  "seconds": 38,
+  "image": "https://images.pexels.com/videos/3832275/brick-coffee-to-go-drink-coffee-hand-3832275.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/throwing-a-disposable-cup-of-coffee-3832275/"
+}

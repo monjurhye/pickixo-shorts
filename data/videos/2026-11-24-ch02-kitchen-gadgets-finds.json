@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch02-kitchen-gadgets-finds",
+  "date": "2026-11-24",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Kitchen gadgets finds",
+  "hook": "Must-have kitchen gadgets",
+  "description": "Four practical kitchen gadgets to simplify everyday cooking. Find these essentials on Amazon with simple searches.",
+  "items": [
+    {
+      "name": "silicone spatula set",
+      "benefit": "Heat-safe and easy to clean",
+      "amazon_search": "silicone spatula set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=silicone+spatula+set&tag=monjur09-20"
+    },
+    {
+      "name": "measuring cup set",
+      "benefit": "Clear metric marks for precision",
+      "amazon_search": "measuring cup set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=measuring+cup+set&tag=monjur09-20"
+    },
+    {
+      "name": "garlic press",
+      "benefit": "Effortless mincing every time",
+      "amazon_search": "garlic press",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=garlic+press&tag=monjur09-20"
+    },
+    {
+      "name": "digital kitchen timer",
+      "benefit": "Keeps cooking on track",
+      "amazon_search": "digital kitchen timer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=digital+kitchen+timer&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "aFG8cFbt-Aw",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch02-kitchen-gadgets-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch02-kitchen-gadgets-finds.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/34154109/pexels-photo-34154109.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-black-kitchen-interior-with-natural-light-34154109/"
+}

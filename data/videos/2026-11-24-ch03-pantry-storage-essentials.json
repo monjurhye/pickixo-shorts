@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch03-pantry-storage-essentials",
+  "date": "2026-11-24",
+  "channel_id": "ch03",
+  "channel_name": "Pet Gadget Lab",
+  "niche": "Home organization",
+  "title": "Smart Pantry Storage Essentials",
+  "hook": "Upgrade your pantry with these clever finds.",
+  "description": "Transform your kitchen pantry with these practical storage essentials designed to keep everything neat and accessible.",
+  "items": [
+    {
+      "name": "Clear storage bins",
+      "benefit": "Keep all your snacks easily visible.",
+      "amazon_search": "clear pantry storage bins",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=clear+pantry+storage+bins&tag=monjur09-20"
+    },
+    {
+      "name": "Stackable storage bins",
+      "benefit": "Maximize vertical shelf space effortlessly.",
+      "amazon_search": "stackable storage bins",
+      "asin": "B084KQZ49Z",
+      "link": "https://www.amazon.com/dp/B084KQZ49Z?tag=monjur09-20"
+    },
+    {
+      "name": "Turntable organizer",
+      "benefit": "Reach spices and sauces instantly.",
+      "amazon_search": "lazy susan turntable organizer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=lazy+susan+turntable+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Door-mounted pocket organizer",
+      "benefit": "Utilize extra space on pantry doors.",
+      "amazon_search": "door mounted pocket organizer",
+      "asin": "B0HKSC8Q88",
+      "link": "https://www.amazon.com/dp/B0HKSC8Q88?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "QRe8oOj1fOw",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch03-pantry-storage-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch03-pantry-storage-essentials.mp4",
+  "seconds": 30,
+  "image": "https://images.pexels.com/videos/8581131/pexels-photo-8581131.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-person-holding-stacks-of-glass-containers-8581131/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch17-road-trip-must-haves",
+  "date": "2026-11-24",
+  "channel_id": "ch17",
+  "channel_name": "Rasmus Holland",
+  "niche": "Travel essentials",
+  "title": "Useful road trip finds on Amazon",
+  "hook": "Upgrade your next road trip",
+  "description": "Make your next road trip more comfortable and organized with these handy car travel accessories available on Amazon.",
+  "items": [
+    {
+      "name": "Seat back organizer",
+      "benefit": "Keep snacks and gear neatly stored",
+      "amazon_search": "backseat car organizer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=backseat+car+organizer&tag=monjur09-20"
+    },
+    {
+      "name": "Car trash can",
+      "benefit": "Maintain a tidy vehicle space easily",
+      "amazon_search": "leakproof car trash can",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=leakproof+car+trash+can&tag=monjur09-20"
+    },
+    {
+      "name": "Travel neck pillow",
+      "benefit": "Enjoy comfortable rest on long drives",
+      "amazon_search": "memory foam travel neck pillow",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=memory+foam+travel+neck+pillow&tag=monjur09-20"
+    },
+    {
+      "name": "Portable vacuum cleaner",
+      "benefit": "Quickly clean up crumbs and dirt",
+      "amazon_search": "handheld cordless car vacuum",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=handheld+cordless+car+vacuum&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "HFh9dwiZksA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch17-road-trip-must-haves/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch17-road-trip-must-haves.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/32853898/pexels-photo-32853898.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/scenic-drive-through-serene-open-fields-32853898/"
+}

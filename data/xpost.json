@@ -80,23 +80,39 @@
       "facebook": "ok 2366564757532068",
       "threads": "ok 18109345787309336",
       "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n2z7qi3qoz2j"
+    },
+    "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find": {
+      "key": "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find",
+      "title": "Smart Travel Toiletry And Hydration Finds",
+      "at": "2026-11-24T13:44:20Z",
+      "views": 189,
+      "threads": "ok 17919138351536920",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n32rptzyrj2w"
+    },
+    "2026-11-22-ch16-convenient-living-accessories": {
+      "key": "2026-11-22-ch16-convenient-living-accessories",
+      "title": "Convenient living accessories for your house",
+      "at": "2026-11-24T13:45:16Z",
+      "views": 174,
+      "threads": "ok 18123051698585740",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n32rricvlu25"
     }
   },
   "queue": {
-    "date": "2026-11-23",
+    "date": "2026-11-24",
     "keys": [
-      "2026-11-22-ch04-cozy-pet-comfort-finds",
-      "2026-11-22-ch18-toddler-activity-items",
-      "2026-11-21-ch01-tiny-apartment-kitchen-tools",
-      "2026-11-21-ch11-on-the-go-baby-gear",
-      "2026-11-22-ch17-lightweight-airport-carry-ons"
+      "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find",
+      "2026-11-22-ch16-convenient-living-accessories",
+      "2026-11-23-ch12-car-cleaning-essentials",
+      "2026-11-23-ch15-cozy-desk-additions-for-pc-players",
+      "2026-11-23-ch04-clean-pet-home-finds"
     ],
     "views": {
-      "2026-11-22-ch04-cozy-pet-comfort-finds": 209,
-      "2026-11-22-ch18-toddler-activity-items": 189,
-      "2026-11-21-ch01-tiny-apartment-kitchen-tools": 156,
-      "2026-11-21-ch11-on-the-go-baby-gear": 134,
-      "2026-11-22-ch17-lightweight-airport-carry-ons": 112
+      "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find": 189,
+      "2026-11-22-ch16-convenient-living-accessories": 174,
+      "2026-11-23-ch12-car-cleaning-essentials": 152,
+      "2026-11-23-ch15-cozy-desk-additions-for-pc-players": 133,
+      "2026-11-23-ch04-clean-pet-home-finds": 126
     }
   }
 }

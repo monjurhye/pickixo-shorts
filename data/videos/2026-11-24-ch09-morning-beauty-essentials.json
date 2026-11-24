@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch09-morning-beauty-essentials",
+  "date": "2026-11-24",
+  "channel_id": "ch09",
+  "channel_name": "EcoSolar Pets",
+  "niche": "Beauty tools",
+  "title": "Morning Beauty Essentials For Your Daily Routine",
+  "hook": "Upgrade your morning beauty routine easily",
+  "description": "Streamline your morning routine with these helpful beauty essentials. Find them easily on Amazon.",
+  "items": [
+    {
+      "name": "Hair straightener",
+      "benefit": "Smooths your hair in minutes",
+      "amazon_search": "hair straightener",
+      "asin": "B0HKJHPN2D",
+      "link": "https://www.amazon.com/dp/B0HKJHPN2D?tag=monjur09-20"
+    },
+    {
+      "name": "Makeup sponge set",
+      "benefit": "Blends liquid foundation flawlessly",
+      "amazon_search": "makeup sponge set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=makeup+sponge+set&tag=monjur09-20"
+    },
+    {
+      "name": "Eyelash curler",
+      "benefit": "Lifts lashes for an open look",
+      "amazon_search": "eyelash curler",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=eyelash+curler&tag=monjur09-20"
+    },
+    {
+      "name": "Cosmetic travel bag",
+      "benefit": "Keeps your daily cosmetics organized",
+      "amazon_search": "cosmetic travel bag",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=cosmetic+travel+bag&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "bHP2k5Osw5I",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch09-morning-beauty-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch09-morning-beauty-essentials.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/7758857/pexels-photo-7758857.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/woman-applying-makeup-7758857/"
+}

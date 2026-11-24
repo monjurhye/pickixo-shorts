@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch13-backcountry-trail-gear",
+  "date": "2026-11-24",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "4 smart gear finds for your next trail trek",
+  "hook": "Upgrade your next trek with these smart finds",
+  "description": "Discover four useful gear finds designed to make your next trail trek easier and more comfortable. Tap the links to view them on Amazon.",
+  "items": [
+    {
+      "name": "Water filter bottle",
+      "benefit": "Drink clean water straight from natural streams",
+      "amazon_search": "water filter bottle",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    },
+    {
+      "name": "Ultralight folding seat",
+      "benefit": "Enjoy a comfortable rest anywhere along the trail",
+      "amazon_search": "ultralight folding camp seat",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=ultralight+folding+camp+seat&tag=monjur09-20"
+    },
+    {
+      "name": "Trekking pole lights",
+      "benefit": "Light up the path during early morning hikes",
+      "amazon_search": "trekking pole flashlight attachments",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=trekking+pole+flashlight+attachments&tag=monjur09-20"
+    },
+    {
+      "name": "Compact multi-tool",
+      "benefit": "Handle quick gear fixes out on the trail",
+      "amazon_search": "compact outdoor multi tool",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+outdoor+multi+tool&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "amqR1c9oMog",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch13-backcountry-trail-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch13-backcountry-trail-gear.mp4",
+  "seconds": 44,
+  "image": "https://images.pexels.com/videos/8726204/pexels-photo-8726204.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/man-climbing-on-the-mountain-8726204/"
+}

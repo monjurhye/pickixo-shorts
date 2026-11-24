@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch16-smart-home-living-room-upgrades",
+  "date": "2026-11-24",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Smart home living room upgrades",
+  "hook": "Upgrade your living room with these smart finds",
+  "description": "Transform your living space with these convenient smart home upgrades. Find all these items linked below.",
+  "items": [
+    {
+      "name": "Smart speaker",
+      "benefit": "Play music and control your lights easily",
+      "amazon_search": "smart speaker with voice assistant",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart color light bulb",
+      "benefit": "Set the perfect mood with your voice",
+      "amazon_search": "smart color light bulb",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+color+light+bulb&tag=monjur09-20"
+    },
+    {
+      "name": "Smart TV backlight",
+      "benefit": "Enhance movie nights with immersive ambient glow",
+      "amazon_search": "smart led tv backlight",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+led+tv+backlight&tag=monjur09-20"
+    },
+    {
+      "name": "Smart plug",
+      "benefit": "Automate lamps and everyday electronics effortlessly",
+      "amazon_search": "smart plug for home automation",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+plug+for+home+automation&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "mrgDT9d3Q4s",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch16-smart-home-living-room-upgrades/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch16-smart-home-living-room-upgrades.mp4",
+  "seconds": 30,
+  "image": "https://images.pexels.com/videos/6323324/pexels-photo-6323324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/table-with-books-and-lamp-6323324/"
+}
