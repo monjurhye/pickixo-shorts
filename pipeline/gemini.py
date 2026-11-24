@@ -38,27 +38,48 @@ def call_json(system, user, schema, cfg, max_tokens=4000):
         "generationConfig": {"responseMimeType": "application/json", "responseSchema": _schema(schema),
                              "maxOutputTokens": max_tokens * 2},
     }
-    url = "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent".format(model)
-    for attempt in range(4):
-        wait = gap - (time.time() - _LAST[0])
-        if wait > 0:
-            time.sleep(wait)
-        _LAST[0] = time.time()
-        req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
-            "x-goog-api-key": common.secret("GEMINI_API_KEY"), "Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=180) as r:
-                data = json.loads(r.read().decode())
+    # Busy (503/500/timeout) on one model -> the other free models have their own capacity.
+    models = [model] + [m for m in cfg.get("gemini_fallback_models", ["gemini-flash-latest", "gemini-2.5-flash-lite"])
+                        if m != model]
+    data, last = None, ""
+    for mi, m in enumerate(models):
+        url = "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent".format(m)
+        tries = 4 if mi == 0 else 2
+        for attempt in range(tries):
+            wait = gap - (time.time() - _LAST[0])
+            if wait > 0:
+                time.sleep(wait)
+            _LAST[0] = time.time()
+            req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
+                "x-goog-api-key": common.secret("GEMINI_API_KEY"), "Content-Type": "application/json"})
+            try:
+                with urllib.request.urlopen(req, timeout=180) as r:
+                    data = json.loads(r.read().decode())
+                break
+            except urllib.error.HTTPError as e:
+                msg = e.read().decode("utf-8", "ignore")[:600]
+                last = "Gemini HTTP {0}: {1}".format(e.code, msg)
+                if e.code == 429 and "PerDay" in msg:
+                    if mi + 1 < len(models):
+                        common.log("gemini {0}: daily limit, trying {1}".format(m, models[mi + 1]))
+                        break
+                    raise RuntimeError("Gemini free daily limit reached (500 a day); the rest waits for tomorrow")
+                if e.code == 404 and mi:  # a fallback model name that no longer exists: skip it
+                    common.log("gemini {0}: not found, skipped".format(m))
+                    break
+                if e.code not in (429, 500, 503):
+                    raise RuntimeError(last)
+            except (urllib.error.URLError, TimeoutError, OSError) as e:
+                last = "Gemini network: {0}".format(e)
+            if attempt + 1 < tries:
+                common.log("gemini {0} busy, retrying ({1})".format(m, last[:60]))
+                time.sleep(20 * (attempt + 1))
+        if data is not None:
+            if mi:
+                common.log("gemini: answered by fallback model " + m)
             break
-        except urllib.error.HTTPError as e:
-            msg = e.read().decode("utf-8", "ignore")[:600]
-            if e.code == 429 and "PerDay" in msg:
-                raise RuntimeError("Gemini free daily limit reached (500 a day); the rest waits for tomorrow")
-            if e.code in (429, 500, 503) and attempt < 3:
-                common.log("gemini {0}, retrying".format(e.code))
-                time.sleep(30 * (attempt + 1))
-                continue
-            raise RuntimeError("Gemini HTTP {0}: {1}".format(e.code, msg))
+    if data is None:
+        raise RuntimeError(last or "Gemini: no answer")
     cand = (data.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts") or [])
     if not text.strip():

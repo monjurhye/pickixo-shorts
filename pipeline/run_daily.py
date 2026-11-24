@@ -42,7 +42,7 @@ def item_links(items, ch):
 
 def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
     """Returns a report row. Raises nothing."""
-    row = {"channel": ch.get("name") or ch["id"], "niche": ch["niche"], "status": "", "note": ""}
+    row = {"channel": ch.get("name") or ch["id"], "ch_id": ch["id"], "niche": ch["niche"], "status": "", "note": ""}
     work = None
     try:
         # 1. script + automated review gate (up to two rewrites, each told why the last draft failed)
@@ -195,6 +195,18 @@ def main():
             rows.append(make_one(ch, idx, chstate, cfg, args.dry_run, args.no_upload, date))
         if not (args.dry_run or args.no_upload):
             state.save(st)  # save after each channel so a crash keeps progress
+
+    # Second pass: channels that failed only because Gemini was busy get one more try at the end.
+    if not args.dry_run and not args.no_upload:
+        byid = {c["id"]: (i, c) for i, c in enumerate(chans)}
+        for r in rows:
+            if r.get("status") == "error" and r.get("note", "").startswith("Gemini") \
+                    and "daily limit" not in r["note"] and r.get("ch_id") in byid:
+                idx, ch = byid[r["ch_id"]]
+                common.log("[{0}] retrying after Gemini error".format(ch["id"]))
+                again = make_one(dict(ch, name=r["channel"]), idx, state.ch(st, ch["id"]), cfg, False, False, date)
+                r.clear(); r.update(again)
+                state.save(st)
 
     report.publish(report.markdown(date, rows), open_issue=not (args.dry_run or args.no_upload))
 
