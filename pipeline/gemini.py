@@ -39,7 +39,7 @@ def call_json(system, user, schema, cfg, max_tokens=4000):
                              "maxOutputTokens": max_tokens * 2},
     }
     # Busy (503/500/timeout) on one model -> the other free models have their own capacity.
-    models = [model] + [m for m in cfg.get("gemini_fallback_models", ["gemini-flash-latest", "gemini-2.5-flash-lite"])
+    models = [model] + [m for m in cfg.get("gemini_fallback_models", ["gemini-flash-latest"])
                         if m != model]
     data, last = None, ""
     for mi, m in enumerate(models):
