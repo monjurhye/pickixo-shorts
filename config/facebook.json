@@ -9,8 +9,8 @@
     "Budget home & holiday decor / DIY",
     "Useful budget finds under $30 (affiliate, with disclosure)"
   ],
-  "schedule_us_et": ["8:00 AM", "12:30 PM", "7:30 PM"],
-  "per_day": {"reels": 2, "photo_or_carousel": 1, "engagement": 1},
+  "schedule_us_et": ["7:00 AM", "9:30 AM", "12:00 PM", "2:30 PM", "5:00 PM", "7:30 PM", "9:30 PM"],
+  "per_day": {"reels": 3, "photo_or_carousel": 2, "engagement": 2},
   "page_name_ideas": ["Smart Saving Home", "Frugal Home Hacks", "The Thrifty Nest"],
   "rules": [
     "Original only: your own script, voice, footage or AI visuals you made. No reposting other creators (Meta demonetizes duplicative content since March 2026).",

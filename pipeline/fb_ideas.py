@@ -54,8 +54,9 @@ SCHEMA = {
 
 SYSTEM = """You plan original Facebook content for a US page. Niche: {niche}.
 Audience: {audience}. Content pillars: {pillars}.
-Make today's posts: {reels} reels, {photos} photo or carousel post, {eng} engagement post,
-spread over these US Eastern times: {times}. Use a different pillar for each post.
+Make today's posts: {reels} reels, {photos} photo or carousel posts, {eng} engagement posts,
+one post per US Eastern time slot: {times}. Never put two reels in a row. Rotate the
+pillars and make every post a different topic (no near-duplicates of each other).
 Seasonal: it is {date}; use what US households deal with in the next 1-3 weeks (holidays,
 weather, school, bills), but don't force it.
 
@@ -117,8 +118,8 @@ def main(test_reel=False):
                            reels=cfg["per_day"]["reels"], photos=cfg["per_day"]["photo_or_carousel"],
                            eng=cfg["per_day"]["engagement"], times=", ".join(cfg.get("schedule_us_et", [])),
                            date=now.strftime("%B %d, %Y"))
-    res = content._call_json(sysmsg, "Write today's posts.", SCHEMA, common.settings(), 7000)
-    posts = res.get("posts", [])[:6]
+    res = content._call_json(sysmsg, "Write today's posts.", SCHEMA, common.settings(), 12000)
+    posts = res.get("posts", [])[:sum(cfg["per_day"].values())]
     if test_reel:  # one real reel only, at the evening slot, no other posts, no dashboard update
         reels = [p for p in posts if p["type"] == "reel"]
         if not reels:
