@@ -169,7 +169,7 @@ def build(script, channel_index, clips, out_path, cfg, brand="Pickixo Picks", vo
     total = sum(s[4] for s in scenes)
     has_voice = any(voice_files)
     voice = _voice_track(ffmpeg, voice_files, [s[4] for s in scenes], work) if has_voice else None
-    tracks = glob.glob(os.path.join(common.MUSIC_DIR, "*.mp3")) + \
+    tracks = [] if cfg.get("music_off") else glob.glob(os.path.join(common.MUSIC_DIR, "*.mp3")) + \
         glob.glob(os.path.join(common.MUSIC_DIR, "*.m4a"))
 
     inputs, chains, labels = ["-i", silent], [], []

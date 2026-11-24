@@ -259,6 +259,14 @@
         "bedtime reading"
       ],
       "enabled": false
+    },
+    {
+      "id": "ch21",
+      "name": "Affordable Watch Reviews",
+      "handle": "@AffordableWatchReviews",
+      "niche": "Affordable watches (AliExpress videos + AI voice)",
+      "source": "aliexpress",
+      "enabled": false
     }
   ]
 }

@@ -86,5 +86,6 @@ def hot_products(keywords, tracking_id, page_size=20, page_no=1):
             "category": p.get("second_level_category_name") or p.get("first_level_category_name") or "",
             "rating": p.get("evaluate_rate", ""),
             "sold": p.get("lastest_volume", 0),
+            "video": p.get("product_video_url") or "",
         })
     return out

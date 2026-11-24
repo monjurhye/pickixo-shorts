@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "channel": "ch21",
+  "tracking_id": "Pinterest",
+  "videos_per_run": 1,
+  "keywords": [
+    "men quartz watch",
+    "women watch",
+    "automatic mechanical watch",
+    "minimalist watch",
+    "sports watch",
+    "smart watch",
+    "chronograph watch",
+    "dress watch",
+    "diver watch",
+    "skeleton watch",
+    "couple watch",
+    "watch strap"
+  ],
+  "min_rating_percent": 90,
+  "max_video_mb": 60,
+  "note": "pipeline/ali_videos.py: AliExpress best sellers that have a seller video -> original sound removed -> own AI voiceover (Kokoro) + on-screen features -> YouTube channel ch21. Brand-name / replica products are skipped. tracking_id: make a separate one (e.g. YTWatch) in the AliExpress portal to see this channel's earnings apart from Pinterest."
+}

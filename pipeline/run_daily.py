@@ -177,6 +177,8 @@ def main():
     for idx, ch in enumerate(chans):
         if args.channel and ch["id"] != args.channel:
             continue
+        if ch.get("source") == "aliexpress":  # made by pipeline.ali_videos, not the Amazon Shorts
+            continue
         chstate = state.ch(st, ch["id"])
         if not args.dry_run and not args.channel:
             if dash is not None:

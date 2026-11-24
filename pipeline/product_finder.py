@@ -170,7 +170,7 @@ def main():
     auto["products"] = [p for p in auto["products"] if p.get("found", "") >= cutoff]
 
     done = 0
-    for ch in common.channels():
+    for ch in [c for c in common.channels() if c.get("source") != "aliexpress"]:
         if args.channel and ch["id"] != args.channel:
             continue
         have = fresh(auto["products"], ch["id"], max_age)

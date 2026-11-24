@@ -90,6 +90,22 @@ jobs:
           if [ -n "${{ inputs.channel }}" ]; then ARGS="$ARGS --channel ${{ inputs.channel }}"; fi
           python -m pipeline.run_daily $ARGS
 
+      # Watch channel (ch21): AliExpress seller video, its sound removed, own AI voiceover.
+      # Does nothing until ch21 is connected and active in /admin.
+      - name: AliExpress watch video (ch21)
+        if: ${{ !inputs.dry_run && (inputs.channel == '' || inputs.channel == 'ch21') }}
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # free Google Gemini
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # paid backup, used only when Gemini fails
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
+          PIPELINE_KEY: ${{ secrets.PIPELINE_KEY }}
+          PAUSED: ${{ vars.PAUSED }}
+        run: |
+          if [ "$PAUSED" = "true" ]; then echo "paused"; exit 0; fi
+          if [ "${{ inputs.test_no_upload }}" = "true" ]; then python -m pipeline.ali_videos --no-upload; else python -m pipeline.ali_videos; fi
+
       - name: Cross-post the best Shorts (Facebook, Instagram, Threads, Bluesky)
         if: ${{ !inputs.dry_run && !inputs.test_no_upload && !inputs.channel }}
         continue-on-error: true
@@ -106,7 +122,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-videos
-          path: work/*/20*.mp4
+          path: |
+            work/*/20*.mp4
+            work/ali-test-*.mp4
           retention-days: 2
 
       - name: Commit records (updates the website)
