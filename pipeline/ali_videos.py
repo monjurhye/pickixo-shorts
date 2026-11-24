@@ -67,7 +67,9 @@ Given one AliExpress product's raw title and category, write:
 - hook: one spoken sentence <= 12 words that makes a viewer keep watching.
 - items: exactly 3 features. name <= 4 words, benefit <= 10 words. ONLY features that the
   title itself states (e.g. "waterproof", "luminous", "chronograph", "stainless steel");
-  never invent specs, water-resistance depth, battery life or materials.
+  never invent specs, water-resistance depth, battery life or materials. The benefit only
+  explains the feature in plain words; it adds no new claim (no activities like swimming or
+  diving, no durability or accuracy promises).
 - cta: short spoken line, e.g. "Check the link in the description".
 - description: 1-2 plain sentences about the watch for the YouTube description.
 - hashtags: 3-5 lowercase, no '#'.
