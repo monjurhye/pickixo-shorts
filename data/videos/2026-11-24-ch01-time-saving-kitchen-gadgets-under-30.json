@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch01-time-saving-kitchen-gadgets-under-30",
+  "date": "2026-11-24",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Time saving kitchen gadgets under $30",
+  "hook": "Prep meals faster with these clever kitchen gadgets",
+  "description": "Discover four handy kitchen gadgets under $30 that make daily meal prep much easier and faster.",
+  "items": [
+    {
+      "name": "Spiral vegetable slicer",
+      "benefit": "Turn veggies into noodles in seconds",
+      "amazon_search": "spiral vegetable slicer",
+      "asin": "B0764HS4SL",
+      "link": "https://www.amazon.com/dp/B0764HS4SL?tag=monjur09-20"
+    },
+    {
+      "name": "Digital meat thermometer",
+      "benefit": "Get precise cooking temps instantly",
+      "amazon_search": "digital meat thermometer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=digital+meat+thermometer&tag=monjur09-20"
+    },
+    {
+      "name": "Manual food chopper",
+      "benefit": "Dice onions without the tears",
+      "amazon_search": "manual food chopper",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=manual+food+chopper&tag=monjur09-20"
+    },
+    {
+      "name": "Magnetic measuring spoons",
+      "benefit": "Stack easily in crowded drawers",
+      "amazon_search": "magnetic measuring spoons",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=magnetic+measuring+spoons&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "JWfr97RZVcY",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch01-time-saving-kitchen-gadgets-under-30/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch01-time-saving-kitchen-gadgets-under-30.mp4",
+  "seconds": 28,
+  "image": "https://images.pexels.com/videos/4546855/pexels-photo-4546855.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/food-plate-kitchen-cooking-4546855/"
+}

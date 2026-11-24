@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch02-coffee-lover-finds-under-25",
+  "date": "2026-11-24",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Coffee lover finds under $25",
+  "hook": "Fun coffee gifts under twenty five dollars",
+  "description": "Discover affordable coffee lover finds under $25 to upgrade your morning routine. Tap the link to shop these items.",
+  "items": [
+    {
+      "name": "Stainless steel tumbler",
+      "benefit": "Keeps drinks hot for hours",
+      "amazon_search": "stainless steel tumbler",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    },
+    {
+      "name": "Manual coffee grinder",
+      "benefit": "Fresh beans anywhere you go",
+      "amazon_search": "manual coffee grinder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=manual+coffee+grinder&tag=monjur09-20"
+    },
+    {
+      "name": "Milk frother wand",
+      "benefit": "Creates cafe foam at home",
+      "amazon_search": "milk frother wand",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=milk+frother+wand&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated coffee mug",
+      "benefit": "Stays warm on your desk",
+      "amazon_search": "insulated coffee mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+coffee+mug&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "9SvN0-kPCQI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch02-coffee-lover-finds-under-25/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch02-coffee-lover-finds-under-25.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/28889094/pexels-photo-28889094.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/pouring-coffee-with-espresso-machine-in-kitchen-28889094/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch13-water-purification-essentials",
+  "date": "2026-11-24",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Clean water camp essentials",
+  "hook": "Stay hydrated safely on the trail.",
+  "description": "Make sure your drinking water is safe and clean during your next camping or hiking trip with these reliable filtration finds.",
+  "items": [
+    {
+      "name": "Water filter bottle",
+      "benefit": "Purifies natural water sources instantly",
+      "amazon_search": "water filter bottle for hiking",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    },
+    {
+      "name": "Portable gravity water filter",
+      "benefit": "Filters large amounts of water easily",
+      "amazon_search": "gravity water filter camping",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=gravity+water+filter+camping&tag=monjur09-20"
+    },
+    {
+      "name": "UV water purifier pen",
+      "benefit": "Treats clear water quickly with light",
+      "amazon_search": "uv water purifier pen",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=uv+water+purifier+pen&tag=monjur09-20"
+    },
+    {
+      "name": "Collapsible water storage cube",
+      "benefit": "Holds extra clean water at camp",
+      "amazon_search": "collapsible water storage cube",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=collapsible+water+storage+cube&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "PzhM51Tw2HA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch13-water-purification-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch13-water-purification-essentials.mp4",
+  "seconds": 42,
+  "image": "https://images.pexels.com/videos/31643898/pexels-photo-31643898.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/serene-mountain-stream-flowing-over-rocks-31643898/"
+}
