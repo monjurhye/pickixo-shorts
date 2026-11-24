@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch20-bedtime-relaxation-and-comfort-finds",
+  "date": "2026-11-24",
+  "channel_id": "ch20",
+  "channel_name": "Tech Drop Daily",
+  "niche": "Bedroom & sleep",
+  "title": "Bedtime relaxation and comfort finds on Amazon",
+  "hook": "Wind down with these cozy sleep finds.",
+  "description": "Discover simple products to create a relaxing environment and improve your nightly routine. Tap the link in the description to find these items on Amazon.",
+  "items": [
+    {
+      "name": "Sleep mask",
+      "benefit": "Blocks out light for restful sleep.",
+      "amazon_search": "sleep mask",
+      "asin": "B089N77JWM",
+      "link": "https://www.amazon.com/dp/B089N77JWM?tag=monjur09-20"
+    },
+    {
+      "name": "Weighted blanket",
+      "benefit": "Provides gentle pressure for relaxation.",
+      "amazon_search": "weighted blanket",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=weighted+blanket&tag=monjur09-20"
+    },
+    {
+      "name": "Sound machine",
+      "benefit": "Plays calming white noise all night.",
+      "amazon_search": "white noise sound machine",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=white+noise+sound+machine&tag=monjur09-20"
+    },
+    {
+      "name": "Aromatherapy diffuser",
+      "benefit": "Fills the room with soothing scents.",
+      "amazon_search": "essential oil diffuser",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=essential+oil+diffuser&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "xtEnvysxsZA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch20-bedtime-relaxation-and-comfort-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch20-bedtime-relaxation-and-comfort-finds.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/8375468/pexels-photo-8375468.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-kid-sleeping-on-the-bed-8375468/"
+}

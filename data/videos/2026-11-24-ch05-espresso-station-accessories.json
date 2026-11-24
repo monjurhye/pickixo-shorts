@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch05-espresso-station-accessories",
+  "date": "2026-11-24",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "Espresso station essentials for your home",
+  "hook": "Upgrade your morning espresso routine instantly",
+  "description": "Discover simple coffee station tools that make your daily brewing routine easier and much cleaner.",
+  "items": [
+    {
+      "name": "Coffee knock box",
+      "benefit": "Disposes of used coffee grounds cleanly",
+      "amazon_search": "espresso knock box",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=espresso+knock+box&tag=monjur09-20"
+    },
+    {
+      "name": "Espresso dosing funnel",
+      "benefit": "Prevents messy spills on your counter",
+      "amazon_search": "espresso dosing funnel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=espresso+dosing+funnel&tag=monjur09-20"
+    },
+    {
+      "name": "Coffee distributor tool",
+      "benefit": "Levels grounds for even water extraction",
+      "amazon_search": "coffee distributor tool",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=coffee+distributor+tool&tag=monjur09-20"
+    },
+    {
+      "name": "Travel mug",
+      "benefit": "Keeps your favorite brew hot longer",
+      "amazon_search": "travel coffee mug",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "DJJG07U_poE",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch05-espresso-station-accessories/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch05-espresso-station-accessories.mp4",
+  "seconds": 40,
+  "image": "https://images.pexels.com/videos/32054118/aroma-barista-beverage-black-32054118.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/fresh-espresso-brewing-in-modern-machine-32054118/"
+}

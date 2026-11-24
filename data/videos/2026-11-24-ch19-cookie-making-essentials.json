@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch19-cookie-making-essentials",
+  "date": "2026-11-24",
+  "channel_id": "ch19",
+  "channel_name": "Sai Ma",
+  "niche": "Baking tools",
+  "title": "Cookie Making Essentials From Amazon",
+  "hook": "Bake better homemade cookies with these.",
+  "description": "Upgrade your cookie baking routine with these handy kitchen essentials found on Amazon.",
+  "items": [
+    {
+      "name": "Parchment paper sheets",
+      "benefit": "Prevents sticking for easy cleanup.",
+      "amazon_search": "parchment paper sheets for baking",
+      "asin": "B0H2WFBSBK",
+      "link": "https://www.amazon.com/dp/B0H2WFBSBK?tag=monjur09-20"
+    },
+    {
+      "name": "Stainless steel mixing bowls",
+      "benefit": "Durability for all your baking dough.",
+      "amazon_search": "stainless steel mixing bowls set",
+      "asin": "B084KQZ49Z",
+      "link": "https://www.amazon.com/dp/B084KQZ49Z?tag=monjur09-20"
+    },
+    {
+      "name": "Cookie scoop set",
+      "benefit": "Portions even dough balls every time.",
+      "amazon_search": "cookie scoop set for baking",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=cookie+scoop+set+for+baking&tag=monjur09-20"
+    },
+    {
+      "name": "Silicone baking mats",
+      "benefit": "Reusable nonstick surface for cookie sheets.",
+      "amazon_search": "silicone baking mats for sheet pans",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=silicone+baking+mats+for+sheet+pans&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "S0tNOZkqlyI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch19-cookie-making-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch19-cookie-making-essentials.mp4",
+  "seconds": 29,
+  "image": "https://images.pexels.com/videos/7965226/pexels-photo-7965226.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/person-baking-in-the-oven-7965226/"
+}

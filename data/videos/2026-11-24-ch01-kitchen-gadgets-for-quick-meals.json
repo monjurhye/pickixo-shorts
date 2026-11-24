@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch01-kitchen-gadgets-for-quick-meals",
+  "date": "2026-11-24",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "4 Quick Kitchen Finds for Meals",
+  "hook": "4 fast kitchen finds",
+  "description": "4 practical kitchen finds that simplify meal prep. Quick, spacious slides make it easy to tap and shop each item on Amazon.",
+  "items": [
+    {
+      "name": "Spiral vegetable slicer",
+      "benefit": "Turns veggies into ribbons fast",
+      "amazon_search": "spiral vegetable slicer",
+      "asin": "B0764HS4SL",
+      "link": "https://www.amazon.com/dp/B0764HS4SL?tag=monjur09-20"
+    },
+    {
+      "name": "Nonstick frying pan",
+      "benefit": "Even heat, easy cleanup",
+      "amazon_search": "nonstick frying pan",
+      "asin": "B07H9GQTDK",
+      "link": "https://www.amazon.com/dp/B07H9GQTDK?tag=monjur09-20"
+    },
+    {
+      "name": "Garlic press",
+      "benefit": "Crush cloves in seconds",
+      "amazon_search": "garlic press",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=garlic+press&tag=monjur09-20"
+    },
+    {
+      "name": "Herb stripper",
+      "benefit": "Snips stems and leaves",
+      "amazon_search": "herb stripper",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=herb+stripper&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "Jtr2aOCw_PI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch01-kitchen-gadgets-for-quick-meals/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch01-kitchen-gadgets-for-quick-meals.mp4",
+  "seconds": 24,
+  "image": "https://images.pexels.com/videos/10574089/adult-bath-bathroom-bottle-10574089.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-person-putting-a-toothbrush-in-a-cup-10574089/"
+}

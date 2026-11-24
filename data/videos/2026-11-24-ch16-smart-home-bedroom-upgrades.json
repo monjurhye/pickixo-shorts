@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch16-smart-home-bedroom-upgrades",
+  "date": "2026-11-24",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Smart home bedroom upgrades for better comfort",
+  "hook": "Upgrade your bedroom with smart tech",
+  "description": "Make your bedroom more comfortable and convenient with these simple smart home upgrades. Find all of them linked in the description.",
+  "items": [
+    {
+      "name": "Smart door lock",
+      "benefit": "Keyless entry for peace of mind",
+      "amazon_search": "smart door lock",
+      "asin": "B0DKWXLR85",
+      "link": "https://www.amazon.com/dp/B0DKWXLR85?tag=monjur09-20"
+    },
+    {
+      "name": "Smart speaker",
+      "benefit": "Play music and control your lights",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart plug",
+      "benefit": "Set schedules for lamps and fans",
+      "amazon_search": "smart plug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+plug&tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Turn on soft night lights automatically",
+      "amazon_search": "smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "9QOaFU9vrwg",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch16-smart-home-bedroom-upgrades/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch16-smart-home-bedroom-upgrades.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/34410871/19th-century-architecture-abstract-design-animal-themes-artistic-interior-34410871.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-bedroom-with-artistic-interior-design-34410871/"
+}

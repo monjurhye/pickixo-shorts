@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-24-ch02-finds",
+  "date": "2026-11-24",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Cute Gift Finds",
+  "hook": "Perfect small gifts for any budget",
+  "description": "Four compact gift ideas you can grab for friends, coworkers, or family. Great for thoughtful, everyday gifting.",
+  "items": [
+    {
+      "name": "Mini desk lamp",
+      "benefit": "Soft light for late work",
+      "amazon_search": "mini desk lamp",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=mini+desk+lamp&tag=monjur09-20"
+    },
+    {
+      "name": "Scented candle set",
+      "benefit": "Aromas for cozy vibes",
+      "amazon_search": "scented candle set",
+      "asin": "B000S5VEG6",
+      "link": "https://www.amazon.com/dp/B000S5VEG6?tag=monjur09-20"
+    },
+    {
+      "name": "Compact Bluetooth speaker",
+      "benefit": "Clear sound for small rooms",
+      "amazon_search": "compact bluetooth speaker",
+      "asin": "B07CVPZJTV",
+      "link": "https://www.amazon.com/dp/B07CVPZJTV?tag=monjur09-20"
+    },
+    {
+      "name": "Card game set",
+      "benefit": "Portable fun for any trip",
+      "amazon_search": "travel card game set",
+      "asin": "B0D51F42SW",
+      "link": "https://www.amazon.com/dp/B0D51F42SW?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "X0NYKMsTCRc",
+  "page_url": "https://shop.pickixo.com/v/2026-11-24-ch02-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-24/2026-11-24-ch02-finds.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/8045183/pexels-photo-8045183.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-woman-opening-a-window-curtain-8045183/"
+}
