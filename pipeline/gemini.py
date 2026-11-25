@@ -27,9 +27,15 @@ def _schema(x):
 
 
 _LAST = [0.0]
+_DOWN_UNTIL = [0.0]   # circuit breaker: after Gemini is overloaded, skip it for a while
+COOLDOWN_SECONDS = 600
 
 
 def call_json(system, user, schema, cfg, max_tokens=4000):
+    if time.time() < _DOWN_UNTIL[0]:
+        # Gemini just failed on every model/retry (503 storm): don't burn minutes retrying
+        # on each call; the caller falls back to OpenAI right away.
+        raise RuntimeError("Gemini overloaded (cooling down)")
     model = cfg.get("gemini_model", DEFAULT_MODEL)
     gap = float(cfg.get("gemini_min_gap_seconds", 4.5))   # free tier: 15 requests a minute
     body = {
@@ -79,6 +85,8 @@ def call_json(system, user, schema, cfg, max_tokens=4000):
                 common.log("gemini: answered by fallback model " + m)
             break
     if data is None:
+        if "HTTP 503" in last or "network" in last:
+            _DOWN_UNTIL[0] = time.time() + COOLDOWN_SECONDS
         raise RuntimeError(last or "Gemini: no answer")
     cand = (data.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts") or [])
