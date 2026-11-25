@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch01-multifunction-kitchen-finds",
+  "date": "2026-11-25",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Smart Multipurpose Kitchen Finds",
+  "hook": "Smart kitchen finds you need",
+  "description": "Four practical kitchen finds you can add to any setup. Simple, useful tools for everyday cooking.",
+  "items": [
+    {
+      "name": "Spiral Vegetable Slicer",
+      "benefit": "Turns veggies into ribbons fast",
+      "amazon_search": "spiral vegetable slicer",
+      "asin": "B0764HS4SL",
+      "link": "https://www.amazon.com/dp/B0764HS4SL?tag=monjur09-20"
+    },
+    {
+      "name": "Nonstick Frying Pan",
+      "benefit": "Even cooking with easy clean",
+      "amazon_search": "nonstick frying pan",
+      "asin": "B07H9GQTDK",
+      "link": "https://www.amazon.com/dp/B07H9GQTDK?tag=monjur09-20"
+    },
+    {
+      "name": "Silicone Spatula Set",
+      "benefit": "Heat resistant for safe cooking",
+      "amazon_search": "silicone spatula set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=silicone+spatula+set&tag=monjur09-20"
+    },
+    {
+      "name": "Egg Timer",
+      "benefit": "Counts down perfectly every time",
+      "amazon_search": "kitchen egg timer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=kitchen+egg+timer&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "kQHQFAjqzXU",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch01-multifunction-kitchen-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch01-multifunction-kitchen-finds.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/10573364/adult-bath-bathroom-beer-10573364.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-person-grabbing-a-dish-soap-dispenser-and-a-cleaning-brush-10573364/"
+}

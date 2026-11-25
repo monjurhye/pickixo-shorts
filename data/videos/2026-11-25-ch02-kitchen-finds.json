@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch02-kitchen-finds",
+  "date": "2026-11-25",
+  "channel_id": "ch02",
+  "channel_name": "PowerUp Pets",
+  "niche": "Gifts under $25",
+  "title": "Affordable Kitchen Finds",
+  "hook": "Budget kitchen gems",
+  "description": "Four practical kitchen finds that add everyday convenience, showcased as simple, handy essentials.",
+  "items": [
+    {
+      "name": "Stainless steel tumbler",
+      "benefit": "Keeps drinks hot or cold",
+      "amazon_search": "stainless steel tumbler",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    },
+    {
+      "name": "Reusable silicone lids",
+      "benefit": "Seals bowls to keep fresh",
+      "amazon_search": "reusable silicone lids",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=reusable+silicone+lids&tag=monjur09-20"
+    },
+    {
+      "name": "Ceramic spoon rest",
+      "benefit": "Prevents mess on countertop",
+      "amazon_search": "ceramic spoon rest",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=ceramic+spoon+rest&tag=monjur09-20"
+    },
+    {
+      "name": "Mini cutting board",
+      "benefit": "Compact board for quick prep",
+      "amazon_search": "mini cutting board",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=mini+cutting+board&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "iAJ9WlAtbs8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch02-kitchen-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch02-kitchen-finds.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/6353447/pexels-photo-6353447.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-bowl-of-strawberries-and-some-green-apple-on-a-pantry-6353447/"
+}

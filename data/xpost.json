@@ -120,23 +120,39 @@
       "views": 126,
       "threads": "ok 17913975813580690",
       "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n33oqsvwrd27"
+    },
+    "2026-11-24-ch04-interactive-cat-toys": {
+      "key": "2026-11-24-ch04-interactive-cat-toys",
+      "title": "4 Interactive Cat Toys to Keep Indoor Pets Active",
+      "at": "2026-11-25T17:56:00Z",
+      "views": 209,
+      "threads": "ok 18150740032566082",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n35qamjbt72y"
+    },
+    "2026-11-23-ch07-indoor-plant-care-essentials": {
+      "key": "2026-11-23-ch07-indoor-plant-care-essentials",
+      "title": "Indoor plant care essentials for healthy green leaves",
+      "at": "2026-11-25T17:56:51Z",
+      "views": 173,
+      "threads": "ok 18074025779505747",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n35qc3vnb72y"
     }
   },
   "queue": {
-    "date": "2026-11-24",
+    "date": "2026-11-25",
     "keys": [
-      "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find",
-      "2026-11-22-ch16-convenient-living-accessories",
-      "2026-11-23-ch12-car-cleaning-essentials",
-      "2026-11-23-ch15-cozy-desk-additions-for-pc-players",
-      "2026-11-23-ch04-clean-pet-home-finds"
+      "2026-11-24-ch04-interactive-cat-toys",
+      "2026-11-23-ch07-indoor-plant-care-essentials",
+      "2026-11-23-ch10-core-strength-training-tools",
+      "2026-11-24-ch11-baby-safety-and-proofing-essentials",
+      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi"
     ],
     "views": {
-      "2026-11-23-ch17-smart-travel-toiletry-and-hydration-find": 189,
-      "2026-11-22-ch16-convenient-living-accessories": 174,
-      "2026-11-23-ch12-car-cleaning-essentials": 152,
-      "2026-11-23-ch15-cozy-desk-additions-for-pc-players": 133,
-      "2026-11-23-ch04-clean-pet-home-finds": 126
+      "2026-11-24-ch04-interactive-cat-toys": 209,
+      "2026-11-23-ch07-indoor-plant-care-essentials": 173,
+      "2026-11-23-ch10-core-strength-training-tools": 146,
+      "2026-11-24-ch11-baby-safety-and-proofing-essentials": 123,
+      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi": 120
     }
   }
 }

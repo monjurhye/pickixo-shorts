@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch16-smart-kitchen-gadgets",
+  "date": "2026-11-25",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Smart kitchen finds for everyday cooking",
+  "hook": "Upgrade your kitchen with smart tech",
+  "description": "Discover these clever smart kitchen gadgets designed to make cooking and daily routines easier. Tap the link to view them on Amazon.",
+  "items": [
+    {
+      "name": "Smart meat thermometer",
+      "benefit": "Monitor cooking temperature right from your phone",
+      "amazon_search": "smart meat thermometer wireless",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+meat+thermometer+wireless&tag=monjur09-20"
+    },
+    {
+      "name": "Smart kitchen display",
+      "benefit": "Follow recipes and control devices easily",
+      "amazon_search": "smart display for kitchen",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart coffee maker",
+      "benefit": "Schedule fresh coffee to brew each morning",
+      "amazon_search": "smart coffee maker wifi",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+coffee+maker+wifi&tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Turn on cabinet lights automatically as you approach",
+      "amazon_search": "smart motion sensor indoor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "VNUUOhZwUlM",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch16-smart-kitchen-gadgets/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch16-smart-kitchen-gadgets.mp4",
+  "seconds": 32,
+  "image": "https://images.pexels.com/videos/39122178/pexels-photo-39122178.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/elegant-modern-kitchen-interior-design-39122178/"
+}

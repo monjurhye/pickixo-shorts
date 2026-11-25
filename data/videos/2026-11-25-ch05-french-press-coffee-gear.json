@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch05-french-press-coffee-gear",
+  "date": "2026-11-25",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "French Press Coffee Essentials",
+  "hook": "Upgrade your morning brew routine",
+  "description": "Discover simple coffee gear to improve your daily brewing experience at home.",
+  "items": [
+    {
+      "name": "Glass French press",
+      "benefit": "Brews rich and flavorful coffee daily",
+      "amazon_search": "glass french press coffee maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=glass+french+press+coffee+maker&tag=monjur09-20"
+    },
+    {
+      "name": "Coffee bean grinder",
+      "benefit": "Ensures fresh grounds for every cup",
+      "amazon_search": "manual coffee bean grinder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=manual+coffee+bean+grinder&tag=monjur09-20"
+    },
+    {
+      "name": "Milk frothing pitcher",
+      "benefit": "Creates creamy foam for lattes",
+      "amazon_search": "stainless steel milk frothing pitcher",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=stainless+steel+milk+frothing+pitcher&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated travel mug",
+      "benefit": "Keeps your hot drinks warm longer",
+      "amazon_search": "insulated travel mug",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "0drx7iDrMkA",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch05-french-press-coffee-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch05-french-press-coffee-gear.mp4",
+  "seconds": 38,
+  "image": "https://images.pexels.com/videos/38710242/pexels-photo-38710242.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/pouring-hot-coffee-into-floral-teacup-38710242/"
+}

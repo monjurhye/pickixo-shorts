@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch13-campsite-comfort-finds",
+  "date": "2026-11-25",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Campsite comfort finds for your next trip",
+  "hook": "Upgrade your next outdoor trip easily",
+  "description": "Make your next outdoor adventure even more comfortable with these handy campsite finds.",
+  "items": [
+    {
+      "name": "Portable camp chair",
+      "benefit": "Relaxes your back after long hikes",
+      "amazon_search": "portable camp chair",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+camp+chair&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated camp mug",
+      "benefit": "Keeps your morning coffee hot longer",
+      "amazon_search": "insulated camp mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+camp+mug&tag=monjur09-20"
+    },
+    {
+      "name": "Camping hammock",
+      "benefit": "Great for relaxing under the trees",
+      "amazon_search": "camping hammock",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=camping+hammock&tag=monjur09-20"
+    },
+    {
+      "name": "Water filter bottle",
+      "benefit": "Provides clean water on the go",
+      "amazon_search": "water filter bottle",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "Ps8EXAgxfHQ",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch13-campsite-comfort-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch13-campsite-comfort-finds.mp4",
+  "seconds": 37,
+  "image": "https://images.pexels.com/videos/30845599/drenthe-dwingelderveld-netherlands-30845599.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/serene-forest-landscape-in-morning-light-30845599/"
+}
