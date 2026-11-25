@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch01-smart-kitchen-gadgets-under-30",
+  "date": "2026-11-25",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Smart kitchen gadgets under $30",
+  "hook": "Upgrade your kitchen without spending much",
+  "description": "Discover smart kitchen gadgets under $30 that make cooking easier and more fun every day. Find these helpful tools linked below.",
+  "items": [
+    {
+      "name": "Spiral vegetable slicer",
+      "benefit": "Makes healthy veggie noodles easily",
+      "amazon_search": "spiral vegetable slicer",
+      "asin": "B0764HS4SL",
+      "link": "https://www.amazon.com/dp/B0764HS4SL?tag=monjur09-20"
+    },
+    {
+      "name": "Digital food scale",
+      "benefit": "Measures ingredients with total precision",
+      "amazon_search": "digital food scale",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=digital+food+scale&tag=monjur09-20"
+    },
+    {
+      "name": "Electric salt grinder",
+      "benefit": "Grinds spices with one simple touch",
+      "amazon_search": "electric salt and pepper grinder set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=electric+salt+and+pepper+grinder+set&tag=monjur09-20"
+    },
+    {
+      "name": "Magnetic measuring spoons",
+      "benefit": "Nests neatly in drawers to save space",
+      "amazon_search": "magnetic measuring spoons",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=magnetic+measuring+spoons&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "wGgpqGLrQMQ",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch01-smart-kitchen-gadgets-under-30/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch01-smart-kitchen-gadgets-under-30.mp4",
+  "seconds": 29,
+  "image": "https://images.pexels.com/videos/35801802/pexels-photo-35801802.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-minimalist-kitchen-with-sunlight-35801802/"
+}

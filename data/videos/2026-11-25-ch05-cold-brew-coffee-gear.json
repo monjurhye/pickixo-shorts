@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-25-ch05-cold-brew-coffee-gear",
+  "date": "2026-11-25",
+  "channel_id": "ch05",
+  "channel_name": "Solar Power Nest",
+  "niche": "Coffee & tea gear",
+  "title": "Cold brew coffee gear finds",
+  "hook": "Make smooth cold brew at home",
+  "description": "Discover simple cold brew coffee gear to upgrade your morning routine. Find these items on Amazon.",
+  "items": [
+    {
+      "name": "Cold brew maker",
+      "benefit": "Brew smooth coffee with less acidity",
+      "amazon_search": "cold brew coffee maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=cold+brew+coffee+maker&tag=monjur09-20"
+    },
+    {
+      "name": "Travel mug",
+      "benefit": "Take your iced coffee anywhere",
+      "amazon_search": "stainless steel travel mug",
+      "asin": "B0GH2F3QLG",
+      "link": "https://www.amazon.com/dp/B0GH2F3QLG?tag=monjur09-20"
+    },
+    {
+      "name": "Mesh coffee filter",
+      "benefit": "Reusable filter for clean brews",
+      "amazon_search": "reusable cold brew filter",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=reusable+cold+brew+filter&tag=monjur09-20"
+    },
+    {
+      "name": "Ice cube trays",
+      "benefit": "Make large ice cubes for drinks",
+      "amazon_search": "large silicone ice cube tray",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=large+silicone+ice+cube+tray&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "zK40n1cDcj8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-25-ch05-cold-brew-coffee-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-25/2026-11-25-ch05-cold-brew-coffee-gear.mp4",
+  "seconds": 35,
+  "image": "https://images.pexels.com/videos/27495154/arabica-coffee-brew-27495154.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/expresso-27495154/"
+}
