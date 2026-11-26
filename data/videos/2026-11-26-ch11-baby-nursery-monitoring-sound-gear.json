@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch11-baby-nursery-monitoring-sound-gear",
+  "date": "2026-11-26",
+  "channel_id": "ch11",
+  "channel_name": "NightSolar Pets",
+  "niche": "Baby & toddler",
+  "title": "Baby Nursery Monitoring & Sound Gear",
+  "hook": "Smarter gear for your baby's room",
+  "description": "Discover helpful gear designed to make your baby's nursery calm, cozy, and comfortable for rest and sleep.",
+  "items": [
+    {
+      "name": "Baby monitor",
+      "benefit": "Keep a clear eye on your nursery",
+      "amazon_search": "video baby monitor",
+      "asin": "B0HKG5NV4W",
+      "link": "https://www.amazon.com/dp/B0HKG5NV4W?tag=monjur09-20"
+    },
+    {
+      "name": "White noise machine",
+      "benefit": "Helps create a calm sleeping environment",
+      "amazon_search": "baby white noise machine",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=baby+white+noise+machine&tag=monjur09-20"
+    },
+    {
+      "name": "Nursery humidifier",
+      "benefit": "Adds soothing moisture to room air",
+      "amazon_search": "cool mist humidifier for nursery",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=cool+mist+humidifier+for+nursery&tag=monjur09-20"
+    },
+    {
+      "name": "Blackout window shades",
+      "benefit": "Blocks sunlight for better nap times",
+      "amazon_search": "portable blackout window shades",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+blackout+window+shades&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "xjWuD_KtgdY",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch11-baby-nursery-monitoring-sound-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch11-baby-nursery-monitoring-sound-gear.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/7509023/pexels-photo-7509023.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/mother-carrying-his-baby-while-making-sleep-7509023/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch04-pet-monitoring-essentials",
+  "date": "2026-11-26",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "4 Pet monitoring essentials for peace of mind",
+  "hook": "Keep an eye on your pets anywhere",
+  "description": "Discover helpful gadgets designed to keep you connected with your pets throughout the day.",
+  "items": [
+    {
+      "name": "Smart pet camera",
+      "benefit": "Check in on your pets from anywhere",
+      "amazon_search": "smart pet camera",
+      "asin": "B0HKG5NV4W",
+      "link": "https://www.amazon.com/dp/B0HKG5NV4W?tag=monjur09-20"
+    },
+    {
+      "name": "GPS pet tracker",
+      "benefit": "Always know where your pet is located",
+      "amazon_search": "GPS pet tracker",
+      "asin": "B0HMWBLVG7",
+      "link": "https://www.amazon.com/dp/B0HMWBLVG7?tag=monjur09-20"
+    },
+    {
+      "name": "Automatic pet feeder",
+      "benefit": "Schedule meals even when you are away",
+      "amazon_search": "automatic pet feeder",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=automatic+pet+feeder&tag=monjur09-20"
+    },
+    {
+      "name": "Pet activity monitor",
+      "benefit": "Track daily movement and rest patterns",
+      "amazon_search": "pet activity monitor",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=pet+activity+monitor&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "63EPC_tOR4E",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch04-pet-monitoring-essentials/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch04-pet-monitoring-essentials.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/29759796/animals-border-collie-dog-dogs-29759796.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/relaxed-border-collie-on-cozy-bed-indoors-29759796/"
+}

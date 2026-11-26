@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch09-sleek-hair-styling-gadgets",
+  "date": "2026-11-26",
+  "channel_id": "ch09",
+  "channel_name": "EcoSolar Pets",
+  "niche": "Beauty tools",
+  "title": "Sleek Hair Styling Gadgets For Easy Routines",
+  "hook": "Upgrade your hair styling routine instantly",
+  "description": "Discover these helpful hair styling gadgets designed to make your daily routine much easier.",
+  "items": [
+    {
+      "name": "Hair straightener",
+      "benefit": "Smooths and styles hair with ease",
+      "amazon_search": "hair straightener",
+      "asin": "B0HKJHPN2D",
+      "link": "https://www.amazon.com/dp/B0HKJHPN2D?tag=monjur09-20"
+    },
+    {
+      "name": "Ceramic curling wand",
+      "benefit": "Creates long lasting loose waves",
+      "amazon_search": "ceramic curling wand",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=ceramic+curling+wand&tag=monjur09-20"
+    },
+    {
+      "name": "Ionic hair dryer",
+      "benefit": "Dries hair fast and reduces frizz",
+      "amazon_search": "ionic hair dryer",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=ionic+hair+dryer&tag=monjur09-20"
+    },
+    {
+      "name": "Hot air brush",
+      "benefit": "Dries and styles in one step",
+      "amazon_search": "hot air brush",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=hot+air+brush&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "I_x2i3tr1Ls",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch09-sleek-hair-styling-gadgets/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch09-sleek-hair-styling-gadgets.mp4",
+  "seconds": 26,
+  "image": "https://images.pexels.com/videos/12322779/adult-beautiful-blur-brunette-12322779.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-woman-using-curling-iron-12322779/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch13-hiking-day-trip-gear",
+  "date": "2026-11-26",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Hiking day trip gear finds",
+  "hook": "Gear up for your next day hike!",
+  "description": "Discover useful hiking day trip gear to make your outdoor adventures safer and more comfortable. Find everything you need for the trail.",
+  "items": [
+    {
+      "name": "Water filter bottle",
+      "benefit": "Enjoy clean water straight from streams.",
+      "amazon_search": "water filter bottle",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    },
+    {
+      "name": "Daypack rain cover",
+      "benefit": "Keep your backpack completely dry during showers.",
+      "amazon_search": "daypack rain cover",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=daypack+rain+cover&tag=monjur09-20"
+    },
+    {
+      "name": "Trekking poles",
+      "benefit": "Maintain stability on rocky mountain trails.",
+      "amazon_search": "trekking poles",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=trekking+poles&tag=monjur09-20"
+    },
+    {
+      "name": "Compact first aid kit",
+      "benefit": "Be prepared for minor scrapes and cuts.",
+      "amazon_search": "compact first aid kit",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+first+aid+kit&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "Q790fYIUfDo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch13-hiking-day-trip-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch13-hiking-day-trip-gear.mp4",
+  "seconds": 40,
+  "image": "https://images.pexels.com/videos/39498541/pexels-photo-39498541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/two-people-hiking-in-serene-forest-trail-39498541/"
+}
