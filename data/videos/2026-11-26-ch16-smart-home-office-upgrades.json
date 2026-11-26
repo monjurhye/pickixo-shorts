@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch16-smart-home-office-upgrades",
+  "date": "2026-11-26",
+  "channel_id": "ch16",
+  "channel_name": "Glow Gadgets",
+  "niche": "Smart home",
+  "title": "Smart home office upgrades for productivity",
+  "hook": "Upgrade your workspace with smart tech.",
+  "description": "Make your home office more efficient and convenient with these smart tech upgrades.",
+  "items": [
+    {
+      "name": "Smart speaker",
+      "benefit": "Manage your daily schedule with simple voice commands.",
+      "amazon_search": "smart speaker",
+      "asin": "B09B94RL1R",
+      "link": "https://www.amazon.com/dp/B09B94RL1R?tag=monjur09-20"
+    },
+    {
+      "name": "Smart LED bulb",
+      "benefit": "Set the ideal lighting for long work sessions.",
+      "amazon_search": "smart led bulb",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+led+bulb&tag=monjur09-20"
+    },
+    {
+      "name": "Smart plug",
+      "benefit": "Control office electronics automatically from your phone.",
+      "amazon_search": "smart plug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=smart+plug&tag=monjur09-20"
+    },
+    {
+      "name": "Smart motion sensor",
+      "benefit": "Automate lighting when you enter the room.",
+      "amazon_search": "smart motion sensor",
+      "asin": "B0H2F7THWZ",
+      "link": "https://www.amazon.com/dp/B0H2F7THWZ?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "PzqCfliloMo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch16-smart-home-office-upgrades/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch16-smart-home-office-upgrades.mp4",
+  "seconds": 30,
+  "image": "https://images.pexels.com/videos/6374594/pexels-photo-6374594.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/a-laptop-on-the-table-6374594/"
+}

@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-26-ch04-pet-sleep-and-relaxation-finds",
+  "date": "2026-11-26",
+  "channel_id": "ch04",
+  "channel_name": "CampSolar Life",
+  "niche": "Pet gadgets",
+  "title": "4 Pet Sleep and Relaxation Finds",
+  "hook": "Help your pet rest better.",
+  "description": "Discover comfortable sleep products designed to give your dog or cat a restful nap every single day.",
+  "items": [
+    {
+      "name": "Orthopedic pet bed",
+      "benefit": "Supports joints for deep sleep.",
+      "amazon_search": "orthopedic pet bed",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=orthopedic+pet+bed&tag=monjur09-20"
+    },
+    {
+      "name": "Calming pet mat",
+      "benefit": "Eases anxiety during nap time.",
+      "amazon_search": "calming pet mat",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=calming+pet+mat&tag=monjur09-20"
+    },
+    {
+      "name": "Heated pet pad",
+      "benefit": "Keeps older pets warm at night.",
+      "amazon_search": "heated pet pad",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=heated+pet+pad&tag=monjur09-20"
+    },
+    {
+      "name": "Blackout crate cover",
+      "benefit": "Creates a cozy sleeping den.",
+      "amazon_search": "blackout crate cover",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=blackout+crate+cover&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "smj6k-cI3Yo",
+  "page_url": "https://shop.pickixo.com/v/2026-11-26-ch04-pet-sleep-and-relaxation-finds/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-26/2026-11-26-ch04-pet-sleep-and-relaxation-finds.mp4",
+  "seconds": 25,
+  "image": "https://images.pexels.com/videos/39459810/pexels-photo-39459810.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/calm-cats-enjoying-outdoor-nap-together-39459810/"
+}
