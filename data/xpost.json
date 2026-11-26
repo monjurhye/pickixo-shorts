@@ -152,23 +152,39 @@
       "views": 123,
       "threads": "ok 18131442620310352",
       "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n3672akvqq2e"
+    },
+    "2026-11-24-ch19-sourdough-bread-making-gear": {
+      "key": "2026-11-24-ch19-sourdough-bread-making-gear",
+      "title": "Sourdough Bread Making Gear: 4 Essential Tools",
+      "at": "2026-11-26T13:23:31Z",
+      "views": 137,
+      "threads": "ok 18135671255498977",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n37rik6ibj2q"
+    },
+    "2026-11-24-ch18-bathtime-water-toys": {
+      "key": "2026-11-24-ch18-bathtime-water-toys",
+      "title": "Fun bathtime water toys",
+      "at": "2026-11-26T13:24:30Z",
+      "views": 123,
+      "threads": "ok 18109194353569608",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n37rkqj6ni27"
     }
   },
   "queue": {
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "keys": [
-      "2026-11-24-ch04-interactive-cat-toys",
-      "2026-11-23-ch07-indoor-plant-care-essentials",
-      "2026-11-23-ch10-core-strength-training-tools",
-      "2026-11-24-ch11-baby-safety-and-proofing-essentials",
-      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi"
+      "2026-11-24-ch19-sourdough-bread-making-gear",
+      "2026-11-24-ch18-bathtime-water-toys",
+      "2026-11-24-ch04-smart-pet-safety-finds",
+      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi",
+      "2026-11-24-ch07-houseplant-watering-tools"
     ],
     "views": {
-      "2026-11-24-ch04-interactive-cat-toys": 209,
-      "2026-11-23-ch07-indoor-plant-care-essentials": 173,
-      "2026-11-23-ch10-core-strength-training-tools": 146,
-      "2026-11-24-ch11-baby-safety-and-proofing-essentials": 123,
-      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi": 120
+      "2026-11-24-ch19-sourdough-bread-making-gear": 137,
+      "2026-11-24-ch18-bathtime-water-toys": 123,
+      "2026-11-24-ch04-smart-pet-safety-finds": 122,
+      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi": 121,
+      "2026-11-24-ch07-houseplant-watering-tools": 117
     }
   }
 }
