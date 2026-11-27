@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch12-car-detailing-and-care-tools",
+  "date": "2026-11-27",
+  "channel_id": "ch12",
+  "channel_name": "SimpleSolar Pets",
+  "niche": "Car accessories",
+  "title": "Car detailing and care tools",
+  "hook": "Easy ways to keep your car spotless",
+  "description": "Discover these handy car care tools designed to keep your vehicle looking neat and clean.",
+  "items": [
+    {
+      "name": "Car vacuum cleaner",
+      "benefit": "Cleans crumbs and dust from crevices",
+      "amazon_search": "car vacuum cleaner",
+      "asin": "B006LXOJC0",
+      "link": "https://www.amazon.com/dp/B006LXOJC0?tag=monjur09-20"
+    },
+    {
+      "name": "Interior cleaning gel",
+      "benefit": "Lifts dirt from vents and buttons",
+      "amazon_search": "cleaning gel for car vents",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=cleaning+gel+for+car+vents&tag=monjur09-20"
+    },
+    {
+      "name": "Microfiber drying towel",
+      "benefit": "Dries the car paint without streaks",
+      "amazon_search": "microfiber car drying towel",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=microfiber+car+drying+towel&tag=monjur09-20"
+    },
+    {
+      "name": "Windshield cleaning wand",
+      "benefit": "Reaches hard to clean glass corners",
+      "amazon_search": "windshield cleaning wand for car",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=windshield+cleaning+wand+for+car&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "VdcekKDgJGw",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch12-car-detailing-and-care-tools/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch12-car-detailing-and-care-tools.mp4",
+  "seconds": 27,
+  "image": "https://images.pexels.com/videos/41272388/pexels-photo-41272388.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/modern-car-interior-with-advanced-dashboard-display-41272388/"
+}

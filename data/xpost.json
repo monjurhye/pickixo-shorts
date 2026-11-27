@@ -192,23 +192,39 @@
       "views": 117,
       "threads": "ok 18080591969739339",
       "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n3apbfz2dj2k"
+    },
+    "2026-11-26-ch16-smart-home-backyard-upgrades": {
+      "key": "2026-11-26-ch16-smart-home-backyard-upgrades",
+      "title": "Smart home backyard upgrades",
+      "at": "2026-11-27T13:17:40Z",
+      "views": 235,
+      "threads": "ok 18131511167512848",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n3cbnr37gu23"
+    },
+    "2026-11-26-ch14-productivity-workspace-upgrades": {
+      "key": "2026-11-26-ch14-productivity-workspace-upgrades",
+      "title": "Productivity workspace upgrades",
+      "at": "2026-11-27T13:19:04Z",
+      "views": 207,
+      "threads": "ok 17917890168517183",
+      "bluesky": "ok at://did:plc:vho2xrhrfgivuma3idl2bm2u/app.bsky.feed.post/3n3cbpelvav2e"
     }
   },
   "queue": {
-    "date": "2026-11-26",
+    "date": "2026-11-27",
     "keys": [
-      "2026-11-24-ch19-sourdough-bread-making-gear",
-      "2026-11-24-ch18-bathtime-water-toys",
-      "2026-11-24-ch04-smart-pet-safety-finds",
-      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi",
-      "2026-11-24-ch07-houseplant-watering-tools"
+      "2026-11-26-ch16-smart-home-backyard-upgrades",
+      "2026-11-26-ch14-productivity-workspace-upgrades",
+      "2026-11-26-ch04-quiet-pet-grooming-finds",
+      "2026-11-26-ch20-bedroom-luggage-and-travel-packing-gear",
+      "2026-11-25-ch17-cruise-vacation-essentials"
     ],
     "views": {
-      "2026-11-24-ch19-sourdough-bread-making-gear": 137,
-      "2026-11-24-ch18-bathtime-water-toys": 123,
-      "2026-11-24-ch04-smart-pet-safety-finds": 122,
-      "2026-11-24-ch11-bedtime-and-sleeping-essentials-for-babi": 121,
-      "2026-11-24-ch07-houseplant-watering-tools": 117
+      "2026-11-26-ch16-smart-home-backyard-upgrades": 235,
+      "2026-11-26-ch14-productivity-workspace-upgrades": 207,
+      "2026-11-26-ch04-quiet-pet-grooming-finds": 169,
+      "2026-11-26-ch20-bedroom-luggage-and-travel-packing-gear": 159,
+      "2026-11-25-ch17-cruise-vacation-essentials": 118
     }
   }
 }
