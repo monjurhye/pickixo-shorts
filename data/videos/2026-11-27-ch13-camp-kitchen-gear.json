@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch13-camp-kitchen-gear",
+  "date": "2026-11-27",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Camp kitchen gear for easy outdoor cooking",
+  "hook": "Upgrade your camp kitchen setup",
+  "description": "Make outdoor cooking easier with these handy camp kitchen essentials. Find them all linked below.",
+  "items": [
+    {
+      "name": "Portable folding camp stove",
+      "benefit": "Boils water fast at the campsite",
+      "amazon_search": "portable folding camp stove",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+folding+camp+stove&tag=monjur09-20"
+    },
+    {
+      "name": "Compact camping cookware set",
+      "benefit": "Nests together for easy packing",
+      "amazon_search": "compact camping cookware set",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=compact+camping+cookware+set&tag=monjur09-20"
+    },
+    {
+      "name": "Insulated camp mug",
+      "benefit": "Keeps your morning coffee hot",
+      "amazon_search": "insulated camp mug",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+camp+mug&tag=monjur09-20"
+    },
+    {
+      "name": "Water filter bottle",
+      "benefit": "Provides clean drinking water anywhere",
+      "amazon_search": "water filter bottle",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "13SwkGF4-U8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch13-camp-kitchen-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch13-camp-kitchen-gear.mp4",
+  "seconds": 37,
+  "image": "https://images.pexels.com/videos/33601354/camp-life-campfire-campfire-cooking-camping-33601354.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cooking-over-a-campfire-outdoors-33601354/"
+}

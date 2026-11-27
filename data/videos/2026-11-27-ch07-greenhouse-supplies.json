@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch07-greenhouse-supplies",
+  "date": "2026-11-27",
+  "channel_id": "ch07",
+  "channel_name": "SmartPet Solar",
+  "niche": "Plant & garden",
+  "title": "Useful mini greenhouse supplies for your backyard",
+  "hook": "Grow plants faster with these backyard essentials",
+  "description": "Discover helpful supplies for your backyard greenhouse and indoor growing setup. Find links to these items below.",
+  "items": [
+    {
+      "name": "Mini portable greenhouse",
+      "benefit": "Protects delicate seedlings from harsh weather",
+      "amazon_search": "mini portable greenhouse for outdoors",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=mini+portable+greenhouse+for+outdoors&tag=monjur09-20"
+    },
+    {
+      "name": "Seedling heat mat",
+      "benefit": "Boosts germination rates for faster growth",
+      "amazon_search": "seedling heat mat for starting seeds",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=seedling+heat+mat+for+starting+seeds&tag=monjur09-20"
+    },
+    {
+      "name": "Plant growth light",
+      "benefit": "Provides consistent indoor illumination all year",
+      "amazon_search": "LED plant growth light for indoor plants",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=LED+plant+growth+light+for+indoor+plants&tag=monjur09-20"
+    },
+    {
+      "name": "Self watering spikes",
+      "benefit": "Keeps plants hydrated while you are away",
+      "amazon_search": "terracotta self watering spikes for plants",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=terracotta+self+watering+spikes+for+plants&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "dnNYzQRwbCI",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch07-greenhouse-supplies/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch07-greenhouse-supplies.mp4",
+  "seconds": 30,
+  "image": "https://images.pexels.com/videos/8195690/art-beautiful-celebration-city-8195690.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/hanging-plants-in-the-pot-8195690/"
+}
