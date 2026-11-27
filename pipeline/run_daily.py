@@ -50,13 +50,16 @@ def make_one(ch, idx, chstate, cfg, dry, no_upload, date):
             script = content.sample_script(ch, cfg)
         else:
             script, verdict, issues = None, None, None
+            tried = []  # topics of rejected drafts: the writer must not pick them again
             for attempt in range(3):
-                script = content.write_script(ch, chstate["recent_topics"], cfg, fix_issues=issues,
+                script = content.write_script(ch, list(chstate["recent_topics"]) + tried, cfg, fix_issues=issues,
                                               recent_asins=chstate.get("used_asins", []))
                 verdict = content.review_script(ch, script, chstate["recent_topics"], cfg)
                 if verdict.get("approved"):
                     break
                 issues = verdict.get("issues", [])
+                if script.get("topic"):
+                    tried.append(script["topic"])
                 common.log("[{0}] review rejected (try {1}): {2}".format(
                     ch["id"], attempt + 1, "; ".join(verdict.get("issues", []))))
             if not verdict.get("approved"):
