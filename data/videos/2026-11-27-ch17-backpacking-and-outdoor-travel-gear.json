@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch17-backpacking-and-outdoor-travel-gear",
+  "date": "2026-11-27",
+  "channel_id": "ch17",
+  "channel_name": "Rasmus Holland",
+  "niche": "Travel essentials",
+  "title": "Useful backpacking finds for your next trip",
+  "hook": "Gear up for your next trail adventure.",
+  "description": "Discover practical gear and finds to make your next hiking or camping trip more comfortable.",
+  "items": [
+    {
+      "name": "Collapsible water bottle",
+      "benefit": "Folds down flat when empty to save space.",
+      "amazon_search": "collapsible water bottle",
+      "asin": "B0FJN3BTPV",
+      "link": "https://www.amazon.com/dp/B0FJN3BTPV?tag=monjur09-20"
+    },
+    {
+      "name": "Compact travel towel",
+      "benefit": "Dries fast and takes up very little room.",
+      "amazon_search": "compact travel towel",
+      "asin": "B0H4F948ZM",
+      "link": "https://www.amazon.com/dp/B0H4F948ZM?tag=monjur09-20"
+    },
+    {
+      "name": "Portable camping stove",
+      "benefit": "Boils water quickly for meals on the go.",
+      "amazon_search": "portable camping stove",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=portable+camping+stove&tag=monjur09-20"
+    },
+    {
+      "name": "Waterproof dry bag",
+      "benefit": "Keeps your clothing dry during rain showers.",
+      "amazon_search": "waterproof dry bag",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=waterproof+dry+bag&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "QMp87IAzgo8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch17-backpacking-and-outdoor-travel-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch17-backpacking-and-outdoor-travel-gear.mp4",
+  "seconds": 29,
+  "image": "https://images.pexels.com/videos/5838466/pexels-photo-5838466.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/person-walking-in-the-forest-5838466/"
+}

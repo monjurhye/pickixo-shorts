@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch13-camp-hydration-gear",
+  "date": "2026-11-27",
+  "channel_id": "ch13",
+  "channel_name": "SolarPet Feeder",
+  "niche": "Camping & outdoors",
+  "title": "Camp hydration gear finds",
+  "hook": "Stay hydrated on every trail.",
+  "description": "Find great camp hydration gear to keep fresh water nearby during your next outdoor adventure.",
+  "items": [
+    {
+      "name": "Water filter bottle",
+      "benefit": "Drink safely from natural streams.",
+      "amazon_search": "water filter bottle",
+      "asin": "B09VF61RDX",
+      "link": "https://www.amazon.com/dp/B09VF61RDX?tag=monjur09-20"
+    },
+    {
+      "name": "Insulated water flask",
+      "benefit": "Keeps drinks cold all day.",
+      "amazon_search": "insulated water flask",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=insulated+water+flask&tag=monjur09-20"
+    },
+    {
+      "name": "Hydration backpack",
+      "benefit": "Hands-free water while hiking.",
+      "amazon_search": "hydration backpack",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=hydration+backpack&tag=monjur09-20"
+    },
+    {
+      "name": "Collapsible water carrier",
+      "benefit": "Stores flat when empty.",
+      "amazon_search": "collapsible water carrier",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=collapsible+water+carrier&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "KJ89ApS_dG8",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch13-camp-hydration-gear/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch13-camp-hydration-gear.mp4",
+  "seconds": 36,
+  "image": "https://images.pexels.com/videos/40895582/pexels-photo-40895582.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/man-drinking-water-from-mountain-stream-40895582/"
+}

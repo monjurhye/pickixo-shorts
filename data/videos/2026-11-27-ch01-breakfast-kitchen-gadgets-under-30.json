@@ -1,0 +1,46 @@
+{
+  "key": "2026-11-27-ch01-breakfast-kitchen-gadgets-under-30",
+  "date": "2026-11-27",
+  "channel_id": "ch01",
+  "channel_name": "SolarPet Genius",
+  "niche": "Kitchen gadgets under $30",
+  "title": "Breakfast kitchen gadgets under $30",
+  "hook": "Upgrade your morning routine easily.",
+  "description": "Make your morning routine simpler with these affordable breakfast kitchen gadgets found on Amazon. Each tool is designed to help you prepare your favorite morning meals and drinks quickly.",
+  "items": [
+    {
+      "name": "Spiral vegetable slicer",
+      "benefit": "Create veggie noodles for morning bowls.",
+      "amazon_search": "spiral vegetable slicer",
+      "asin": "B0764HS4SL",
+      "link": "https://www.amazon.com/dp/B0764HS4SL?tag=monjur09-20"
+    },
+    {
+      "name": "Electric milk frother",
+      "benefit": "Whip up café style foam fast.",
+      "amazon_search": "electric milk frother",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=electric+milk+frother&tag=monjur09-20"
+    },
+    {
+      "name": "Mini waffle maker",
+      "benefit": "Bake single-serve waffles in minutes.",
+      "amazon_search": "mini waffle maker",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=mini+waffle+maker&tag=monjur09-20"
+    },
+    {
+      "name": "Avocado slicer tool",
+      "benefit": "Slice and pit avocados cleanly.",
+      "amazon_search": "avocado slicer tool",
+      "asin": "",
+      "link": "https://www.amazon.com/s?k=avocado+slicer+tool&tag=monjur09-20"
+    }
+  ],
+  "youtube_id": "Aa2AoONUdug",
+  "page_url": "https://shop.pickixo.com/v/2026-11-27-ch01-breakfast-kitchen-gadgets-under-30/",
+  "clip": "https://shop.pickixo.com/clip/clips-2026-11-27/2026-11-27-ch01-breakfast-kitchen-gadgets-under-30.mp4",
+  "seconds": 28,
+  "image": "https://images.pexels.com/videos/40945293/pexels-photo-40945293.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=630",
+  "image_credit": "https://www.pexels.com/video/cozy-morning-coffee-by-the-window-40945293/"
+}
