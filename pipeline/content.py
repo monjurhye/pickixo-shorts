@@ -57,7 +57,8 @@ opens an Amazon search for each item.
 Rules you must follow:
 - Never state a specific price or a discount. "Under $30" style budget framing is fine \
 only if the whole niche is about that budget.
-- No fake urgency: never "today only", "flash sale", "limited time", "selling out".
+- No fake urgency: never "today only", "flash sale", "limited time", "selling out"; \
+do not use the word "today" anywhere in the hook.
 - No health, medical, safety or weight-loss claims; no claims about other people or brands.
 - Only product types that genuinely exist and are commonly sold on Amazon.
 - Plain, friendly American English. On-screen lines must be short: hook <= 8 words, \
